@@ -1,0 +1,12 @@
+@import "variables";
+@import "mixin";
+
+@mixin boton_verde() {
+    background-color: $verde1A;
+    color: white;
+    border: 2px solid black;
+    padding: 10px 30px;
+    border-radius: 5px;
+    display: inline;
+    width: fit-content;
+}
