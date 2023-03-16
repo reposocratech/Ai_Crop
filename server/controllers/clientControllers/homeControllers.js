@@ -3,7 +3,7 @@ const connection = require('../../config/db');
 class HomeController {
 
     getHome = (req, res) => {
-        res.status(200).json("VIVA EL CAÑAMO!!!");
+        res.status(200).json("ESTE ES EL HOME");
     }
 }
 
