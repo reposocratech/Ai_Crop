@@ -4,6 +4,6 @@ var router = express.Router();
 
 
 // localhost:4000/simulator
-router.get('/', simulatorController.getSimulator);
+router.post('/', simulatorController.simulateData);
 
 module.exports = router;

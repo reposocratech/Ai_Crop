@@ -1,9 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FormularioSimulador } from "./components/FormularioSimulador";
 
 function App() {
   return (
     <>
-    <h1>Simulator</h1>
+    <FormularioSimulador />
     </>
   );
 }
