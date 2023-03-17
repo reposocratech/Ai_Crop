@@ -1,0 +1,9 @@
+.formCont {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px 100px;
+    input {
+        width: 200px;
+    }
+}
