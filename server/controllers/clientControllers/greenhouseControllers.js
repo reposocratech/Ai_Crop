@@ -86,8 +86,8 @@ class GreenhouseController {
     }
     
      //--- trae la info de todos los invernaderos
-    //localhost:4000/greenHouse/getAllGreenHouses/:user_owner_id
-    getAllGreenHouses = (req, res) => {
+    //localhost:4000/greenhouse/getAllGreenhouses/:user_owner_id
+    getAllGreenhouses = (req, res) => {
 
         //queremos todos los invernaderos o los invernaderos no borrados?
 

@@ -21,5 +21,11 @@ router.post('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhous
 router.get('/details/:greenhouse_id', GreenhouseController.getGreenhouseInfo);
 
 
+//--- trae la info de todos los invernaderos
+    //localhost:4000/greenhouse/getAllGreenhouses/:user_owner_id
+router.get("/getAllGreenhouses/:user_owner_id", GreenhouseController.getAllGreenhouses); 
+
+
+//router.get("/:greenhouse_id/allCrops", GreenhouseController.getAllCrops); 
 
 module.exports = router;
