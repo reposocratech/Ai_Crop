@@ -9,9 +9,11 @@ var homeRouter = require('./routes/clientRoutes/home');
 var userRouter = require('./routes/clientRoutes/user');
 var adminRouter = require('./routes/clientRoutes/admin');
 var cropRouter = require('./routes/clientRoutes/crop');
+
 var greenhouseRouter = require('./routes/clientRoutes/greenhouse');
 
 var simulatorRouter = require('./routes/simulatorRoutes/simulatorRouter');
+
 
 var app = express();
 
@@ -32,9 +34,11 @@ app.use('/', homeRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/crop', cropRouter);
+
 app.use('/greenhouse', greenhouseRouter);
 
 app.use('/simulator', simulatorRouter);
+
 
 
 module.exports = app;

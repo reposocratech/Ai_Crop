@@ -19,7 +19,7 @@ class CropController {
             crop_size: 50,
             crop_plant_species: "Cáñamus ricus",
             resposibility_acknowledge: 1,
-            greenhouse_id: 2
+            greenhouse_id: 1
         }
 
         console.log(newCrop);
