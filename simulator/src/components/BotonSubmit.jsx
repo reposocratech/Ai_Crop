@@ -14,7 +14,7 @@ export const BotonSubmit = ({datosForm}) => {
                 console.log(res.data);
             })
             .catch((err)=>{
-                console.log(err);
+                console.log(err.response.data.error.sql);
             })
     }
 
