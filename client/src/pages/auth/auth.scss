@@ -1,0 +1,57 @@
+@import "../../mixin";
+@import "../../variables";
+
+.cont_auth{
+    background-image: url("../../../public/assets/images/GrowForest_vector.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    font-family: $urbanist;
+    color: white;
+
+    .form{
+        padding: 14% 5%;
+    }
+
+    .title{
+
+        h1{
+            font-weight: 800;
+            font-size: 55px;
+        }
+    
+        .punto{
+            font-size: 120px;
+            margin-left: 10px;
+            color: $verde7A;
+        }
+    }
+
+    P{
+        font-family: $sora;
+        letter-spacing: 0.145em;
+        font-weight: 300;
+        font-size: 14px;
+        opacity: 0.6;
+
+        .etiq_login{
+            color: $verde7A;
+        }
+    }
+
+    .form_registro{
+        margin-top: 45px;
+        input {
+            background-color: $black1;
+            opacity: 0.66;
+            border-radius: 24px;
+            padding: 20px 40px;
+            border: none;
+        }
+
+    }
+
+
+
+}
