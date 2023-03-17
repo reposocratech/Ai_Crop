@@ -9,7 +9,7 @@ var homeRouter = require('./routes/clientRoutes/home');
 var userRouter = require('./routes/clientRoutes/user');
 var adminRouter = require('./routes/clientRoutes/admin');
 var cropRouter = require('./routes/clientRoutes/crop');
-
+var greenHouseRouter = require('./routes/clientRoutes/greenHouse')
 var app = express();
 
 app.use(
@@ -29,5 +29,5 @@ app.use('/', homeRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/crop', cropRouter);
-
+app.use('/greenHouse',greenHouseRouter);
 module.exports = app;
