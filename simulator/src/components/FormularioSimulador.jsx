@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import { BotonSubmit } from './BotonSubmit';
 import './style.scss';
 
-
+const initialValue = {
+  greenhouse_id: "",
+  temperatura: "",
+  co2: "",
+  humedad: "",
+  luz_solar: "",
+  ph: "",
+  ce: "",
+  humedad_hoja: ""
+}
 export const FormularioSimulador = () => {
 
-    const [datosForm, setDatosForm] = useState({});
+    const [datosForm, setDatosForm] = useState(initialValue);
 
     const handleChange = (e) => {
         let {name, value} = e.target;
         setDatosForm({...datosForm,[name]: value})    
-        console.log(datosForm);
     }
 
   return (

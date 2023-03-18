@@ -75,14 +75,30 @@ class GreenhouseController {
                     res.status(400).json({ error }) 
                 } 
     
-                let sqlCrop = `select * from crop WHERE greenhouse_id = ${greenhouse_id}`;
-                connection.query(sqlCrop, (error, resultCrop) => {
-                    error 
-                        ? res.status(400).json({ error }) 
-                        : res.status(200).json({ resultGreenhouse, resultMeasure, resultCrop }) ;
+                let sqlCrop = `select * from crop WHERE greenhouse_id = ${greenhouse_id} and is_active = 1`;
+
+                connection.query(sqlCrop, (error, resultActiveCrops) => {
+                    error && res.status(400).json({ error });
+
+                    let sqlParameters = `select greenhouse_measurement_type.*, measurement_type.measurement_type_name 
+                    FROM greenhouse_measurement_type, measurement_type 
+                    WHERE greenhouse_measurement_type.greenhouse_measurement_type_id = measurement_type.measurement_type_id 
+                    AND greenhouse_id = ${greenhouse_id}`;
+
+                    connection.query(sqlParameters, (error, resultParameters) => {
+                        error && res.status(400).json({ error });
+                    
+                        let sqlActiveAlarms = `SELECT * FROM alarm WHERE is_active = 1 AND greenhouse_id = ${greenhouse_id}`;
+
+                        connection.query(sqlActiveAlarms, (error, resultActiveAlarms) => {
+                            error 
+                            ? res.status(400).json({ error })
+                            : res.status(200).json({ resultGreenhouse, resultMeasure, resultActiveCrops, resultParameters, resultActiveAlarms });    
+                        })    
                     });
                 });
             });
+        });
     }
     
      //--- trae la info de todos los invernaderos
