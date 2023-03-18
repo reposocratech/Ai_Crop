@@ -24,6 +24,14 @@ router.get('/endCrop/:crop_id', CropController.endCrop);
 //localhost:4000/crop/endCrop/:crop_id
 router.get('/activateCrop/:crop_id', CropController.activateCrop);
 
+// 6?.  trae todos los cultivos de un invernadero, activo e inactivo
+ //localhost:4000/crop/getAllCrops/:greenhouse_id
+router.get('/getAllCrops/:greenhouse_id', CropController.getAllCrops);
+
+// 7?.  trae los cultivos de un invernadero (activo)
+ //localhost:4000/crop/getActiveCrops/:greenhouse_id
+ router.get('/getActiveCrops/:greenhouse_id', CropController.getActiveCrops);
+
 
 
 

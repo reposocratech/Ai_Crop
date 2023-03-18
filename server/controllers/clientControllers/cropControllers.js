@@ -96,6 +96,41 @@ class CropController {
     };
 
 
+    //6? trae todos los cultivos de un invernadero, activo e inactivo
+    //localhost:4000/crop/getAllCrops/:greenhouse_id
+    
+    getAllCrops = (req, res) => {
+    
+        const greenhouse_id = req.params.greenhouse_id;
+        
+        let sql = `SELECT * FROM crop where greenhouse_id = ${greenhouse_id}`;
+        
+        connection.query(sql, (error, result) => {
+        error 
+        ? res.status(400).json({ error }) 
+        : res.status(200).json(result);
+        console.log(result);
+        });
+    };
+
+
+    //7? trae  los cultivos de un invernadero (activo) 
+    //localhost:4000/crop/getActiveCrops/:greenhouse_id
+    
+    getActiveCrops = (req, res) => {
+    
+        const greenhouse_id = req.params.greenhouse_id;
+        
+        let sql = `SELECT * FROM crop where greenhouse_id = ${greenhouse_id} and is_active = true`;
+        
+        connection.query(sql, (error, result) => {
+        error 
+        ? res.status(400).json({ error }) 
+        : res.status(200).json(result);
+        console.log(result);
+        });
+    };
+
 
 }
 
