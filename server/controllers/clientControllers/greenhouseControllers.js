@@ -100,26 +100,24 @@ class GreenhouseController {
         console.log(result);
         //console.log(res,"jfhskjghdjkfghsdfjkg");
         });
-
     };
 
+    // --- borrado lógico de colaborador
 
-    /* //--------------------voy por aquí--------------------------
+    // localhost:4000/greenhouse/deleteGreenhouseCollaborator/:greenhouse_id/:user_id
+    deleteGreenhouseCollaborator = (req, res) => {
 
-    //--- trae todos los cultivos de un invernadero, activo e inactivo
-    //localhost:4000/greenHouse/:greenhouse_id/allCrops
-    getAllCrops = (req, res) => {
+        let user_id = req.params.user_id;
+        let greenhouse_id = req.params.greenhouse_id;
+        let sql = `DELETE from user_greenhouse WHERE greenhouse_id = ${greenhouse_id} AND user_id = ${user_id}`;
 
-        const user_owner_id = req.params.user_owner_id;
-        let sql = ` SELECT * FROM greenhouse where user_owner_id = ${user_owner_id};`;
-        console.log(res);
         connection.query(sql, (error, result) => {
-        error ? res.status(400).json({ error }) : res.status(201).json(result);
-        
+            error
+            ? res.status(400).json({error})
+            : res.status(200).json("borrado");
         });
-
     };
-    */
+
 }
 
 module.exports = new GreenhouseController();

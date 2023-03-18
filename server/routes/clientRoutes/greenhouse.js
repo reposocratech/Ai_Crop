@@ -25,7 +25,9 @@ router.get('/details/:greenhouse_id', GreenhouseController.getGreenhouseInfo);
     //localhost:4000/greenhouse/getAllGreenhouses/:user_owner_id
 router.get("/getAllGreenhouses/:user_owner_id", GreenhouseController.getAllGreenhouses); 
 
-
-//router.get("/:greenhouse_id/allCrops", GreenhouseController.getAllCrops); 
+// --- borrado lógico de colaborador
+// localhost:4000/greenhouse/deleteGreenhouseCollaborator/:greenhouse_id/:user_id
+router.get('/deleteGreenhouseCollaborator/:greenhouse_id/:user_id', GreenhouseController.deleteGreenhouseCollaborator);
+ 
 
 module.exports = router;
