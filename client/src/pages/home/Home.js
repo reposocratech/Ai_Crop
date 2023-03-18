@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { TopNavBar } from '../../components/TOPNavBar/TopNavBar'
+import { About } from './about/About'
 import "./home.scss" 
 
 export const Home = () => {
@@ -14,10 +15,10 @@ export const Home = () => {
         {/* HEADER */}
         <Col className='header'>
             <img alt='nsda' src='/assets/images/logo.png' className='logo'/>
-            <h1 className='title m-0 '>AI CROP</h1>
+            <h1 className='title m-0'>AI CROP</h1>
 
-            <h3 className='mt-3'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis arcu ipsum, vel molestie nisl fringilla quis. Nam eget neque et sapien.</h3>
-            <button className='mt-5 mb-5'>CONÓCENOS</button>
+            <h3 className='mt-3'>Contamos con una tecnología segura aplicada a cultivos hidropónicos.</h3>
+            <button className='mt-5 mb-5' href="about" >CONÓCENOS</button>
 
             {/* REDES */}
             <section className='rrss mb-5'>
@@ -33,6 +34,7 @@ export const Home = () => {
     {/* SECCIÓN INFORMACIÓN */}
     <Row className='about_us'>
         <div className='transition'></div>
+        <About/>
     </Row>
     </div>
   )

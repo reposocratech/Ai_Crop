@@ -2,6 +2,10 @@
 @import "../../variables";
 
 
+.navbar_pPal{
+    padding: 40px;
+}
+
 .cont_navbar{
     font-family: $sora;
     font-weight: 300;
@@ -10,8 +14,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     width: 100%;
-    gap: 95px;
-    padding: 40px;
+    gap: 85px;
     margin-right: 6%;
 
     .navbar_option{
@@ -60,6 +63,8 @@
 
 
 .toggle_navbar{
+    text-align: end;
+    order:0;
     filter: invert(1);
     margin: 10px 20px;
     
@@ -69,10 +74,18 @@
 
 // ------------ RESPONSIVE ------------ //
 
-// TABLET
-@media (max-width: 870px){
+// TOGGLE ACTIVE ON 991
+@media (max-width: 991px){
     .cont_navbar{
         gap: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
+}
+@media (max-width: 570px){
+    .toggle_navbar{
+        margin: 10px 0;
+    }
 }

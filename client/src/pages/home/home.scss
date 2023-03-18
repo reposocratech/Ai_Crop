@@ -3,11 +3,18 @@
 
 
 // SECCION PRINCIPAL
+
+.scroll_container{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
 .contHome{
     background-image: url("../../../public/assets/images/GrowForest_pic\ 3.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    // min-height: 100vh;
 
     .header{
         display: flex;
@@ -28,6 +35,7 @@
             line-height: 1;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             transition: 0.6s;
+            padding: 0 10px;
         }
         .title:hover{
             text-shadow: 4px 10px 5px rgba(0, 0, 0, 0.397);
@@ -37,7 +45,9 @@
         h3 {
             font-size: 25px;
             font-weight: 400;
-            text-align: justify;
+            display: flex;
+            justify-content: center;
+            text-align:center;
             width: 47%;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
             background-color: rgba(217, 217, 217, 0.22);
@@ -62,6 +72,7 @@
         button:hover{
             background-color: rgb(17, 17, 17);
         }
+        
 
         .rrss{
             font-family: $sora;
@@ -93,6 +104,7 @@
 // SECCION INFORMACIÓN
 .about_us{
     background-color: black;
+    text-align: center;
 
     .transition{
         background-color: rgb(0, 0, 0);
@@ -100,6 +112,18 @@
         height: 100px;
         filter: blur(40px);
         box-shadow: 0 -10px 3px 60px black,  0 -10px 3px 60px black;
+        margin-bottom: 200px;
+    }
+
+    .cont_about{
+        color: white;
+        font-family: $sora;
+        letter-spacing: 0.25em;
+
+
+        h2{
+            font-weight: 200;
+        }
     }
 
 }

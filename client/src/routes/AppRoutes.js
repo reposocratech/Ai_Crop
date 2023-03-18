@@ -5,6 +5,7 @@ import { Home } from '../pages/home/Home'
 import { Container } from 'react-bootstrap'
 import { Register } from '../pages/auth/Register'
 import { Login } from '../pages/auth/Login'
+import { About } from '../pages/home/about/About'
 
 
 export const AppRoutes = () => {
@@ -16,6 +17,7 @@ export const AppRoutes = () => {
                     <Route path='/' element={<Home/>}/>
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/login' element={<Login/>}/>
+                    <Route path='/about' element={<About/>}/>
                 </Routes>
             </BrowserRouter>
         </Container>
