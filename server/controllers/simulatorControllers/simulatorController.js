@@ -1,4 +1,7 @@
+var express = require('express');
+var router = express.Router();
 const connection = require('../../config/db');
+const ParametersControllers = require('../serverControllers/parametersControllers');
 
 class SimulatorController {
 
@@ -18,12 +21,12 @@ class SimulatorController {
       req.body.datosForm.humedad_hoja && (sql += `, (${greenhouse_id}, 7, ${req.body.datosForm.humedad_hoja})`);
 
       connection.query(sql, (error, result) => {
-         error
-         ? res.status(400).json({error})
-         : res.status(200).json(result);
+         error 
+         ? res.status(400).json(error)
+         : res.redirect(`http://localhost:4000/server/parameters/current/${greenhouse_id}`);
      });
 
    };
-};
+}
 
 module.exports = new SimulatorController();

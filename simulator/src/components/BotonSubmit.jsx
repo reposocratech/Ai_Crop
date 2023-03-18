@@ -7,14 +7,14 @@ import axios from 'axios';
 export const BotonSubmit = ({datosForm}) => {
 
     const onSubmit = () => {
-
+        console.log("DATOS ENVIADOS: ", datosForm);
         axios
             .post('http://localhost:4000/simulator', {datosForm})
             .then((res)=>{
-                console.log(res.data);
+                console.log(res);
             })
             .catch((err)=>{
-                console.log(err.response.data.error.sql);
+                // err.status(500).json(err);
             })
     }
 
