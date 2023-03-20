@@ -6,8 +6,8 @@ import React from 'react'
 export const About = () => {
   return (
     <div className='cont_about' id='about'>
-        <h2>SOBRE NOSOTROS</h2>
-        <br/><br/><br/><br/><br/><br/>
+        <h2 className='mt-5'>SOBRE NOSOTROS</h2>
+        <br/><br/><br/>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla varius lectus non ipsum hendrerit, eget congue elit rhoncus. Aliquam et ex nunc. Cras porta tellus lacinia lobortis laoreet. Sed id venenatis dolor. In hac habitasse platea dictumst. Praesent vehicula augue at nibh maximus lacinia. Suspendisse sit amet consequat lacus. Proin quis ligula ipsum. Maecenas bibendum hendrerit quam, et pellentesque eros rhoncus sit amet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas at diam tempor, ultricies mi nec, dapibus leo. Sed tincidunt metus a pulvinar aliquet.
 
         Nulla facilisi. Nam quis nulla in nisl dapibus egestas. Sed arcu elit, pellentesque vel ante vel, imperdiet interdum mi. Suspendisse gravida hendrerit velit vestibulum malesuada. Aenean non euismod arcu. Integer vel laoreet dui, et mattis velit. Suspendisse hendrerit et turpis et sodales. Suspendisse elementum id mauris ac laoreet.

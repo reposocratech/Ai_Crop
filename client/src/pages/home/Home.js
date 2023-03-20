@@ -5,8 +5,9 @@ import { About } from './about/About'
 import "./home.scss" 
 
 export const Home = () => {
+
   return (
-    <div>
+    <div className='home'>
     {/* SECCIÓN PRINCIPAL */}
     <Row className='contHome d-flex flex-column justify-content-end'>
         {/* NAVBAR */}
@@ -14,11 +15,11 @@ export const Home = () => {
 
         {/* HEADER */}
         <Col className='header'>
-            <img alt='nsda' src='/assets/images/logo.png' className='logo'/>
+            <img alt='logo' src='/assets/images/logo.png' className='logo'/>
             <h1 className='title m-0'>AI CROP</h1>
 
             <h3 className='mt-3'>Contamos con una tecnología segura aplicada a cultivos hidropónicos.</h3>
-            <button className='mt-5 mb-5' href="about" >CONÓCENOS</button>
+            <a href="#about"><button className='mt-5 mb-5'>CONÓCENOS</button></a>
 
             {/* REDES */}
             <section className='rrss mb-5'>

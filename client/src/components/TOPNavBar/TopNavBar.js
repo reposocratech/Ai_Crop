@@ -1,21 +1,18 @@
 import React from 'react'
-import { Col, Container, Nav, Navbar, NavbarBrand, NavDropdown, NavLink, Row } from 'react-bootstrap'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Nav, Navbar, NavbarBrand } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 import "./topNavBar.scss" 
 
 export const TopNavBar = () => {
-    
-    const navigate = useNavigate();
-
+  
     const isHome = window.location.pathname == "/";
     const isLogin = window.location.pathname == "/login"
 
-    console.log(isHome)
+    // console.log(isHome)
 
   return (
         <Navbar expand="lg" className='navbar_pPal'>
-            {/* <Container> */}
             <NavbarBrand className='mx-auto order-0'></NavbarBrand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" className='toggle_navbar order-md-0 order-0'/>
             <Navbar.Collapse id="basic-navbar-nav">
@@ -32,7 +29,6 @@ export const TopNavBar = () => {
                 }
             </Nav>
             </Navbar.Collapse>
-            {/* </Container> */}
 
         </Navbar>
       )
