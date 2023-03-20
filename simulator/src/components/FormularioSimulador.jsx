@@ -3,7 +3,6 @@ import { BotonSubmit } from './BotonSubmit';
 import './style.scss';
 
 const initialValue = {
-  greenhouse_id: "",
   temperatura: "",
   co2: "",
   humedad: "",
@@ -12,13 +11,24 @@ const initialValue = {
   ce: "",
   humedad_hoja: ""
 }
+
+const initialGreenhouse = {
+  greenhouse_id: ""
+}
+
 export const FormularioSimulador = () => {
 
     const [datosForm, setDatosForm] = useState(initialValue);
+    const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
 
     const handleChange = (e) => {
         let {name, value} = e.target;
         setDatosForm({...datosForm,[name]: value})    
+    }
+
+    const handleGreenhouse = (e) => {
+      let {name, value} = e.target;
+      setGreenhouse({[name]: value})    
     }
 
   return (
@@ -27,9 +37,9 @@ export const FormularioSimulador = () => {
         <input 
         type="number"
         placeholder='greenhouse id'
-        value={datosForm.greenhouse_id}
+        value={greenhouse.greenhouse_id}
         name="greenhouse_id"
-        onChange={handleChange}
+        onChange={handleGreenhouse}
         required
         />
         <input 
@@ -84,6 +94,7 @@ export const FormularioSimulador = () => {
         />
         <BotonSubmit 
         datosForm = {datosForm}
+        greenhouse = {greenhouse}
         />
     </div>
   )
