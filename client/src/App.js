@@ -1,10 +1,13 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AICropProvider } from './context/AICropContext';
+import { AppRoutes } from './routes/AppRoutes';
 
 function App() {
   return (
     <>
-    <h1>Client</h1>
+    <AICropProvider>
+    <AppRoutes/>
+    </AICropProvider>
     </>
   );
 }

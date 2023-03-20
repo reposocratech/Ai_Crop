@@ -1,0 +1,22 @@
+@import "../../mixin";
+@import "../../variables";
+
+.contNav_pPal{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .white_cont{
+        width:100%;
+        background-color: white;
+        border-radius: 53px;
+    }
+
+    .aa{
+        border-radius: 75px;
+        outline: 35px solid white;
+        outline-offset: 0px;
+        box-shadow: -37px 3px 7px -1px rgba(0, 0, 0, 0.25);
+    }
+}

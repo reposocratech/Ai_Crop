@@ -1,0 +1,14 @@
+.up_button{
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    transition: 0.2s;
+    position: sticky;
+    z-index: 3;
+    img{
+        width: 50px;
+    }
+}
+.up_button:hover{
+    filter: invert(1);
+}
