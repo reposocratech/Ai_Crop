@@ -9,7 +9,7 @@ export const NavLateral = () => {
   const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
   const navigate = useNavigate();
 
-  const logout = () => {
+  const onLogOut = () => {
     deleteLocalStorageAICrop()
     setUser();
     navigate('/')
@@ -40,7 +40,7 @@ export const NavLateral = () => {
         </a>
         <a className='nav_option'>
           <img src='/assets/images/logout.png' alt='dashboard'/>
-          <p className='option'>Logout</p>
+          <p className='option' onClick={onLogOut}>Logout</p>
         </a>
         <a className='nav_option'>
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
