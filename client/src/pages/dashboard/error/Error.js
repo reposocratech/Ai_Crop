@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { TopNavBar } from '../../../components/TOPNavBar/TopNavBar'
+import { TopNavBar } from '../../../components/NavBars/TopNavBar/TopNavBar'
 import './error.scss'
 
 export const Error = () => {

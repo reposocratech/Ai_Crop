@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { TopNavBar } from '../../components/TOPNavBar/TopNavBar'
+import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
 import { About } from './about/About'
 import "./home.scss" 
 
@@ -36,7 +36,7 @@ export const Home = () => {
     <Row className='about_us'>
         <div className='transition'></div>
         <About/>
-    </Row>
+    </Row> 
     </div>
   )
 }

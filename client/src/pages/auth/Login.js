@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { TopNavBar } from '../../components/TOPNavBar/TopNavBar'
+import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
+import { saveLocalStorageAICrop } from '../../helpers/localStorage/localStorageAICrop'
+import { AICropContext } from '../../context/AICropContext'
 import axios from 'axios'
 
 import "./auth.scss" 
-import { saveLocalStorageAICrop } from '../../helpers/localStorage/localStorageAICrop'
-import { AICropContext } from '../../context/AICropContext'
 
 const initialValue = {
   email: "",
@@ -31,21 +31,21 @@ export const Login = () => {
     } else{
       axios
       .post("http://localhost:4000/user/login", login)
-      .then((res)=> {
-        saveLocalStorageAICrop(res.data.token)
-        setUser(res.data.user)
-        console.log("------", res.data.user, "------")
-        const type = res.data.user.user_type;
-        setIsLogged(true)
-        type === 2 || type === 3 ?
-          navigate('/user'):
-            type === 1 ?
-              navigate('/admin'):
-                navigate('/')
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+        .then((res)=> {
+          saveLocalStorageAICrop(res.data.token)
+          setUser(res.data.user)
+          setIsLogged(true)
+
+          const type = res.data.user.user_type;
+          type === 2 || type === 3 ?
+            navigate('/user'):
+              type === 1 ?
+                navigate('/admin'):
+                  navigate('/error')
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
     }
   }
 
@@ -58,22 +58,22 @@ export const Login = () => {
           <div className='title'>
             <h1 className='mb-5 mt-5'>Login<span className='punto ms-1'>.</span></h1>
           </div>
-          <p className='ms-1'>¿Aún no te has registrado? <a className='etiq_login' onClick={()=>navigate('/register')}>Regístrate</a></p>
+          <p className='ms-1'>¿Aún no te has registrado? <span className='etiq_login' onClick={()=>navigate('/register')}>Regístrate</span></p>
 
           <section className='form_registro'>
 
-            <div id="floatContainer" class="float-container">
-                  <label for="floatField">Email</label>
-                  <input id="floatField" type="text" maxlength="30" 
+            <div id="floatContainer" className="float-container">
+                  <label htmlFor="floatField">Email</label>
+                  <input type="text" maxLength="30" 
                   name='email' 
                   value={login.email}
                   onChange={handleChange}
                   />
             </div>
 
-            <div id="floatContainer" class="float-container">
-                <label for="floatField" className='verde2'>Password</label>
-                <input className='password' id="floatField" type="password" maxlength="25" 
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField" className='verde2'>Password</label>
+                <input className='password' type="password" maxLength="25" 
                 name='password' 
                 value={login.password}
                 onChange={handleChange}
@@ -83,10 +83,10 @@ export const Login = () => {
             <article className='button_section'>
               <button>Suscripciones</button>
               <button className='bg_verde' onClick={handleSubmit}>Login</button>
-              <p>{messageError}</p>
             </article>
+            <p className='text-center mt-3 text-danger'>{messageError}</p>
 
-            <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <a className='etiq_login'>Recupérala</a></p>
+            <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <span className='etiq_login' href='#'>Recupérala</span></p>
 
           </section>
         </main>

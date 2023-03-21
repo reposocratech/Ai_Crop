@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { TopNavBar } from '../../components/TOPNavBar/TopNavBar'
+import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
 import axios from 'axios'
 
 import "./auth.scss" 
@@ -50,22 +50,22 @@ export const Register = () => {
           <div className='title'>
             <h1 className='mb-5 mt-5'>Crear cuenta nueva<span className='punto ms-1'>.</span></h1>
           </div>
-          <p className='ms-1'>¿Ya estás registrado? <a className='etiq_login' onClick={()=>navigate('/login')}>Log in</a></p>
+          <p className='ms-1'>¿Ya estás registrado? <span className='etiq_login' onClick={()=>navigate('/login')}>Log in</span></p>
 
           <section className='form_registro'>
 
             <article className='nombre_apell'>
-            <div id="floatContainer" class="float-container">
-                <label for="floatField">Nombre</label>
-                <input id="floatField" type="text" maxlength="20" required 
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Nombre</label>
+                <input type="text" maxLength="20" required 
                 name='first_name' 
                 value={register.first_name}
                 onChange={handleChange}
                 />
             </div>
-            <div id="floatContainer" class="float-container">
-                <label for="floatField">Apellido</label>
-                <input id="floatField" type="text" maxlength="25" required 
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Apellido</label>
+                <input type="text" maxLength="25" required 
                 name='last_name' 
                 value={register.last_name}
                 onChange={handleChange}
@@ -73,18 +73,18 @@ export const Register = () => {
             </div>
             </article>
 
-            <div id="floatContainer" class="float-container">
-                <label for="floatField">Email</label>
-                <input id="floatField" type="email" maxlength="30" required 
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Email</label>
+                <input type="email" maxLength="30" required 
                 name='email' 
                 value={register.email}
                 onChange={handleChange}
                 />
             </div>
 
-            <div id="floatContainer" class="float-container">
-                <label for="floatField" className='verde2'>Password</label>
-                <input id="floatField" className='password' type="password" maxlength="25" required
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField" className='verde2'>Password</label>
+                <input className='password' type="password" maxLength="25" required
                 name='password' 
                 value={register.password}
                 onChange={handleChange}
@@ -94,8 +94,8 @@ export const Register = () => {
             <article className='button_section'>
               <button>Suscripciones</button>
               <button className='bg_verde' onClick={handleSubmit}>Regístrate</button>
-              <p>{messageError}</p>
             </article>
+            <p className='text-center mt-3 text-danger'>{messageError}</p>
 
           </section>
           </main>
