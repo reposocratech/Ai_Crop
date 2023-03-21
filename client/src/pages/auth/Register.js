@@ -41,7 +41,9 @@ export const Register = () => {
 
   const handleContinue1 = (e) => { // Pasa al 2 formulario
     if(!register.first_name || !register.last_name || !register.email || !register.password){
+      console.log(register);
       setMessageError("Debes rellenar todos los campos")
+     
     } else {
       setShowForm1(false)
       setShowForm2(true);
