@@ -1,5 +1,5 @@
-@import "../../mixin";
-@import "../../variables";
+@import "../../../mixin";
+@import "../../../variables";
 
 .contNav_pPal{
     min-height: 100vh;
@@ -13,7 +13,7 @@
         border-radius: 53px;
     }
 
-    .aa{
+    .outlet_cont{
         border-radius: 75px;
         outline: 35px solid white;
         outline-offset: 0px;

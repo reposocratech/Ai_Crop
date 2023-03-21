@@ -5,9 +5,9 @@ import { AppRoutes } from './routes/AppRoutes';
 function App() {
   return (
     <>
-    <AICropProvider>
-    <AppRoutes/>
-    </AICropProvider>
+      <AICropProvider>
+        <AppRoutes/>
+      </AICropProvider>
     </>
   );
 }

@@ -1,5 +1,5 @@
-@import "../../mixin";
-@import "../../variables";
+@import "../../../mixin";
+@import "../../../variables";
 
 
 .navbar_pPal{
@@ -66,6 +66,7 @@
     text-align: end;
     margin: 10px 20px;
     order:0;
+    margin-right: 5%;
     filter: invert(1);
 }
 

@@ -89,7 +89,7 @@ class UserController{
 
         // compara la PW ingresada con la ecnriptada (hash)
         bcrypt.compare(password, hash, (error, response) => {
-          error && res.status(400).json(error);
+          error && res.status(400).json(error); 
 
           if (response === true) { // si la contraseña coincide
             const token = jwt.sign(
@@ -98,7 +98,7 @@ class UserController{
                   email: user.email,
                   name: user.name,
                   user_id: user_id,
-                  user_type: user.type,
+                  user_type: user.type, //user_type????????????????????????????????????????????????? <-------- AQUI
                   img: user.user_photo
                 },
               },
