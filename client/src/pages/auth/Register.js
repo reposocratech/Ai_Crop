@@ -35,9 +35,25 @@ export const Register = () => {
 
   const handleSubmit = () => {
     if(!register.first_name || !register.last_name || !register.email || !register.password){
+      console.log(register);
       setMessageError("Debes rellenar todos los campos")
+     
     } else {
-      
+      axios
+      .post("http://localhost:4000/user/createUser",register)
+      .then((res)=>{
+          console.log(res)
+          navigate('/login')
+        })
+      .catch((err)=>{
+        console.log(err.config);
+        if(err.response.data.error.errno === 1062){
+          setMessageError("email duplicado")
+        }else{
+          setMessageError("Error en el registro")
+
+        }
+      })
     }
   }
 
