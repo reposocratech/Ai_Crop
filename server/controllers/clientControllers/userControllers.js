@@ -5,7 +5,7 @@ require("dotenv").config();
 
 class UserController{
 
-  //1.Crear usuario(agricultor)
+//1.Crear usuario(agricultor)
   //localhost:4000/user/createUser
   createUser = (req, res) => {
     const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge} = req.body;
