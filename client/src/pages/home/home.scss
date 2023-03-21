@@ -23,6 +23,7 @@
         align-items: center;
         color: white;
 
+
         .logo{
             width: 11.5vw;
         }
@@ -160,16 +161,23 @@ body::-webkit-scrollbar {
 // SMARTPHONE
 @media (max-width: 520px){
     .contHome{
+
+        
+
         .header{
+
+
+            .title{
+            font-size: 25vw;
+        }
             h3{
              display: none;   
             }
 
             button{
-                font-size: 28px;
+                font-size: 7vw;
                 font-weight: 300;
             }
-
             .rrss{
                 padding: 40px 0 30px 0;
             }

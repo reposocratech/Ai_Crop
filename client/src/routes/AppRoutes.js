@@ -16,7 +16,7 @@ import { AllGreenhouses } from '../components/MainPage/ShowCasePages/AllGreenhou
 export const AppRoutes = () => {
   return (
     <div>
-        <Container fluid className='p-0'>
+        <Container fluid >
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
