@@ -28,7 +28,6 @@ class AlarmController {
         // ejecuta el insert (crea alarma)
         connection.query(sql, (error, result) => {
             error && res.status(400).json({ error });
-            console.log("ALARM LINEA 27 -- TODO OK")
 
             let sqlAlarm = `SELECT alarm_id FROM alarm WHERE measure_id = ${measure_id}`;
 
@@ -36,6 +35,7 @@ class AlarmController {
             connection.query(sqlAlarm, (error, resultAlarm) => {
                 error && res.status(400).json({ error });
                 let alarm_id = resultAlarm[0].alarm_id;
+                console.log("ALARM LINEA 38 -- TODO OK", resultAlarm[0].alarm_id)
 
                 error 
                 ? res.json(`Error en la consulta`)

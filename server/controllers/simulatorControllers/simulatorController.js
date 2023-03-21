@@ -1,7 +1,7 @@
+const axios = require('axios');
 var express = require('express');
 var router = express.Router();
 const connection = require('../../config/db');
-const ParametersControllers = require('../serverControllers/parametersControllers');
 
 class SimulatorController {
 
@@ -24,16 +24,24 @@ class SimulatorController {
         req.body.datosForm.humedad_hoja && (sql += `(${greenhouse_id}, 7, ${req.body.datosForm.humedad_hoja}), `);
 
         sql = sql.slice(0, -2);
-
+        console.log("SIMULADORRRRRRRRRRRR");
       } else {
         res.status(400).json({error: 'Formulario vacío'});
       }
       
       // ejecutamos la consulta y si la consulta es correcta, nos redirige al siguiente controlador de parámetros
       connection.query(sql, (error, result) => {
-        error 
-        ? res.json(`Error en la consulta`)
-        : res.redirect(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`);
+        error && res.json(`Error en la consulta`);
+
+          axios.get(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`)
+            .then(res => {
+                console.log("EXITO")
+            })
+            .catch(err => {
+                console.log("Fallo!")
+            }) 
+          
+          res.status(200).json(`EEXITO!!`);
       });
     };
 }
