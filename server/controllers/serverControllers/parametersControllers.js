@@ -42,21 +42,20 @@ class ParametersController {
             error && res.status(400).json({error});
 
             // por cada medida, comparamos el valor con los parámetros establecidos. 
-            for(let i = 0; i < result.length; i++){
 
-                let {min, max, measure_value, measure_id} = result[i];
+            let {min, max, measure_value, measure_id} = result[0];
 
-                // si la medida da fuera de los parámetros, ejecuta la ruta que crea alarma y le envio un objeto con los datos de la medida y la comparacion
-                if (measure_value > max || measure_value < min){
-                    axios.post(`http://localhost:4000/server/alarm/createAlarm`, result[i])
-                        .then(res => {
-                            console.log("Se ha creado la alarma", result)
-                        })
-                        .catch(err => {
-                            console.log("Fallo al crear la alarma", result[i])
-                        })  
-                }
+            // si la medida da fuera de los parámetros, ejecuta la ruta que crea alarma y le envio un objeto con los datos de la medida y la comparacion
+            if (measure_value > max || measure_value < min){
+                axios.post(`http://localhost:4000/server/alarm/createAlarm`, result[0])
+                    .then(res => {
+                        console.log("Se ha creado la alarma", result[0])
+                    })
+                    .catch(err => {
+                        console.log("Fallo al crear la alarma", result[0])
+                    })  
             }
+            
         });
 
     }

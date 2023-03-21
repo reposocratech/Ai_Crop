@@ -1,5 +1,3 @@
-// PRUEBA DEL SIMULATOR
-
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -7,6 +5,7 @@ import axios from 'axios';
 export const BotonSubmit = ({datosForm, greenhouse}) => {
 
     const onSubmit = () => {
+
         console.log("DATOS ENVIADOS: ", {datosForm, greenhouse});
         axios
             .post('http://localhost:4000/simulator', {datosForm, greenhouse})
@@ -14,7 +13,7 @@ export const BotonSubmit = ({datosForm, greenhouse}) => {
                 console.log(res.data);
             })
             .catch((err)=>{
-                console.log(err)
+                console.log(err, "ERRORRRRR")
             })
     }
 
