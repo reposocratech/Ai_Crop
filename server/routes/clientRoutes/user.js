@@ -17,7 +17,7 @@ router.get('/deleteUser/:user_id', UserController.deleteUser);
 
 //4. Login
 // localhost:4000/user/login
-router.get('/login', UserController.login);
+router.post('/login', UserController.login);
 
 //5. Logout
 // localhost:4000/user/logout

@@ -1,8 +1,8 @@
-@import "../../mixin";
-@import "../../variables";
+@import "../../../mixin";
+@import "../../../variables";
 
 .nav_lateral{
-    background-image: url("../../../public/assets/images/bg_nav_lat1.png");
+    background-image: url("../../../../public/assets/images/bg_nav_lat1.png");
     background-position:left;
     background-repeat: no-repeat;
     background-size:cover;
