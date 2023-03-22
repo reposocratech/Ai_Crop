@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BotonSubmit } from './BotonSubmit';
-import './style.scss';
+import './style.scss'
+import axios from 'axios';
 
 const initialValue = {
   temperatura: "",
@@ -13,13 +13,16 @@ const initialValue = {
 }
 
 const initialGreenhouse = {
-  greenhouse_id: ""
+  greenhouse_id: "",
+  greenhouse_name: ""
 }
 
-export const FormularioSimulador = () => {
+export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse}) => {
 
     const [datosForm, setDatosForm] = useState(initialValue);
     const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
+    const [messageError, setMessageError] = useState("");
+    const [ver, setVer] = useState(false);
 
     const handleChange = (e) => {
         let {name, value} = e.target;
@@ -28,74 +31,131 @@ export const FormularioSimulador = () => {
 
     const handleGreenhouse = (e) => {
       let {name, value} = e.target;
-      setGreenhouse({[name]: value})    
+      setGreenhouse({...greenhouse,[name]: value})  
     }
 
+    const seeGreenhouse = () => {
+      setGreenhouse_id(greenhouse.greenhouse_id)
+      setShowGreenhouse(true)
+      setVer(!ver);
+      console.log(ver);
+    }
+
+    const handleSubmit = () => {
+
+      if(!datosForm.temperatura && !datosForm.co2 && !datosForm.humedad && !datosForm.luz_solar && !datosForm.ph && !datosForm.ce && !datosForm.humedad_hoja ) {
+          setMessageError("Debes rellenar todos los campos")
+      } else {
+          console.log("DATOS ENVIADOS: ", {datosForm, greenhouse});
+          axios
+              .post('http://localhost:4000/simulator', {datosForm, greenhouse})
+              .then((res)=>{
+                  console.log(res.data);
+              })
+              .catch((err)=>{
+                  console.log(err)
+              })
+      }      
+  }
+
   return (
-    <div className='formCont'>
-        <h1>MICROFRONT SIMULADOR</h1>
+    <section className='form_registro'>
+      <article className='nombre_apell'>
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">ID de invernadero</label> */}
+          <input 
+            type="number"
+            placeholder='ID de Invernadero'
+            value={greenhouse.greenhouse_id}
+            name="greenhouse_id"
+            onChange={handleGreenhouse}
+          />
+      </div>
+      <div id="floatContainer" className="float-container">
+        {/* <label htmlFor="floatField">Nombre del invernadero</label> */}
         <input 
-        type="number"
-        placeholder='greenhouse id'
-        value={greenhouse.greenhouse_id}
-        name="greenhouse_id"
-        onChange={handleGreenhouse}
-        required
+          type="text"
+          placeholder='Nombre del invernadero'
+          value={greenhouse.greenhouse_name}
+          name="greenhouse_name"
+          onChange={handleGreenhouse}
         />
-        <input 
-        type="number"
-        placeholder='temperatura'
-        value={datosForm.temperatura}
-        name="temperatura"
-        onChange={handleChange}
-        required
-        />
-        <input 
-        type="number"
-        placeholder='co2'
-        value={datosForm.co2}
-        name="co2"
-        onChange={handleChange}
-        />
-        <input 
-        type="number"
-        placeholder='humedad'
-        value={datosForm.humedad}
-        name="humedad"
-        onChange={handleChange}
-        />
-        <input 
-        type="number"
-        placeholder='Luz Solar'
-        value={datosForm.luz_solar}
-        name="luz_solar"
-        onChange={handleChange}
-        />
-        <input 
-        type="number"
-        placeholder='PH del agua'
-        value={datosForm.ph}
-        name="ph"
-        onChange={handleChange}
-        />
-        <input 
-        type="number"
-        placeholder='Conductividad'
-        value={datosForm.ce}
-        name="ce"
-        onChange={handleChange}
-        />
-        <input 
-        type="number"
-        placeholder='Humedad de la hoja'
-        value={datosForm.humedad_hoja}
-        name="humedad_hoja"
-        onChange={handleChange}
-        />
-        <BotonSubmit 
-        datosForm = {datosForm}
-        greenhouse = {greenhouse}
-        />
-    </div>
+      </div>
+      </article>
+
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">Temperatura</label> */}
+          <input type="number" 
+          placeholder='Temperatura (C)'
+          name='temperatura' 
+          value={greenhouse.temperatura}
+          onChange={handleChange}
+          />
+          <img src='./assets/termometro.png'/>
+      </div>
+
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">CO2</label> */}
+          <input type="number" 
+          placeholder='CO2 (ppm)'
+          name='co2' 
+          value={greenhouse.co2}
+          onChange={handleChange}/>
+          <img src='./assets/nube-de-co2.png'/>
+      </div>
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">Humedad</label> */}
+          <input type="number" 
+          placeholder='Humedad (%)'
+          name='humedad' 
+          value={greenhouse.humedad}
+          onChange={handleChange}/>
+          <img src='./assets/humedad.png'/>
+      </div>
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">Luz solar</label> */}
+          <input type="number" 
+          placeholder='Luz solar (nm)'
+          name='luz_solar' 
+          value={greenhouse.luz_solar}
+          onChange={handleChange}/>
+          <img src='./assets/soleado.png'/>
+      </div>
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">PH</label> */}
+          <input type="number" 
+          placeholder='PH'
+          name='ph' 
+          value={greenhouse.ph}
+          onChange={handleChange}/>
+          <img src='./assets/doctorado.png'/>
+      </div>
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">Conductividad Eléctrica</label> */}
+          <input type="number" 
+          placeholder='CE (mS/cm)'
+          name='ce' 
+          value={greenhouse.ce}
+          onChange={handleChange}/>
+          <img src='./assets/energia-renovable.png'/>
+      </div>
+      <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">Humedad de la hoja</label> */}
+          <input type="number" 
+          placeholder='Humedad de la hoja (%)'
+          name='humedad_hoja' 
+          value={greenhouse.humedad_hoja}
+          onChange={handleChange}/>
+          <img src='./assets/agua.png'/>
+      </div>
+
+      <article className='button_section'>
+        <button onClick={seeGreenhouse}>Ver Invernadero</button>
+        <button className='bg_verde' onClick={handleSubmit}>Simular</button>
+      </article>
+      <p className='text-center mt-3 text-danger'>{messageError}</p>
+
+    </section> 
+
   )
 }

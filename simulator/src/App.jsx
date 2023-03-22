@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FormularioSimulador } from "./components/FormularioSimulador";
+
+import { SimulatorRoutes } from './routes/SimulatorRoutes';
 
 function App() {
   return (
     <>
-    <FormularioSimulador />
+    <SimulatorRoutes />
     </>
   );
 }

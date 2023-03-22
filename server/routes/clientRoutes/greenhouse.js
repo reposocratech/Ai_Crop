@@ -14,7 +14,7 @@ router.post('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhous
 
 
 
-//3. see greenhouse info
+//3. see greenhouse info by gh ID
 // localhost:4000/greenhouse/details/:greenhouse_id
 router.get('/details/:greenhouse_id', GreenhouseController.getGreenhouseDetails);
 
@@ -52,6 +52,8 @@ router.get('/getCurrentMeasures/:greenhouse_id', GreenhouseController.getCurrent
 // localhost:4000/greenhouse/getAllMeasures/:greenhouse_id
 router.get('/getAllMeasures/:greenhouse_id', GreenhouseController.getAllMeasures);
 
-
+//12. see greenhouse info by gh name
+// localhost:4000/greenhouse/details/:greenhouse_name
+router.get('/detailsName/:greenhouse_name', GreenhouseController.getGreenhouseDetailsByName);
 
 module.exports = router;
