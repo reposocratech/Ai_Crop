@@ -1,8 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
+import { useParams } from "react-router-dom";
 import './allgreenhouses.scss'
+import axios from "axios";
 
 export const AllGreenhouses = () => {
+
+  const [info, setInfo] = useState([]);
+  const {user_id} = useParams()
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/greenhouse/getAllGreenhouses/:${user_id}`)
+      .then((res)=>{
+        setInfo(res.data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+
+  }, [])
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className='cont_Allgreenhouses'>
       <section className='botones_user'>
@@ -29,10 +62,9 @@ export const AllGreenhouses = () => {
       <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title></Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          ...
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
