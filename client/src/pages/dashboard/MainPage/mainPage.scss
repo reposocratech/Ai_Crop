@@ -5,7 +5,6 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
 
     .white_cont{
         width:100%;
@@ -16,7 +15,12 @@
     .outlet_cont{
         border-radius: 75px;
         outline: 35px solid white;
-        outline-offset: 0px;
         box-shadow: -37px 3px 7px -1px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@media (max-width: 1200px) {
+    .contNav_pPal{
+        min-height: auto;
     }
 }

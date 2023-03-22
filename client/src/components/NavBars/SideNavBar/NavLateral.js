@@ -21,8 +21,8 @@ export const NavLateral = () => {
   // El nav lateral está pendiente al token para que la vista de user una vez accede al usuario
   // la parte de la izq (NAV) tiene una query diferente a la parte de la dcha(BLANCO). En la izq se va a hacer la query en base al token y en la derecha se va a hacer la query en base a la ruta
   return (
-    <div className='nav_lateral'>
-      <section className='me-4 d-flex flex-column align-items-center'>
+    <div className='navLat_cont'>
+      <section className='nav_lateral'>
       {/* AI CROP LOGO */}
       <div className='company me-2'>
         <img src='/assets/images/logo.png' alt='logo'/><h5 className='m-0 ms-2'>AI crop</h5>
@@ -46,6 +46,7 @@ export const NavLateral = () => {
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
           <p className='option'>Configuración</p>
         </a>
+        <button className='create_crop'>+</button>
       </div>
       {/* CREAR NUEVO INVERNADERO / CULTIVO */}
       <div className='create_new'> 

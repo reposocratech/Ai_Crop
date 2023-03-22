@@ -11,11 +11,11 @@ export const MainPage = () => {
   return (
     <Container fluid className='p-0'>
         <Row className='contNav_pPal'>
-            <Col className='col-3 p-0'>
+            <Col className='col-12 col-xl-3 p-0'>
               {/* {user_type == 1} */}
                 <NavLateral/>
             </Col>
-            <Col className='p-0 rounded-left outlet_cont'>
+            <Col className='col-12 col-xl-9 p-0 outlet_cont'>
               <div className="white_cont p-5">
                   <Outlet/>
               </div>
