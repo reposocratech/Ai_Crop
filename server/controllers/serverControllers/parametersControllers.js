@@ -7,20 +7,21 @@ class ParametersController {
 
     //1. 
     // localhost:4000/server/parameters/current/:greenhouse_id  
-    // getParameters = (req, res) => {
+    getParameterHistory = (req, res) => {
 
-    //     let greenhouse_id = req.params.greenhouse_id;
+        let greenhouse_id = req.params.greenhouse_id;
+        let measurement_type = req.params.measurement_type;
 
-    //     let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time FROM greenhouse, greenhouse_measurement_type,measurement_type, measure WHERE greenhouse.greenhouse_id = 1 AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id AND measurement_type.measurement_type_id = measure.measurement_type_id AND measure.measure_date_time = (SELECT measure_date_time from measure WHERE greenhouse_id = ${greenhouse_id} ORDER BY measure_date_time desc LIMIT 1);`
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time FROM greenhouse, greenhouse_measurement_type,measurement_type, measure WHERE greenhouse.greenhouse_id = 1 AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id AND measurement_type.measurement_type_id = measure.measurement_type_id AND measure.measure_date_time = (SELECT measure_date_time from measure WHERE greenhouse_id = ${greenhouse_id} ORDER BY measure_date_time desc LIMIT 1)`
         
-    //     // buscamos en BD las medidas actuales del inveradero solicitado por req.params
-    //     connection.query(sql, (error, result) => {
-    //         error 
-    //         ? res.status(400).json({error})
-    //         : res.redirect(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`);
-    //     });
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.redirect(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`);
+        });
 
-    // }
+    }
 
     //1. Compara los parámetros establecidos en el greenhouse con las últimas medidas que obtuvo
     // localhost:4000/server/parameters/compare/:greenhouse_id 
