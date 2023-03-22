@@ -10,6 +10,7 @@ export const AICropProvider = (props) => {
     const [userAlarms, setUserAlarms] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [token, setToken] = useState();
+    const [selectedGreenhouse, setSelectedGreenhouse] = useState();
 
     useEffect(() => {
         const tokenStorage = getLocalStorageAICrop();
@@ -17,23 +18,23 @@ export const AICropProvider = (props) => {
 
         if(tokenStorage) {
             let user_id = jwtDecode(tokenStorage).user.user_id;
+
             axios
                 .get(`http://localhost:4000/user/getOneUser/${user_id}`)
                 .then((res)=>{
                     setUser(res.data.resultUser[0])
-                    console.log(res.data.resultUser, "result user jaja");
                 })
                 .catch((error)=>console.log(error))
+
             axios
                 .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user_id}`)
                 .then((res)=>{
                     setUserAlarms(res.data.result)
-                    console.log(res.data.result, "result normal jaja");
                 })
                 .catch((error)=>console.log(error))
         }
 
-    }, [isLogged])
+    }, [])
     
 
   return (
@@ -43,7 +44,9 @@ export const AICropProvider = (props) => {
         isLogged,
         setIsLogged,
         userAlarms,
-        setUserAlarms
+        setUserAlarms,
+        selectedGreenhouse,
+        setSelectedGreenhouse
     }}>
         {props.children}
     </AICropContext.Provider>
