@@ -3,6 +3,8 @@ import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../../../context/AICropContext';
 import axios from 'axios'
 import './allgreenhouses.scss'
+import { CardOwner } from '../../../../components/CardsGreenhouse/CardOwner';
+import { CardCollaborator } from '../../../../components/CardsGreenhouse/CardCollaborator';
 
 export const AllGreenhouses = () => {
 
@@ -52,17 +54,7 @@ export const AllGreenhouses = () => {
         <div>
           {info && info.resultOwner.map((elem, index)=>{
                 return (
-                  <Card style={{ width: '18rem' }} key={index}>
-                  <Card.Img variant="top" src="holder.js/100px180" />
-                  <Card.Body>
-                    <Card.Title>{elem.greenhouse_name}</Card.Title>
-                    <Card.Text>
-                      Titular del invernadero: {elem.owner_full_name} 
-                      Alarmas activas: {elem.active_alarms}
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                  </Card.Body>
-                </Card>
+                  <CardOwner info= {info} elem = {elem} index = {index} />
                 )
             })
           }
@@ -72,17 +64,7 @@ export const AllGreenhouses = () => {
       <div>
         {info && info.resultCollaborator.map((elem, index)=>{
               return (
-                <Card style={{ width: '18rem' }} key={index}>
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                  <Card.Title>{elem.greenhouse_name}</Card.Title>
-                  <Card.Text>
-                    Titular del invernadero: {elem.owner_full_name}
-                    Alarmas activas: {elem.active_alarms}
-                  </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-              </Card>
+                <CardCollaborator  info= {info} elem = {elem} index = {index}/>
               )
           })
         }
