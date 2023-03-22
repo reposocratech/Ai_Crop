@@ -65,10 +65,10 @@ class GreenhouseController {
                 connection.query(sqlCrop, (error, resultActiveCrops) => {
                     error && res.status(400).json({ error });
 
-                    let sqlParameters = `SELECT greenhouse_measurement_type.*, measurement_type.measurement_type_name 
+                    let sqlParameters = `SELECT greenhouse_measurement_type.*, measurement_type.measurement_type_name, measurement_type.unit 
                     FROM greenhouse_measurement_type, measurement_type 
-                    WHERE greenhouse_measurement_type.greenhouse_measurement_type_id = measurement_type.measurement_type_id 
-                    AND greenhouse_id = ${greenhouse_id}`;
+                    WHERE greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+                           AND greenhouse_id = ${greenhouse_id}`;
 
                     // buscamos en BD los parámetros que tiene seleccionados el invernadero para cada medida y los guardamos en el objeto "result parameters"
                     connection.query(sqlParameters, (error, resultParameters) => {
@@ -227,6 +227,57 @@ class GreenhouseController {
             });
     };
 
+
+    getGreenhouseDetailsByName = (req, res) => {
+    
+        const greenhouse_name = req.params.greenhouse_name;
+
+        let sqlGreenhouse = `SELECT greenhouse.*, count(user.user_id) as collaborator_count FROM greenhouse LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id LEFT JOIN user ON user_greenhouse.user_id = user.user_id WHERE greenhouse.greenhouse_name = ${greenhouse_name} GROUP BY greenhouse.greenhouse_name;`;
+
+        // buscamos en BD todos los greenhouses que coincidan con el que se nos pasa por parámetros, y le pedimos que nos diga cuántos colaboradores tiene asociados (left join por si no tiene colaboradores) y guardamos los resultados en el objeto "resultGreenhouse"
+        connection.query(sqlGreenhouse, (error, resultGreenhouse) => {
+            if (error){
+                res.status(400).json({ error }) 
+            } 
+
+            let sqlMeasure = `SELECT measure.*, measurement_type.measurement_type_name  from measure, measurement_type WHERE measure.measurement_type_id = measurement_type.measurement_type_id AND measure.measure_date_time = (SELECT measure_date_time from measure WHERE greenhouse_name = ${greenhouse_name} ORDER BY measure_date_time desc LIMIT 1)
+            ORDER BY measure_id asc;`;
+
+            // buscamos en BD las últimas medidas que tiene registado el invernadero (con una subconsulta) y las guardamos en el objeto "resultMeasure"
+            connection.query(sqlMeasure, (error, resultMeasure) => {
+                if (error){
+                    res.status(400).json({ error }) 
+                } 
+    
+                let sqlCrop = `SELECT * FROM crop WHERE greenhouse_name = ${greenhouse_name} AND is_active = 1`;
+
+                // buscamos en BD todos los crops activos que tiene el invernadero enviado por params y guardamos los resultados en el objeto "resultActiveCrops"
+                connection.query(sqlCrop, (error, resultActiveCrops) => {
+                    error && res.status(400).json({ error });
+
+                    let sqlParameters = `SELECT greenhouse_measurement_type.*, measurement_type.measurement_type_name, measurement_type.unit 
+                    FROM greenhouse_measurement_type, measurement_type 
+                    WHERE greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+                           AND greenhouse_name = ${greenhouse_name}`;
+
+                    // buscamos en BD los parámetros que tiene seleccionados el invernadero para cada medida y los guardamos en el objeto "result parameters"
+                    connection.query(sqlParameters, (error, resultParameters) => {
+                        error && res.status(400).json({ error });
+                    
+                        let sqlActiveAlarms = `SELECT * FROM alarm WHERE is_active = 1 AND greenhouse_name = ${greenhouse_name}`;
+
+                        // buscamos en BD las alarmas acvtivas que tiene el invernadero y guardamos los resultados en el objeto "resultActiveAlarms"
+                        connection.query(sqlActiveAlarms, (error, resultActiveAlarms) => {
+                            error 
+                            ? res.status(400).json({ error })
+                            : res.status(200).json({ resultGreenhouse, resultMeasure, resultActiveCrops, resultParameters, resultActiveAlarms });    
+                            // enviamos al front los 5 objetos con resultados
+                        })    
+                    });
+                });
+            });
+        });
+    }
     
 }
 
