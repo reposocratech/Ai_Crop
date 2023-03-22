@@ -1,7 +1,7 @@
 @import "../../../mixin";
 @import "../../../variables";
 
-.nav_lateral{
+.navLat_cont{
     background-image: url("../../../../public/assets/images/bg_nav_lat1.png");
     background-position:left;
     background-repeat: no-repeat;
@@ -11,97 +11,189 @@
     flex-direction: column;
     align-items: center;
     color: white;
-
-    // AI CROP LOGO
-    .company{
-        display: flex;
-        align-items: center;
-        margin-top: 40px;
-        img{
-            width: 40px;
-        }
-        h5{
-            font-size: 35px;
-        }
-    }
-
-    // FOTO & NOMBRE USER
-    .profile_pic {
-        margin-bottom: 70px;
-        img{
-            margin: 40px 0 25px 0;
-            width: 9vw;
-        }
-        h6{
-            font-family: $sora;
-            font-size: 16px;
-            letter-spacing: 0.1em;
-        }
-    }
-
-    // OPCIÓN NAVBAR
-    .nav_option{
-        display: flex;
-        align-items: center;
-        margin-bottom: 50px;
-        color: white;
-        text-decoration: none;
-        cursor: pointer;
-        transition: 0.2s;
-        .option{
-            font-family: 'Sora';
-            font-weight: 400;
-            font-size: 18px;
-            letter-spacing: 0.12em;
-            margin: 0 25px;
-        }
-        img{
-            filter: invert(1);
-            width: 32px;
-            transition: 0.2;
-        }
-    }
-    .nav_option:hover{
-        color: black;
-        img{
-            filter: invert(0);
-        }
-    }
-
-    // CREAR NUEVO
-    .create_new{
-        width: 90%;
+    .nav_lateral{
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
-        padding: 40px 0px;
-        font-family: 'Sora';
-        border-radius: 22px;
-        outline: 2px dashed rgba(255, 255, 255, 0.377);
-        outline-offset: 10px;
-        background: rgba(231, 236, 224, 0.8);
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        opacity: 0.97;
-        p{
-            width: 151px;
-            font-weight: 600;
-            font-size: 19px;
-            letter-spacing: 0.12em;
+        margin-right: 6%;
+
+        // AI CROP LOGO
+        .company{
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            img{
+                width: 40px;
+            }
+            h5{
+                font-size: 35px;
+            }
         }
-        button{
-            width: 70px;
-            height: 70px;
-            border: none;
-            border-radius: 50%;
-            font-size: 35px;
-            color: rgba(0, 0, 0, 0.49);
-            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
-            transition: 0.2s;
+
+        // FOTO & NOMBRE USER
+        .profile_pic {
+            margin-bottom: 70px;
+            img{
+                margin: 40px 0 25px 0;
+                width: 9vw;
+            }
+            h6{
+                font-family: $sora;
+                font-size: 16px;
+                letter-spacing: 0.1em;
+            }
         }
-        button:hover{
-            color: white;
-            background-color: $verde1A;
+
+        // OPCIÓN NAVBAR
+        .nav_options{
+            .nav_option{
+                display: flex;
+                align-items: center;
+                margin-bottom: 50px;
+                color: white;
+                text-decoration: none;
+                cursor: pointer;
+                transition: 0.2s;
+                .option{
+                    font-family: 'Sora';
+                    font-weight: 400;
+                    font-size: 18px;
+                    letter-spacing: 0.12em;
+                    margin: 0 25px;
+                }
+                img{
+                    filter: invert(1);
+                    width: 32px;
+                    transition: 0.2;
+                }
+            }
+            .create_crop{
+                display: none;
+            }
+        }
+        .nav_option:hover{
+            color: $verde4A;
+        }
+
+        // CREAR NUEVO
+        .create_new{
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0px;
+            font-family: 'Sora';
+            border-radius: 22px;
+            outline: 2px dashed rgba(255, 255, 255, 0.377);
+            outline-offset: 10px;
+            background: rgba(231, 236, 224, 0.8);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            opacity: 0.97;
+            p{
+                width: 151px;
+                font-weight: 600;
+                font-size: 19px;
+                letter-spacing: 0.12em;
+            }
+            button{
+                width: 70px;
+                height: 70px;
+                border: none;
+                border-radius: 50%;
+                font-size: 35px;
+                color: rgba(0, 0, 0, 0.49);
+                box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+                transition: 0.2s;
+            }
+            button:hover{
+                color: white;
+                background-color: $verde1A;
+            }
+        }
+    }
+}
+
+
+// Cols en 1200 get creisi
+@media (max-width: 1200px) {
+    .navLat_cont{
+        min-height: fit-content;
+        .nav_lateral{
+            flex-direction: row;
+            margin: 40px 0 80px 0;
+            // width: fit-content;
+
+            .company{
+                margin: 0;
+            }
+
+            .profile_pic{
+                display: none;
+            }
+
+            .nav_options{
+                display: flex;
+                align-items: center;
+                margin-left: 30px;
+                .nav_option{
+                    margin: 0;
+                }
+            }
+            .create_new{
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 840px) {
+    .navLat_cont{
+        align-items: initial;
+        .nav_lateral{
+            justify-content: space-between;
+            margin:20px 0 60px 0;
+            padding: 0 3vw;
+            .company{
+                img{
+                    width: 40px;
+                }
+                h5{
+                    font-size: 27px;
+                }
+            }
+            .nav_options{
+                gap: 5vw;
+                .nav_option{
+                    img{
+                        width: 25px;
+                    }
+                    .option{
+                        display: none;
+                    }
+                }
+                .create_crop{
+                    width: 25px;
+                    height: 25px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 15px;
+                    border: none;
+                    border-radius: 50%;
+                    outline: 2px dashed rgba(255, 255, 255, 0.377);
+                    outline-offset: 3px;
+                    font-family: 'Sora';
+                    font-size: 22px;
+                    color: white;
+                    background-color: $verde1A;
+                    transition: 0.2s;
+                }
+                .create_crop:hover{
+                    background-color: $verde4A;
+                    color: black;
+                }
+            }
         }
     }
 }
