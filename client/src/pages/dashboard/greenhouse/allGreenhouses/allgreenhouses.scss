@@ -1,0 +1,73 @@
+@import "../../../../mixin";
+@import "../../../../variables";
+
+.cont_Allgreenhouses{
+    .botones_user{
+        display: flex;
+        justify-content: end;
+        margin-bottom: 10px;
+        gap: 20px;
+        button{
+            padding: 7px;
+            border: 2px solid #CDCDCD;
+            border-radius: 5em;
+            background-color: transparent;
+            transition: 0.2s;
+        }
+        button:hover{
+            background-color: #CDCDCD;
+            filter: invert(1);
+        }
+        img{
+            width: 35px;
+            height: 35px;
+        }
+    }
+    .header_Allgreenhouses{
+        .title_row{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h1{
+                letter-spacing: 0.105em;
+                font-family: $workSans;
+                font-weight: 500;
+                font-size: 45px;
+            }
+            .input_sect{
+                display: flex;
+                gap: 5px;
+                div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 12px;
+                    border-radius: 2em;
+                    background-color: $verdeInput;
+                    input{
+                        padding-left: 5px;
+                        border: none;
+                        font-family: 'Sora';
+                        background-color: transparent;
+                    }
+                    input::placeholder{
+                        letter-spacing: 0.02em;
+                        color: $verdeInput2;
+                    }
+                    input:focus, textarea:focus, select:focus{
+                        outline: none;
+                    }
+                    img{
+                        width: 27px;
+                    }
+                }
+            }
+        }
+        p{
+            margin-top: 10px;
+            letter-spacing: 0.12em;
+            font-family: $sora;
+            color: #868686;
+        }
+    }
+}

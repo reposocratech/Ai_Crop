@@ -1,9 +1,303 @@
-.formCont {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 25px 100px;
-    input {
-        width: 200px;
+@import "./mixin";
+@import "./variables";
+
+
+.company_name{
+    position: absolute;
+    top: 60px;
+}
+
+.cont_auth{
+    background-image: url("../../public/assets/GrowForest_vector2.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(100vh - 17px);
+    font-family: $urbanist;
+    color: white;
+    .form{
+        padding: 0 5%;
+        max-width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .title{
+        // margin: 110px 0 50px;
+
+        h1{
+            font-weight: 800;
+            font-size: 75px;
+            line-height: 0.6;
+            text-align: center;
+        }
+    
+        .punto{
+            margin-left: 10px;
+            font-size: 120px;
+            line-height: 0;
+            color: $verde7A;
+        }
+    }
+
+    P{
+        font-family: $sora;
+        font-weight: 300;
+        font-size: 14px;
+        letter-spacing: 0.16em;
+        opacity: 0.6;
+
+        .etiq_login{
+            color: $verde7A;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        span:hover{
+            font-weight: bold;
+            text-shadow: -1px 1px 1px black;
+        }
+    }
+}
+
+.form_registro{
+    width: 690px;
+    margin-top: 30px;
+    transition: 0.2s;
+
+    .nombre_apell {
+        display: flex;
+    }
+
+    .float-container {
+        margin: 20px 30px 0 0; 
+        padding: 5px 24px;
+        border-radius: 1.8em;
+        color: white;
+        background-color: $black1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        img{
+            width: 40px;
+            filter: brightness(0) invert(1) opacity(0.3)
+        }
+    }
+    .float-container input {
+        margin: 6px;
+        border: none;
+        outline: 0;
+        font-family: $urbanist;
+        font-weight: 600;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        color: white;
+        background-color: transparent;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    // ADAPTACIÓN PROPIEDAD AUTOFILL CAMPOS 
+    .float-container input:autofill,
+      input:autofill:hover,
+      input:autofill:focus,
+      input:autofill:active{
+        box-shadow: 0 0 0 30px $black1 inset !important;
+        -webkit-text-fill-color: white !important;
+        font-family: $urbanist !important;
+        color: white !important;
+    }
+
+    label {
+        position: absolute;
+        transform-origin: top left;
+        transform: translate(0, 0px) scale(1);
+        font-size: 16px;
+        letter-spacing: 0.2em;
+        opacity: 0.6;
+        transition: all .1s ease-in-out;
+    }
+
+    .float-container.active label {
+        transform: translate(0, 4px) scale(.75);
+    }
+
+
+    .select_form{
+        margin: 18px 0 0px;
+        border: none;
+        border-radius: 2em;
+        outline: 0;
+        font-family: $urbanist;
+        font-weight: 600;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        color: white;
+        background-color: transparent;
+        width: 100%;
+
+        option{
+            background-color: $black2;
+            border: none;
+            border-radius: 2em;
+        }
+    }
+
+    select::-webkit-scrollbar-track{
+        // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: $black2;
+    }
+    select::-webkit-scrollbar{
+        width: 7px;
+        background-color: #F5F5F5;
+    }
+    select::-webkit-scrollbar-thumb{
+        // border-radius: 10px;
+        background-color: white;
+    }
+    
+
+    
+    .password {
+        letter-spacing: 0.3em !important;
+    }
+    .verde2{
+        color: $verde7A;
+        opacity: 0.8;
+    }
+
+    .atras{
+        width: 70px;
+        padding: 20px 20px;
+        border: none;
+        border-radius: 2em;
+        color: white;
+        background-color: $black2;
+        transition: 0.2s;
+    }
+    .atras:hover{
+        background-color: $blackhover;
+    }
+
+    .button_section{
+        display: flex;
+        justify-content: space-around;
+
+        button {
+            width: 314px;
+            padding: 15px 30px;
+            margin: 20px 30px 0 0;
+            border: none;
+            border-radius: 2em;
+            font-family: $urbanist;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 22px;
+            letter-spacing: 0.02em;
+            color: white;
+            background-color: $black2;
+            transition: 0.2s;
+        }
+        button:hover{
+            background-color: $blackhover;
+        }
+        .bg_verde{
+            background-color: $verde7A;
+        }
+
+    }
+
+}
+
+
+
+@media (max-width: 870px){
+    .cont_auth{
+        .title{
+            text-align: center;
+            margin: 70px 0 50px;
+            
+            h1{
+                line-height: 1;
+            }
+        }
+        p{
+            text-align: center;
+        }
+        .form{
+            display: flex;
+            flex-direction: column;
+        }
+        .form_registro{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 !important;
+
+            .nombre_apell{
+                width: 100%;
+            }
+            .float-container{
+                margin: 20px 0 0 0 !important;
+                width: 100%;
+            }
+            .button_section{
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+                gap: 20px;
+                button{
+                    margin: 20px 0;
+    
+                    width: 100%;
+                }
+            }
+        }
+
+        article{
+            flex-direction: column;
+
+            div{
+                margin: 10px 0;
+            }
+        }
+
+    }
+}
+
+@media (max-width: 570px){
+    .cont_auth{
+        .title{
+            margin: 30px 0 50px;
+        }
+        .form_registro{
+            .button_section{
+                display: inline;
+                button{
+                    margin: 20px 0 0 0;
+                }
+            }
+        }
+    }
+}
+
+.greenhouseInfo{
+    margin: 50px;
+    border: 2px solid $verde2A;
+    border-radius: 3em;
+    letter-spacing: 0.25em;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 50px 100px;
+    h2 {
+        width: 40vw;
+        span {
+            color: rgb(168, 22, 22);
+            font-weight: 700;
+        };
     }
 }

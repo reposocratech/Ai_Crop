@@ -1,0 +1,183 @@
+@import "../../mixin";
+@import "../../variables";
+
+
+// SECCION PRINCIPAL
+
+
+.home {
+    scroll-behavior: smooth;
+}
+
+.contHome{
+    background-image: url("../../../public/assets/images/GrowForest_pic3.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+
+    .header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        .logo{
+            width: 11.5vw;
+        }
+
+        .title{
+            padding: 0 10px;
+            font-family: $workSans;
+            font-weight: 800;
+            font-size: 230px;
+            letter-spacing: -0.067em;
+            line-height: 1;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transition: 0.6s;
+        }
+        .title:hover{
+            text-shadow: 4px 10px 5px rgba(0, 0, 0, 0.4);
+            letter-spacing: -0.06em;
+        }
+
+        h3 {
+            width: 47%;
+            text-align: center;
+            padding: 20px 38px;
+            font-size: 25px;
+            font-weight: 400;
+            border-radius: 1.5em;
+            background-color: rgba(217, 217, 217, 0.22);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(52.5px);
+            opacity: 0.83;
+        }
+
+        button{
+            padding: 21px 65px;
+            font-family: $sora;
+            font-size: 20px;
+            border: none;
+            border-radius: 2em 0 1.8em 2em;
+            color: white;
+            background-color: $verde6B;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transition: 0.2s;
+        }
+        button:hover{
+            background-color: $blackhover;
+        }
+        
+
+        .rrss{
+            display: flex;
+            align-items: center;
+            margin-top: 110px;
+            margin-bottom: 100px !important;
+            gap: 10px;
+            font-family: $sora;
+            font-weight: 100;
+            opacity: 60%;
+            img{
+                width: 30px;
+                height: 30px;
+                opacity: 60%;
+                filter: invert(1);
+                transition: 0.2s;
+            }
+            img:hover{
+                cursor: pointer;
+                opacity: 100%;
+            }
+        }
+
+    }
+
+}
+
+// El scrollbar desaparece en home
+body::-webkit-scrollbar { 
+    display: none;
+}
+
+
+// SECCION INFORMACIÓN
+.about_us{
+    text-align: center;
+    background-color: black;
+
+    .transition{
+        height: 100px;
+        margin-bottom: 200px;
+        background-color: black;
+        box-shadow: 0 -10px 3px 60px black,  0 -10px 3px 60px black;
+        filter: blur(40px);
+    }
+
+    .cont_about{
+        color: white;
+        font-family: $sora;
+        letter-spacing: 0.25em;
+
+
+        h2{
+            font-weight: 200;
+        }
+    }
+
+}
+
+
+
+
+// ------------ RESPONSIVE ------------ //
+
+// TABLET
+@media (max-width: 870px){
+
+    .contHome{
+        .header {
+            padding-top: 80px;
+            .title{
+                text-align: center;
+                font-size: 160px;
+            }
+
+            h3{
+                width: 87%;
+                font-size: 20px;
+                letter-spacing: 0.08em;
+            }
+
+        }
+    }
+
+}
+
+
+// SMARTPHONE
+@media (max-width: 520px){
+    .contHome{
+        .header{
+            h3{
+             display: none;   
+            }
+
+            .title{
+                font-size: 25vw;
+            }
+
+            button{
+                font-size: 6vw;
+                font-weight: 300;
+            }
+
+            .rrss{
+                padding: 40px 0 30px 0;
+            }
+        }
+    }
+}
+

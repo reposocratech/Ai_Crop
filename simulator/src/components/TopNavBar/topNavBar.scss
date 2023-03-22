@@ -1,0 +1,94 @@
+@import "../mixin";
+@import "../variables";
+
+
+.navbar_pPal{
+    padding: 40px;
+}
+
+.cont_navbar{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    margin-right: 6%;
+    gap: 85px;
+    font-family: $sora;
+    font-weight: 300;
+    font-style: normal;
+
+    .navbar_option{
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.25em;
+        color: white;
+        opacity: 0.6;
+        transition: 0.2s;
+    }
+
+    .navbar_option:before{
+        display: inline-block;
+        height: 2px;
+        width: 0;
+        margin-right: 10px;
+        content: "";
+        background-color: $verde6A;
+        transition: .42s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .navbar_option:hover:before{
+        width: 1rem;
+        background-color: $verde6A;
+    }
+
+    .navbar_option:hover{
+        opacity: 1;
+    }
+
+    .registro{
+        padding: 10px 30px !important;
+        border: 2px solid $verde6A;
+        border-radius: 1.5em 0 1.5em 1.5em;
+        letter-spacing: 0.25em;
+        color: white;
+        opacity: 1;
+        transition: 0.2s;
+    }
+
+    .registro:hover{
+        background-color: $verde6A;
+        box-shadow: 1px 2px rgba(0, 0, 0, 0.459);
+    }
+}
+a {
+    text-decoration: none;
+}
+
+
+.toggle_navbar{
+    text-align: end;
+    margin: 10px 20px;
+    order:0;
+    margin-right: 5%;
+    filter: invert(1);
+}
+
+
+
+// ------------ RESPONSIVE ------------ //
+
+// TOGGLE ACTIVE ON 991
+@media (max-width: 991px){
+    .cont_navbar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+}
+@media (max-width: 570px){
+    .toggle_navbar{
+        margin: 10px 0;
+    }
+}
