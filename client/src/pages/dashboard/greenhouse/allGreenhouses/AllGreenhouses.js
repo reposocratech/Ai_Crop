@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Button, Card } from 'react-bootstrap'
+import { AICropContext } from '../../../../context/AICropContext';
+import axios from 'axios'
 import './allgreenhouses.scss'
+import { OwnerCard } from '../../../../components/greenhouseCards/OwnerCard';
+import { CollaboratorCard } from '../../../../components/greenhouseCards/CollaboratorCard';
 
 export const AllGreenhouses = () => {
+
+  const {user} = useContext(AICropContext);
+  const [greenhousesInfo, setGreenhousesInfo] = useState()
+
+    useEffect(() => {
+      if(user){
+        axios
+          .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
+          .then((res)=>{
+            console.log(res.data);
+            setGreenhousesInfo(res.data);
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
+      }
+  }, [user])
+
   return (
     <div className='cont_Allgreenhouses'>
       <section className='botones_user'>
@@ -26,17 +48,31 @@ export const AllGreenhouses = () => {
         <p>Actualmente hay X invernadero(s) activo(s)</p>
       </header>
       <main>
-      <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
+        
+        <h2>Invernaderos del usuario</h2>
+        <div>
+        {greenhousesInfo && greenhousesInfo.resultOwner.map((elem, index)=>{
+              return (
+                <div key={index}>
+                  <OwnerCard elem = {elem} />
+                </div>
+              )
+          })
+        }
+        </div>
+      
+      <h2>Invernaderos donde colabora el usuario</h2>
+      <div>
+        {greenhousesInfo && greenhousesInfo.resultCollaborator.map((elem, index)=>{
+              return (
+                <div key={index}>
+                  <CollaboratorCard elem = {elem}/>
+                </div>
+              )
+          })
+        }
+    </div>
+
       </main>
     </div>
   )
