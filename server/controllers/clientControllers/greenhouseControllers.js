@@ -91,6 +91,7 @@ class GreenhouseController {
     
      // 4. trae la info de todos los invernaderos que tengo o que colaboro
     //localhost:4000/greenhouse/getAllGreenhouses/:user_id
+    
     getAllGreenhouses = (req, res) => {
 
         const user_id = req.params.user_id;

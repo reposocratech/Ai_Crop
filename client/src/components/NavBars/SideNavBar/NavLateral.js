@@ -16,6 +16,8 @@ export const NavLateral = () => {
     setIsLogged(false);
   }
 
+  
+
   // El nav lateral está pendiente al token para que la vista de user una vez accede al usuario
   // la parte de la izq (NAV) tiene una query diferente a la parte de la dcha(BLANCO). En la izq se va a hacer la query en base al token y en la derecha se va a hacer la query en base a la ruta
   return (
@@ -34,7 +36,7 @@ export const NavLateral = () => {
       <div className='nav_options'>
         <a className='nav_option'>
           <img src='/assets/images/dashboard.png' alt='dashboard'/>
-          <p className='option'>Dashboard</p>
+          <p className='option' onClick={()=>navigate('/user')}>Dashboard</p>
         </a>
         <a className='nav_option'>
           <img src='/assets/images/logout.png' alt='dashboard'/>
@@ -42,7 +44,7 @@ export const NavLateral = () => {
         </a>
         <a className='nav_option'>
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
-          <p className='option'>Configuración</p>
+          <p className='option' onClick={() =>navigate('edit')}>Configuración</p>
         </a>
         <button className='create_crop'>+</button>
       </div>
