@@ -88,6 +88,11 @@
             background-color: transparent;
         }
 
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
         // ADAPTACIÓN PROPIEDAD AUTOFILL CAMPOS 
         .float-container input:autofill,
           input:autofill:hover,
