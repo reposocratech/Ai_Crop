@@ -1,11 +1,13 @@
 @import "../../../../mixin";
 @import "../../../../variables";
 
-.cont_Allgreenhouses{
+.cont_greenhouses{
+    width: 100%;
+
     .botones_user{
         display: flex;
         justify-content: end;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         gap: 20px;
         button{
             padding: 7px;
@@ -23,7 +25,7 @@
             height: 35px;
         }
     }
-    .header_Allgreenhouses{
+    .header_greenhouses{
         .title_row{
             display: flex;
             align-items: center;
@@ -68,6 +70,21 @@
             letter-spacing: 0.12em;
             font-family: $sora;
             color: #868686;
+        }
+    }
+
+    main{
+        h2{
+            margin-top: 60px;
+            letter-spacing: 0.1em;
+            color: $grisCard;
+            font-weight: 400;
+        }
+        .greenhouse_list{
+            margin: 50px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
         }
     }
 }

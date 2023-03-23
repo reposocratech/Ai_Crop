@@ -16,8 +16,10 @@ export const MainPage = () => {
                 <NavLateral/>
             </Col>
             <Col className='col-12 col-xl-9 p-0 outlet_cont'>
-              <div className="white_cont p-5">
+              <div className="white_cont">
+                <div className='padree'>
                   <Outlet/>
+                </div>
               </div>
             </Col>
         </Row>
