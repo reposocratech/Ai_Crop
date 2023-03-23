@@ -2,6 +2,7 @@
 @import "../../../../variables";
 
 .cont_greenhouses{
+    width: 100%;
     .botones_user{
         display: flex;
         justify-content: end;
@@ -68,6 +69,21 @@
             letter-spacing: 0.12em;
             font-family: $sora;
             color: #868686;
+        }
+    }
+
+    main{
+        h2{
+            margin-top: 60px;
+            letter-spacing: 0.1em;
+            color: $grisCard;
+            font-weight: 400;
+        }
+        .greenhouse_list{
+            margin: 50px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
         }
     }
 }

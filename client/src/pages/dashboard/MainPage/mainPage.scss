@@ -5,9 +5,10 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    // width:inherit;
     .white_cont{
-        // width:100%;
-        width: fit-content;
+        width: inherit;
+        min-width: fit-content;
         background-color: white;
         border-radius: 53px;
         padding: 38px 30px 40px 48px;
