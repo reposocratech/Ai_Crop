@@ -50,7 +50,7 @@ export const AllGreenhouses = () => {
       <main>
         
         <h2>Invernaderos del usuario</h2>
-        <div>
+        <section className='greenhouse_list'>
         {greenhousesInfo && greenhousesInfo.resultOwner.map((elem, index)=>{
               return (
                 <div key={index}>
@@ -59,10 +59,10 @@ export const AllGreenhouses = () => {
               )
           })
         }
-        </div>
+        </section>
       
       <h2>Invernaderos donde colabora el usuario</h2>
-      <div>
+      <section className='greenhouse_list'>
         {greenhousesInfo && greenhousesInfo.resultCollaborator.map((elem, index)=>{
               return (
                 <div key={index}>
@@ -71,8 +71,7 @@ export const AllGreenhouses = () => {
               )
           })
         }
-    </div>
-
+    </section>
       </main>
     </div>
   )

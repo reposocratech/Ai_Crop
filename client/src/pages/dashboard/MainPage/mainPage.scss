@@ -5,12 +5,28 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-
+    // width:inherit;
     .white_cont{
-        width:100%;
+        width: inherit;
+        min-width: fit-content;
         background-color: white;
         border-radius: 53px;
-        z-index: 2;
+        padding: 38px 30px 40px 48px;
+        position: fixed;
+        // overflow: hidden;
+        height: 100%;
+        .padree{
+            overflow-y: auto;
+            height: 100%;
+            padding-right: 25px;
+        }
+        .padree::-webkit-scrollbar{
+            width: 7px;
+        }
+        .padree::-webkit-scrollbar-thumb {
+            background-color: #000000; /* color de la barra de scroll */
+            border-radius: 5px; /* radio de los bordes de la barra de scroll */
+          }
     }
 
     .outlet_cont{
@@ -20,8 +36,18 @@
     }
 }
 
-@media (max-width: 1200px) {
+// TABLET
+@media (max-width: 1199px) {
     .contNav_pPal{
         min-height: auto;
+        .white_cont{
+            width:100%;
+            position:initial;
+            height: auto;
+            .padree{
+                overflow-y: hidden;
+                height: auto;
+            }
+        }
     }
 }
