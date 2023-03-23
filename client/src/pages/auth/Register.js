@@ -108,12 +108,13 @@ export const Register = () => {
             <h1 className='mb-5 mt-5'>Ya casi estamos<span className='punto'>...</span></h1>
             }
           </div>
-            {!showForm2 || !showForm3 &&
+            {showForm1 && 
           <p className='ms-1'>¿Ya estás registrado? <span className='etiq_login' onClick={()=>navigate('/login')}>Log in</span></p>
             }
 
         {showForm1 && 
           // PARTE 1 FORMULARIO
+          
           <section className='form_registro'>
 
             <article className='nombre_apell'>

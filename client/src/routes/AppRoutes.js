@@ -11,6 +11,7 @@ import { AllGreenhouses } from '../pages/dashboard/greenhouse/allGreenhouses/All
 import { Measure} from '../pages/dashboard/measure/Measure'
 import { EditUser } from '../pages/dashboard/user/EditUser'
 import { MainPage } from '../pages/dashboard/MainPage/MainPage'
+import { Info } from '../pages/home/info/Info'
 
 
 export const AppRoutes = () => {
@@ -22,6 +23,7 @@ export const AppRoutes = () => {
                     <Route path='' element={<Home/>}/> 
                     <Route path='register' element={<Register/>}/>
                     <Route path='login' element={<Login/>}/>
+                    <Route path='info' element={<Info/>}/>
 
                     <Route path='user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
