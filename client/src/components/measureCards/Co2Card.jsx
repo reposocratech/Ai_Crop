@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../context/AICropContext';
 
-export const OwnerCard = ({elem}) => {
+export const Co2Card = ({elem}) => {
   const navigate = useNavigate();
   const {user, setSelectedGreenhouse} = useContext(AICropContext);
 
   const onSubmit = () => {
-    setSelectedGreenhouse(elem.greenhouse_id);
-    navigate('greenhouse')
+    setSelectedGreenhouse(elem.greenhouse_id); // VIEJO
+    navigate('greenhouse') // VIEJO
   }
 
   return (

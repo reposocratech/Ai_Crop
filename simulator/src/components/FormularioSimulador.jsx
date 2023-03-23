@@ -17,12 +17,10 @@ const initialGreenhouse = {
   greenhouse_name: ""
 }
 
-export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse}) => {
+export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messageError, setMessageError}) => {
 
     const [datosForm, setDatosForm] = useState(initialValue);
     const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
-    const [messageError, setMessageError] = useState("");
-    const [ver, setVer] = useState(false);
 
     const handleChange = (e) => {
         let {name, value} = e.target;
@@ -37,20 +35,20 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse}) => {
     const seeGreenhouse = () => {
       setGreenhouse_id(greenhouse.greenhouse_id)
       setShowGreenhouse(true)
-      setVer(!ver);
-      console.log(ver);
     }
 
     const handleSubmit = () => {
 
       if(!datosForm.temperatura && !datosForm.co2 && !datosForm.humedad && !datosForm.luz_solar && !datosForm.ph && !datosForm.ce && !datosForm.humedad_hoja ) {
-          setMessageError("Debes rellenar todos los campos")
+          setMessageError("Formulario vacío. Ingrese medidas a simular")
       } else {
           console.log("DATOS ENVIADOS: ", {datosForm, greenhouse});
           axios
               .post('http://localhost:4000/simulator', {datosForm, greenhouse})
               .then((res)=>{
-                  console.log(res.data);
+                console.log(res.data);
+                setMessageError("")
+
               })
               .catch((err)=>{
                   console.log(err)
@@ -59,8 +57,9 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse}) => {
   }
 
   return (
-    <section className='form_registro'>
-      <article className='nombre_apell'>
+    <section className='formulario'>
+
+      <article className='greenhouse'>
       <div id="floatContainer" className="float-container">
           {/* <label htmlFor="floatField">ID de invernadero</label> */}
           <input 

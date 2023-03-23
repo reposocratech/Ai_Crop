@@ -1,7 +1,7 @@
 @import "../../../../mixin";
 @import "../../../../variables";
 
-.cont_Allgreenhouses{
+.cont_greenhouses{
     .botones_user{
         display: flex;
         justify-content: end;
@@ -23,7 +23,7 @@
             height: 35px;
         }
     }
-    .header_Allgreenhouses{
+    .header_greenhouses{
         .title_row{
             display: flex;
             align-items: center;
