@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext }  from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../context/AICropContext';
 
-export const OwnerCard = ({elem}) => {
+export const HumedadHojaCard = ({elem}) => {
   const navigate = useNavigate();
   const {user, setSelectedGreenhouse} = useContext(AICropContext);
 
   const onSubmit = () => {
-    setSelectedGreenhouse(elem.greenhouse_id);
-    navigate('greenhouse')
+    setSelectedGreenhouse(elem.greenhouse_id) // VIEJO
+    navigate('greenhouse') // VIEJO
   }
 
   return (
@@ -23,8 +23,8 @@ export const OwnerCard = ({elem}) => {
             Alarmas activas: {elem.active_alarms}
         </Card.Text>
         <Button 
-        onClick={onSubmit}
-        variant="primary">Go somewhere</Button>
+        variant="primary"
+        onClick={onSubmit}>Go somewhere</Button>
         </Card.Body>
     </Card>
   )

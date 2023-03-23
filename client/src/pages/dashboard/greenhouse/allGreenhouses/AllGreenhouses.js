@@ -26,12 +26,12 @@ export const AllGreenhouses = () => {
   }, [user])
 
   return (
-    <div className='cont_Allgreenhouses'>
+    <div className='cont_greenhouses'>
       <section className='botones_user'>
         <button><img src='/assets/images/go_back.png'/></button>
         <button><img src='/assets/images/notification.png'/></button>
       </section>
-      <header className='header_Allgreenhouses'>
+      <header className='header_greenhouses'>
         <section className='title_row'>
           <h1>mis invernaderos</h1>
           <article className='input_sect'>
