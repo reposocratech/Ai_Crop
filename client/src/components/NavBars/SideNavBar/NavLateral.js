@@ -16,8 +16,6 @@ export const NavLateral = () => {
     setIsLogged(false);
   }
 
-  console.log(user, "user");
-
   // El nav lateral está pendiente al token para que la vista de user una vez accede al usuario
   // la parte de la izq (NAV) tiene una query diferente a la parte de la dcha(BLANCO). En la izq se va a hacer la query en base al token y en la derecha se va a hacer la query en base a la ruta
   return (

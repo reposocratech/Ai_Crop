@@ -115,8 +115,8 @@
 }
 
 
-// Cols en 1200 get creisi
-@media (max-width: 1200px) {
+// TABLET
+@media (max-width: 1199px) {
     .navLat_cont{
         min-height: fit-content;
         .nav_lateral{
@@ -147,6 +147,7 @@
     }
 }
 
+// SMARTPHONE
 @media (max-width: 840px) {
     .navLat_cont{
         align-items: initial;

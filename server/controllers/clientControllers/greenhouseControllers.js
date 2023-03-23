@@ -94,7 +94,13 @@ class GreenhouseController {
     getAllGreenhouses = (req, res) => {
 
         const user_id = req.params.user_id;
-        let sqlOwner = ` SELECT * FROM greenhouse WHERE user_owner_id = ${user_id};`;
+        
+        let sqlOwner = `SELECT greenhouse.*, CONCAT(user.first_name, " ", user.last_name) as owner_full_name, count(alarm.alarm_id) as active_alarms 
+        FROM greenhouse
+        LEFT JOIN alarm ON alarm.greenhouse_id = greenhouse.greenhouse_id 
+        LEFT JOIN user ON greenhouse.user_owner_id = user.user_id 
+        WHERE user_owner_id = ${user_id} 
+        GROUP BY greenhouse_id`;
         
         // consulto en BD los invernaderos que posee el usuario. Estos invernaderos los enviaré al fron en un objeto llamado resultOwner
         connection.query(sqlOwner, (error, resultOwner) => {
@@ -114,7 +120,12 @@ class GreenhouseController {
             }
 
             // este SQL busca los invernaderos donde el usuario SOLO es colaborador. Agrega al final el string que produce el bucle (CONSULTAR ESTE TEMA CON EL EQUIPO A VER SI CAMBIAMOS EL CREATE USER)
-            let sqlCollaborator = `SELECT greenhouse.* FROM greenhouse, user_greenhouse, user WHERE user.user_id = ${user_id} AND user_greenhouse.user_id = user.user_id AND user_greenhouse.greenhouse_id = greenhouse.greenhouse_id ${ownerFilter}`;
+            let sqlCollaborator = `SELECT greenhouse.*, CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, count(alarm.alarm_id) as active_alarms FROM greenhouse LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
+            LEFT JOIN user ON user_greenhouse.user_id = user.user_id
+            LEFT JOIN alarm ON alarm.greenhouse_id = greenhouse.greenhouse_id 
+            ${ownerFilter}
+            WHERE user.user_id = ${user_id}
+            GROUP BY greenhouse_id`;
 
             connection.query(sqlCollaborator, (error, resultCollaborator) => {
 
