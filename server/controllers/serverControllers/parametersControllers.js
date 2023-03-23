@@ -1,27 +1,7 @@
-var express = require('express');
-var router = express.Router();
 const connection = require('../../config/db');
 const axios = require('axios');
 
 class ParametersController {
-
-    //1. 
-    // localhost:4000/server/parameters/current/:greenhouse_id  
-    getParameterHistory = (req, res) => {
-
-        let greenhouse_id = req.params.greenhouse_id;
-        let measurement_type = req.params.measurement_type;
-
-        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time FROM greenhouse, greenhouse_measurement_type,measurement_type, measure WHERE greenhouse.greenhouse_id = 1 AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id AND measurement_type.measurement_type_id = measure.measurement_type_id AND measure.measure_date_time = (SELECT measure_date_time from measure WHERE greenhouse_id = ${greenhouse_id} ORDER BY measure_date_time desc LIMIT 1)`
-        
-        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
-        connection.query(sql, (error, result) => {
-            error 
-            ? res.status(400).json({error})
-            : res.redirect(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`);
-        });
-
-    }
 
     //1. Compara los parámetros establecidos en el greenhouse con las últimas medidas que obtuvo
     // localhost:4000/server/parameters/compare/:greenhouse_id 
@@ -59,6 +39,153 @@ class ParametersController {
             
         });
 
+    }
+
+    // 2. Muestra todas las medidas históricas de temperatura para un invernadero 
+    // localhost:4000/server/parameters/history/temperature/:greenhouse_id
+    getTemperatureHistory = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 1 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+    // 3. Muestra todas las medidas históricas de co2 para un invernadero 
+    // localhost:4000/server/parameters/history/co2/:greenhouse_id  
+    getCo2History = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 2 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+    // 4. Muestra todas las medidas históricas de humedad para un invernadero 
+    // localhost:4000/server/parameters/history/humidity/:greenhouse_id
+    getHumidityHistory = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 3 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+    // 5. Muestra todas las medidas históricas de luz solar para un invernadero 
+    // localhost:4000/server/parameters/history/sunlight/:greenhouse_id
+    getSunlightHistory = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 4 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+    // 6. Muestra todas las medidas históricas de ph para un invernadero 
+    // localhost:4000/server/parameters/history/ph/:greenhouse_id
+    getPhHistory = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 5 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+        // 7. Muestra todas las medidas históricas de ce para un invernadero 
+        // localhost:4000/server/parameters/history/ce/:greenhouse_id
+        getCeHistory = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 6 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+    // 8. Muestra todas las medidas históricas de humedad de hoja para un invernadero 
+    // localhost:4000/server/parameters/history/leafhumidity/:greenhouse_id
+    getLeafHumidityHistory = (req, res) => {
+
+        let greenhouse_id = req.params.greenhouse_id;
+
+        let sql = `SELECT measurement_type.measurement_type_id, greenhouse_measurement_type.max as max, greenhouse_measurement_type.min as min, measurement_type.measurement_type_name, measure.measure_value, measure.measure_date_time 
+        FROM greenhouse, greenhouse_measurement_type,measurement_type, measure 
+        WHERE greenhouse.greenhouse_id = ${greenhouse_id} AND greenhouse.greenhouse_id = greenhouse_measurement_type.greenhouse_id 
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id 
+        AND measurement_type.measurement_type_id = measure.measurement_type_id
+        AND measurement_type.measurement_type_id = 7 ORDER BY measure.measure_date_time DESC`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
     }
 
 }
