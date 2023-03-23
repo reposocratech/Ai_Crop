@@ -22,25 +22,25 @@ export const OneGreenhouse = () => {
   const [conductividad, setConductividad] = useState();
   const [humedadHoja, setHumedadHoja] = useState();
 
-  useEffect(() => {
+    useEffect(() => {
 
-    if(user){
-      axios
-        .get(`http://localhost:4000/server/alarm/seeAlarmsByMeasure/${selectedGreenhouse}`)
-        .then((res)=>{
-          setTemperatura(res.data.resultTemperatura);
-          setCo2(res.data.resultCo2);
-          setHumedad(res.data.resultHumedad);
-          setLuzSolar(res.data.resultLuz);
-          setPh(res.data.resultPh);
-          setConductividad(res.data.resultCe);
-          setHumedadHoja(res.data.resultHumedadHoja);
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-    }
-}, [user])
+      if(selectedGreenhouse){
+        axios
+          .get(`http://localhost:4000/server/alarm/seeAlarmsByMeasure/${selectedGreenhouse}`)
+          .then((res)=>{
+            setTemperatura(res.data.resultTemperatura);
+            setCo2(res.data.resultCo2);
+            setHumedad(res.data.resultHumedad);
+            setLuzSolar(res.data.resultLuz);
+            setPh(res.data.resultPh);
+            setConductividad(res.data.resultCe);
+            setHumedadHoja(res.data.resultHumedadHoja);
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
+      }
+  }, [user])
 
   return (
     <div className='cont_greenhouses'>
