@@ -16,7 +16,12 @@ export const NavLateral = () => {
     setIsLogged(false);
   }
 
-  
+
+  let fotito = user?.user_photo;
+  let noFoto = "/assets/images/default_pic.png";
+
+  console.log(fotito,"la ruta de la foto");
+
 
   // El nav lateral está pendiente al token para que la vista de user una vez accede al usuario
   // la parte de la izq (NAV) tiene una query diferente a la parte de la dcha(BLANCO). En la izq se va a hacer la query en base al token y en la derecha se va a hacer la query en base a la ruta
@@ -29,7 +34,7 @@ export const NavLateral = () => {
       </div>
       {/* FOTO & NOMBRE USER */}
       <div className='profile_pic text-center'>
-        <img alt='foto de perfil' src='/assets/images/default_pic.png'/>
+        <img alt='foto de perfil' src={ fotito === null ? ` ${noFoto} `:`/images/user/${fotito}`}/>
         <h6>{user?.first_name} {user?.last_name}</h6>
       </div>
       {/* OPCIONES NAVBAR */}
