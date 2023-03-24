@@ -9,6 +9,7 @@
     font-family: $sora;
     color: white;
     letter-spacing: 0.12em;
+    text-align: start;
     hr{
         margin: 10px;
         width: 150px;
@@ -68,6 +69,7 @@ h3{
         position: relative;
         left: 150px;
         bottom: 60px;
+        margin: 0 !important;
     }
 }
 
@@ -210,3 +212,15 @@ h3{
     }
 }
 
+@media(max-width:720px){
+
+}
+
+@media (max-width:450px){
+    .measure_cardCont{
+        width: 10vw;
+    }
+    .responsive_card{
+        width: 80vw;
+    }
+}

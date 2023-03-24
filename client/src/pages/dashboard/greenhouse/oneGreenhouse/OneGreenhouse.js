@@ -26,15 +26,39 @@ export const OneGreenhouse = () => {
 
       if(selectedGreenhouse){
         axios
-          .get(`http://localhost:4000/server/alarm/seeAlarmsByMeasure/${selectedGreenhouse}`)
+          .get(`http://localhost:4000/greenhouse/details/${selectedGreenhouse}`)
           .then((res)=>{
-            setTemperatura(res.data.resultTemperatura);
-            setCo2(res.data.resultCo2);
-            setHumedad(res.data.resultHumedad);
-            setLuzSolar(res.data.resultLuz);
-            setPh(res.data.resultPh);
-            setConductividad(res.data.resultCe);
-            setHumedadHoja(res.data.resultHumedadHoja);
+            console.log(res.data.resultTemperatura);
+            console.log(res.data)
+            console.log(selectedGreenhouse);
+            for (let i = 0; i < res.data.resultMeasure.length; i++){
+              switch (res.data.resultMeasure[i].measurement_type_id){
+                case 1:
+                  setTemperatura(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 2:
+                  setCo2(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 3:
+                  setHumedad(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 4:
+                  setLuzSolar(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 5:
+                  setPh(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 6:
+                  setConductividad(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 7:
+                  setHumedadHoja(res.data.resultMeasure[i].measure_value)
+                  break;
+                default:
+                  console.log("pringao")
+              }
+            }
+
           })
           .catch((err)=>{
             console.log(err);
@@ -54,28 +78,41 @@ export const OneGreenhouse = () => {
         <section className='title_row'>
           <h1>mi invernadero</h1>
           <article className='input_sect'>
-          <div>
+          <div className='search_add'>
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar cultivo'/>
           </div>
-          <div>
+          <button className='search_add'>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
-            <input placeholder='Añadir colaboradores'/>
-          </div>
+            Añadir colaboradores
+          </button>
           </article>
         </section>
         <p>Nombre del invernadero</p>
       </header>
       <main>
         <section className='cards_measures'>
-          <TemperatureCard temperatura = {temperatura}/>
-          <Co2Card co2 = {co2}/>
-          <HumidityCard humedad = {humedad}/>
-          <SunlightCard luzSolar = {luzSolar}/>
-          <PhCard ph = {ph}/>
-          <ConductivityCard conductividad = {conductividad}/>
-          <LeafHumidity humedadHoja = {humedadHoja}/>
-        </section>
+          {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
+          <div><p>No hay ningún parámetro</p></div>
+          :
+          <div>
+          {temperatura &&
+          <TemperatureCard temperatura = {temperatura}/>}
+          {co2 &&
+          <Co2Card co2 = {co2}/>} 
+          {humedad &&
+          <HumidityCard humedad = {humedad}/>}
+          {luzSolar &&
+          <SunlightCard luzSolar = {luzSolar}/>}
+          {ph &&
+          <PhCard ph = {ph}/>}
+          {conductividad &&
+          <ConductivityCard conductividad = {conductividad}/>}
+          {humedadHoja &&
+          <LeafHumidity humedadHoja = {humedadHoja}/>}
+          </div>
+          }
+        </section> 
       </main>
     </div>
   )

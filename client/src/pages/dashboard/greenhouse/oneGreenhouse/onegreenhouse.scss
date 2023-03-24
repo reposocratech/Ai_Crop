@@ -4,3 +4,10 @@
     gap: 30px;
     margin-top: 60px;
 }
+
+@media(max-width: 570px){
+    .cards_measures{
+        flex-direction: column;
+        align-items: center;
+    }
+}
