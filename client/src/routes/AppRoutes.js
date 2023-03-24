@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/home/Home'
 import { Container } from 'react-bootstrap'
@@ -12,9 +12,15 @@ import { Measure} from '../pages/dashboard/measure/Measure'
 import { EditUser } from '../pages/dashboard/user/EditUser'
 import { MainPage } from '../pages/dashboard/MainPage/MainPage'
 import { Info } from '../pages/home/info/Info'
+import { EditGreenhouse } from '../pages/dashboard/greenhouse/EditGreenhouse/EditGreenhouse'
+import { AICropContext } from '../context/AICropContext'
+
 
 
 export const AppRoutes = () => {
+  
+  const {user, isLogged, token} = useContext(AICropContext);
+  
   return (
     <div>
         <Container fluid>
@@ -27,9 +33,10 @@ export const AppRoutes = () => {
 
                     <Route path='user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
-                      <Route path=':greenhouse' element={<OneGreenhouse/>}/>
+                      <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
                       <Route path=':greenhouse/:measure' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
+                      <Route path='editGreenhouse' element={<EditGreenhouse/>}/>
                     </Route>
 
                     <Route path='admin' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
