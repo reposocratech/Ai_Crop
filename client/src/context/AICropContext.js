@@ -47,8 +47,8 @@ export const AICropProvider = (props) => {
         userAlarms,
         setUserAlarms,
         userAlarms,
-        selectedGreenhouse,
-        setSelectedGreenhouse,
+        //selectedGreenhouse,
+        //setSelectedGreenhouse,
 
         setUserAlarms
     }}>
