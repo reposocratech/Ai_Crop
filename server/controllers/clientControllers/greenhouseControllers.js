@@ -78,11 +78,25 @@ class GreenhouseController {
 
                         // buscamos en BD las alarmas acvtivas que tiene el invernadero y guardamos los resultados en el objeto "resultActiveAlarms"
                         connection.query(sqlActiveAlarms, (error, resultActiveAlarms) => {
-                            error 
-                            ? res.status(400).json({ error })
-                            : res.status(200).json({ resultGreenhouse, resultMeasure, resultActiveCrops, resultParameters, resultActiveAlarms });    
+                            error && res.status(400).json({ error });
+
+                            let sqlCollaborators = `SELECT CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, user.email FROM user, user_greenhouse, greenhouse WHERE user.user_id = user_greenhouse.user_id AND user_greenhouse.greenhouse_id = greenhouse.greenhouse_id AND greenhouse.greenhouse_id = ${greenhouse_id} AND user.is_deleted = 0 AND user.is_disabled = 0`;
+
+                            // 
+                            connection.query(sqlCollaborators, (error, resultCollaborators) => {
+                                error && res.status(400).json({ error });
+
+                                let sqlHelpers = `SELECT CONCAT(helper_first_name, " ", helper_last_name) as helper_full_name, helper_email FROM helper WHERE greenhouse_id = ${greenhouse_id} AND is_deleted = 0`;
+
+                                // 
+                                connection.query(sqlHelpers, (error, resultHelpers) => {
+                                    error 
+                                    ? res.status(400).json({ error }):
+                                res.status(200).json({ resultGreenhouse, resultMeasure, resultActiveCrops, resultParameters, resultActiveAlarms, resultCollaborators, resultHelpers });    
                             // enviamos al front los 5 objetos con resultados
-                        })    
+                        });
+                    });
+                })    
                     });
                 });
             });
