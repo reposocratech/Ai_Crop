@@ -8,6 +8,7 @@ export const AICropContext = createContext()
 export const AICropProvider = (props) => {
     const [user, setUser] = useState();
     const [userAlarms, setUserAlarms] = useState();
+    // const [userCollaborator, setUserCollaborator] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [token, setToken] = useState();
 
@@ -44,6 +45,9 @@ export const AICropProvider = (props) => {
         setIsLogged,
         userAlarms,
         setUserAlarms
+       
+        
+
     }}>
         {props.children}
     </AICropContext.Provider>

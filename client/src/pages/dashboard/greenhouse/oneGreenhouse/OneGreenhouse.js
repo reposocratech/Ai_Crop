@@ -10,8 +10,16 @@ import { ConductivityCard } from '../../../../components/CardsMeasures/Conductiv
 import { LeafHumidity } from '../../../../components/CardsMeasures/LeafHumidity'
 import { AICropContext } from '../../../../context/AICropContext'
 import axios from 'axios'
-import { getLocalStorageAICropGreenhouse } from '../../../../helpers/localStorage/localStorageAICrop'
+
+import { useNavigate } from 'react-router-dom'
+import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
+import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
+import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
+import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
+
+
 import { useParams } from 'react-router-dom'
+
 
 export const OneGreenhouse = () => {
 
@@ -23,6 +31,13 @@ export const OneGreenhouse = () => {
   const [ph, setPh] = useState();
   const [conductividad, setConductividad] = useState();
   const [humedadHoja, setHumedadHoja] = useState();
+  const [showModalNotif, setShowModalNotif] = useState(false)
+  const [showModalCollab, setShowModalCollab] = useState(false)
+  const [userCollaborator, setUserCollaborator] = useState();
+
+  const navigate = useNavigate();
+
+  console.log()
 
   const greenhouse_id = useParams().greenhouse_id;
   console.log(greenhouse_id);
@@ -70,10 +85,20 @@ export const OneGreenhouse = () => {
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
-        <button><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
-        <button><img className='config_invernadero' alt='configuracion invernadero' src='/assets/images/editar_greenhouse.png'/></button>
-        <button><img alt='ver colaboradores' src='/assets/images/ver_colaboradores.png'/></button>
-        <button><img alt='notificaciones' src='/assets/images/notification.png'/></button>
+        
+        <button onClick={() => navigate('/user')}><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
+
+        <button onClick={() => navigate('/user/editGreenhouse')}><img className='config_invernadero' alt='configuracion invernadero' src='/assets/images/editar_greenhouse.png'/></button>
+        
+         {/* Modal Collaborator */}
+         <ButtonCollaborator setShowModalCollab={setShowModalCollab}/>
+         <ModalCollaborator showModalCollab={showModalCollab} setShowModalCollab={setShowModalCollab} userCollaborator={userCollaborator} setUserCollaborator={setUserCollaborator}/>
+
+        {/* Modal */}
+        <ButtonNotif setShowModalNotif={setShowModalNotif}/>
+        <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
+        
+
       </section>
       <header className='header_greenhouses'>
         <section className='title_row'>
