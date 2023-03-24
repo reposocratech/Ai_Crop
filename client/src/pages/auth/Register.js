@@ -20,7 +20,7 @@ const initialValue = {
     city: "",
     country: "",
     user_knowledge: "",
-    user_photo: "default_pic.png"
+    user_photo: "",
 }
 
 export const Register = () => {
