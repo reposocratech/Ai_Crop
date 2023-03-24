@@ -19,7 +19,7 @@ export const OwnerCard = ({elem}) => {
         <div className='img_greenhouse'><img src='/assets/images/greenhouse.png'/></div>
         <main className='card_description'>
           <p className='title'>{elem.greenhouse_name}</p>
-          <hr/>
+          <hr className='lineaGris'/>
           <p>Titular: {elem.owner_full_name}</p>
           <p>Alarmas activas: {elem.active_alarms}</p>
           {elem.active_alarms ?

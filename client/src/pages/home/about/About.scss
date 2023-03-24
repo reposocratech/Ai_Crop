@@ -1,29 +1,29 @@
 @import "../../../mixin";
 @import "../../../variables";
 
-.about{
-    font-size: 52px;
-    font-weight: bolder;
-}
 
-.parrafoPpal{
-    font-size: 24px;
-    align-items: center;
-    margin-right: 16rem;
-    margin-left: 16rem;
-    margin-bottom: 16rem;
-    font-weight: 100;
-}
-hr{
-    width: 50rem;
-    align-items: center;
-    text-align: center;
-    position: absolute;
-    left: 35rem;
-}
-
-
+.cont_about{
+    .about{
+        font-size: 52px;
+        font-weight: bolder;
+    }
+    hr{
+        width: 50rem;
+        align-items: center;
+        text-align: center;
+        position: absolute;
+        left: 35rem;
+    }
     
+    .parrafoPpal{
+        font-size: 24px;
+        align-items: center;
+        margin-right: 16rem;
+        margin-left: 16rem;
+        margin-bottom: 16rem;
+        font-weight: 100;
+    }
+
     .rrss{
         display: flex;
         align-items: center;
@@ -45,8 +45,9 @@ hr{
             opacity: 100%;
         }
     }
-
+    
     .parrafoLinks{
         font-size: 24px;
     }
-
+    
+}
