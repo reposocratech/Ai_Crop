@@ -46,14 +46,14 @@ export const AllGreenhouses = () => {
         <section className='title_row'>
           <h1>mis invernaderos</h1>
           <article className='input_sect'>
-          <div>
+          <div className='search_add'>
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar invernadero'/>
           </div>
-          <div>
+          {/* <div className='add_colaborators'>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
             <input placeholder='Añadir colaboradores'/>
-          </div>
+          </div> */}
           </article>
         </section>
         {greenhousesInfo && <p>Actualmente hay {numberOfGreenHouses} invernadero(s) activo(s)</p>}

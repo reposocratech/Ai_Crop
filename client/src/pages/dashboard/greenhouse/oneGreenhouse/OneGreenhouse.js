@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './onegreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
-import { AICropContext } from '../../../../context/AICropContext';
-import axios from 'axios';
-import { TemperaturaCard } from '../../../../components/measureCards/TemperaturaCard';
-import { Co2Card } from '../../../../components/measureCards/Co2Card';
-import { HumedadCard } from '../../../../components/measureCards/HumedadCard';
-import { LuzSolarCard } from '../../../../components/measureCards/LuzSolarCard';
-import { PhCard } from '../../../../components/measureCards/PhCard';
-import { ConductividadCard } from '../../../../components/measureCards/ConductividadCard';
-import { HumedadHojaCard } from '../../../../components/measureCards/HumedadHojaCard';
+import { TemperatureCard } from '../../../../components/CardsMeasures/TemperatureCard'
+import { Co2Card } from '../../../../components/CardsMeasures/Co2Card'
+import { HumidityCard } from '../../../../components/CardsMeasures/HumidityCard'
+import { SunlightCard } from '../../../../components/CardsMeasures/SunlightCard'
+import { PhCard } from '../../../../components/CardsMeasures/PhCard'
+import { ConductivityCard } from '../../../../components/CardsMeasures/ConductivityCard'
+import { LeafHumidity } from '../../../../components/CardsMeasures/LeafHumidity'
+import { AICropContext } from '../../../../context/AICropContext'
+import axios from 'axios'
 
 export const OneGreenhouse = () => {
 
@@ -26,15 +26,39 @@ export const OneGreenhouse = () => {
 
       if(selectedGreenhouse){
         axios
-          .get(`http://localhost:4000/server/alarm/seeAlarmsByMeasure/${selectedGreenhouse}`)
+          .get(`http://localhost:4000/greenhouse/details/${selectedGreenhouse}`)
           .then((res)=>{
-            setTemperatura(res.data.resultTemperatura);
-            setCo2(res.data.resultCo2);
-            setHumedad(res.data.resultHumedad);
-            setLuzSolar(res.data.resultLuz);
-            setPh(res.data.resultPh);
-            setConductividad(res.data.resultCe);
-            setHumedadHoja(res.data.resultHumedadHoja);
+            console.log(res.data.resultTemperatura);
+            console.log(res.data)
+            console.log(selectedGreenhouse);
+            for (let i = 0; i < res.data.resultMeasure.length; i++){
+              switch (res.data.resultMeasure[i].measurement_type_id){
+                case 1:
+                  setTemperatura(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 2:
+                  setCo2(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 3:
+                  setHumedad(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 4:
+                  setLuzSolar(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 5:
+                  setPh(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 6:
+                  setConductividad(res.data.resultMeasure[i].measure_value)
+                  break;
+                case 7:
+                  setHumedadHoja(res.data.resultMeasure[i].measure_value)
+                  break;
+                default:
+                  console.log("pringao")
+              }
+            }
+
           })
           .catch((err)=>{
             console.log(err);
@@ -46,37 +70,49 @@ export const OneGreenhouse = () => {
     <div className='cont_greenhouses'>
       <section className='botones_user'>
         <button><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
-        <button><img alt='configuracion invernadero'/></button>
-        <button><img alt='ver colaboradores'/></button>
+        <button><img className='config_invernadero' alt='configuracion invernadero' src='/assets/images/editar_greenhouse.png'/></button>
+        <button><img alt='ver colaboradores' src='/assets/images/ver_colaboradores.png'/></button>
         <button><img alt='notificaciones' src='/assets/images/notification.png'/></button>
       </section>
-      <header className='header_Allgreenhouses'>
+      <header className='header_greenhouses'>
         <section className='title_row'>
           <h1>mi invernadero</h1>
           <article className='input_sect'>
-          <div>
+          <div className='search_add'>
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar cultivo'/>
           </div>
-          <div>
+          <button className='search_add'>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
-            <input placeholder='Añadir colaboradores'/>
-          </div>
+            Añadir colaboradores
+          </button>
           </article>
         </section>
         <p>Nombre del invernadero</p>
       </header>
       <main>
-        <div className='card_measure'>
-          <TemperaturaCard temperatura = {temperatura}/>
-          <Co2Card co2 = {co2}/>
-          <HumedadCard humedad = {humedad}/>
-          <LuzSolarCard luzSolar = {luzSolar}/>
-          <PhCard ph = {ph}/>
-          <ConductividadCard conductividad = {conductividad}/>
-          <HumedadHojaCard humedadHoja = {humedadHoja}/>
-
-        </div>
+        <section className='cards_measures'>
+          {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
+          <div><p>No hay ningún parámetro</p></div>
+          :
+          <div>
+          {temperatura &&
+          <TemperatureCard temperatura = {temperatura}/>}
+          {co2 &&
+          <Co2Card co2 = {co2}/>} 
+          {humedad &&
+          <HumidityCard humedad = {humedad}/>}
+          {luzSolar &&
+          <SunlightCard luzSolar = {luzSolar}/>}
+          {ph &&
+          <PhCard ph = {ph}/>}
+          {conductividad &&
+          <ConductivityCard conductividad = {conductividad}/>}
+          {humedadHoja &&
+          <LeafHumidity humedadHoja = {humedadHoja}/>}
+          </div>
+          }
+        </section> 
       </main>
     </div>
   )

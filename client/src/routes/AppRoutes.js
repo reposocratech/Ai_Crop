@@ -1,4 +1,4 @@
-  import React from 'react'
+import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/home/Home'
 import { Container } from 'react-bootstrap'
@@ -27,7 +27,7 @@ export const AppRoutes = () => {
 
                     <Route path='user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
-                      <Route path='greenhouse' element={<OneGreenhouse/>}/>
+                      <Route path=':greenhouse' element={<OneGreenhouse/>}/>
                       <Route path=':greenhouse/:measure' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
                     </Route>

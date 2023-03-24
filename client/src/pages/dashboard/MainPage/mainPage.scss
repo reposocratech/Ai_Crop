@@ -9,7 +9,7 @@
     .white_cont{
         width: inherit;
         min-width: fit-content;
-        background-color: white;
+        background-color: $whiteMain;
         border-radius: 53px;
         padding: 38px 30px 40px 48px;
         position: fixed;
@@ -31,7 +31,7 @@
 
     .outlet_cont{
         border-radius: 75px;
-        outline: 35px solid white;
+        outline: 35px solid $whiteMain;
         box-shadow: -37px 3px 7px -1px rgba(0, 0, 0, 0.25);
     }
 }
@@ -47,6 +47,16 @@
             .padree{
                 overflow-y: hidden;
                 height: auto;
+            }
+        }
+    }
+}
+@media (max-width: 500px){
+    .contNav_pPal{
+        .white_cont{
+            padding: 5vw;
+            .padree{
+                padding-right: 0;
             }
         }
     }

@@ -9,8 +9,7 @@ export const OwnerCard = ({elem}) => {
   const {user, setSelectedGreenhouse} = useContext(AICropContext);
 
   const onSubmit = () => {
-    setSelectedGreenhouse(elem.greenhouse_id);
-    navigate('greenhouse')
+    navigate(`${elem.greenhouse_id}`)
   }
 
   return (
