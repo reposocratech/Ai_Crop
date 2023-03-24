@@ -10,10 +10,12 @@ import { ConductivityCard } from '../../../../components/CardsMeasures/Conductiv
 import { LeafHumidity } from '../../../../components/CardsMeasures/LeafHumidity'
 import { AICropContext } from '../../../../context/AICropContext'
 import axios from 'axios'
+import { getLocalStorageAICropGreenhouse } from '../../../../helpers/localStorage/localStorageAICrop'
+import { useParams } from 'react-router-dom'
 
 export const OneGreenhouse = () => {
 
-  const {user, selectedGreenhouse} = useContext(AICropContext);
+  const {user} = useContext(AICropContext);
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
   const [humedad, setHumedad] = useState();
@@ -22,49 +24,48 @@ export const OneGreenhouse = () => {
   const [conductividad, setConductividad] = useState();
   const [humedadHoja, setHumedadHoja] = useState();
 
-    useEffect(() => {
+  const greenhouse_id = useParams().greenhouse_id;
+  console.log(greenhouse_id);
 
-      if(selectedGreenhouse){
-        axios
-          .get(`http://localhost:4000/greenhouse/details/${selectedGreenhouse}`)
-          .then((res)=>{
-            console.log(res.data.resultTemperatura);
-            console.log(res.data)
-            console.log(selectedGreenhouse);
-            for (let i = 0; i < res.data.resultMeasure.length; i++){
-              switch (res.data.resultMeasure[i].measurement_type_id){
-                case 1:
-                  setTemperatura(res.data.resultMeasure[i].measure_value)
-                  break;
-                case 2:
-                  setCo2(res.data.resultMeasure[i].measure_value)
-                  break;
-                case 3:
-                  setHumedad(res.data.resultMeasure[i].measure_value)
-                  break;
-                case 4:
-                  setLuzSolar(res.data.resultMeasure[i].measure_value)
-                  break;
-                case 5:
-                  setPh(res.data.resultMeasure[i].measure_value)
-                  break;
-                case 6:
-                  setConductividad(res.data.resultMeasure[i].measure_value)
-                  break;
-                case 7:
-                  setHumedadHoja(res.data.resultMeasure[i].measure_value)
-                  break;
-                default:
-                  console.log("pringao")
-              }
-            }
+  useEffect(() => {
+    
+    axios
+      .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
+      .then((res)=>{
+        console.log(res.data);
 
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
-      }
-  }, [user])
+        for (let i = 0; i < res.data.resultMeasure.length; i++){
+          switch (res.data.resultMeasure[i].measurement_type_id){
+            case 1:
+              setTemperatura(res.data.resultMeasure[i].measure_value)
+              break;
+            case 2:
+              setCo2(res.data.resultMeasure[i].measure_value)
+              break;
+            case 3:
+              setHumedad(res.data.resultMeasure[i].measure_value)
+              break;
+            case 4:
+              setLuzSolar(res.data.resultMeasure[i].measure_value)
+              break;
+            case 5:
+              setPh(res.data.resultMeasure[i].measure_value)
+              break;
+            case 6:
+              setConductividad(res.data.resultMeasure[i].measure_value)
+              break;
+            case 7:
+              setHumedadHoja(res.data.resultMeasure[i].measure_value)
+              break;
+            default:
+              console.log("pringao")
+          }
+        }
+      })
+
+  }, [])
+
+  
 
   return (
     <div className='cont_greenhouses'>
@@ -95,10 +96,8 @@ export const OneGreenhouse = () => {
           {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
           <div><p>No hay ningún parámetro</p></div>
           :
-          <div>
-            {temperatura && <p>Temperatura: {temperatura}</p>}
-            
-          {/* {temperatura &&
+          <div>          
+          {temperatura &&
           <TemperatureCard temperatura = {temperatura}/>}
           {co2 &&
           <Co2Card co2 = {co2}/>} 
@@ -111,7 +110,7 @@ export const OneGreenhouse = () => {
           {conductividad &&
           <ConductivityCard conductividad = {conductividad}/>}
           {humedadHoja &&
-          <LeafHumidity humedadHoja = {humedadHoja}/>} */}
+          <LeafHumidity humedadHoja = {humedadHoja}/>}
           </div>
           }
         </section> 
