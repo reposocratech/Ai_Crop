@@ -96,7 +96,9 @@ export const OneGreenhouse = () => {
           <div><p>No hay ningún parámetro</p></div>
           :
           <div>
-          {temperatura &&
+            {temperatura && <p>Temperatura: {temperatura}</p>}
+            
+          {/* {temperatura &&
           <TemperatureCard temperatura = {temperatura}/>}
           {co2 &&
           <Co2Card co2 = {co2}/>} 
@@ -109,7 +111,7 @@ export const OneGreenhouse = () => {
           {conductividad &&
           <ConductivityCard conductividad = {conductividad}/>}
           {humedadHoja &&
-          <LeafHumidity humedadHoja = {humedadHoja}/>}
+          <LeafHumidity humedadHoja = {humedadHoja}/>} */}
           </div>
           }
         </section> 

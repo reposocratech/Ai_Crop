@@ -48,12 +48,17 @@
         padding: 10px 20px;
         color: white;
         letter-spacing: 0.12em;
+        p{
+            font-size: 16px;
+            font-weight: 300;
+        }
         .title{
             font-weight: 800;
             margin: 0;
         }
         hr{
             width: 150px;
+            // width: fit-content;
             border: 1px solid white;
             opacity: 100%;
         }
