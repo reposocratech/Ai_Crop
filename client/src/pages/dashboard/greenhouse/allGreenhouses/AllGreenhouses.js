@@ -8,6 +8,7 @@ import { CollaboratorCard } from '../../../../components/greenhouseCards/Collabo
 import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif';
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif';
 import { useNavigate } from 'react-router-dom';
+import { deleteLocalStorageAICropGreenhouse } from '../../../../helpers/localStorage/localStorageAICrop';
 
 export const AllGreenhouses = () => {
 
@@ -15,19 +16,18 @@ export const AllGreenhouses = () => {
   const [greenhousesInfo, setGreenhousesInfo] = useState()
   const [showModalNotif, setShowModalNotif] = useState(false)
 
+
   const navigate = useNavigate();
 
   let numberOfGreenHouses = greenhousesInfo?.resultOwner.length + greenhousesInfo?.resultCollaborator.length;
-
-
 
     useEffect(() => {
       if(user){
         axios
           .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
           .then((res)=>{
-            console.log(res.data);
             setGreenhousesInfo(res.data);
+            deleteLocalStorageAICropGreenhouse()
           })
           .catch((err)=>{
             console.log(err);
@@ -65,7 +65,9 @@ export const AllGreenhouses = () => {
         {greenhousesInfo && greenhousesInfo.resultOwner.map((elem, index)=>{
               return (
                 <div key={index}>
-                  <OwnerCard elem = {elem} />
+                  <OwnerCard 
+                  elem = {elem} 
+                  />
                 </div>
               )
           })
@@ -77,7 +79,9 @@ export const AllGreenhouses = () => {
         {greenhousesInfo && greenhousesInfo.resultCollaborator.map((elem, index)=>{
               return (
                 <div key={index}>
-                  <CollaboratorCard elem = {elem}/>
+                  <CollaboratorCard 
+                  elem = {elem}
+                  />
                 </div>
               )
           })

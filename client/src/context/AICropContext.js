@@ -11,7 +11,6 @@ export const AICropProvider = (props) => {
     // const [userCollaborator, setUserCollaborator] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [token, setToken] = useState();
-    // const [selectedGreenhouse, setSelectedGreenhouse] = useState();
 
     useEffect(() => {
         const tokenStorage = getLocalStorageAICrop();
@@ -31,7 +30,6 @@ export const AICropProvider = (props) => {
                 .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user_id}`)
                 .then((res)=>{
                     setUserAlarms(res.data)
-
                 })
                 .catch((error)=>console.log(error))
         }
@@ -46,11 +44,10 @@ export const AICropProvider = (props) => {
         isLogged,
         setIsLogged,
         userAlarms,
-        setUserAlarms,
-        // userCollaborator,
-        // setUserCollaborator,
-        // selectedGreenhouse,
-        // setSelectedGreenhouse,
+        setUserAlarms
+       
+        
+
     }}>
         {props.children}
     </AICropContext.Provider>
