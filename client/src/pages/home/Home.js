@@ -22,13 +22,13 @@ export const Home = () => {
             <a href="#about"><button className='mt-5 mb-5'>CONÓCENOS</button></a>
 
             {/* REDES */}
-            <section className='rrss mb-5'>
+            {/* <section className='rrss mb-5'>
                 <p className='m-0'>Follow us</p>
                 <img alt='facebook' src='/assets/images/facebook.png'/>
                 <img alt='linkedin' src='/assets/images/linkedin.png'/>
                 <img alt='instagram' src='/assets/images/instagram.png'/>
                 <img alt='twitter' src='/assets/images/twitter.png'/>
-            </section>
+            </section> */}
         </Col>
     </Row>
 

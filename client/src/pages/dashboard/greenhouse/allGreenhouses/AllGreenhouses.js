@@ -5,11 +5,21 @@ import axios from 'axios'
 import './allgreenhouses.scss'
 import { OwnerCard } from '../../../../components/greenhouseCards/OwnerCard';
 import { CollaboratorCard } from '../../../../components/greenhouseCards/CollaboratorCard';
+import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif';
+import { ModalNotif } from '../../../../components/Notifications/ModalNotif';
+import { useNavigate } from 'react-router-dom';
 
 export const AllGreenhouses = () => {
 
   const {user} = useContext(AICropContext);
   const [greenhousesInfo, setGreenhousesInfo] = useState()
+  const [showModalNotif, setShowModalNotif] = useState(false)
+
+  const navigate = useNavigate();
+
+  let numberOfGreenHouses = greenhousesInfo?.resultOwner.length + greenhousesInfo?.resultCollaborator.length;
+
+
 
     useEffect(() => {
       if(user){
@@ -28,8 +38,9 @@ export const AllGreenhouses = () => {
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
-        <button><img src='/assets/images/go_back.png'/></button>
-        <button><img src='/assets/images/notification.png'/></button>
+        <button onClick={()=>navigate('/')}><img src='/assets/images/go_back.png'/></button>
+        <ButtonNotif setShowModalNotif={setShowModalNotif}/>
+        <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
       </section>
       <header className='header_greenhouses'>
         <section className='title_row'>
@@ -45,7 +56,7 @@ export const AllGreenhouses = () => {
           </div> */}
           </article>
         </section>
-        <p>Actualmente hay X invernadero(s) activo(s)</p>
+        {greenhousesInfo && <p>Actualmente hay {numberOfGreenHouses} invernadero(s) activo(s)</p>}
       </header>
       <main>
         
