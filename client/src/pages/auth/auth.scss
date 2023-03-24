@@ -59,6 +59,11 @@
         width: 690px;
         margin-top: 30px;
         transition: 0.2s;
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
 
         .nombre_apell {
             display: flex;
@@ -83,6 +88,11 @@
             background-color: transparent;
         }
 
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
         // ADAPTACIÓN PROPIEDAD AUTOFILL CAMPOS 
         .float-container input:autofill,
           input:autofill:hover,

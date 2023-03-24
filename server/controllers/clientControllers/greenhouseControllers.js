@@ -39,7 +39,7 @@ class GreenhouseController {
     //3. see greenhouse info
     // localhost:4000/greenhouse/details/:greenhouse_id
     getGreenhouseDetails = (req, res) => {
-    
+        
         const greenhouse_id = req.params.greenhouse_id;
 
         let sqlGreenhouse = `SELECT greenhouse.*, count(user.user_id) as collaborator_count FROM greenhouse LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id LEFT JOIN user ON user_greenhouse.user_id = user.user_id WHERE greenhouse.greenhouse_id = ${greenhouse_id} GROUP BY greenhouse.greenhouse_name;`;
@@ -91,6 +91,7 @@ class GreenhouseController {
     
      // 4. trae la info de todos los invernaderos que tengo o que colaboro
     //localhost:4000/greenhouse/getAllGreenhouses/:user_id
+    
     getAllGreenhouses = (req, res) => {
 
         const user_id = req.params.user_id;

@@ -29,7 +29,8 @@ export const AICropProvider = (props) => {
             axios
                 .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user_id}`)
                 .then((res)=>{
-                    setUserAlarms(res.data.result)
+                    setUserAlarms(res.data)
+
                 })
                 .catch((error)=>console.log(error))
         }
@@ -46,7 +47,8 @@ export const AICropProvider = (props) => {
         userAlarms,
         setUserAlarms,
         selectedGreenhouse,
-        setSelectedGreenhouse
+        setSelectedGreenhouse,
+        setUserAlarms
     }}>
         {props.children}
     </AICropContext.Provider>

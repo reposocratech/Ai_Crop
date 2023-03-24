@@ -26,4 +26,8 @@ router.get('/seeAllGreenhouseAlarms/:greenhouse_id', AlarmController.seeAllGreen
 // localhost:4000/server/alarm/seeAllGreenhouseAlarms/:greenhouse_id
 router.get('/seeActiveGreenhouseAlarms/:greenhouse_id', AlarmController.seeActiveGreenhouseAlarms);
 
+// 7. Muestra la última alarma de cada medida de un invernadero indicado en la URL
+// localhost:4000/server/alarm/seeAlarmsByMeasure/:greenhouse_id
+router.get('/seeAlarmsByMeasure/:greenhouse_id', AlarmController.seeAlarmsByMeasure);
+
 module.exports = router;
