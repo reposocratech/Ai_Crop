@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../context/AICropContext';
 import "./greenhousecard.scss"
+import { saveLocalStorageAICropGreenhouse } from '../../helpers/localStorage/localStorageAICrop';
 
-export const CollaboratorCard = ({elem}) => {
+export const CollaboratorCard = ({elem, setSelectedGreenhouse}) => {
   const navigate = useNavigate();
-  const {user, setSelectedGreenhouse} = useContext(AICropContext);
+  const {user} = useContext(AICropContext);
 
   const onSubmit = () => {
-    setSelectedGreenhouse(elem.greenhouse_id)
     navigate('greenhouse')
   }
 
