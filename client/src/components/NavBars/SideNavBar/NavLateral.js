@@ -20,7 +20,6 @@ export const NavLateral = () => {
   let fotito = user?.user_photo;
   let noFoto = "/assets/images/default_pic.png";
 
-  console.log(fotito,"la ruta de la foto");
 
 
   // El nav lateral está pendiente al token para que la vista de user una vez accede al usuario

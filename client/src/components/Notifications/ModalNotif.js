@@ -12,10 +12,7 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
         setShowModalNotif(false);
     }
 
-    const {userAlarms} = useContext(AICropContext)
-    console.log(userAlarms);
-    
-  
+    const {userAlarms} = useContext(AICropContext)    
 
   return (
     <>
@@ -25,7 +22,7 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
         {userAlarms?.map((alarma, index)=> {
 
             return(
-            <div className='emergencia'>
+            <div className='emergencia' key={index}>
                 <p>{alarma.alarm_message}</p>
             </div>
             )
