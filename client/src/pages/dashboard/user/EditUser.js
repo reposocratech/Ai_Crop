@@ -42,11 +42,14 @@ export const EditUser = () => {
         axios
             .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
             .then((res)=>{
+                console.log(editUser);
+                console.log(res.data);
                 console.log("***** KEE PASAA********", res.data.img);
                 if(res.data.img === ""){
                     setUser(editUser)
                 }else{
-                    setUser({...editUser, img:res.data.img})
+                    setUser({...editUser, user_photo:res.data.img})
+                    
                 }
                 navigate("/user")
             })

@@ -38,6 +38,9 @@
                 width: 9vw;
                 height: 9vw;
                 border-radius: 50%;
+                object-fit: cover;
+                object-position: center;
+                
             }
             h6{
                 font-family: $sora;
