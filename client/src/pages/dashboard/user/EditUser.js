@@ -87,6 +87,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
   return (
     <section className='contEdit fondo'>
 
+
         <section className='headerEdit botones_user'>
             <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
         
@@ -133,6 +134,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             </div>
 
             <div id="floatContainer" className="float-container">
+
             <label htmlFor="floatField">Teléfono</label>
             <input
             placeholder='Teléfono'
@@ -140,6 +142,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             onChange={handleChange}
             name="phone"        />
         </div>
+
 
         </section>
         }
@@ -162,6 +165,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={editUser.post_code}
                 onChange={handleChange}
                 name="post_code"        />
+
             </div>
 
             
@@ -218,6 +222,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 name="user_knowledge"        /> 
             </div>
 
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Img</label>
                 <input
@@ -240,6 +245,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 <button onClick={handleSubmit} className='bg_verde'>aceptar</button>
                 
             </article>
+
     </section>
 
   )
