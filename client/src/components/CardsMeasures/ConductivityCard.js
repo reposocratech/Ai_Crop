@@ -3,7 +3,7 @@ import React from 'react'
 export const ConductivityCard = ({conductividad}) => {
   return (
     <div className='measure_cardCont'>
-    <div className='conductivity_card'>
+    <div className='conductivity_card responsive_card'>
         <h3>CONDUCTIVIDAD</h3>
         <div className='conductivity_body'>
             <div className='cuadro'>
