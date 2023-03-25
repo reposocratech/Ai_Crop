@@ -14,6 +14,7 @@ import { MainPage } from '../pages/dashboard/MainPage/MainPage'
 import { Info } from '../pages/home/info/Info'
 import { EditGreenhouse } from '../pages/dashboard/greenhouse/EditGreenhouse/EditGreenhouse'
 import { AICropContext } from '../context/AICropContext'
+import { CreateGreenhouse } from '../pages/dashboard/greenhouse/createGreenhouse/CreateGreenhouse'
 
 
 
@@ -37,6 +38,7 @@ export const AppRoutes = () => {
                       <Route path=':greenhouse/:measure' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
                       <Route path='editGreenhouse' element={<EditGreenhouse/>}/>
+                      <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>
                     </Route>
 
                     <Route path='admin' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}

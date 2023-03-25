@@ -223,4 +223,13 @@ h3{
     .responsive_card{
         width: 80vw;
     }
+    .co2_card{
+        .cuadro{
+            left: 0;
+            bottom: 60px;
+            width:min-content;
+            margin: 0 !important;
+            padding: 20px 30px;
+        }
+    }
 }

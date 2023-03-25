@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import './onegreenhouse.scss'
-import '../allGreenhouses/allgreenhouses.scss'
 import { TemperatureCard } from '../../../../components/CardsMeasures/TemperatureCard'
 import { Co2Card } from '../../../../components/CardsMeasures/Co2Card'
 import { HumidityCard } from '../../../../components/CardsMeasures/HumidityCard'
@@ -16,6 +14,9 @@ import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
 import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
 import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
+
+import './onegreenhouse.scss'
+import '../allGreenhouses/allgreenhouses.scss'
 
 
 import { useParams } from 'react-router-dom'
@@ -117,11 +118,10 @@ export const OneGreenhouse = () => {
         <p>Nombre del invernadero</p>
       </header>
       <main>
+        {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
+        <div><p>No hay ningún parámetro</p></div>
+        :
         <section className='cards_measures'>
-          {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
-          <div><p>No hay ningún parámetro</p></div>
-          :
-          <div>          
           {temperatura &&
           <TemperatureCard temperatura = {temperatura}/>}
           {co2 &&
@@ -136,9 +136,8 @@ export const OneGreenhouse = () => {
           <ConductivityCard conductividad = {conductividad}/>}
           {humedadHoja &&
           <LeafHumidity humedadHoja = {humedadHoja}/>}
-          </div>
-          }
         </section> 
+        }
       </main>
     </div>
   )
