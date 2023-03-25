@@ -57,39 +57,73 @@ export const EditUser = () => {
         }
         console.log(user,"el user");
   return (
-    <div className='contEdit'>
+    <section className='contEdit fondo'>
         
-        <input
-            placeholder='nombre'
-            value={editUser.first_name}
-            onChange={handleChange}
-            name="first_name"
-        />
-        <input
-            placeholder='Apellidos'
-            value={editUser.last_name}
-            onChange={handleChange}
-            name= "last_name"        />
-        <input
+        <article className='nombre_apell'>
+
+        <div id="floatContainer"  className="float-container">
+            <label htmlFor="floatField">Nombre</label>
+            <input
+                type="text" maxLength="20" 
+                placeholder='nombre'
+                value={editUser.first_name}
+                onChange={handleChange}
+                name="first_name"
+            />
+        </div>
+
+        <div id="floatContainer"  className="float-container">
+            <label htmlFor="floatField">Apellido</label>
+            <input
+                type="text" maxLength="25"
+                placeholder='Apellidos'
+                value={editUser.last_name}
+                onChange={handleChange}
+                name= "last_name"        />
+        </div>
+        
+         <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">DNI</label>
+            <input
             placeholder='Documento de identificación'
             value={editUser.dni}
             onChange={handleChange}
             name="dni"        />
-        <input
+        </div>
+        </article>
+        
+        <article className='nombre_apell'>
+<div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Teléfono</label>
+            <input
             placeholder='Teléfono'
             value={editUser.phone}
             onChange={handleChange}
             name="phone"        />
-        <input
+        </div>
+        
+        <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Dirección</label>
+            <input
             placeholder='Dirección'
             value={editUser.address}
             onChange={handleChange}
             name="address"        />
-        <input
+        </div>
+        
+        <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">C.P.</label>
+            <input
             placeholder='Codigo Postal'
             value={editUser.post_code}
             onChange={handleChange}
             name="post_code"        />
+        </div>
+
+        </article>
+
+        
+        
 
         <div id="floatContainer" className="float-container">
                 <label htmlFor="countries">País</label>
@@ -126,19 +160,30 @@ export const EditUser = () => {
                 }
             </div>
         
-        <input
+        <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Conocimientos</label>
+           <input
             placeholder='conocimientos'
             value={editUser.user_knowledge}
             onChange={handleChange}
-            name="user_knowledge"        />
-        <input
+            name="user_knowledge"        /> 
+        </div>
+
+        <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Img</label>
+            <input
             type="file"
             onChange={handleChangeFile}
         />
-        <button onClick={handleSubmit}>aceptar</button>
-        <button onClick={()=>navigate(-1)}>cancelar</button>
+        </div>
         
-    </div>
+        <article className='button_section'>
+            <button onClick={handleSubmit} className='bg_verde'>aceptar</button>
+            <button onClick={()=>navigate(-1)}>cancelar</button>
+        </article>
+        
+        
+    </section>
 
   )
 }
