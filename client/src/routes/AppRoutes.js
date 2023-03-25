@@ -35,7 +35,9 @@ export const AppRoutes = () => {
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
                       <Route path=':greenhouse/:measure' element={<Measure/>}/>
-                      <Route path='edit' element={<EditUser/>}/>
+                      <Route path='edit' element={<EditUser 
+                        
+                      />}/>
                       <Route path='editGreenhouse' element={<EditGreenhouse/>}/>
                     </Route>
 
