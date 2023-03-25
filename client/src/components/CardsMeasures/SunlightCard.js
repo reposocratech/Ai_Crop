@@ -5,7 +5,7 @@ export const SunlightCard = ({luzSolar}) => {
     const {user, selectedGreenhouse} = useContext(AICropContext);
   return (
     <div className='measure_cardCont'>
-    <div className='sunlight_card'>
+    <div className='sunlight_card responsive_card'>
         <img src='/assets/images/cards/sunlight.png'/>
         <div>
             <h3>LUZ SOLAR</h3>

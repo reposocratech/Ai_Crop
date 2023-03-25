@@ -3,6 +3,7 @@ import './admin.scss'
 
 export const Admin = () => {
   return (
-    <div>Admin</div>
+    <div>all user</div>
+
   )
 }

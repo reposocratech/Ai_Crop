@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import './onegreenhouse.scss'
-import '../allGreenhouses/allgreenhouses.scss'
 import { TemperatureCard } from '../../../../components/CardsMeasures/TemperatureCard'
 import { Co2Card } from '../../../../components/CardsMeasures/Co2Card'
 import { HumidityCard } from '../../../../components/CardsMeasures/HumidityCard'
@@ -16,6 +14,9 @@ import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
 import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
 import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
+
+import './onegreenhouse.scss'
+import '../allGreenhouses/allgreenhouses.scss'
 
 
 import { useParams } from 'react-router-dom'
@@ -33,20 +34,23 @@ export const OneGreenhouse = () => {
   const [humedadHoja, setHumedadHoja] = useState();
   const [showModalNotif, setShowModalNotif] = useState(false)
   const [showModalCollab, setShowModalCollab] = useState(false)
-  const [userCollaborator, setUserCollaborator] = useState();
+  const [userCollaborators, setUserCollaborators] = useState();
+  const [helpers, setHelpers] = useState();
+  
 
   const navigate = useNavigate();
 
-  console.log()
 
   const greenhouse_id = useParams().greenhouse_id;
-  console.log(greenhouse_id);
 
   useEffect(() => {
     
     axios
       .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
       .then((res)=>{
+
+        setUserCollaborators(res.data.resultCollaborators);
+        setHelpers(res.data.resultHelpers);
         console.log(res.data);
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
@@ -92,10 +96,12 @@ export const OneGreenhouse = () => {
         
          {/* Modal Collaborator */}
          <ButtonCollaborator setShowModalCollab={setShowModalCollab}/>
-         <ModalCollaborator showModalCollab={showModalCollab} setShowModalCollab={setShowModalCollab} userCollaborator={userCollaborator} setUserCollaborator={setUserCollaborator}/>
+         
+         <ModalCollaborator showModalCollab={showModalCollab} setShowModalCollab={setShowModalCollab} userCollaborators={userCollaborators} helpers={helpers}/>
 
         {/* Modal */}
         <ButtonNotif setShowModalNotif={setShowModalNotif}/>
+        
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
         
 
@@ -117,11 +123,10 @@ export const OneGreenhouse = () => {
         <p>Nombre del invernadero</p>
       </header>
       <main>
+        {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
+        <div><p>No hay ningún parámetro</p></div>
+        :
         <section className='cards_measures'>
-          {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
-          <div><p>No hay ningún parámetro</p></div>
-          :
-          <div>          
           {temperatura &&
           <TemperatureCard temperatura = {temperatura}/>}
           {co2 &&
@@ -136,9 +141,8 @@ export const OneGreenhouse = () => {
           <ConductivityCard conductividad = {conductividad}/>}
           {humedadHoja &&
           <LeafHumidity humedadHoja = {humedadHoja}/>}
-          </div>
-          }
         </section> 
+        }
       </main>
     </div>
   )

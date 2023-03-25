@@ -44,6 +44,7 @@ export const AICropProvider = (props) => {
         isLogged,
         setIsLogged,
         userAlarms,
+
         setUserAlarms
     }}>
         {props.children}
