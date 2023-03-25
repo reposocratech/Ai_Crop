@@ -37,9 +37,9 @@ export const AppRoutes = () => {
                       <Route path=':greenhouse/:measure' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
                       <Route path='editGreenhouse' element={<EditGreenhouse/>}/>
+                      <Route path='admin' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
                     </Route>
 
-                    <Route path='admin' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
                     <Route path='*' element={<Error/>} />
                 </Routes>
             </BrowserRouter>

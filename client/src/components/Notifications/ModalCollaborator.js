@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Modal } from 'react-bootstrap';
 import { AICropContext } from '../../context/AICropContext';
-import './notification.scss'
+import './notificationTwo.scss'
 
-export const ModalCollaborator = ({showModalCollab, setShowModalCollab, userCollaborator, setUserCollaborator}) => {
+export const ModalCollaborator = ({showModalCollab, setShowModalCollab, userCollaborators, helpers}) => {
 
     const handleClose2 = () => {
         setShowModalCollab(false);
@@ -12,13 +12,21 @@ export const ModalCollaborator = ({showModalCollab, setShowModalCollab, userColl
   return (
     <>
     <Modal className='ModalTop' show={showModalCollab} onHide={handleClose2}>
-        <Modal.Body className='modalCont'>
+        <Modal.Body className='modalCont2'>
 
-        {userCollaborator?.map((collab, index)=> {
-            console.log(collab);
+        {userCollaborators?.map((collab, index)=> {
+            // console.log(collab);
             return(
-            <div key={index} className='emergencia'>
-                <p>{collab.email}</p>
+            <div key={index} className='emergencia2'>
+                <p>Colaborador: {collab.email}</p>
+            </div>
+            )
+        })}
+        {helpers?.map((helper, index)=> {
+            // console.log(helper);
+            return(
+            <div key={index} className='emergencia2'>
+                <p>Ayudante: {helper.helper_email}</p>
             </div>
             )
         })}
