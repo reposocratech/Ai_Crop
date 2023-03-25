@@ -1,24 +1,23 @@
 import React, { createContext, useEffect, useState } from 'react'
 import jwtDecode from 'jwt-decode'
-import { getLocalStorageAICrop } from '../helpers/localStorage/localStorageAICrop';
+import { getLocalStorageSimulator } from '../helpers/localStorage/localStorageSimulator';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export const AICropContext = createContext()
+export const SimulatorContext = createContext()
 
-export const AICropProvider = (props) => {
+export const SimulatorProvider = (props) => {
     const [user, setUser] = useState();
-    const [userAlarms, setUserAlarms] = useState();
-    // const [userCollaborator, setUserCollaborator] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [token, setToken] = useState();
 
     useEffect(() => {
-        const tokenStorage = getLocalStorageAICrop();
+        const tokenStorage = getLocalStorageSimulator();
+        console.log(tokenStorage);
         setToken(tokenStorage);
 
         if(tokenStorage) {
             let user_id = jwtDecode(tokenStorage).user.user_id;
-
             axios
                 .get(`http://localhost:4000/user/getOneUser/${user_id}`)
                 .then((res)=>{
@@ -26,28 +25,19 @@ export const AICropProvider = (props) => {
                     setIsLogged(true);
                 })
                 .catch((error)=>console.log(error))
-
-            axios
-                .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user_id}`)
-                .then((res)=>{
-                    setUserAlarms(res.data)
-                })
-                .catch((error)=>console.log(error))
         }
-
     }, [])
     
 
   return (
-    <AICropContext.Provider value={{
+    <SimulatorContext.Provider value={{
         user,
         setUser,
         isLogged,
         setIsLogged,
-        userAlarms,
-        setUserAlarms
+        token
     }}>
         {props.children}
-    </AICropContext.Provider>
+    </SimulatorContext.Provider>
   )
 }

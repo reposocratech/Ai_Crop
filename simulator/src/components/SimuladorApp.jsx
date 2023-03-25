@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FormularioSimulador } from './FormularioSimulador';
-
-import './style.scss';
 import { GreenhouseInfo } from './GreenhouseInfo';
+import { TopNavBar } from './TopNavBar/TopNavBar';
+import { SimulatorContext } from '../context/SimulatorContext';
+import './style.scss';
+import { useNavigate } from 'react-router-dom';
 
 export const SimuladorApp = () => {
 
     const [showGreenhouse, setShowGreenhouse] = useState(false);
     const [greenhouse_id, setGreenhouse_id] = useState();
     const [messageError, setMessageError] = useState("");
+    const {isLogged, setIsLogged, token} = useContext(SimulatorContext)
+    const navigate = useNavigate();
+    
 
   return (
+    <>
+            <TopNavBar />
         <div className='simulator'>
             <FormularioSimulador
             setGreenhouse_id = {setGreenhouse_id}
@@ -31,5 +38,6 @@ export const SimuladorApp = () => {
                 </section>
             </div>
         </div>
+        </>
   )
 }

@@ -40,7 +40,8 @@ class EmailController {
                     
                         for(let i = 0; i < resultAlarmCollaborators.length; i++){
                             emailList.push(resultAlarmCollaborators[i].email)
-                        }   
+                        }
+
                         for(let i = 0; i < resultHelpers.length; i++){
                             emailList.push(resultHelpers[i].helper_email)
                         }
@@ -89,7 +90,6 @@ class EmailController {
         let resultAlarm = req.body.resultAlarm[0];
         let {alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name} = resultAlarm;
 
-
         for(let i = 0; i < email_list.length; i++){
             nodemailer(email_list[i], alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name);
             console.log(`SEND EMAIL TO ${email_list[i]} REGARDING ALARM ${alarm_id}`);
@@ -98,12 +98,12 @@ class EmailController {
         res.status(200).json("HA LLEGADO AL FINAL");
     }
 
-    //4. Borrar una notificacion
+    // 4. Borrar una notificacion
     // localhost:4000/server/email/deleteNotification/:notification_id
     deleteNotification = (req, res) => {
         let notification_id = req.params.notification_id;
 
-        let sql = `DELETE FROM notification WHERE notification_id = ${notification_id}`
+        let sql = `DELETE FROM notification WHERE notification_id = ${notification_id}`;
 
         connection.query(sql, (error, result) => {
             error 
@@ -112,14 +112,18 @@ class EmailController {
         }); 
     }
 
-    //5. Ver todas las notificaciones por alarma
+    // 5. Ver todas las notificaciones por alarma
     // localhost:4000/server/email/seeAllNotifications/:alarm_id
     seeAllNotifications = (req, res) => {
         let alarm_id = req.params.alarm_id;
 
-        let sql = ``
+        let sql = `SELECT * FROM notification WHERE alarm_id = ${alarm_id} ORDER BY notification_id DESC`;
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({ error })
+            : res.status(200).json({result});
+        }); 
     }
-
 
 }
 module.exports = new EmailController();
