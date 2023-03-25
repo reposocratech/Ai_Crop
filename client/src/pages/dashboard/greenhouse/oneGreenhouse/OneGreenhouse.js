@@ -34,20 +34,23 @@ export const OneGreenhouse = () => {
   const [humedadHoja, setHumedadHoja] = useState();
   const [showModalNotif, setShowModalNotif] = useState(false)
   const [showModalCollab, setShowModalCollab] = useState(false)
-  const [userCollaborator, setUserCollaborator] = useState();
+  const [userCollaborators, setUserCollaborators] = useState();
+  const [helpers, setHelpers] = useState();
+  
 
   const navigate = useNavigate();
 
-  console.log()
 
   const greenhouse_id = useParams().greenhouse_id;
-  console.log(greenhouse_id);
 
   useEffect(() => {
     
     axios
       .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
       .then((res)=>{
+
+        setUserCollaborators(res.data.resultCollaborators);
+        setHelpers(res.data.resultHelpers);
         console.log(res.data);
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
@@ -93,10 +96,12 @@ export const OneGreenhouse = () => {
         
          {/* Modal Collaborator */}
          <ButtonCollaborator setShowModalCollab={setShowModalCollab}/>
-         <ModalCollaborator showModalCollab={showModalCollab} setShowModalCollab={setShowModalCollab} userCollaborator={userCollaborator} setUserCollaborator={setUserCollaborator}/>
+         
+         <ModalCollaborator showModalCollab={showModalCollab} setShowModalCollab={setShowModalCollab} userCollaborators={userCollaborators} helpers={helpers}/>
 
         {/* Modal */}
         <ButtonNotif setShowModalNotif={setShowModalNotif}/>
+        
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
         
 
