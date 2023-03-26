@@ -1,5 +1,5 @@
 import React from 'react'
-import './createGreenhouse.scss'
+import './creategreenhouse.scss'
 
 export const CreateGreenhouse = () => {
   return (
