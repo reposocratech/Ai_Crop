@@ -17,12 +17,14 @@ export const AICropProvider = (props) => {
 
         if(tokenStorage) {
             let user_id = jwtDecode(tokenStorage).user.user_id;
+            console.log(user_id);
 
             axios
                 .get(`http://localhost:4000/user/getOneUser/${user_id}`)
                 .then((res)=>{
                     setUser(res.data.resultUser[0]);
                     setIsLogged(true);
+                    console.log(res?.data);
                 })
                 .catch((error)=>console.log(error))
 
@@ -30,6 +32,7 @@ export const AICropProvider = (props) => {
                 .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user_id}`)
                 .then((res)=>{
                     setUserAlarms(res.data)
+                    console.log(res?.data);
                 })
                 .catch((error)=>console.log(error))
         }

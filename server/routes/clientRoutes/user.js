@@ -19,19 +19,15 @@ router.get('/deleteUser/:user_id', UserController.deleteUser);
 // localhost:4000/user/login
 router.post('/login', UserController.login);
 
-//5. Logout
+//5. Change Password
 // localhost:4000/user/logout
-router.post('/logout', UserController.logout);
+router.post('/logout', UserController.changePasswordFromSettings);
 
-//6. Change Password
-// localhost:4000/user/logout
-router.post('/logout', UserController.changePassword);
-
-//7. Forgot Password
+//6. Forgot Password
 // localhost:4000/user/retreivePassword
-router.post('/retreivePassword', UserController.retreivePassword);
+router.get('/retreivePassword', UserController.changePasswordFromEmail);
 
-//8. Get one user
+//7. Get one user
 // localhost:4000/user/getOneUser/:user_id
 router.get('/getOneUser/:user_id', UserController.getOneUser);
 
