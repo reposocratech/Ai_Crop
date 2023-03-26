@@ -8,7 +8,7 @@ export const PhCard = ({ph}) => {
             <p>{ph}</p>
             <h3>pH</h3>
         </div>
-        <img src='/assets/images/cards/ph.png'/>
+        <img src='/assets/images/cards/ph.png' className='responsive_img'/>
     </div>
     <hr/>
 </div>

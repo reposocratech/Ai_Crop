@@ -1,2 +1,253 @@
 @import "../../../../mixin";
 @import "../../../../variables";
+
+.create_gh{
+    letter-spacing: 0.105em;
+    font-family: $workSans;
+    font-weight: 400;
+    font-size: 45px;
+    color: $verde6B;
+}
+
+
+// 1ª PARTE FORMULARIO
+.main_creategh{
+    margin-top: 70px;
+    width: 75%;
+    .top_section{
+        display: flex;
+        justify-content: space-between;
+        height: 30px;
+        h5{
+            font-family: $sora;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            padding-left: 5px;
+            letter-spacing: 0.12em;
+            height: fit-content;
+        }
+        .leaf_img {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            bottom: 10px;
+            left: 60px;
+        }
+    }
+
+    // FORMULARIO
+    .form_creategh1{
+        background-color: $verde8A;
+        padding: 35px 35px;
+        border-radius: 4em;
+        margin-top: 30px;
+        p{
+            color: $grisLabel;
+            font-family: 'Sora';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            letter-spacing: 0.145em;
+            margin: 0;
+            padding-left: 10px;
+        }
+
+        .input_1{
+            width: 100%;
+            background-color: white;
+            border-radius: 1.2em;
+            color: $black3;
+            padding: 25px 20px;
+            border: none;
+            font-family: $urbanist;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 24px;
+        }
+        input:focus{
+            outline: none;
+        }
+        input::placeholder{
+            color: lightgray;
+            opacity: 0.5;
+            font-weight: 600;
+        }
+        .dark{
+            background-color: $black3;
+            color: white;
+        }
+        select:focus{
+            outline: none;
+        }
+
+        .input_group{
+            display: flex;
+            width: 100%;
+            gap: 30px;
+            div{
+                margin-top: 10px;
+                width: 100%;
+                input{
+                    background-color: $black3;
+                    color: white;
+                }
+            }
+        }
+
+    }
+
+
+}
+
+// 2ª PARTE FORMULARIO
+.main2_creategh{
+    display: flex;
+    justify-content: space-between;
+    font-family: $sora;
+    .sect_1{
+        margin-top: 30px;
+        // width: 100%;
+        // p{
+        //     color: $grisLabel;
+        //     font-size: 15px;
+        //     letter-spacing: 0.145em;
+        // }
+        .advise{
+            color: $rojoLight;
+        }
+        h5{
+            font-size: 24px;
+            letter-spacing: 0.12em;
+        }
+        .measure{
+            background-color: $verde8A;
+            padding: 15px 20px;
+            border-radius: 2.5em;
+            margin-top: 15px;
+            p{
+                color: $grisLabel;
+                letter-spacing: 0.1em;
+                margin: 0;
+                padding: 0px 0 5px 20px;
+            }
+            .input_group{
+                display: flex;
+                width: 100%;
+                gap: 20px;
+                .container{
+                    background-color: $black3;
+                    padding: 10px 17px;
+                    border-radius: 3em;
+                    width: 200px;
+                    label{
+                        color: rgba(255, 255, 255, 0.692);
+                        font-weight: 200;
+                        letter-spacing: 0.1em;
+                        padding-left: 10px;
+                    }
+                    input{
+                        background-color: transparent;
+                        border: none;
+                        padding-left: 10px;
+                        width: 150px;
+                        color: white;
+                        font-size: 25px;
+                        font-weight: 800;
+                        font-family: $urbanist;
+                    }
+                    input:focus{
+                        outline: none;
+                    }
+                }
+            }
+        }
+        .transparent{
+            background-color: transparent;
+        }
+    }
+    .checkbox_cont{
+        width: 200px;
+        height: 0px;
+        position: relative;
+        top: 30px;
+        div{
+            background-color: white;
+            border-radius: 1.8em;
+            padding: 10px 20px;
+            display: flex;
+        }
+
+        p{
+            margin: 0;
+            font-size: 11px;
+            letter-spacing: 0.09em;
+        }
+        input{
+            position: relative;
+            top: 15px;
+            accent-color: $verde9A;
+            color: white;
+        }
+    }
+    .aaa{
+    display: flex;
+    justify-content: end;
+    align-items:flex-end;
+    padding-right: 20px;
+    margin-top: 25px;
+    gap: 20px;
+        button{
+            border: none;
+            border-radius: 5em;
+            width: 80px;
+            height: 80px;
+            position: relative;
+            right: 20px;
+            margin-top: 30px;
+            background-color: $verdeBack;
+            transition: 0.2s;
+            img{
+                filter: invert(1);
+            }
+        }
+        .crear{
+            font-size: 22px;
+            font-family: $urbanist;
+            font-weight: 800;
+            width: auto;
+            padding: 10px 30px;
+            color: white;
+            background-color: $verde9A;
+        }
+    }
+
+}
+
+// BOTÓN & IMG GREENHOUSE
+.bottom_sect{
+    display: flex;
+    justify-content: end;
+    align-items:initial;
+    padding-right: 20px;
+    button{
+        border: none;
+        border-radius: 5em;
+        width: 80px;
+        height: 80px;
+        position: relative;
+        right: 115px;
+        margin-top: 30px;
+        background-color: $verdeBack;
+        transition: 0.2s;
+        img{
+            filter: invert(1);
+        }
+    }
+    button:hover{
+        background-color: $black3;
+    }
+}
+.gh_img{
+    width: 180px;
+}

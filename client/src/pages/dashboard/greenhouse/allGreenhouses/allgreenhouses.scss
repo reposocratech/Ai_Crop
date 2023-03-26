@@ -128,15 +128,17 @@
             .title_row{
                 flex-direction: column;
                 text-align: center;
+                width: 100%;
                 h1{
-                    font-size: 10vw;
+                    font-size: 7vw;
                 }
                 .input_sect{
                     margin-top: 20px;
+                    align-items: center;
                     // flex-direction: row;
-                    width: 100%;
-                    div{
-                        width:inherit;
+                    width:100%;
+                    .search_add{
+                        width: 80vw;
                     }
                 }
             }
