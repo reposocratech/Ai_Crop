@@ -29,7 +29,7 @@ router.get("/deleteGreenhouse/:greenhouse_id", GreenhouseController.deleteGreenh
 
 // 6. Invita a un colaborador
 // localhost:4000/greenhouse/inviteCollaborator
-router.post('/inviteCollaborator', GreenhouseController.inviteGreenhouseCollaborator);
+router.get('/inviteCollaborator', GreenhouseController.inviteGreenhouseCollaborator);
 
 // 7. borrado REAL de colaborador
 // localhost:4000/greenhouse/deleteGreenhouseCollaborator/:greenhouse_id/:user_id
