@@ -11,7 +11,7 @@ class SimulatorController {
       let sql = '';
 
       if (req.body.datosForm) {
-    
+        console.log(req.body.datosForm);
         // escribimos la consulta de forma dinámica de manera que se inserten en la BD los valores medidos.
         sql = `INSERT INTO measure (greenhouse_id, measurement_type_id, measure_value) VALUES `;
 
@@ -24,6 +24,7 @@ class SimulatorController {
         req.body.datosForm.humedad_hoja && (sql += `(${greenhouse_id}, 7, ${req.body.datosForm.humedad_hoja}), `);
 
         sql = sql.slice(0, -2);
+        console.log(sql);
         console.log("SIMULADORRRRRRRRRRRR");
       } else {
         res.status(400).json({error: 'Formulario vacío'});

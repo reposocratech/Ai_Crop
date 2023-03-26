@@ -2,9 +2,10 @@ const connection = require('../../config/db');
 const nodemailerInviteHelper = require('../../utils/nodemailerInviteHelper');
 const nodemailerInviteCollab = require('../../utils/nodemailerInviteCollab');
 
+
 class GreenhouseController {
 
-    //1. Inserta en base de datos un nuevo invernadero
+    //1.1 Inserta en base de datos un nuevo invernadero
     //localhost:4000/greenhouse/createGreenhouse
     createGreenhouse = (req, res) => {
 
@@ -48,6 +49,7 @@ class GreenhouseController {
         });
             
     };
+    
 
     // 2.Edit Greenhouse
     // localhost:4000/greenhouse/editGreenhouse/:greenhouse_id
@@ -205,7 +207,7 @@ class GreenhouseController {
  
         let body = {
             name: "Pedrito",
-            email: "gadetru@gmail.com",
+            email: "javimorera90@hotmail.com",
             user_id: 1,
             user_first_name: "Carlos",
             user_last_name: "Riquelme",
@@ -215,7 +217,7 @@ class GreenhouseController {
 
         let {name, email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = body;
         
-        let sql = `SELECT * FROM user WHERE email = '${email}'`;
+        let sql = `SELECT * FROM user WHERE email = '${email}' AND is_deleted = 0 AND is_disabled = 0`;
 
         connection.query(sql, (error, result) => {
 
@@ -233,7 +235,7 @@ class GreenhouseController {
 
             } else {
                 nodemailerInviteCollab(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
-                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_name}`)
+                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_name}`) // AQUÍ VA EL LINK PARA ACCEDER AL FORMULARIO (SECRETO) DE REGISTRO DE COLABORADOR
             }
             });
     };
