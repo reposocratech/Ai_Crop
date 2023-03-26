@@ -42,7 +42,7 @@ export const RegisterCollab = () => {
               navigate('/login')
             })
           .catch((err)=>{
-            console.log(err.config);
+            console.log(err);
             if(err.response.data.error.errno === 1062){
               setMessageError("email duplicado")
             }else{

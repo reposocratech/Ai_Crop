@@ -64,7 +64,7 @@ export const Login = () => {
 
             <div id="floatContainer" className="float-container">
                   <label htmlFor="floatField">Email</label>
-                  <input type="text" maxLength="30" 
+                  <input type="text" maxLength="50" 
                   name='email' 
                   value={login.email}
                   onChange={handleChange}
