@@ -22,7 +22,7 @@ export const TopNavBar = () => {
                 <Nav.Link as={Link} to="/login" className='navbar_option'>LOGIN</Nav.Link>
                 }
                 <Nav.Link as={Link} to="/info" className='navbar_option'>INFO</Nav.Link>
-                <Nav.Link as={Link} to="/" className='navbar_option'>CONTACTO</Nav.Link>
+                <Nav.Link as={Link} to="/contact" className='navbar_option'>CONTACTO</Nav.Link>
                 {isHome ? 
                 <Nav.Link as={Link} to="/register" className='registro'>REGISTRO</Nav.Link> :
                 <Nav.Link as={Link} to="/" className='registro'>HOME</Nav.Link>

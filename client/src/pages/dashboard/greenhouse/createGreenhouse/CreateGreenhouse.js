@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './creategreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
-import { useNavigate } from 'react-router-dom'
 
 const initialValueInfo = {
     greenhouse_name : "",
@@ -16,7 +16,6 @@ const initialValueMaxMin = {
     max : "",
     min : ""
 }
-
 
 export const CreateGreenhouse = () => {
 
@@ -67,11 +66,6 @@ export const CreateGreenhouse = () => {
   // -----------------------------------
 
 
-
-  const handleSubmit = () => {
-
-  }
-
   const handleContinue = () => {
     setShowForm2(true)
   }
@@ -79,6 +73,11 @@ export const CreateGreenhouse = () => {
   const handleBack = () => {
     setShowForm2(false)
   }
+  
+    const handleSubmit = () => {
+
+  }
+
 
   // console.log(greenhouseInfo);
   // console.log(temperatura)
