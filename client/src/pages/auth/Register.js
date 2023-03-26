@@ -21,6 +21,7 @@ const initialValue = {
     country: "",
     user_knowledge: "",
     user_photo: "",
+    user_type: 2,
 }
 
 export const Register = () => {

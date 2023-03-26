@@ -12,7 +12,7 @@ class UserController{
 //1.Crear usuario(agricultor)
   //localhost:4000/user/createUser
   createUser = (req, res) => {
-    const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge} = req.body;
+    const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge, user_type} = req.body;
 
     console.log(req.body);
 
@@ -21,7 +21,7 @@ class UserController{
     bcrypt.genSalt(saltRounds, function(err, saltRounds){
 
       bcrypt.hash(password, saltRounds, function(err, hash){
-        let sql = `INSERT INTO user (first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${dni}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}')`;
+        let sql = `INSERT INTO user (first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${dni}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}',${user_type})`;
         console.log(sql);
         
 

@@ -47,7 +47,7 @@ class EmailController {
                         }
             
                         // enviamos con un método post la lista de correos electronicos al controlador encargado de crear las notificaciones
-                        axios.post(`http://localhost:4000/server/email/createNotifications/${alarm_id}`, [emailList])
+                        axios.post(`http://localhost:4000/server/notification/createNotifications/${alarm_id}`, [emailList])
                             .then(response => {
                                 console.log("AXIOSSSSSSSSSSSS");
                             })
@@ -56,7 +56,7 @@ class EmailController {
                             })  
     
                         // enviamos con un método post la lista de correos electronicos al controlador encargado de enviar los correos
-                        axios.post(`http://localhost:4000/server/email/sendEmail/${alarm_id}`, {emailList, resultAlarm})
+                        axios.post(`http://localhost:4000/server/notification/sendEmail/${alarm_id}`, {emailList, resultAlarm})
                             .then(response => {
                                 console.log("AXIOSSSSSSSSSSSS");
                             })

@@ -213,12 +213,18 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
          {showForm3 &&
          <section > 
             <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Conocimientos</label>
-            <input
-                placeholder='conocimientos'
+                <label htmlFor="floatField">Conocimientos previos</label>
+                <select id="countries" className='select_form'
+                required 
+                name='user_knowledge' 
                 value={editUser.user_knowledge}
-                onChange={handleChange}
-                name="user_knowledge"        /> 
+                onChange={handleChange}>
+                  <option></option>
+                  <option value="Agricultor tradicional">Agricultor tradicional</option>
+                  <option value="Técnico en agricultura tradicional">Técnico en agricultura tradicional</option>
+                  <option value="Técnico en agricultura hidropónica">Técnico en agricultura hidropónica</option>
+                  <option value="Ingeniero agrónomo especializado en hidroponía">Ingeniero agrónomo especializado en hidroponía</option>
+                </select>
             </div>
 
 
