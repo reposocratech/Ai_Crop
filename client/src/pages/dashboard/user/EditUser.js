@@ -19,6 +19,7 @@ const initialValue = {
   city: "",
   country: "",
   user_knowledge: "",
+  user_type: 2,
 }
 export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
   const { user,setUser } = useContext(AICropContext);

@@ -139,7 +139,7 @@ export const Register = () => {
 
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Email</label>
-                <input type="email" maxLength="30" required 
+                <input type="email" maxLength="35" required 
                 name='email' 
                 value={register.email}
                 onChange={handleChange}
