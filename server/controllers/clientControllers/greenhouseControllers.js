@@ -1,5 +1,6 @@
 const connection = require('../../config/db');
 const nodemailerInviteHelper = require('../../utils/nodemailerInviteHelper');
+const nodemailerInviteCollab = require('../../utils/nodemailerInviteCollab');
 
 
 class GreenhouseController {
