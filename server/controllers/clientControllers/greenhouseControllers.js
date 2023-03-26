@@ -7,18 +7,47 @@ class GreenhouseController {
     //1. Inserta en base de datos un nuevo invernadero
     //localhost:4000/greenhouse/createGreenhouse
     createGreenhouse = (req, res) => {
-    
-        let {user_owner_id, greenhouse_name, greenhouse_location, greenhouse_latitude, greenhouse_longitude, greenhouse_orientation, greenhouse_type, greenhouse_size} = req.body;
 
-        let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_latitude, greenhouse_longitude, greenhouse_orientation, greenhouse_type, greenhouse_size) VALUES ("${user_owner_id}", "${greenhouse_name}", "${greenhouse_location}", ${greenhouse_latitude}, "${greenhouse_longitude}", "${greenhouse_orientation}", "${greenhouse_type}", "${greenhouse_size}")`;
+        // console.log(req.body);
+        let {user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size} = req.body.greenhouseInfo;
+
+        let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size})`;
+
 
         connection.query(sql, (error, result) => {
-            error
-            ? res.status(400).json({error})
-            : res.status(201).json("SE CREÓ BIEN EL INVERNADERO");
-        });
-    };
+            error && res.status(400).json({error});
+            // 1.2 Inserta en la base de datos los máximos y los mínimos
 
+
+            let sql2 = `SELECT greenhouse_id from greenhouse WHERE user_owner_id = ${user_owner_id} AND greenhouse_name = "${greenhouse_name}" AND greenhouse_is_deleted = 0 ORDER BY greenhouse_id DESC LIMIT 1`;
+
+            connection.query(sql2, (error, result) => {
+                error && res.status(400).json({error});
+
+                let arrayMeasures = req.body.arrayMeasures;
+                let sql3 = `INSERT INTO greenhouse_measurement_type (greenhouse_id,measurement_type_id, max, min) VALUES `
+
+                console.log(result, "resuuuuult");
+
+                for (let i = 0; i < arrayMeasures.length; i++){
+                    if(arrayMeasures[i].measurement_type_id != "" && arrayMeasures[i].max != "" && arrayMeasures[i].min != ""){
+                        sql3 += `(${result[0]?.greenhouse_id}, ${arrayMeasures[i].measurement_type_id}, ${arrayMeasures[i].max}, ${arrayMeasures[i].min}), `
+                    }
+                }
+    
+                sql3 = sql3.slice(0, -2);
+                console.log(sql3);
+    
+                connection.query(sql3, (error, result) => {
+                    error 
+                    ? res.status(400).json({error}) 
+                    : res.status(201).json("SE CREÓ BIEN EL INVERNADERO AAA");
+                });
+            })
+
+        });
+            
+    };
 
     // 2.Edit Greenhouse
     // localhost:4000/greenhouse/editGreenhouse/:greenhouse_id
@@ -133,7 +162,7 @@ class GreenhouseController {
                 for(let i = 0; i < resultOwner.length; i++){
                     ownerFilter += ` AND greenhouse.greenhouse_id != ${resultOwner[i].greenhouse_id}`
                 }
-                console.log(ownerFilter);
+                // console.log(ownerFilter);
             }
 
             // este SQL busca los invernaderos donde el usuario SOLO es colaborador. Agrega al final el string que produce el bucle (CONSULTAR ESTE TEMA CON EL EQUIPO A VER SI CAMBIAMOS EL CREATE USER)
