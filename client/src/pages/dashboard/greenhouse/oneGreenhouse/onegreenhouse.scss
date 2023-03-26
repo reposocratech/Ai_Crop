@@ -5,6 +5,13 @@
     margin-top: 60px;
 }
 
+@media(max-width: 720px){
+    .cards_measures{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 @media(max-width: 570px){
     .cards_measures{
         flex-direction: column;

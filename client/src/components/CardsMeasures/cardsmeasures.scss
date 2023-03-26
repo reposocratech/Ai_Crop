@@ -15,9 +15,9 @@
         width: 150px;
         border: 2px solid black;
     }
-}
-h3{
-    font-size: 23px;
+    h3{
+        font-size: 23px;
+    }
 }
 
 
@@ -44,10 +44,11 @@ h3{
     border-radius: 1em;
     padding: 35px;
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
-    // display: flex;
+    display: flex;
 
     img{
         width: 120px;
+        height: fit-content;
     }
     p{
         font-size: 33px;
@@ -67,8 +68,8 @@ h3{
         align-items: center;
         justify-content: center;
         position: relative;
-        left: 150px;
-        bottom: 60px;
+        left: 20px;
+        top: 40px;
         margin: 0 !important;
     }
 }
@@ -219,17 +220,86 @@ h3{
 @media (max-width:450px){
     .measure_cardCont{
         width: 10vw;
+
+        h3{
+            font-size: 6vw;
+        }
     }
     .responsive_card{
         width: 80vw;
     }
+    
+    .humidity_card{
+        padding: 25px;
+        .responsive_img{
+            width: 35vw;
+            height: fit-content;
+        }
+        p{
+            font-size: 8vw;
+        }
+    }
     .co2_card{
+        display: flex;
+        justify-content: space-around;
+        padding: 25px;
         .cuadro{
             left: 0;
             bottom: 60px;
             width:min-content;
-            margin: 0 !important;
             padding: 20px 30px;
+        }
+        .responsive_img{
+            width: 30vw;
+            height: fit-content;
+        }
+        p{
+            font-size: 8vw;
+        }
+    }
+    .sunlight_card{
+        padding: 25px;
+        justify-content: space-between;
+        align-items: center;
+        .responsive_img{
+            width: 35vw;
+            height: fit-content;
+        }
+        .cuadro{
+            width:min-content;
+            padding: 15px 25px;
+        }
+        p{
+            font-size: 8vw;
+        }
+    }
+    .ph_card{
+        .responsive_img{
+            width: 40vw;
+            height: fit-content;
+        }
+    }
+    .conductivity_card{
+        padding: 25px;
+        .responsive_img{
+            width: 35vw;
+            height: fit-content;
+        }
+        .cuadro{
+            padding: 0 5px;
+            p{
+                font-size: 8vw;
+            }
+
+        }
+    }
+    .leafhumidity_card{
+        .responsive_img{
+            width: 35vw;
+            height: fit-content;
+        }
+        p{
+            font-size: 8vw;
         }
     }
 }

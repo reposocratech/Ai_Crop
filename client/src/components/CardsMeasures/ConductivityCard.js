@@ -9,7 +9,7 @@ export const ConductivityCard = ({conductividad}) => {
             <div className='cuadro'>
                 <p>{conductividad} ms/cm</p>
             </div>
-            <img src='/assets/images/cards/energia.png'/>
+            <img src='/assets/images/cards/energia.png' className='responsive_img'/>
         </div>
     </div>
     <hr/>

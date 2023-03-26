@@ -8,7 +8,7 @@ export const HumidityCard = ({humedad}) => {
                 <p>{humedad}%</p>
                 <h3>HUMEDAD</h3>
             </div>
-            <img src='/assets/images/cards/humidity.png'/>
+            <img src='/assets/images/cards/humidity.png' className='responsive_img'/>
         </div>
         <hr/>
     </div>

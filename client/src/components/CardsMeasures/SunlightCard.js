@@ -6,7 +6,7 @@ export const SunlightCard = ({luzSolar}) => {
   return (
     <div className='measure_cardCont'>
     <div className='sunlight_card responsive_card'>
-        <img src='/assets/images/cards/sunlight.png'/>
+        <img src='/assets/images/cards/sunlight.png' className='responsive_img'/>
         <div>
             <h3>LUZ SOLAR</h3>
             <div className='cuadro'>

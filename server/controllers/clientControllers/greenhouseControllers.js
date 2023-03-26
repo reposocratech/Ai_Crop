@@ -13,7 +13,7 @@ class GreenhouseController {
         connection.query(sql, (error, result) => {
             error
             ? res.status(400).json({error})
-            : res.status(201).json("SE CREó BIEN EL INVERNADERO");
+            : res.status(201).json("SE CREÓ BIEN EL INVERNADERO");
         });
     };
 

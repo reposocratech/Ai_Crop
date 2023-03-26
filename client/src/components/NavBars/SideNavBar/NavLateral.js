@@ -9,6 +9,8 @@ export const NavLateral = () => {
   const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
   const navigate = useNavigate();
 
+  const isGreenhouse = window.location.pathname == "/user/greenhouse/:id";
+
   const onLogOut = () => {
     deleteLocalStorageAICrop()
     setUser();
@@ -50,14 +52,25 @@ export const NavLateral = () => {
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
           <p className='option' onClick={() =>navigate('edit')}>Configuración</p>
         </a>
+        {!isGreenhouse ?
+        <button className='create_crop' onClick={()=> navigate('createGreenhouse')}>+</button> :
         <button className='create_crop'>+</button>
+        }
       </div>
       {/* CREAR NUEVO INVERNADERO / CULTIVO */}
+      {!isGreenhouse ?
+      <div className='create_new'> 
+        <p>Crear nuevo invernadero</p>
+        <img/>
+        <button onClick={()=> navigate('createGreenhouse')}>+</button>
+      </div> :
       <div className='create_new'> 
         <p>Crear nuevo cultivo</p>
         <img/>
         <button>+</button>
       </div>
+      }
+      
       </section>
     </div>
   )
