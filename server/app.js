@@ -14,7 +14,7 @@ var greenhouseRouter = require('./routes/clientRoutes/greenhouse');
 
 var simulatorRouter = require('./routes/simulatorRoutes/simulatorRouter');
 var alarmRouter = require('./routes/serverRoutes/alarm');
-var emailRouter = require('./routes/serverRoutes/email');
+var notificationRouter = require('./routes/serverRoutes/notification');
 var parametersRouter = require('./routes/serverRoutes/parameters');
 
 var app = express();
@@ -41,7 +41,7 @@ app.use('/greenhouse', greenhouseRouter);
 
 app.use('/simulator', simulatorRouter);
 app.use('/server/alarm', alarmRouter);
-app.use('/server/email', emailRouter);
+app.use('/server/notification', notificationRouter);
 app.use('/server/parameters', parametersRouter);
 
 

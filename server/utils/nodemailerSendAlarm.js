@@ -16,8 +16,8 @@ async function main(email, alarm_id, measurement_type_name, high_low, alarm_mess
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'javimorera90@gmail.com', // generated ethereal user
-      pass: 'yscqwtfbmucuqmih', // generated ethereal password
+      user: process.env.EMAILSOURCE, // generated ethereal user
+      pass: process.env.EMAILPASSWORD, // generated ethereal password
     },
   });
 

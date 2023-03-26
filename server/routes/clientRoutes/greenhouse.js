@@ -13,7 +13,6 @@ router.post('/createGreenhouse', GreenhouseController.createGreenhouse);
 router.post('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhouse);
 
 
-
 //3. see greenhouse info by gh ID
 // localhost:4000/greenhouse/details/:greenhouse_id
 router.get('/details/:greenhouse_id', GreenhouseController.getGreenhouseDetails);
@@ -29,7 +28,7 @@ router.get("/getAllGreenhouses/:user_id", GreenhouseController.getAllGreenhouses
 router.get("/deleteGreenhouse/:greenhouse_id", GreenhouseController.deleteGreenhouse);
 
 // 6. Invita a un colaborador
-// localhost:4000/greenhouse/inviteGreenhouseCollaborator
+// localhost:4000/greenhouse/inviteCollaborator
 router.post('/inviteCollaborator', GreenhouseController.inviteGreenhouseCollaborator);
 
 // 7. borrado REAL de colaborador
@@ -38,7 +37,7 @@ router.get('/deleteGreenhouseCollaborator/:greenhouse_id/:user_id', GreenhouseCo
 
 // 8. crear un helper
 // localhost:4000/greenhouse/createHelper/:greenhouse_id
-router.post('/createHelper/:greenhouse_id', GreenhouseController.createHelper);
+router.get('/createHelper/:greenhouse_id', GreenhouseController.createHelper);
 
 // 9. borrado REAL  de un helper
 // localhost:4000/greenhouse/deleteHelper/:helper_id

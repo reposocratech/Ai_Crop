@@ -1,4 +1,6 @@
 const connection = require('../../config/db');
+const nodemailerInviteHelper = require('../../utils/nodemailerInviteHelper');
+
 
 class GreenhouseController {
 
@@ -171,10 +173,38 @@ class GreenhouseController {
     // 6. Invita a un colaborador
     // localhost:4000/greenhouse/inviteGreenhouseCollaborator
     inviteGreenhouseCollaborator = (req, res) => {
+ 
+        // let body = {
+        //     name: "Pedrito",
+        //     email: "javimorera90@hotmail.com",
+        //     user_id: 6,
+        //     user_first_name: "Carlos",
+        //     user_last_name: "Riquelme",
+        //     greenhouse_id: 1,
+        //     greenhouse_name: "Invernadero de Carlitos"
+        // }
 
-        let {name, email} = req.params;
-        // ENVIAR UN CORREO A LA PERSONA
-        // QUE EN EL CORREO HAYA UN ENLACE O BOTON QUE LLEVE A CREATE USER, PERO QUE LE ENVIE AL CREATE USER EL CORREO Y EL CODIGO DE COLABORADOR (3)... VISTA NUEVA???
+        let {name, email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = req.body;
+        
+        let sql = `SELECT * FROM user WHERE email = '${email}'`;
+
+        connection.query(sql, (error, result) => {
+
+            if(result[0]){
+
+                let sqlAddCollaborator = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${result[0].user_id}, ${greenhouse_id})`;
+
+                connection.query(sqlAddCollaborator, (error, resultCollab) => {
+                    error 
+                    ? res.status(400).json({ error }) 
+                    : res.status(200).json(`El usuario ${result[0].user_id} ha sido añadido como colaborador del invernadero ${greenhouse_id}`);
+                });
+
+            } else {
+                nodemailerInviteCollab(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_name}`)
+            }
+            });
     };
 
 
@@ -196,25 +226,67 @@ class GreenhouseController {
     // 8. crear un helper
     // localhost:4000/greenhouse/createHelper/:greenhouse_id
     createHelper = (req, res) => {
-        let {first_name, last_name, email, greenhouse_id} = req.body;
-
-        let sql = `INSERT INTO helper (greenhouse_id, helper_first_name, helper_last_name, helper_email) VALUES (${greenhouse_id}, "${first_name}", "${last_name}", "${email}");`
+ 
+        let body = {
+            helper_first_name: "Pedrito",
+            helper_last_name: "Piedra",
+            helper_email: "javimorera90@hotmail.com",
+            user_id: 6,
+            user_first_name: "Carlos",
+            user_last_name: "Riquelme",
+            greenhouse_id: req.params.greenhouse_id,
+            greenhouse_name: "Invernadero de Carlitos"
+        }
+        
+        let {helper_first_name, helper_last_name, helper_email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = body;
+        
+        let sql = `SELECT * FROM helper WHERE helper_email = '${helper_email}' AND greenhouse_id = ${greenhouse_id}`;
 
         connection.query(sql, (error, result) => {
-            error
-            ? res.status(400).json({error})
-            : res.status(200).json(`El helper creado en el invernadero ${greenhouse_id}`);
+
+            if(!result[0]){
+
+                let sqlAddHelper = `INSERT INTO helper (greenhouse_id, helper_first_name, helper_last_name, helper_email) VALUES (${greenhouse_id}, "${helper_first_name}", "${helper_last_name}", "${helper_email}")`;
+
+                connection.query(sqlAddHelper, (error, resultHelper) => {
+                    if(error){
+                        res.status(400).json({ error }) 
+                    } else {
+                        nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+
+                        res.status(200).json(`${helper_first_name} ${helper_last_name} ha sido añadido como ayudante del invernadero ${greenhouse_name}`);
+                    } 
+                });
+
+            } else {
+                if (result[0].is_deleted === 1){
+                    let sqlRetreiveHelper = `UPDATE helper SET is_deleted = 0`;
+
+                    connection.query(sqlRetreiveHelper, (error, resultRetreiveHelper) => {
+                        if(error){
+                            res.status(400).json({ error }) 
+                        } else {
+                            nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+                            
+                            res.status(200).json(`${helper_first_name} ${helper_last_name} ha sido añadido como ayudante del invernadero ${greenhouse_name}`);
+                        } 
+                    });
+
+                } else {
+                    if (result[0] && result[0].is_deleted === 0){
+                        res.status(200).json(`El ayudante ${helper_first_name} ${helper_last_name} ya se encuentra asociado al invernadero ${greenhouse_name}`);
+                    };
+                };
+            };
         });
+    };
 
-        // ENVIAR UN MAIL DE NOTIFICACION???
-    }
-
-    // 9. borrado REAL de un helper
+    // 9. borrado lógico de un helper
     // localhost:4000/greenhouse/deleteHelper/:helper_id
     deleteHelper = (req, res) => {
 
         let helper_id = req.params.helper_id;
-        let sql = `DELETE FROM helper WHERE helper_id = ${helper_id}`;
+        let sql = `UPDATE helper SET is_deleted = 1 WHERE helper_id = ${helper_id}`;
 
         connection.query(sql, (error, result) => {
             error

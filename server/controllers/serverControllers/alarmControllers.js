@@ -39,7 +39,7 @@ class AlarmController {
 
                 error 
                 ? res.json(`Error en la consulta`)
-                : res.redirect(`http://localhost:4000/server/email/getAlarmEmails/${alarm_id}`);
+                : res.redirect(`http://localhost:4000/server/notification/getAlarmEmails/${alarm_id}`);
                 // si todo fue bien, nos redirije al siguiente end point al que le mandamos por params el alarm_id
             })
         })

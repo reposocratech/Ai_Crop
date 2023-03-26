@@ -1,6 +1,6 @@
 const connection = require('../../config/db');
 const axios = require('axios');
-const nodemailer = require('../../utils/nodemailer');
+const nodemailerAlarm = require('../../utils/nodemailerSendAlarm');
 
 class EmailController {
 
@@ -79,7 +79,6 @@ class EmailController {
 
             connection.query(sql, (error, result) => {
                 error && res.status(400).json({ error });
-                console.log(`Notificacion creada sobre el email ${email_list[i]} y ID de alarma ${alarm_id}`);
             });    
             
         };
@@ -91,8 +90,7 @@ class EmailController {
         let {alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name} = resultAlarm;
 
         for(let i = 0; i < email_list.length; i++){
-            nodemailer(email_list[i], alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name);
-            console.log(`SEND EMAIL TO ${email_list[i]} REGARDING ALARM ${alarm_id}`);
+            nodemailerAlarm(email_list[i], alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name);
         }
 
         res.status(200).json("HA LLEGADO AL FINAL");
