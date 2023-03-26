@@ -13,6 +13,7 @@ class UserController{
   //localhost:4000/user/createUser
   createUser = (req, res) => {
     const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge, user_type} = req.body;
+    const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge, user_type} = req.body;
 
     console.log(req.body);
 
