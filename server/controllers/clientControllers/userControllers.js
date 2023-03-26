@@ -12,19 +12,23 @@ class UserController{
 //1.Crear usuario(agricultor)
   //localhost:4000/user/createUser
   createUser = (req, res) => {
-    const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge} = req.body;
+    const {first_name, last_name, email, password, address, phone, city, country, user_knowledge, user_type} = req.body;
+    
 
     let saltRounds = 8;
     
     bcrypt.genSalt(saltRounds, function(err, saltRounds){
 
       bcrypt.hash(password, saltRounds, function(err, hash){
-        let sql = `INSERT INTO user (first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${dni}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}')`;
+
+        let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}',${user_type}) `;
+        console.log(sql);
 
         connection.query(sql, (error, result) => {
           error && res.status(400).json({error});
-          nodemailer(first_name, email, result.user_id);
-
+          console.log(error);
+          nodemailer(first_name, email, result?.user_id);
+            
           res.status(201).json("El usuario se ha creado con éxito");
         })
       })
