@@ -5,7 +5,7 @@ const nodemailerAlarm = require('../../utils/nodemailerSendAlarm');
 class EmailController {
 
     // 1. Trae una lista de correos asociados a un invernadero
-    // localhost:4000/server/email/getAlarmEmails/:alarm_id
+    // localhost:4000/server/notification/getAlarmEmails/:alarm_id
     getAlarmEmails = (req, res) => {
         let alarm_id = req.params.alarm_id;
         let sqlAlarm = `SELECT alarm.*, greenhouse.greenhouse_name, measurement_type.measurement_type_name FROM alarm, measurement_type, greenhouse WHERE alarm_id = ${alarm_id} AND measurement_type.measurement_type_id = alarm.measurement_type_id AND greenhouse.greenhouse_id = alarm.greenhouse_id`;
@@ -47,7 +47,7 @@ class EmailController {
                         }
             
                         // enviamos con un método post la lista de correos electronicos al controlador encargado de crear las notificaciones
-                        axios.post(`http://localhost:4000/server/email/createNotifications/${alarm_id}`, [emailList])
+                        axios.post(`http://localhost:4000/server/notification/createNotifications/${alarm_id}`, [emailList])
                             .then(response => {
                                 console.log("AXIOSSSSSSSSSSSS");
                             })
@@ -56,7 +56,7 @@ class EmailController {
                             })  
     
                         // enviamos con un método post la lista de correos electronicos al controlador encargado de enviar los correos
-                        axios.post(`http://localhost:4000/server/email/sendEmail/${alarm_id}`, {emailList, resultAlarm})
+                        axios.post(`http://localhost:4000/server/notification/sendEmail/${alarm_id}`, {emailList, resultAlarm})
                             .then(response => {
                                 console.log("AXIOSSSSSSSSSSSS");
                             })
@@ -97,7 +97,7 @@ class EmailController {
     }
 
     // 4. Borrar una notificacion
-    // localhost:4000/server/email/deleteNotification/:notification_id
+    // localhost:4000/server/notification/deleteNotification/:notification_id
     deleteNotification = (req, res) => {
         let notification_id = req.params.notification_id;
 
@@ -111,7 +111,7 @@ class EmailController {
     }
 
     // 5. Ver todas las notificaciones por alarma
-    // localhost:4000/server/email/seeAllNotifications/:alarm_id
+    // localhost:4000/server/notification/seeAllNotifications/:alarm_id
     seeAllNotifications = (req, res) => {
         let alarm_id = req.params.alarm_id;
 

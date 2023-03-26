@@ -14,23 +14,19 @@ class UserController{
   createUser = (req, res) => {
     const {first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge} = req.body;
 
-    console.log(req.body);
-
     let saltRounds = 8;
     
     bcrypt.genSalt(saltRounds, function(err, saltRounds){
 
       bcrypt.hash(password, saltRounds, function(err, hash){
         let sql = `INSERT INTO user (first_name, last_name, email, password, dni, address, phone, city, country, user_knowledge ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${dni}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}')`;
-        console.log(sql);
-        
 
-          connection.query(sql, (error, result) => {
+        connection.query(sql, (error, result) => {
           error && res.status(400).json({error});
           nodemailer(first_name, email, result.user_id);
 
           res.status(201).json("El usuario se ha creado con éxito");
-          })
+        })
       })
     })
   }  
@@ -192,6 +188,8 @@ class UserController{
       });
   } 
 }
+
+// 8. Acceder al formulario de creador de usuario tipo 3
 
   module.exports = new UserController();
   

@@ -1,10 +1,11 @@
 const connection = require('../../config/db');
 const nodemailerInviteHelper = require('../../utils/nodemailerInviteHelper');
+const nodemailerInviteCollab = require('../../utils/nodemailerInviteCollab');
 
 
 class GreenhouseController {
 
-    //1. Inserta en base de datos un nuevo invernadero
+    //1.1 Inserta en base de datos un nuevo invernadero
     //localhost:4000/greenhouse/createGreenhouse
     createGreenhouse = (req, res) => {
     
@@ -18,6 +19,12 @@ class GreenhouseController {
             : res.status(201).json("SE CREÓ BIEN EL INVERNADERO");
         });
     };
+
+    // 1.2 Inserta en la BD los máximos y lo mínimos
+    //localhost:4000/greenhouse/createGreenhouseParameters
+    createGreenhouseParams = (req, res) => {
+
+    }
 
 
     // 2.Edit Greenhouse
@@ -171,22 +178,22 @@ class GreenhouseController {
     };
 
     // 6. Invita a un colaborador
-    // localhost:4000/greenhouse/inviteGreenhouseCollaborator
+    // localhost:4000/greenhouse/inviteCollaborator
     inviteGreenhouseCollaborator = (req, res) => {
  
-        // let body = {
-        //     name: "Pedrito",
-        //     email: "javimorera90@hotmail.com",
-        //     user_id: 6,
-        //     user_first_name: "Carlos",
-        //     user_last_name: "Riquelme",
-        //     greenhouse_id: 1,
-        //     greenhouse_name: "Invernadero de Carlitos"
-        // }
+        let body = {
+            name: "Pedrito",
+            email: "javimorera90@hotmail.com",
+            user_id: 1,
+            user_first_name: "Carlos",
+            user_last_name: "Riquelme",
+            greenhouse_id: 1,
+            greenhouse_name: "Invernadero de Carlitos"
+        }
 
-        let {name, email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = req.body;
+        let {name, email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = body;
         
-        let sql = `SELECT * FROM user WHERE email = '${email}'`;
+        let sql = `SELECT * FROM user WHERE email = '${email}' AND is_deleted = 0 AND is_disabled = 0`;
 
         connection.query(sql, (error, result) => {
 
@@ -195,14 +202,16 @@ class GreenhouseController {
                 let sqlAddCollaborator = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${result[0].user_id}, ${greenhouse_id})`;
 
                 connection.query(sqlAddCollaborator, (error, resultCollab) => {
-                    error 
-                    ? res.status(400).json({ error }) 
-                    : res.status(200).json(`El usuario ${result[0].user_id} ha sido añadido como colaborador del invernadero ${greenhouse_id}`);
+                    error && res.status(400).json({ error }) ;
+                    
+                    nodemailerInviteCollab(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+
+                    res.status(200).json(`El usuario ${result[0].user_id} ha sido añadido como colaborador del invernadero ${greenhouse_id}`);
                 });
 
             } else {
                 nodemailerInviteCollab(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
-                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_name}`)
+                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_name}`) // AQUÍ VA EL LINK PARA ACCEDER AL FORMULARIO (SECRETO) DE REGISTRO DE COLABORADOR
             }
             });
     };
