@@ -1,0 +1,51 @@
+@import "../../../mixin";
+@import "../../../variables";
+
+.firstSection {
+    flex-direction: column;
+}
+.title3{
+    font-size: 72px;
+    font-family: $sora;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+}
+.puntoFinal{
+    font-size: 212px;
+    font-family: $urbanist;
+    color: $verde7A;
+}
+.bloqueParr{
+    p{
+        font-family: $workSans;
+        font-size: 22px;
+        font-weight: 100;
+    }
+}  
+.special{
+    text-decoration: none;
+    color: white;
+    
+}  
+.iconico{
+    -webkit-filter: invert(100%);
+    -moz-filter: invert(100%);
+     filter: invert(100%);
+     width: 30px;
+     height: 30px;
+       
+}
+.specialTwo{
+    font-size: 22px !important;
+    letter-spacing: 0.2em !important;
+    
+}
+.contenedorEmail{
+    width: 40%;
+    margin-top: 2%;
+}
+    
+
+
+
+

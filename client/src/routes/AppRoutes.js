@@ -15,6 +15,7 @@ import { Info } from '../pages/home/info/Info'
 import { EditGreenhouse } from '../pages/dashboard/greenhouse/EditGreenhouse/EditGreenhouse'
 import { AICropContext } from '../context/AICropContext'
 import { CreateGreenhouse } from '../pages/dashboard/greenhouse/createGreenhouse/CreateGreenhouse'
+import { Contact } from '../pages/home/contact/Contact'
 
 
 
@@ -31,6 +32,7 @@ export const AppRoutes = () => {
                     <Route path='register' element={<Register/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='info' element={<Info/>}/>
+                    <Route path='contact' element={<Contact/>}/>
 
                     <Route path='user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 

@@ -155,7 +155,7 @@ export const Register = () => {
             </div>
 
             <article className='button_section'>
-              <button>Suscripciones</button>
+              <button onClick={()=>navigate('/info')}>Suscripciones</button>
               <button className='bg_verde' onClick={handleContinue1}>Continuar</button>
             </article>
             <p className='text-center mt-3 text-danger'>{messageError}</p>
