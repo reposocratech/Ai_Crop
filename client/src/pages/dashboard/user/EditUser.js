@@ -85,23 +85,22 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         }
         
   return (
-    <section className='contEdit fondo'>
-
-
-        <section className='headerEdit botones_user'>
-            <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
+    <section className='contEdit'>
         
-        <button onClick={()=>navigate(-1)}><img src='/assets/images/go_back.png'/></button>
 
+        <header className='botones_user'>
+            <button onClick={()=>navigate(-1)}><img src='/assets/images/go_back.png'/></button>
+            <ButtonNotif setShowModalNotif={setShowModalNotif}/>
+            <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
 
-        <ButtonNotif setShowModalNotif={setShowModalNotif}/>
-        <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
-        </section>
+        </header>
+        <div className='tituloEdit'> <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
+        </div>
         
 
         {showForm1 && 
         //PARTE 1-----
-        <section className='contEdit fondo'>
+        <section /* className='contEdit fondo' */>
             <div id="floatContainer"  className="float-container">
                 
                 <label>Nombre</label>
@@ -148,7 +147,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         }
         
         {showForm2 && 
-        <section className='contEdit fondo'>
+        <section >
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>
                 <input
@@ -212,7 +211,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
          }
 
          {showForm3 &&
-         <section className='contEdit fondo'> 
+         <section > 
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos</label>
             <input
@@ -223,10 +222,11 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             </div>
 
 
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Img</label>
+            <div id="floatContainer" className=" fileInput">
+                
                 <input
                 type="file"
+                name="src-file1"
                 onChange={handleChangeFile}
             />
             </div>
@@ -236,9 +236,9 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
 }
 
     <article  className='button_section'>
-    <button className='bg_verde' onClick={handleForm1}>{showForm1? `volver `:` Datos personales`}</button>
-    <button className='bg_verde' onClick={handleForm2}>{showForm2? `volver `:`Localización`}</button>
-    <button className='bg_verde' onClick={handleForm3}>{showForm3? `volver `:`Perfil `}</button>
+    <button onClick={handleForm1}>{showForm1? `volver `:` Datos personales`}</button>
+    <button onClick={handleForm2}>{showForm2? `volver `:`Localización`}</button>
+    <button onClick={handleForm3}>{showForm3? `volver `:`Perfil `}</button>
     </article>
 
             <article className='button_section'>
