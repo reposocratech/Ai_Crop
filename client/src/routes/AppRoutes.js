@@ -39,7 +39,7 @@ export const AppRoutes = () => {
                     <Route path='user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
-                      <Route path=':greenhouse/:measure' element={<Measure/>}/>
+                      <Route path='greenhouse/:greenhouse/:measure' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
                       <Route path='editGreenhouse' element={<EditGreenhouse/>}/>
                       <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>

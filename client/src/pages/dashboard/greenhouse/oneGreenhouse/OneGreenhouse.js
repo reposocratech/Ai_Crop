@@ -40,7 +40,6 @@ export const OneGreenhouse = () => {
 
   const navigate = useNavigate();
 
-
   const greenhouse_id = useParams().greenhouse_id;
 
   useEffect(() => {
