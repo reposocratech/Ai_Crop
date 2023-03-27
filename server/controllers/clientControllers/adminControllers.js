@@ -34,15 +34,17 @@ class AdminController {
     }
 
     //3. Select all users and the count of greenshouses associated with them
-    // localhost:4000/admin/allUser
+    // localhost:4000/admin/allUsers
     selectAllUsers = (req, res) => {
 
-        let sql = `SELECT user.*, count(greenhouse.greenhouse_id) as gh_count
+        let sql = `SELECT user.user_id, CONCAT(user.first_name," ", user.last_name) as full_name, user.email, user.user_type, user.is_disabled, count(greenhouse.greenhouse_id) as n_of_greenhouses
         FROM user
         LEFT JOIN user_greenhouse ON user_greenhouse.user_id = user.user_id
-           LEFT JOIN greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
+        LEFT JOIN greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
+        WHERE user.is_deleted = 0
+        AND greenhouse_is_deleted = 0
         GROUP BY user.user_id
-        ORDER BY RAND()`;
+        ORDER BY user.first_name;`;
 
         connection.query(sql, (error, result) => {
             error 

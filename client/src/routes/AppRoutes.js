@@ -43,7 +43,11 @@ export const AppRoutes = () => {
                       <Route path='edit' element={<EditUser/>}/>
                       <Route path='editGreenhouse/:greenhouse_id' element={<EditGreenhouse/>}/>
                       <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>
-                      <Route path='admin' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
+                      {/* <Route path='admin' element={<Admin/>}/> Vista de TODOS los usuarios (card per user) */}
+                    </Route>
+
+                    <Route path='admin' element={<MainPage/>}>
+                      <Route path='' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
                     </Route>
 
                     <Route path='*' element={<Error/>} />
