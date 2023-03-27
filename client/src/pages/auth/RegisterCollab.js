@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import {Row} from 'react-bootstrap';
+import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar';
+import "./auth.scss" 
 
 export const RegisterCollab = () => {
 
@@ -55,8 +58,15 @@ export const RegisterCollab = () => {
 
 
   return (
-    <section>
-        <div>
+    <div className='PpalColl'>
+    <Row className='cont_auth d-flex flex-column p-0'>
+      <TopNavBar/>
+      <section className='registro-form form_registro d-flex  flex-column ms-5'>
+        <div className='title m-0'>
+        <h1 className='title'>Bienvenido Colaborador/a <span className='punto'>.</span></h1>
+        </div>
+      <article className='nombre_apell'>
+        <div className='float-container'>
             <label>Nombre</label>
             <input 
                 type="text" maxLength="20"
@@ -66,7 +76,7 @@ export const RegisterCollab = () => {
                 name='first_name'
             />
         </div>
-        <div>
+        <div className='float-container'>
             <label>Apellidos</label>
             <input 
                 type="text" maxLength="25"
@@ -76,7 +86,9 @@ export const RegisterCollab = () => {
                 name="last_name"
             />
         </div>
-        <div>
+        </article>
+        <article className='nombre_apell'>
+        <div className='float-container'>
             <label>Email</label>
             <input 
                 type="email" maxLength="35" required
@@ -86,7 +98,7 @@ export const RegisterCollab = () => {
                 name="email" 
             />
         </div>
-        <div>
+        <div className='float-container'>
             <label>Contraseña</label>
             <input 
                 type="password" maxLength="25" required
@@ -96,7 +108,9 @@ export const RegisterCollab = () => {
                 name="password" 
             />
         </div>
-        <div>
+        </article>
+        <article className='nombre_apell'>
+        <div className='float-container'>
             <label>Telefono</label>
             <input 
                 type="text" maxLength="20" required
@@ -106,7 +120,7 @@ export const RegisterCollab = () => {
                 name="phone"
             />
         </div>
-        <div>
+        <div className='float-container'> 
             <label>Ciudad</label>
             <input 
                 type="text" maxLength="80" required
@@ -116,7 +130,9 @@ export const RegisterCollab = () => {
                 name="city" 
             />
         </div>
-        <div>
+        </article>
+        <article className='nombre_apell'>
+        <div className='float-container'>
             <label>Pais</label>
             <input 
                 type="text" required
@@ -140,10 +156,13 @@ export const RegisterCollab = () => {
                   <option value="Ingeniero agrónomo especializado en hidroponía">Ingeniero agrónomo especializado en hidroponía</option>
                 </select>
             </div>
-            <div>
-                <button onClick={handleSubmit}>Aceptar</button>
+            </article>
+            <div className='button_section'>
+                <button className="bg_verde" onClick={handleSubmit}>Aceptar</button>
             </div>
-    </section>
+          </section>
+    </Row>
+  </div>
   )
 }
 
