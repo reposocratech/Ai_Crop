@@ -4,6 +4,7 @@ import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../context/AICropContext';
 import "./greenhousecard.scss"
 import { saveLocalStorageAICropGreenhouse } from '../../helpers/localStorage/localStorageAICrop';
+import axios from 'axios';
 
 export const OwnerCard = ({elem}) => {
   const navigate = useNavigate();
@@ -11,6 +12,17 @@ export const OwnerCard = ({elem}) => {
 
   const onSubmit = () => {
     navigate(`greenhouse/${elem.greenhouse_id}`)
+  }
+
+  const onDelete = () => {
+    axios
+      .get(`http://localhost:4000/greenhouse/deleteGreenhouse/${elem.greenhouse_id}`)
+      .then((res)=>{
+          navigate('/user');
+      })
+      .catch((err)=>{
+          console.log(err);
+      })
   }
 
   return (
@@ -23,6 +35,7 @@ export const OwnerCard = ({elem}) => {
           <hr className='lineaGris'/>
           <p>Titular: {elem.owner_full_name}</p>
           <p>Alarmas activas: {elem.active_alarms}</p>
+          <div onClick={onDelete}><img className='delete'src='/assets/images/delete.png'/></div>
           {elem.active_alarms ?
           <div className='alerta_cont'><img className='alerta' src='/assets/images/alerta.png'/></div> :
           <div></div>}

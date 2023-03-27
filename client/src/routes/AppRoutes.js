@@ -31,7 +31,7 @@ export const AppRoutes = () => {
                 <Routes>
                     <Route path='' element={<Home/>}/> 
                     <Route path='register' element={<Register/>}/>
-                    <Route path='colaborator' element={<RegisterCollab/>}/>
+                    <Route path='collaborator/:greenhouse_id' element={<RegisterCollab/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='info' element={<Info/>}/>
                     <Route path='contact' element={<Contact/>}/>
@@ -39,7 +39,7 @@ export const AppRoutes = () => {
                     <Route path='user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
-                      <Route path=':greenhouse/:measure' element={<Measure/>}/>
+                      <Route path='greenhouse/:greenhouse/:measure' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
                       <Route path='editGreenhouse' element={<EditGreenhouse/>}/>
                       <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>

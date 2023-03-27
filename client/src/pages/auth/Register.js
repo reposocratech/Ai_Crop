@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row } from 'react-bootstrap'
+import { Form, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
 import axios from 'axios'
@@ -101,7 +101,7 @@ export const Register = () => {
     <div>
       <Row className='cont_auth d-flex flex-column p-0'>
           <TopNavBar/>
-          <main className='form'>
+          <Form className='form'>
           <h5 className='company_name'>AI crop</h5>
           <div className='title'>
             {showForm1 ? 
@@ -256,7 +256,8 @@ export const Register = () => {
               </div>
               <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Teléfono</label>
-                <input type="number" maxLength="20" required 
+                <input type="number" 
+                maxLength="12" required 
                 name='phone' 
                 value={register.phone}
                 onChange={handleChange}
@@ -273,7 +274,7 @@ export const Register = () => {
           </section>
         }
 
-          </main>
+          </Form>
 
 
       </Row>

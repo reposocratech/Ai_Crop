@@ -1,11 +1,17 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+
+
 import {Row} from 'react-bootstrap';
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar';
 import "./auth.scss" 
 
+import { useNavigate, useParams } from 'react-router-dom';
+
+
 export const RegisterCollab = () => {
+
+  const greenhouse_id = useParams().greenhouse_id;
 
     const initialValue = {
         first_name: "",
@@ -21,13 +27,14 @@ export const RegisterCollab = () => {
         user_knowledge: "",
         user_photo: "",
         user_type: 3,
+        greenhouse_id: greenhouse_id
     }
         
     const [register, setRegister] = useState(initialValue);
     const [messageError, setMessageError] = useState();
 
     const navigate = useNavigate();  
-        
+
         
     const handleChange = (e) => {
         const {name, value} = e.target;
