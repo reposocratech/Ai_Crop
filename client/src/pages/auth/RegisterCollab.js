@@ -12,25 +12,11 @@ export const RegisterCollab = () => {
   
   const greenhouse_id = useParams().greenhouse_id;
 
-  const initialValue = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    dni: "",
-    phone: "",
-    address: "",
-    post_code: "",
-    city: "",
-    country: "",
-    user_knowledge: "",
-    user_photo: "",
-    user_type: 3,
-    greenhouse_id: greenhouse_id
-  }
+  
 
   const [register, setRegister] = useState(initialValue);
   const [messageError, setMessageError] = useState();
+
 const initialValue = {
     first_name: "",
     last_name: "",
@@ -47,15 +33,6 @@ const initialValue = {
     user_type: 3,
     greenhouse_id: greenhouse_id
 }
-export const RegisterCollab = () => {
-
-  
-
-        
-    const [register, setRegister] = useState(initialValue);
-    const [messageError, setMessageError] = useState();
-
-    
 
   const navigate = useNavigate();
 
