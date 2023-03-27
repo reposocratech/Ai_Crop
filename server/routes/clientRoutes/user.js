@@ -7,6 +7,10 @@ const multerSingle = require("../../middleware/multerSingle")
 // localhost:4000/user/createUser
 router.post('/createUser', UserController.createUser);
 
+// 1.2 Añadir colaborador recientemente creado al greenhouse indicado
+// localhost:4000/user/user_greenhouse
+router.post('/user_greenhouse', UserController.asignCollab)
+
 //2. Editar usuario (agricultor)
 // localhost:4000/user/editUser/:user_id
 router.put("/editUser/:user_id", multerSingle("user"), UserController.editUser);

@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 "use strict";
 
 // async..await is not allowed in global scope, must use a wrapper
-async function main(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name) {
+async function main(email, name, user_first_name, user_last_name, greenhouse_id) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
 
@@ -23,8 +23,8 @@ async function main(email, name, user_first_name, user_last_name, greenhouse_id,
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${email}`, // list of receivers
     subject: `¡Te han invitado a colaborar en AI crop!`, // Subject line
-    text: `Hola ${name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero ${greenhouse_name} en AI crop. Completa tu registro en el siguiente enlace:
-    http://localhost3000/user/createuser/collaborator/${greenhouse_id}`, // plain text body
+    text: `Hola ${name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero en AI crop. Completa tu registro en el siguiente enlace:
+    http://localhost3000/collaborator/${greenhouse_id}`, // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 

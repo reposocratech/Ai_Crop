@@ -205,18 +205,18 @@ class GreenhouseController {
     // 6. Invita a un colaborador
     // localhost:4000/greenhouse/inviteCollaborator
     inviteGreenhouseCollaborator = (req, res) => {
- 
-        let body = {
-            name: "Pedrito",
-            email: "javimorera90@hotmail.com",
-            user_id: 1,
-            user_first_name: "Carlos",
-            user_last_name: "Riquelme",
-            greenhouse_id: 1,
-            greenhouse_name: "Invernadero de Carlitos"
-        }
+        // CAMBIAR METODO A POST EN LA RUTA Y QUITAR EL HARD-CODE DE AQUÍ (O GET CON PARAMS)
+        // let body = {
+        //     name: "Pedrito",
+        //     email: "javimorera90@hotmail.com",
+        //     user_id: 1,
+        //     user_first_name: "Carlos",
+        //     user_last_name: "Riquelme",
+        //     greenhouse_id: 1
+        //     // greenhouse_name: "Invernadero de Carlitos"
+        // }
 
-        let {name, email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = body;
+        let {name, email, user_id, first_name, last_name, greenhouse_id} = req.body.datos;
         
         let sql = `SELECT * FROM user WHERE email = '${email}' AND is_deleted = 0 AND is_disabled = 0`;
 
@@ -229,14 +229,14 @@ class GreenhouseController {
                 connection.query(sqlAddCollaborator, (error, resultCollab) => {
                     error && res.status(400).json({ error }) ;
                     
-                    nodemailerInviteCollab(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+                    nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
 
                     res.status(200).json(`El usuario ${result[0].user_id} ha sido añadido como colaborador del invernadero ${greenhouse_id}`);
                 });
 
             } else {
-                nodemailerInviteCollab(email, name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
-                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_name}`) // AQUÍ VA EL LINK PARA ACCEDER AL FORMULARIO (SECRETO) DE REGISTRO DE COLABORADOR
+                nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
+                res.status(200).json(`${name} ha sido invitado a unirse como colaborador en tu invernadero ${greenhouse_id}`) // AQUÍ VA EL LINK PARA ACCEDER AL FORMULARIO (SECRETO) DE REGISTRO DE COLABORADOR
             }
             });
     };
@@ -266,13 +266,13 @@ class GreenhouseController {
             helper_last_name: "Piedra",
             helper_email: "gadetru@gmail.com",
             user_id: 6,
-            user_first_name: "Carlos",
-            user_last_name: "Riquelme",
+            first_name: "Carlos",
+            last_name: "Riquelme",
             greenhouse_id: req.params.greenhouse_id,
             greenhouse_name: "Invernadero de Carlitos"
         }
         
-        let {helper_first_name, helper_last_name, helper_email, user_id, user_first_name, user_last_name, greenhouse_id, greenhouse_name} = body;
+        let {helper_first_name, helper_last_name, helper_email, user_id, first_name, last_name, greenhouse_id, greenhouse_name} = body;
         
         let sql = `SELECT * FROM helper WHERE helper_email = '${helper_email}' AND greenhouse_id = ${greenhouse_id}`;
 
@@ -286,7 +286,7 @@ class GreenhouseController {
                     if(error){
                         res.status(400).json({ error }) 
                     } else {
-                        nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+                        nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, first_name, last_name, greenhouse_id, greenhouse_name);
 
                         res.status(200).json(`${helper_first_name} ${helper_last_name} ha sido añadido como ayudante del invernadero ${greenhouse_name}`);
                     } 
@@ -300,7 +300,7 @@ class GreenhouseController {
                         if(error){
                             res.status(400).json({ error }) 
                         } else {
-                            nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, user_first_name, user_last_name, greenhouse_id, greenhouse_name);
+                            nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, first_name, last_name, greenhouse_id, greenhouse_name);
                             
                             res.status(200).json(`${helper_first_name} ${helper_last_name} ha sido añadido como ayudante del invernadero ${greenhouse_name}`);
                         } 
