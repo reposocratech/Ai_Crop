@@ -36,6 +36,7 @@ export const OneGreenhouse = () => {
   const [showModalCollab, setShowModalCollab] = useState(false)
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
+  const [greenhouseData, setGreenhouseData] = useState();
   
   const navigate = useNavigate();
   
@@ -50,6 +51,7 @@ export const OneGreenhouse = () => {
         setUserCollaborators(res.data.resultCollaborators);
         setHelpers(res.data.resultHelpers);
         console.log(res.data);
+        setGreenhouseData(res.data.resultGreenhouse[0]);
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
@@ -109,7 +111,7 @@ export const OneGreenhouse = () => {
         
         <button onClick={() => navigate('/user')}><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
 
-        <button onClick={() => navigate('/user/editGreenhouse')}><img className='config_invernadero' alt='configuracion invernadero' src='/assets/images/editar_greenhouse.png'/></button>
+        <button onClick={() => navigate(`/user/editGreenhouse/${greenhouse_id}`)}><img className='config_invernadero' alt='configuracion invernadero' src='/assets/images/editar_greenhouse.png'/></button>
         
          {/* Modal Collaborator */}
          <ButtonCollaborator setShowModalCollab={setShowModalCollab}/>
@@ -137,7 +139,7 @@ export const OneGreenhouse = () => {
           </button>
           </article>
         </section>
-        <p>Nombre del invernadero</p>
+        <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
       </header>
       <main>
         {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?

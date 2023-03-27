@@ -34,7 +34,7 @@ class AdminController {
     }
 
     //3. Select all users and the count of greenshouses associated with them
-    // localhost:4000/admin/allUser
+    // localhost:4000/admin/allUsers
     selectAllUsers = (req, res) => {
 
         let sql = `SELECT user.user_id, CONCAT(user.first_name," ", user.last_name) as full_name, user.email, user.user_type, user.is_disabled, count(greenhouse.greenhouse_id) as n_of_greenhouses

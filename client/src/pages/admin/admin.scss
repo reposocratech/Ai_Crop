@@ -1,63 +1,139 @@
 @import "../../mixin";
 @import "../../variables";
 
-.contNav_pPal{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: row;
-    // width:inherit;
-    .white_cont{
-        width: inherit;
-        min-width: fit-content;
-        background-color: $whiteMain;
-        border-radius: 53px;
-        padding: 38px 30px 40px 48px;
-        position: fixed;
-        // overflow: hidden;
-        height: 100%;
-        .padree{
-            overflow-y: auto;
-            height: 100%;
-            padding-right: 25px;
+.cont_admin{
+    width: 100%;
+
+    .botones_admin {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 15px;
+        gap: 20px;
+        button{
+            padding: 7px;
+            border: 2px solid #CDCDCD;
+            border-radius: 5em;
+            background-color: transparent;
+            transition: 0.2s;
         }
-        .padree::-webkit-scrollbar{
-            width: 7px;
+        button:hover{
+            background-color: #CDCDCD;
+            filter: invert(1);
         }
-        .padree::-webkit-scrollbar-thumb {
-            background-color: #000000; /* color de la barra de scroll */
-            border-radius: 5px; /* radio de los bordes de la barra de scroll */
-          }
+        img{
+            width: 35px;
+            height: 35px;
+        }
     }
 
-    .outlet_cont{
-        border-radius: 75px;
-        outline: 35px solid $whiteMain;
-        box-shadow: -37px 3px 7px -1px rgba(0, 0, 0, 0.25);
-    }
-}
-
-// TABLET
-@media (max-width: 1199px) {
-    .contNav_pPal{
-        min-height: auto;
-        .white_cont{
-            width:100%;
-            position:initial;
-            height: auto;
-            .padree{
-                overflow-y: hidden;
-                height: auto;
+    .header_admin {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: $sora;
+        letter-spacing: 0.02em;
+        h1{
+            letter-spacing: 0.105em;
+            font-family: $workSans;
+            font-weight: 500;
+            font-size: 45px;
+        }
+        .search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $verdeInput;
+            border-radius: 2em;
+            padding: 12px;
+            input{
+                border: none;
+                background-color: transparent;
+            }
+            input::placeholder{
+                letter-spacing: 0.02em;
+                color: $verdeInput2;
+            }
+            input:focus, textarea:focus, select:focus{
+                outline: none;
+            }
+            img{
+                width: 27px;
+                padding-right: 5px;
             }
         }
     }
-}
-@media (max-width: 500px){
-    .contNav_pPal{
-        .white_cont{
-            padding: 5vw;
-            .padree{
-                padding-right: 0;
+
+    p{
+        font-family: $sora;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0.12em;
+        color: #868686;
+    }
+
+    .main_admin {
+        margin-top: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        column-gap: 50px;
+        .card_user {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            align-items: center;
+            section{
+                background: url("../../../public/assets/images/cards/card_admin.png");
+                background-position: center;
+                background-size: cover;
+                width: 22rem;
+                height: 11rem;
+                border-radius: 11px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.11));
+                .info_user{
+                    text-align: center;
+                    background: rgba(255, 255, 255, 0.6);
+                    backdrop-filter: blur(2px);
+                    border-radius: 15px;
+                    padding: 15px 15px;
+                    margin-bottom: 20px;
+                    width: 15rem;
+                    h5{
+                        font-family: $urbanist;
+                        margin: 0;
+                        font-weight: 600;
+                        letter-spacing: 0.05em;
+                    }
+                    p{
+                        margin: 0;
+                        font-size: 14px;
+                    }
+                    .num_gh{
+                        font-size: 11px;
+                    }
+                }
+                .disable{
+                    width: 30px;
+                    position: fixed;
+                    bottom: 10px;
+                    right: 20px;
+                    cursor: pointer;
+                }
             }
+            hr{
+                opacity: 0.66;
+                height: 5px;
+                border: 2px solid #A8ACA7;
+                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.25);
+                width: 10rem;
+            }
+        }
+
+        .disabledCard{
+            filter: grayscale(1);
         }
     }
 }

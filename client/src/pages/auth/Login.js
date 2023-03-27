@@ -81,7 +81,7 @@ export const Login = () => {
             </div>
 
             <article className='button_section'>
-              <button>Suscripciones</button>
+              <button onClick={()=>navigate('/info')}>Suscripciones</button>
               <button className='bg_verde' onClick={handleSubmit}>Login</button>
             </article>
             <p className='text-center mt-3 text-danger'>{messageError}</p>

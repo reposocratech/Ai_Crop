@@ -23,7 +23,7 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
 
             return(
             <div className='emergencia' key={index}>
-                <p>{alarma.alarm_message}</p>
+                <p>{alarma?.alarm_message}</p>
             </div>
             )
         })}

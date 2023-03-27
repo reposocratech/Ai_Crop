@@ -28,27 +28,32 @@ class UserController{
           error && res.status(400).json({error});
           
           nodemailer(first_name, email, result?.user_id);
+          console.log(req.params.greenhouse_id)
 
-          if(req.params.greenhouse_id){
-            let greenhouse_id = req.params.greenhouse_id;
-            let sql2 = `SELECT user_id FROM user WHERE email = ${email} AND is_deleted = 0 AND is_disabled = 0`;
+
+          // if(req.params.greenhouse_id){
+          //   let greenhouse_id = req.params.greenhouse_id;
+          //   let sql2 = `SELECT user_id FROM user WHERE email = ${email} AND is_deleted = 0 AND is_disabled = 0`;
+
+        
+
           
-            connection.query(sql2, (error, result2) => {
-              error && res.status(400).json({error});
+          //   connection.query(sql2, (error, result2) => {
+          //     error && res.status(400).json({error});
 
-              const info = {
-                user_id: result2.user_id,
-                greenhouse_id: greenhouse_id
-              }
+          //     const info = {
+          //       user_id: result2.user_id,
+          //       greenhouse_id: greenhouse_id
+          //     }
               
-              axios
-                .post('http://localhost:4000/user/user_greenhouse', {info})
-                .then(res.status(201).json(`El usuario ${info.user_id} ha sido añadido como colaborador del invernadero ${info.greenhouse_id}`))
-                .catch(err.status(401).json(`ERRORRRR`))
-            })
-          } else {
+          //     axios
+          //       .post('http://localhost:4000/user/user_greenhouse', {info})
+          //       .then(res.status(201).json(`El usuario ${info.user_id} ha sido añadido como colaborador del invernadero ${info.greenhouse_id}`))
+          //       .catch(err.status(401).json(`ERRORRRR`))
+          //   })
+          // } else {
             res.status(201).json("El usuario se ha creado con éxito");
-          }
+          // }
             
         })
       })
