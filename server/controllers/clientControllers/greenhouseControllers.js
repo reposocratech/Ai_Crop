@@ -10,9 +10,9 @@ class GreenhouseController {
     createGreenhouse = (req, res) => {
 
         // console.log(req.body);
-        let {user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size} = req.body.greenhouseInfo;
+        let {user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, responsibility_acknowledged} = req.body.greenhouseInfo;
 
-        let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size})`;
+        let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, responsibility_acknowledged) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size}, ${responsibility_acknowledged})`;
 
 
         connection.query(sql, (error, result) => {
@@ -262,12 +262,12 @@ class GreenhouseController {
     createHelper = (req, res) => {
  
         let body = {
-            helper_first_name: "Pedrito",
-            helper_last_name: "Piedra",
-            helper_email: "gadetru@gmail.com",
-            user_id: 6,
-            first_name: "Carlos",
-            last_name: "Riquelme",
+            helper_first_name: "Jose",
+            helper_last_name: "Diego",
+            helper_email: "josediegocastanedabenitez@gmail.com",
+            user_id: 1,
+            first_name: "Javi",
+            last_name: "More",
             greenhouse_id: req.params.greenhouse_id,
             greenhouse_name: "Invernadero de Carlitos"
         }

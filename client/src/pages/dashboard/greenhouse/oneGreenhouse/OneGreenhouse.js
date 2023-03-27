@@ -83,8 +83,8 @@ export const OneGreenhouse = () => {
   }, [])
 
   let datos = {
-    name: "Pedrito",
-    email: "javimorera90@hotmail.com",
+    name: "Gabi",
+    email: "gd@h",
     user_id: user?.user_id,
     first_name: user?.first_name,
     last_name: user?.last_name,

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require('../../utils/nodemailerCreateUser');
 const nodemailerSendNewPass = require('../../utils/nodemailerSendNewPass');
 const randomPasswordGenerator = require('../../utils/randomPasswordGenerator')
+const nodemailerConfirmEmail = require('../../utils/nodemailerConfirmEmailForPW')
 const axios = require('axios');
 
 require("dotenv").config();
@@ -22,7 +23,6 @@ class UserController{
       bcrypt.hash(password, saltRounds, function(err, hash){
 
         let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}',${user_type}) `;
-        console.log(sql);
 
         connection.query(sql, (error, result) => {
           error && res.status(400).json({error});
@@ -178,36 +178,46 @@ class UserController{
     })
   }
 
-  //6. Forgot password (generates new password and sends it by email)
-  // localhost:4000/user/changePassword/:user_id
-  changePasswordFromEmail = (req, res) => {
-    const email = "gd@h"; // ESTO LLEGA POR REQ PARAMS DESDE EL EMAIL
-    let sql = `SELECT * FROM user WHERE email = "${email}" AND is_deleted = 0 AND is_disabled = 0`;
-
-    connection.query(sql, (error, resultUser) => {
-      error && res.status(400).json({error});
-      let email = resultUser.email;
-      let password = randomPasswordGenerator();
-
-      let saltRounds = 8;
-    
-      bcrypt.genSalt(saltRounds, function(err, saltRounds){
-  
-        bcrypt.hash(password, saltRounds, function(err, hash){
-          let sql = `UPDATE user SET password = '${hash}' WHERE email = '${email}'`;
-  
-            connection.query(sql, (error, result) => {
-              error && res.status(400).json({error});
-              nodemailerSendNewPass(email, user_first_name, new_password  );
-              res.status(201).json(`Contraseña nueva: ${password}`);
-            })
-        })
-      })
-   })
-
-    
-  // SE ENVIA UN CORREO ELECTRONICO AL USUARIO CON EL CORREO INTRODUCIDO (METODO POST)
+  //6. Retreive Password (envía un correo electrónico al correo introducido para confirmar el correo)
+  // localhost:4000/user/retreivePassword
+  passwordSendConfirmationEmail = (req, res) => {
+    const email = req.body.email;
+    // VALIDAR QUE EXISTA CORREO EN BD
+    nodemailerConfirmEmail(email);
+    res.status(200).json("ENVIADO EL PRIMER CORREO!")
   }
+
+
+  //6.1 Change Password from email (un endpoint al que se accede por un botón en un correo electrónico y que genera y envía una clave al azar)
+  // localhost:4000/user/generateRandomPassword/:email
+  changePasswordFromEmail = (req, res) => {
+    const email = req.params.email;
+    const password = randomPasswordGenerator();
+
+    let saltRounds = 8;
+  
+    bcrypt.genSalt(saltRounds, function(err, saltRounds){
+
+      bcrypt.hash(password, saltRounds, function(err, hash){
+        let sql = `UPDATE user SET password = '${hash}' WHERE email = '${email}'`;
+
+        connection.query(sql, (error, result) => {
+          error && res.status(400).json({error});
+
+          let sql2 = `SELECT first_name FROM user WHERE email = '${email}'`
+         
+          connection.query(sql2, (error, result2) => {
+            error && res.status(400).json({error});
+            let name = result2[0].first_name;
+            console.log(name);
+
+            nodemailerSendNewPass(email, name, password);
+            res.status(201).json(`Contraseña nueva: ${password}`);
+          });
+        });
+      });
+    });
+  };
   
 // 7. Get one user
 // localhost:4000/user/getOneUser/:user_id
