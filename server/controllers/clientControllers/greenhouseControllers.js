@@ -54,16 +54,18 @@ class GreenhouseController {
     // 2.Edit Greenhouse
     // localhost:4000/greenhouse/editGreenhouse/:greenhouse_id
     editGreenhouse = (req, res) => {
-    
-        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, greenhouse_create_date, greenhouse_latitude, greenhouse_longitude } = req.body;
+       console.log(req.body);
+       
+        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, greenhouse_latitude, greenhouse_longitude } = req.body;
         
         const greenhouse_id = req.params.greenhouse_id;
+        console.log(greenhouse_name, greenhouse_id);
         
-        let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greeenhouse_size = '${greenhouse_size}', greenhouse_create_date = '${greenhouse_create_date}', greenhouse_latitude = '${greenhouse_latitude}', greenhouse_longitude = '${greenhouse_longitude}'  WHERE greenhouse_id = ${greenhouse_id}`;
+        let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greenhouse_size = '${greenhouse_size}', greenhouse_latitude = '${greenhouse_latitude}', greenhouse_longitude = '${greenhouse_longitude}'  WHERE greenhouse_id = ${greenhouse_id}`;
         
         connection.query(sql, (error, result) => {
           error 
-          ? res.status(400).json({ error }) 
+          ? res.status(405).json({ error }) 
           : res.status(200).json(`El invernadero ${greenhouse_id} ha sido actualizado`);
         });
       };
