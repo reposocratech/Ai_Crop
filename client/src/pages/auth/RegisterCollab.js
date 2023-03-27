@@ -57,8 +57,9 @@ export const RegisterCollab = () => {
         })
         .catch((err) => {
           console.log(err);
-          if (err.response.data.error.errno === 1062) {
+          if (err.response.data?.error.errno === 1062) {
             setMessageError("email duplicado");
+            console.log(err.response.data?.error.errno);
           } else {
             setMessageError("Error en el registro");
           }
@@ -188,6 +189,7 @@ export const RegisterCollab = () => {
             </article>
             <div className='button_section'>
                 <button className="bg_verde" onClick={handleSubmit}>Aceptar</button>
+                <p className='text-danger'>{messageError}</p>
             </div>
           </section>
     </Row>
