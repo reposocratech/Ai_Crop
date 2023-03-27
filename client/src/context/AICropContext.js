@@ -10,7 +10,7 @@ export const AICropProvider = (props) => {
     const [userAlarms, setUserAlarms] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [token, setToken] = useState();
-
+    
     useEffect(() => {
         const tokenStorage = getLocalStorageAICrop();
         setToken(tokenStorage);
@@ -22,6 +22,7 @@ export const AICropProvider = (props) => {
                 .get(`http://localhost:4000/user/getOneUser/${user_id}`)
                 .then((res)=>{
                     setUser(res.data.resultUser[0]);
+                    console.log(res.data.user, "userdataaaa")
                     setIsLogged(true);
                 })
                 .catch((error)=>console.log(error))

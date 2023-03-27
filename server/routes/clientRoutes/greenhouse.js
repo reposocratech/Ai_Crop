@@ -9,8 +9,8 @@ router.post('/createGreenhouse', GreenhouseController.createGreenhouse);
 
 
 //2. edit greenhouse
-// localhost:4000/greenhouse/createGreenhouse
-router.post('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhouse);
+// localhost:4000/greenhouse/editGreenhouse
+router.put('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhouse);
 
 
 //3. see greenhouse info by gh ID
