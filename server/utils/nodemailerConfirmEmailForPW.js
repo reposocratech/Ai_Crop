@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 "use strict";
 
 // async..await is not allowed in global scope, must use a wrapper
-async function main(email, user_first_name, new_password) {
+async function main(email) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
 
@@ -22,12 +22,10 @@ async function main(email, user_first_name, new_password) {
   let info = await transporter.sendMail({
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${email}`, // list of receivers
-    subject: `Has solicitado una nueva contraseña`,
-    text: `Hola ${user_first_name}! Aquí te enviamos tu nueva contraseña. 
-    Te recomendamos que la modifiques cuanto antes por alguna que no vayas a olvidar.
+    subject: `¡Has solicitado una nueva contraseña!`, // Subject line
+    text: `Has solicitado un cambio de contraseña. Pulsa en el siguiente enlace y recibirás otro correo con una contraseña temporal.
     
-    Nueva contraseña: ${new_password}` // Subject line
-    // plain text body
+    http://localhost:4000/user/generateRandomPassword/${email}`, // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 

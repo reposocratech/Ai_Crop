@@ -86,7 +86,7 @@ export const Login = () => {
             </article>
             <p className='text-center mt-3 text-danger'>{messageError}</p>
 
-            <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <span className='etiq_login' href='#'>Recupérala</span></p>
+            <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <span className='etiq_login' onClick={()=>{navigate('../forgotpassword')}}>Recupérala</span></p>
 
           </section>
         </main>

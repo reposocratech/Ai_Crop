@@ -17,6 +17,7 @@ import { AICropContext } from '../context/AICropContext'
 import { CreateGreenhouse } from '../pages/dashboard/greenhouse/createGreenhouse/CreateGreenhouse'
 import { Contact } from '../pages/home/contact/Contact'
 import { RegisterCollab } from '../pages/auth/RegisterCollab'
+import { ForgotPass } from '../pages/auth/ForgotPass'
 
 
 
@@ -31,6 +32,7 @@ export const AppRoutes = () => {
                 <Routes>
                     <Route path='/' element={<Home/>}/> 
                     <Route path='/register' element={<Register/>}/>
+                    <Route path='/forgotpassword' element={<ForgotPass/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/collaborator/:greenhouse_id' element={<RegisterCollab/>}/>
                     <Route path='/info' element={<Info/>}/>

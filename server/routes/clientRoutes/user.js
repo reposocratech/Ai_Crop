@@ -23,13 +23,17 @@ router.get('/deleteUser/:user_id', UserController.deleteUser);
 // localhost:4000/user/login
 router.post('/login', UserController.login);
 
-//5. Change Password
-// localhost:4000/user/logout
-router.post('/logout', UserController.changePasswordFromSettings);
+//5. Change Password from settings
+// localhost:4000/user/changePassword
+router.post('/changePassword', UserController.changePasswordFromSettings);
 
-//6. Forgot Password
+//6. Retreive Password (envía un correo electrónico al correo introducido para confirmar el correo)
 // localhost:4000/user/retreivePassword
-router.get('/retreivePassword', UserController.changePasswordFromEmail);
+router.post('/retreivePassword', UserController.passwordSendConfirmationEmail);
+
+//6.1 Change Password from email (un endpoint al que se accede por un botón en un correo electrónico y que genera y envía una clave al azar)
+// localhost:4000/user/generateRandomPassword/:email
+router.get('/generateRandomPassword/:email', UserController.changePasswordFromEmail);
 
 //7. Get one user
 // localhost:4000/user/getOneUser/:user_id

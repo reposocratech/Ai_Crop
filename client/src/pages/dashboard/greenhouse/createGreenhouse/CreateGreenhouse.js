@@ -12,7 +12,8 @@ const initialValueInfo = {
     greenhouse_location: "",
     greenhouse_orientation: "",
     greenhouse_size: "",
-    greenhouse_type: ""
+    greenhouse_type: "",
+    responsibility_acknowledged: false
 }
 
 const initialValueMaxMin = {
@@ -24,9 +25,9 @@ const initialValueMaxMin = {
 export const CreateGreenhouse = () => {
 
   const user_id = useContext(AICropContext).user?.user_id;
-  // console.log(user_id, "USER AIDIIIIIIIIIIÍ");
+
   const [showForm2, setShowForm2] = useState(false);
-  const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo)
+  const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo);
   const [temperatura, setTemperatura] = useState(initialValueMaxMin);
   const [co2, setCo2] = useState(initialValueMaxMin);
   const [humidity, setHumidity] = useState(initialValueMaxMin);
@@ -34,18 +35,19 @@ export const CreateGreenhouse = () => {
   const [ph, setPh] = useState(initialValueMaxMin);
   const [conductivity, setConductivity] = useState(initialValueMaxMin);
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
-  const [cbo, setCbo] = useState(false)
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   let arrayMeasures = [];
 
-
   const handleResponsability = (e) => {
-    setCbo(e.target.checked)
+    const name = e.target.name;
+    let value = e.target.checked;
+    value? value = 1 : value = 0;
+    setGreenhouseInfo({...greenhouseInfo, [name]:value})
+    console.log(greenhouseInfo);
   }
-  // console.log(cbo);
 
   const handleChangeGreenhouseInfo = (e) => {
     const {name, value} = e.target;
@@ -419,13 +421,13 @@ export const CreateGreenhouse = () => {
           <div className='checkbox_cont'>
             <div>
             <p>Si las medidas no son las correctas, asumo la responsabilidad</p>
-            <input type='checkbox' value={cbo} onClick={handleResponsability}></input>
+            <input type='checkbox' name='responsibility_acknowledged' value={greenhouseInfo.responsibility_acknowledged} onClick={handleResponsability}></input>
             </div>
           </div>
           {/* IMG Y BOTONES */}
           <div className='aaa'>
             <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
-            <button className='crear' onClick={handleSubmit} disabled={error != "" || cbo === false}>Crear</button>
+            <button className='crear' onClick={handleSubmit} disabled={error != "" || greenhouseInfo.responsibility_acknowledged === 0}>Crear</button>
             <img className='gh_img' src='/assets/images/greenhouse.png'/>
           </div>
         </section>
