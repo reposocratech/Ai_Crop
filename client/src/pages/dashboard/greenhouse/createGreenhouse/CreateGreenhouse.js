@@ -35,9 +35,9 @@ export const CreateGreenhouse = () => {
   const [conductivity, setConductivity] = useState(initialValueMaxMin);
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
   const [cbo, setCbo] = useState(false)
-
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
 
   let arrayMeasures = [];
 
@@ -72,7 +72,7 @@ export const CreateGreenhouse = () => {
   }
   const handleChangepH = (e) => {
     const {name, value} = e.target;
-    setPh({...ph, [name]:value, measurement_type_id:5})
+    setPh({...ph, [name]:(value), measurement_type_id:5})
   }
   const handleChangeConductivity = (e) => {
     const {name, value} = e.target;
@@ -85,19 +85,12 @@ export const CreateGreenhouse = () => {
   // -----------------------------------
 
   useEffect(() => {
-    // const minMaxValidation = temperatura.min < temperatura.max && co2.min < co2.max && humidity.min < humidity.max && sunlight.min < sunlight.max && ph.min < ph.max && conductivity.min < conductivity.max && leafHumidity.min < leafHumidity.max;
 
-    // if (!minMaxValidation) {
-    //   setError("Los mínimos no deben superar los máximos");
-    // } else {
-    //   setError("")
-    // }
-
-    if (temperatura.min > temperatura.max || co2.min > co2.max || humidity.min > humidity.max || sunlight.min > sunlight.max || ph.min > ph.max || conductivity.min > conductivity.max || leafHumidity.min > leafHumidity.max){
+    if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
       setError("Los mínimos no deben superar los máximos")
     } 
     else {
-      setError("")
+      setError("");
     }
 
   }, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity])
@@ -111,21 +104,22 @@ export const CreateGreenhouse = () => {
     setShowForm2(false)
   }
   
-    const handleSubmit = () => {
-      arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
-      console.log(arrayMeasures);
-      axios
-        .post("http://localhost:4000/greenhouse/createGreenhouse", {greenhouseInfo, arrayMeasures})
-        .then((res)=> {
-          console.log(res.data);
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-        
+  const handleSubmit = () => {
+    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
+    console.log(arrayMeasures);
+    console.log(greenhouseInfo);
+    axios
+      .post("http://localhost:4000/greenhouse/createGreenhouse", {greenhouseInfo, arrayMeasures})
+      .then((res)=> {
+        console.log(res.data);
+        navigate('/user');
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
 
-  const navigate = useNavigate();
+
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
@@ -199,7 +193,7 @@ export const CreateGreenhouse = () => {
               name='greenhouse_type'
               value={greenhouseInfo.greenhouse_type}
               onChange={handleChangeGreenhouseInfo}
-              >
+              >   <option>Slecciona Método de cultivo</option>
                 <optgroup label="Cultivos en agua">
                   <option value="NFT">NFT</option>
                   <option value="NGS">NGS</option>
@@ -250,7 +244,7 @@ export const CreateGreenhouse = () => {
               <div className='container'>
                 <label>Máximo ºC</label>
                 <input 
-                type="tel"
+                type="number"
                 minLength="2"
                 maxLength="5"
                 name='max'

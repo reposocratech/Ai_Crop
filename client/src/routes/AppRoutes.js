@@ -31,7 +31,7 @@ export const AppRoutes = () => {
                 <Routes>
                     <Route path='' element={<Home/>}/> 
                     <Route path='register' element={<Register/>}/>
-                    <Route path='colaborator' element={<RegisterCollab/>}/>
+                    <Route path='collaborator/:greenhouse_id' element={<RegisterCollab/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='info' element={<Info/>}/>
                     <Route path='contact' element={<Contact/>}/>
