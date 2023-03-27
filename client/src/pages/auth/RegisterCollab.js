@@ -10,9 +10,9 @@ import "./auth.scss"
 import { useNavigate, useParams } from 'react-router-dom';
 
 
+const greenhouse_id = useParams().greenhouse_id;
 
-export const RegisterCollab = () => {
-  const initialValue = {
+const initialValue = {
     first_name: "",
     last_name: "",
     email: "",
@@ -26,39 +26,17 @@ export const RegisterCollab = () => {
     user_knowledge: "",
     user_photo: "",
     user_type: 3,
-  };
+    greenhouse_id: greenhouse_id
+}
+export const RegisterCollab = () => {
 
+  
 
-  const greenhouse_id = useParams().greenhouse_id;
-
-    const initialValue = {
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-        dni: "",
-        phone: "",
-        address: "",
-        post_code: "",
-        city: "",
-        country: "",
-        user_knowledge: "",
-        user_photo: "",
-        user_type: 3,
-        greenhouse_id: greenhouse_id
-    }
         
     const [register, setRegister] = useState(initialValue);
     const [messageError, setMessageError] = useState();
 
-    const navigate = useNavigate();  
-
-        
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setRegister({...register, [name]:value})
-      }
-
+    
 
   const navigate = useNavigate();
 
