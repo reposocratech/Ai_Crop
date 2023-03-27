@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './creategreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
+import { Form } from 'react-bootstrap'
+import axios from 'axios'
+import { AICropContext } from '../../../../context/AICropContext'
 
 const initialValueInfo = {
+    user_owner_id : "",
     greenhouse_name : "",
     greenhouse_location: "",
     greenhouse_orientation: "",
@@ -19,6 +23,8 @@ const initialValueMaxMin = {
 
 export const CreateGreenhouse = () => {
 
+  const user_id = useContext(AICropContext).user?.user_id;
+  // console.log(user_id, "USER AIDIIIIIIIIIIÍ");
   const [showForm2, setShowForm2] = useState(false);
   const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo)
   const [temperatura, setTemperatura] = useState(initialValueMaxMin);
@@ -28,16 +34,29 @@ export const CreateGreenhouse = () => {
   const [ph, setPh] = useState(initialValueMaxMin);
   const [conductivity, setConductivity] = useState(initialValueMaxMin);
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
+  const [cbo, setCbo] = useState(false)
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  let arrayMeasures = [];
+
+
+  const handleResponsability = (e) => {
+    setCbo(e.target.checked)
+  }
+  // console.log(cbo);
 
   const handleChangeGreenhouseInfo = (e) => {
     const {name, value} = e.target;
-    setGreenhouseInfo({...greenhouseInfo, [name]:value})
+    setGreenhouseInfo({...greenhouseInfo, [name]:value, user_owner_id:user_id})
   }
 
   // HANDLE CHANGE MEDIDAS
   const handleChangeTemp = (e) => {
     const {name, value} = e.target;
-    setTemperatura({...temperatura, [name]:value, measurement_type_id:1})
+    setTemperatura({...temperatura, [name]:value, measurement_type_id:1});
+    
   }
   const handleChangeCo2 = (e) => {
     const {name, value} = e.target;
@@ -53,7 +72,7 @@ export const CreateGreenhouse = () => {
   }
   const handleChangepH = (e) => {
     const {name, value} = e.target;
-    setPh({...ph, [name]:value, measurement_type_id:5})
+    setPh({...ph, [name]:(value), measurement_type_id:5})
   }
   const handleChangeConductivity = (e) => {
     const {name, value} = e.target;
@@ -65,6 +84,17 @@ export const CreateGreenhouse = () => {
   }
   // -----------------------------------
 
+  useEffect(() => {
+
+    if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
+      setError("Los mínimos no deben superar los máximos")
+    } 
+    else {
+      setError("");
+    }
+
+  }, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity])
+  
 
   const handleContinue = () => {
     setShowForm2(true)
@@ -74,21 +104,22 @@ export const CreateGreenhouse = () => {
     setShowForm2(false)
   }
   
-    const handleSubmit = () => {
-
+  const handleSubmit = () => {
+    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
+    console.log(arrayMeasures);
+    console.log(greenhouseInfo);
+    axios
+      .post("http://localhost:4000/greenhouse/createGreenhouse", {greenhouseInfo, arrayMeasures})
+      .then((res)=> {
+        console.log(res.data);
+        navigate('/user');
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
 
 
-  // console.log(greenhouseInfo);
-  // console.log(temperatura)
-  // console.log(co2)
-  // console.log(humidity)
-  // console.log(sunlight)
-  // console.log(ph)
-  // console.log(conductivity)
-  // console.log(leafHumidity)
-
-  const navigate = useNavigate();
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
@@ -106,10 +137,10 @@ export const CreateGreenhouse = () => {
           <img className='leaf_img' src='/assets/images/leaf_form.png'/>
         </section>
         {/* SECCIÓN FORMULARIO */}
-        <section className='form_creategh1'>
+        <Form className='form_creategh1'>
           <p>Ponle un nombre:</p>
           <input
-          placeholder='Mi huerto de Maria'
+          placeholder='Mi huerto de albahaca'
           autoComplete='off'
           className='input_1'
           name='greenhouse_name'
@@ -162,7 +193,7 @@ export const CreateGreenhouse = () => {
               name='greenhouse_type'
               value={greenhouseInfo.greenhouse_type}
               onChange={handleChangeGreenhouseInfo}
-              >
+              >   <option>Slecciona Método de cultivo</option>
                 <optgroup label="Cultivos en agua">
                   <option value="NFT">NFT</option>
                   <option value="NGS">NGS</option>
@@ -179,7 +210,7 @@ export const CreateGreenhouse = () => {
               </select>
             </div>
           </article>
-        </section>
+        </Form>
       </main>
       <div className='bottom_sect'>
        <button onClick={handleContinue}><img src='/assets/images/next1.png'/></button>
@@ -191,22 +222,15 @@ export const CreateGreenhouse = () => {
       <main className='main2_creategh'>
         {/* SECCIÓN IZQ */}
         <section className='sect_1'>
-          <p>Tú conoces tu cultivo mejor que nosotros...</p>
+          {error == "" ? 
+          <p>Tú conoces tu cultivo mejor que nosotros...</p> :
+          <p className='advise'>{error}</p>
+          }
           <h5>¿Cuáles son sus límites?</h5>
           {/* TEMPERATURA */}
           <div className='measure'>
             <p>Temperatura</p>
             <article className='input_group'>
-              <div className='container'>
-                <label>Máximo ºC</label>
-                <input 
-                type="number"
-                maxLength="3"
-                name='max'
-                value={temperatura.max}
-                onChange={handleChangeTemp}
-                />
-              </div>
               <div className='container'>
                 <label>Mínimo ºC</label>
                 <input 
@@ -217,12 +241,33 @@ export const CreateGreenhouse = () => {
                 onChange={handleChangeTemp}
                 />
               </div>
+              <div className='container'>
+                <label>Máximo ºC</label>
+                <input 
+                type="number"
+                minLength="2"
+                maxLength="5"
+                name='max'
+                value={temperatura.max}
+                onChange={handleChangeTemp}
+                />
+              </div>
             </article>
           </div>
           {/* CO2 */}
           <div className='measure'>
             <p>Co2</p>
             <article className='input_group'>
+            <div className='container'>
+                <label>Mínimo ppm</label>
+                <input 
+                type="number"
+                maxLength="5"
+                name='min'
+                value={co2.min}
+                onChange={handleChangeCo2}
+                />
+              </div>
               <div className='container'>
                 <label>Máximo ppm</label>
                 <input 
@@ -233,32 +278,12 @@ export const CreateGreenhouse = () => {
                 onChange={handleChangeCo2}
                 />
               </div>
-              <div className='container'>
-                <label>Mínimo ppm</label>
-                <input 
-                type="number"
-                maxLength="5"
-                name='min'
-                value={co2.min}
-                onChange={handleChangeCo2}
-                />
-              </div>
             </article>
           </div>
           {/* HUMEDAD */}
           <div className='measure'>
             <p>Humedad</p>
             <article className='input_group'>
-              <div className='container'>
-                <label>Máximo %</label>
-                <input 
-                type="number"
-                maxLength="5"
-                name='max'
-                value={humidity.max}
-                onChange={handleChangeHumidity}
-                />
-              </div>
               <div className='container'>
                 <label>Mínimo %</label>
                 <input 
@@ -269,6 +294,16 @@ export const CreateGreenhouse = () => {
                 onChange={handleChangeHumidity}
                 />
               </div>
+              <div className='container'>
+                <label>Máximo %</label>
+                <input 
+                type="number"
+                maxLength="5"
+                name='max'
+                value={humidity.max}
+                onChange={handleChangeHumidity}
+                />
+              </div>
             </article>
           </div>
           {/* LUZ SOLAR */}
@@ -276,22 +311,22 @@ export const CreateGreenhouse = () => {
             <p>Luz solar</p>
             <article className='input_group'>
               <div className='container'>
-                <label>Máximo nm</label>
-                <input 
-                type="number"
-                maxLength="5"
-                name='max'
-                value={sunlight.max}
-                onChange={handleChangeSunlight}
-                />
-              </div>
-              <div className='container'>
                 <label>Mínimo nm</label>
                 <input 
                 type="number"
                 maxLength="5"
                 name='min'
                 value={sunlight.min}
+                onChange={handleChangeSunlight}
+                />
+              </div>
+              <div className='container'>
+                <label>Máximo nm</label>
+                <input 
+                type="number"
+                maxLength="5"
+                name='max'
+                value={sunlight.max}
                 onChange={handleChangeSunlight}
                 />
               </div>
@@ -307,16 +342,6 @@ export const CreateGreenhouse = () => {
             <p>pH</p>
             <article className='input_group'>
               <div className='container'>
-                <label>Máximo</label>
-                <input 
-                type="number"
-                maxLength="5"
-                name='max'
-                value={ph.max}
-                onChange={handleChangepH}
-                />
-              </div>
-              <div className='container'>
                 <label>Mínimo</label>
                 <input 
                 type="number"
@@ -326,22 +351,22 @@ export const CreateGreenhouse = () => {
                 onChange={handleChangepH}
                 />
               </div>
-            </article>
-          </div>
-          {/* CONDUCTIVIDAD */}
-          <div className='measure mt-0 transparent'>
-            <p>Conductividad</p>
-            <article className='input_group'>
               <div className='container'>
-                <label>Máximo mS/cm</label>
+                <label>Máximo</label>
                 <input 
                 type="number"
                 maxLength="5"
                 name='max'
-                value={conductivity.max}
-                onChange={handleChangeConductivity}
+                value={ph.max}
+                onChange={handleChangepH}
                 />
               </div>
+            </article>
+          </div>
+          {/* CONDUCTIVIDAD */}
+          <div className='measure'>
+            <p>Conductividad</p>
+            <article className='input_group'>
               <div className='container'>
                 <label>Mínimo mS/cm</label>
                 <input 
@@ -352,22 +377,22 @@ export const CreateGreenhouse = () => {
                 onChange={handleChangeConductivity}
                 />
               </div>
+              <div className='container'>
+                <label>Máximo mS/cm</label>
+                <input 
+                type="number"
+                maxLength="5"
+                name='max'
+                value={conductivity.max}
+                onChange={handleChangeConductivity}
+                />
+              </div>
             </article>
           </div>
           {/* HUMEDAD DE LA HOJA */}
           <div className='measure'>
             <p>Humedad de la hoja</p>
             <article className='input_group'>
-              <div className='container'>
-                <label>Máximo %</label>
-                <input 
-                type="number"
-                maxLength="5"
-                name='max'
-                value={leafHumidity.max}
-                onChange={handleChangeLeafHumidity}
-                />
-              </div>
               <div className='container'>
                 <label>Mínimo %</label>
                 <input 
@@ -378,30 +403,35 @@ export const CreateGreenhouse = () => {
                 onChange={handleChangeLeafHumidity}
                 />
               </div>
+              <div className='container'>
+                <label>Máximo %</label>
+                <input 
+                type="number"
+                maxLength="5"
+                name='max'
+                value={leafHumidity.max}
+                onChange={handleChangeLeafHumidity}
+                />
+              </div>
             </article>
           </div>
           </section>
           <div className='checkbox_cont'>
             <div>
             <p>Si las medidas no son las correctas, asumo la responsabilidad</p>
-            <input type='checkbox'></input>
+            <input type='checkbox' value={cbo} onClick={handleResponsability}></input>
             </div>
           </div>
           {/* IMG Y BOTONES */}
           <div className='aaa'>
             <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
-            <button className='crear'>Crear</button>
+            <button className='crear' onClick={handleSubmit} disabled={error != "" || cbo === false}>Crear</button>
             <img className='gh_img' src='/assets/images/greenhouse.png'/>
           </div>
         </section>
       </main>
       }
 
-      {/* {!showForm2 &&
-      <div className='bottom_sect'>
-       <button onClick={handleContinue}><img src='/assets/images/next1.png'/></button>
-        <img className='gh_img' src='/assets/images/greenhouse.png'/>
-      </div>} */}
     </div>
   )
 }

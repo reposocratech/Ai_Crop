@@ -37,10 +37,8 @@ export const OneGreenhouse = () => {
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   
-
   const navigate = useNavigate();
-
-
+  
   const greenhouse_id = useParams().greenhouse_id;
 
   useEffect(() => {
@@ -84,7 +82,26 @@ export const OneGreenhouse = () => {
 
   }, [])
 
-  
+  let datos = {
+    name: "Pedrito",
+    email: "javimorera90@hotmail.com",
+    user_id: user?.user_id,
+    first_name: user?.first_name,
+    last_name: user?.last_name,
+    greenhouse_id: greenhouse_id,
+    // greenhouse_name: "Invernadero de Carlitos"
+  }
+
+  const inviteCollab = () => {
+    axios // CAMBIAR METODO A POST, AQUÍ Y EN LA RUTA DEL BACK
+    .post('http://localhost:4000/greenhouse/inviteCollaborator', {datos})
+    .then((res)=>{
+      console.log(res.data);
+    })
+    .catch((err)=>{
+      console.log(err.response.data.error);
+    })
+  }
 
   return (
     <div className='cont_greenhouses'>
@@ -114,7 +131,7 @@ export const OneGreenhouse = () => {
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar cultivo'/>
           </div>
-          <button className='search_add'>
+          <button className='search_add' onClick={inviteCollab}>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
             Añadir colaboradores
           </button>

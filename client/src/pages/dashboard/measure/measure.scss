@@ -1,0 +1,40 @@
+@import "../../../mixin";
+@import "../../../variables";
+
+.cont_measure{
+    .botones_user{
+        display: flex;
+        justify-content: space-between;
+
+        button{
+            padding: 7px;
+            border: 2px solid #CDCDCD;
+            border-radius: 5em;
+            background-color: transparent;
+            transition: 0.2s;
+        }
+        button:hover{
+            background-color: #CDCDCD;
+            filter: invert(1);
+        }
+        img{
+            width: 35px;
+            height: 35px;
+        }
+    }
+    .title_row{
+        display: flex;
+        align-items: center;
+        hr{
+            height: 2px;
+            border: 1px solid black;
+            width: 100%;
+        }
+        h1{
+            letter-spacing: 0.105em;
+            font-family: $workSans;
+            font-weight: 500;
+            font-size: 45px;
+        }
+    }
+}

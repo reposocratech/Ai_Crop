@@ -13,14 +13,15 @@ async function main(email, alarm_id, measurement_type_name, high_low, alarm_mess
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com", //cuenta en este caso de gmail
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    port: 465,
+    pool: true,
+    secure: true, // true for 465, false for other ports
     auth: {
       user: process.env.EMAILSOURCE, // generated ethereal user
       pass: process.env.EMAILPASSWORD, // generated ethereal password
     },
   });
-
+  
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address

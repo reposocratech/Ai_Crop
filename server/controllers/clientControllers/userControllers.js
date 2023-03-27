@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require('../../utils/nodemailerCreateUser');
 const nodemailerSendNewPass = require('../../utils/nodemailerSendNewPass');
 const randomPasswordGenerator = require('../../utils/randomPasswordGenerator')
+const axios = require('axios');
 
 require("dotenv").config();
 
@@ -14,28 +15,55 @@ class UserController{
   createUser = (req, res) => {
     const {first_name, last_name, email, password, address, phone, city, country, user_knowledge, user_type} = req.body;
     
-
-    console.log(req.body);
-
     let saltRounds = 8;
     
     bcrypt.genSalt(saltRounds, function(err, saltRounds){
 
       bcrypt.hash(password, saltRounds, function(err, hash){
+
         let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${city}', '${country}', '${user_knowledge}',${user_type}) `;
         console.log(sql);
-        
 
-          connection.query(sql, (error, result) => {
+        connection.query(sql, (error, result) => {
           error && res.status(400).json({error});
-          console.log(error);
+          
           nodemailer(first_name, email, result?.user_id);
+
+          if(greenhouse_id){
+            let sql2 = `SELECT user_id FROM user WHERE email = ${email} AND is_deleted = 0 AND is_disabled = 0`;
+          
+            connection.query(sql2, (error, result2) => {
+              error && res.status(400).json({error});
+
+              const info = {
+                user_id: result2.user_id,
+                greenhouse_id: greenhouse_id
+              }
+              
+              axios
+                .post('http://localhost:4000/user/user_greenhouse', {info})
+                .then(res.status(201).json(`El usuario ${info.user_id} ha sido añadido como colaborador del invernadero ${info.greenhouse_id}`))
+                .catch(err.status(401).json(`ERRORRRR`))
+            })
+          } else {
+            res.status(201).json("El usuario se ha creado con éxito");
+          }
             
-          res.status(201).json("El usuario se ha creado con éxito");
-          })
+        })
       })
     })
   }  
+  
+  // 1.2 Añadir colaborador recientemente creado al greenhouse indicado
+  // localhost:4000/user/user_greenhouse
+  asignCollab = (req, res) => {
+    
+    const {user_id, greenhouse_id} = req.body;
+    console.log(req.body);
+
+    let sql = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${user_id}, ${greenhouse_id})`
+
+  }
 
   //2. Editar usuario (agricultor)
   //localhost:4000/user/editUser
@@ -194,6 +222,8 @@ class UserController{
       });
   } 
 }
+
+// 8. Acceder al formulario de creador de usuario tipo 3
 
   module.exports = new UserController();
   

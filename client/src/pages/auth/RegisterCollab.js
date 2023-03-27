@@ -1,8 +1,16 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Row } from "react-bootstrap";
-import { TopNavBar } from "../../components/NavBars/TopNavBar/TopNavBar";
+
+import axios from 'axios';
+import React, { useState } from 'react'
+
+
+import {Row} from 'react-bootstrap';
+import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar';
+import "./auth.scss" 
+
+import { useNavigate, useParams } from 'react-router-dom';
+
+
+
 export const RegisterCollab = () => {
   const initialValue = {
     first_name: "",
@@ -20,8 +28,37 @@ export const RegisterCollab = () => {
     user_type: 3,
   };
 
-  const [register, setRegister] = useState(initialValue);
-  const [messageError, setMessageError] = useState();
+
+  const greenhouse_id = useParams().greenhouse_id;
+
+    const initialValue = {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        dni: "",
+        phone: "",
+        address: "",
+        post_code: "",
+        city: "",
+        country: "",
+        user_knowledge: "",
+        user_photo: "",
+        user_type: 3,
+        greenhouse_id: greenhouse_id
+    }
+        
+    const [register, setRegister] = useState(initialValue);
+    const [messageError, setMessageError] = useState();
+
+    const navigate = useNavigate();  
+
+        
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setRegister({...register, [name]:value})
+      }
+
 
   const navigate = useNavigate();
 
@@ -61,36 +98,39 @@ export const RegisterCollab = () => {
   };
 
   return (
-    <div>
-      <Row className="cont_auth d-flex flex-column p-0">
-        <TopNavBar />
-        <section className=" .form_registro">
-          <article>
-            <div>
-              <label>Nombre</label>
-              <input
-                type="text"
-                maxLength="20"
-                placeholder="Nombre"
+
+    <div className='PpalColl'>
+    <Row className='cont_auth d-flex flex-column p-0'>
+      <TopNavBar/>
+      <section className='registro-form form_registro d-flex  flex-column ms-5'>
+        <div className='title m-0'>
+        <h1 className='title'>Bienvenido Colaborador/a <span className='punto'>.</span></h1>
+        </div>
+      <article className='nombre_apell'>
+        <div className='float-container'>
+            <label>Nombre</label>
+            <input 
+                type="text" maxLength="20"
+                placeholder='Nombre'
                 value={register.first_name}
                 onChange={handleChange}
-                name="first_name"
-              />
-            </div>
-            <div>
-              <label>Apellidos</label>
-              <input
-                type="text"
-                maxLength="25"
-                placeholder="Apellidos"
+                name='first_name'
+            />
+        </div>
+        <div className='float-container'>
+            <label>Apellidos</label>
+            <input 
+                type="text" maxLength="25"
+                placeholder='Apellidos'
                 value={register.last_name}
                 onChange={handleChange}
                 name="last_name"
-              />
-            </div>
-          </article>
-          <article>
-          <div>
+            />
+        </div>
+        </article>
+        <article className='nombre_apell'>
+        <div className='float-container'>
+
             <label>Email</label>
             <input
               type="email"
@@ -101,8 +141,10 @@ export const RegisterCollab = () => {
               onChange={handleChange}
               name="email"
             />
-          </div>
-          <div>
+
+        </div>
+        <div className='float-container'>
+
             <label>Contraseña</label>
             <input
               type="password"
@@ -113,9 +155,12 @@ export const RegisterCollab = () => {
               onChange={handleChange}
               name="password"
             />
-          </div>
-          </article>
-          <div>
+
+        </div>
+        </article>
+        <article className='nombre_apell'>
+        <div className='float-container'>
+
             <label>Telefono</label>
             <input
               type="text"
@@ -126,8 +171,10 @@ export const RegisterCollab = () => {
               onChange={handleChange}
               name="phone"
             />
-          </div>
-          <div>
+
+        </div>
+        <div className='float-container'> 
+
             <label>Ciudad</label>
             <input
               type="text"
@@ -138,8 +185,12 @@ export const RegisterCollab = () => {
               onChange={handleChange}
               name="city"
             />
-          </div>
-          <div>
+
+        </div>
+        </article>
+        <article className='nombre_apell'>
+        <div className='float-container'>
+
             <label>Pais</label>
             <input
               type="text"
@@ -149,37 +200,30 @@ export const RegisterCollab = () => {
               onChange={handleChange}
               name="country"
             />
-          </div>
-          <div id="floatContainer" className="float-container">
-            <label htmlFor="floatField">Conocimientos previos</label>
-            <select
-              id="countries"
-              className="select_form"
-              required
-              name="user_knowledge"
-              value={register.user_knowledge}
-              onChange={handleChange}
-            >
-              <option></option>
-              <option value="Agricultor tradicional">
-                Agricultor tradicional
-              </option>
-              <option value="Técnico en agricultura tradicional">
-                Técnico en agricultura tradicional
-              </option>
-              <option value="Técnico en agricultura hidropónica">
-                Técnico en agricultura hidropónica
-              </option>
-              <option value="Ingeniero agrónomo especializado en hidroponía">
-                Ingeniero agrónomo especializado en hidroponía
-              </option>
-            </select>
-          </div>
-          <div>
-            <button onClick={handleSubmit}>Aceptar</button>
-          </div>
-        </section>
-      </Row>
-    </div>
-  );
-};
+
+        </div>
+        <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Conocimientos previos</label>
+                <select id="countries" className='select_form'
+                required
+                name='user_knowledge'
+                value={register.user_knowledge}
+                onChange={handleChange}>
+                  <option></option>
+                  <option value="Agricultor tradicional">Agricultor tradicional</option>
+                  <option value="Técnico en agricultura tradicional">Técnico en agricultura tradicional</option>
+                  <option value="Técnico en agricultura hidropónica">Técnico en agricultura hidropónica</option>
+                  <option value="Ingeniero agrónomo especializado en hidroponía">Ingeniero agrónomo especializado en hidroponía</option>
+                </select>
+            </div>
+            </article>
+            <div className='button_section'>
+                <button className="bg_verde" onClick={handleSubmit}>Aceptar</button>
+            </div>
+          </section>
+    </Row>
+  </div>
+  )
+}
+
+

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useContext } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { NavLateral } from '../../../components/NavBars/SideNavBar/NavLateral'
@@ -28,9 +27,6 @@ export const MainPage = () => {
     outletCont_ref.current.style.outline = "35px solid #131A1B"
     whiteCont_ref.current.style.backgroundColor = "#131A1B"
   }
-
-
-     console.log(user);
 
   return (
     <Container fluid className='p-0'>
