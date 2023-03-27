@@ -1,17 +1,36 @@
-
 import axios from 'axios';
 import React, { useState } from 'react'
-
-
 import {Row} from 'react-bootstrap';
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar';
-import "./auth.scss" 
-
 import { useNavigate, useParams } from 'react-router-dom';
 
+import "./auth.scss" 
 
 const greenhouse_id = useParams().greenhouse_id;
 
+export const RegisterCollab = () => {
+  
+  const greenhouse_id = useParams().greenhouse_id;
+
+  const initialValue = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    dni: "",
+    phone: "",
+    address: "",
+    post_code: "",
+    city: "",
+    country: "",
+    user_knowledge: "",
+    user_photo: "",
+    user_type: 3,
+    greenhouse_id: greenhouse_id
+  }
+
+  const [register, setRegister] = useState(initialValue);
+  const [messageError, setMessageError] = useState();
 const initialValue = {
     first_name: "",
     last_name: "",
@@ -66,8 +85,9 @@ export const RegisterCollab = () => {
         })
         .catch((err) => {
           console.log(err);
-          if (err.response.data.error.errno === 1062) {
+          if (err.response.data?.error.errno === 1062) {
             setMessageError("email duplicado");
+            console.log(err.response.data?.error.errno);
           } else {
             setMessageError("Error en el registro");
           }
@@ -197,6 +217,7 @@ export const RegisterCollab = () => {
             </article>
             <div className='button_section'>
                 <button className="bg_verde" onClick={handleSubmit}>Aceptar</button>
+                <p className='text-danger'>{messageError}</p>
             </div>
           </section>
     </Row>
