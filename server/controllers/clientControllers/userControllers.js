@@ -29,7 +29,8 @@ class UserController{
           
           nodemailer(first_name, email, result?.user_id);
 
-          if(greenhouse_id){
+          if(req.params.greenhouse_id){
+            let greenhouse_id = req.params.greenhouse_id;
             let sql2 = `SELECT user_id FROM user WHERE email = ${email} AND is_deleted = 0 AND is_disabled = 0`;
           
             connection.query(sql2, (error, result2) => {
