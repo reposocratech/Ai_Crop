@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import React, { useState } from 'react'
 
@@ -9,7 +10,24 @@ import "./auth.scss"
 import { useNavigate, useParams } from 'react-router-dom';
 
 
+
 export const RegisterCollab = () => {
+  const initialValue = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    dni: "",
+    phone: "",
+    address: "",
+    post_code: "",
+    city: "",
+    country: "",
+    user_knowledge: "",
+    user_photo: "",
+    user_type: 3,
+  };
+
 
   const greenhouse_id = useParams().greenhouse_id;
 
@@ -41,30 +59,46 @@ export const RegisterCollab = () => {
         setRegister({...register, [name]:value})
       }
 
-      const handleSubmit = () => {
-        if(!register.first_name || !register.last_name || !register.email || !register.password || !register.country || !register.city || !register.phone || !register.user_knowledge){
-          setMessageError("Debes rellenar todos los campos")
-        } else {
-          axios
-          .post("http://localhost:4000/user/createUser",register)
-          .then((res)=>{
-              console.log(res)
-              navigate('/login')
-            })
-          .catch((err)=>{
-            console.log(err);
-            if(err.response.data.error.errno === 1062){
-              setMessageError("email duplicado")
-            }else{
-              setMessageError("Error en el registro")
-            }
-          })
-        }
-      }
 
+  const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRegister({ ...register, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    if (
+      !register.first_name ||
+      !register.last_name ||
+      !register.email ||
+      !register.password ||
+      !register.country ||
+      !register.city ||
+      !register.phone ||
+      !register.user_knowledge
+    ) {
+      setMessageError("Debes rellenar todos los campos");
+    } else {
+      axios
+        .post("http://localhost:4000/user/createUser", register)
+        .then((res) => {
+          console.log(res);
+          navigate("/login");
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response.data.error.errno === 1062) {
+            setMessageError("email duplicado");
+          } else {
+            setMessageError("Error en el registro");
+          }
+        });
+    }
+  };
 
   return (
+
     <div className='PpalColl'>
     <Row className='cont_auth d-flex flex-column p-0'>
       <TopNavBar/>
@@ -96,58 +130,77 @@ export const RegisterCollab = () => {
         </article>
         <article className='nombre_apell'>
         <div className='float-container'>
+
             <label>Email</label>
-            <input 
-                type="email" maxLength="35" required
-                placeholder='Email'
-                value={register.email}
-                onChange={handleChange}
-                name="email" 
+            <input
+              type="email"
+              maxLength="35"
+              required
+              placeholder="Email"
+              value={register.email}
+              onChange={handleChange}
+              name="email"
             />
+
         </div>
         <div className='float-container'>
+
             <label>Contraseña</label>
-            <input 
-                type="password" maxLength="25" required
-                placeholder='Contraseña'
-                value={register.password}
-                onChange={handleChange}
-                name="password" 
+            <input
+              type="password"
+              maxLength="25"
+              required
+              placeholder="Contraseña"
+              value={register.password}
+              onChange={handleChange}
+              name="password"
             />
+
         </div>
         </article>
         <article className='nombre_apell'>
         <div className='float-container'>
+
             <label>Telefono</label>
-            <input 
-                type="text" maxLength="20" required
-                placeholder='Telefono'
-                value={register.phone}
-                onChange={handleChange}
-                name="phone"
+            <input
+              type="text"
+              maxLength="20"
+              required
+              placeholder="Telefono"
+              value={register.phone}
+              onChange={handleChange}
+              name="phone"
             />
+
         </div>
         <div className='float-container'> 
+
             <label>Ciudad</label>
-            <input 
-                type="text" maxLength="80" required
-                placeholder='Ciudad'
-                value={register.city}
-                onChange={handleChange}
-                name="city" 
+            <input
+              type="text"
+              maxLength="80"
+              required
+              placeholder="Ciudad"
+              value={register.city}
+              onChange={handleChange}
+              name="city"
             />
+
         </div>
         </article>
         <article className='nombre_apell'>
         <div className='float-container'>
+
             <label>Pais</label>
-            <input 
-                type="text" required
-                placeholder='Pais'
-                value={register.country}
-                onChange={handleChange}
-                name="country"
+            <input
+              type="text"
+              required
+              placeholder="Pais"
+              value={register.country}
+              onChange={handleChange}
+              name="country"
             />
+
         </div>
         <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos previos</label>
@@ -172,4 +225,5 @@ export const RegisterCollab = () => {
   </div>
   )
 }
+
 
