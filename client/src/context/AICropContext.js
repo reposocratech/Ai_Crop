@@ -32,7 +32,8 @@ export const AICropProvider = (props) => {
                 .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user_id}`)
                 .then((res)=>{
                     setUserAlarms(res.data)
-                    console.log(res.data);
+                    console.log(res.data, "aAAA user alarms");
+                    
                 })
                 .catch((error)=>console.log(error))
         }
@@ -47,6 +48,7 @@ export const AICropProvider = (props) => {
         isLogged,
         setIsLogged,
         userAlarms,
+
         setActionReload,
         actionReload,
 

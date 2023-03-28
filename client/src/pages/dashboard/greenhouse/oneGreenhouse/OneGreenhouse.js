@@ -7,14 +7,12 @@ import { PhCard } from '../../../../components/CardsMeasures/PhCard'
 import { ConductivityCard } from '../../../../components/CardsMeasures/ConductivityCard'
 import { LeafHumidity } from '../../../../components/CardsMeasures/LeafHumidity'
 import { AICropContext } from '../../../../context/AICropContext'
-import axios from 'axios'
-
 import { useNavigate } from 'react-router-dom'
 import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
 import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
 import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
-
+import axios from 'axios'
 import './onegreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
 
@@ -26,8 +24,10 @@ import { Card, Button } from 'react-bootstrap'
 
 export const OneGreenhouse = () => {
 
+
   
-  const {user,actionReload, setActionReload} = useContext(AICropContext);
+  const {user,actionReload,userAlarms,setActionReload} = useContext(AICropContext);
+
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
   const [humedad, setHumedad] = useState();
@@ -40,9 +40,13 @@ export const OneGreenhouse = () => {
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
+
   //-------------------el cropito-----------------------------------
   const [cropsCards, setCropsCards] = useState([]);
+
   const navigate = useNavigate();
+
+  console.log(userAlarms, "PONTE ALGO QUE TE VAS A LIAR");
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
 
@@ -56,7 +60,9 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         console.log(res.data);
         setGreenhouseData(res.data.resultGreenhouse[0]);
+
         setCropsCards(res.data.resultActiveCrops)
+
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
@@ -86,6 +92,18 @@ export const OneGreenhouse = () => {
           }
         }
       })
+      .catch((err)=>{
+        console.log(err);
+      })
+
+    // axios
+    //   .get(`http://localhost:4000/server/alarm//seeActiveGreenhouseAlarms/${greenhouse_id}`)
+    //   .then((res)=>{
+    //     console.log(res.data, "todas las alarmassss del ghhhh")
+    //   })
+    //   .catch((err)=>{
+    //     console.log(err)
+    //   })
 
 
 
@@ -126,6 +144,7 @@ export const OneGreenhouse = () => {
       })
   }
 
+
   const onDelete = ()=>{
 
     axios
@@ -139,6 +158,7 @@ export const OneGreenhouse = () => {
           console.log(err);
         })
   }
+
 
   return (
     <div className='cont_greenhouses'>
@@ -183,19 +203,19 @@ export const OneGreenhouse = () => {
         :
         <section className='cards_measures'>
           {temperatura &&
-          <TemperatureCard temperatura = {temperatura}/>}
+          <TemperatureCard temperatura = {temperatura} userAlarms = {userAlarms}/>}
           {co2 &&
-          <Co2Card co2 = {co2}/>} 
+          <Co2Card co2 = {co2} userAlarms = {userAlarms}/>} 
           {humedad &&
-          <HumidityCard humedad = {humedad}/>}
+          <HumidityCard humedad = {humedad} userAlarms = {userAlarms}/>}
           {luzSolar &&
-          <SunlightCard luzSolar = {luzSolar}/>}
+          <SunlightCard luzSolar = {luzSolar} userAlarms = {userAlarms}/>}
           {ph &&
-          <PhCard ph = {ph}/>}
+          <PhCard ph = {ph} userAlarms = {userAlarms}/>}
           {conductividad &&
-          <ConductivityCard conductividad = {conductividad}/>}
+          <ConductivityCard conductividad = {conductividad} userAlarms = {userAlarms}/>}
           {humedadHoja &&
-          <LeafHumidity humedadHoja = {humedadHoja}/>}
+          <LeafHumidity humedadHoja = {humedadHoja} userAlarms = {userAlarms}/>}
         </section> 
         }
       </main>

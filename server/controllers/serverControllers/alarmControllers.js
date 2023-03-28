@@ -73,15 +73,31 @@ class AlarmController {
     seeActiveAlarms = (req, res) => {   
         let user_id = req.params.user_id;
 
-        let sql = `SELECT alarm.* FROM alarm, user_greenhouse, user
+        let sqlOwner = `SELECT alarm.* FROM alarm, greenhouse
+        WHERE alarm.greenhouse_id = greenhouse.greenhouse_id 
+        AND greenhouse.user_owner_id = ${user_id}
+        AND alarm.is_active = 1 
+        ORDER BY alarm.alarm_date_time DESC`;
 
-        WHERE user.user_id = ${user_id} AND alarm.greenhouse_id = user_greenhouse.greenhouse_id AND user_greenhouse.user_id = user.user_id AND alarm.is_active = 1 ORDER BY alarm.alarm_date_time DESC`;
+        connection.query(sqlOwner, (error, resultOwner) => {
+            error && res.status(400).json(`Error en la consulta`);
 
+            let sqlCollab = `SELECT alarm.* FROM alarm, greenhouse, user_greenhouse, user
+			WHERE alarm.greenhouse_id = greenhouse.greenhouse_id 
+            AND greenhouse.greenhouse_id = user_greenhouse.greenhouse_id
+            AND user_greenhouse.user_id = user.user_id
+            AND user.user_id = ${user_id}
+			AND alarm.is_active = 1`;
 
-        connection.query(sql, (error, result) => {
-            error 
-            ? res.status(400).json(`Error en la consulta`)
-            : res.status(201).json(result);
+            connection.query(sqlCollab, (error, resultCollab) => {
+ 
+                let resultAlarms = resultOwner.concat(resultCollab);   
+
+                error 
+                ? res.json(`Error en la consulta`)
+                : res.status(201).json(resultAlarms);
+            });
+
         });
     }
 
