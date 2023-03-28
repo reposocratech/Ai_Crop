@@ -13,7 +13,7 @@ const initialValueInfo = {
     greenhouse_orientation: "",
     greenhouse_size: "",
     greenhouse_type: "",
-    responsibility_acknowledged: false
+    responsibility_acknowledged: 0
 }
 
 const initialValueMaxMin = {

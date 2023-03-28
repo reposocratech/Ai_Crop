@@ -20,7 +20,6 @@ import { RegisterCollab } from '../pages/auth/RegisterCollab'
 import { ForgotPass } from '../pages/auth/ForgotPass'
 
 
-
 export const AppRoutes = () => {
   
   const {user, isLogged, token} = useContext(AICropContext);
@@ -48,7 +47,7 @@ export const AppRoutes = () => {
                       {/* <Route path='admin' element={<Admin/>}/> Vista de TODOS los usuarios (card per user) */}
                     </Route>
 
-                    <Route path='admin' element={<MainPage/>}>
+                    <Route path='/admin' element={<MainPage/>}>
                       <Route path='' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
                     </Route>
 

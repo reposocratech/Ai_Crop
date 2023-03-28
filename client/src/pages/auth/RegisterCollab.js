@@ -52,12 +52,12 @@ export const RegisterCollab = () => {
       axios
         .post("http://localhost:4000/user/createUser", register)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
           navigate("/login");
         })
         .catch((err) => {
           console.log(err);
-          if (err.response.data?.error.errno === 1062) {
+          if (err) {
             setMessageError("email duplicado");
             console.log(err.response.data?.error.errno);
           } else {

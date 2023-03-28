@@ -24,7 +24,7 @@ async function main(email, name, user_first_name, user_last_name, greenhouse_id)
     to: `${email}`, // list of receivers
     subject: `¡Te han invitado a colaborar en AI crop!`, // Subject line
     text: `Hola ${name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero en AI crop. Completa tu registro en el siguiente enlace:
-    http://localhost:3000/collaborator/${greenhouse_id}`, // plain text body
+    http://localhost:3000/collaborator/${greenhouse_id}` // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 

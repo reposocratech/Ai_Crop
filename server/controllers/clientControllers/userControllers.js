@@ -28,33 +28,36 @@ class UserController{
           error && res.status(400).json({error});
           
           nodemailer(first_name, email, result?.user_id);
-          console.log(req.params.greenhouse_id)
 
+          if(req.body.greenhouse_id){
 
-          // if(req.params.greenhouse_id){
-          //   let greenhouse_id = req.params.greenhouse_id;
-          //   let sql2 = `SELECT user_id FROM user WHERE email = ${email} AND is_deleted = 0 AND is_disabled = 0`;
+            let greenhouse_id = req.body.greenhouse_id;
 
-        
-
-          
-          //   connection.query(sql2, (error, result2) => {
-          //     error && res.status(400).json({error});
-
-          //     const info = {
-          //       user_id: result2.user_id,
-          //       greenhouse_id: greenhouse_id
-          //     }
-              
-          //     axios
-          //       .post('http://localhost:4000/user/user_greenhouse', {info})
-          //       .then(res.status(201).json(`El usuario ${info.user_id} ha sido añadido como colaborador del invernadero ${info.greenhouse_id}`))
-          //       .catch(err.status(401).json(`ERRORRRR`))
-          //   })
-          // } else {
-            res.status(201).json("El usuario se ha creado con éxito");
-          // }
+            let sql2 = `SELECT user_id FROM user WHERE email = "${email}" AND is_deleted = 0 AND is_disabled = 0`;
             
+            connection.query(sql2, (error2, result2) => {
+              error 
+                ? res.status(400).json({error2}) 
+                : res.status(200).json("TODO OK");
+
+              const info = {
+                user_id: result2[0]?.user_id,
+                greenhouse_id: greenhouse_id
+              }
+              
+              axios
+                .post('http://localhost:4000/user/user_greenhouse', info)
+                .then(res => {
+                  console.log("El usuario se ASIGNADO éxito")
+                })
+                .catch(err => {
+                  res.status(401).json({err});
+                })
+            })
+
+          } else {
+            res.status(201).json("El usuario se ha creado con éxito");
+          }
         })
       })
     })
@@ -65,10 +68,14 @@ class UserController{
   asignCollab = (req, res) => {
     
     const {user_id, greenhouse_id} = req.body;
-    console.log(req.body);
 
     let sql = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${user_id}, ${greenhouse_id})`
 
+    connection.query(sql, (error, result) => {
+      error 
+      ? res.status(400).json("EMAIL DUPLICADO!!") 
+      : res.status(200).json("TODO OK");
+    });
   }
 
   //2. Editar usuario (agricultor)
@@ -191,7 +198,7 @@ class UserController{
     nodemailerConfirmEmail(email);
     res.status(200).json("ENVIADO EL PRIMER CORREO!")
   }
-
+  
 
   //6.1 Change Password from email (un endpoint al que se accede por un botón en un correo electrónico y que genera y envía una clave al azar)
   // localhost:4000/user/generateRandomPassword/:email
