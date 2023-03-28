@@ -1,11 +1,26 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { TopNavBar } from '../../../components/NavBars/TopNavBar/TopNavBar'
 import './error.scss'
 
 export const Error = () => {
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  
+   
+  }, [])
+  
   return (
-    <div>
+  <>
+    {!loading ?
         <Row className='error d-flex flex-column justify-content-end'>
             <TopNavBar/>
             <Col className='main d-flex flex-column justify-content-center align-items-center'>
@@ -15,6 +30,10 @@ export const Error = () => {
             </div>
             </Col>
         </Row>
-    </div>
+    :
+    <h1></h1>}
+</>
   )
 }
+      
+    

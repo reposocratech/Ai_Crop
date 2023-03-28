@@ -61,6 +61,8 @@ export const AllGreenhouses = () => {
       </header>
       <main>
         
+        {user?.user_type === 2 && 
+        <>
         <h2>Invernaderos del usuario</h2>
         <section className='greenhouse_list'>
         {greenhousesInfo && greenhousesInfo.resultOwner.map((elem, index)=>{
@@ -74,6 +76,7 @@ export const AllGreenhouses = () => {
           })
         }
         </section>
+        </> }
       
       <h2>Invernaderos donde colabora el usuario</h2>
       <section className='greenhouse_list'>

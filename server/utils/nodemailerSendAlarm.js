@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-"use strict";
+// "use strict";
 
 // async..await is not allowed in global scope, must use a wrapper
 async function main(email, alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name) {

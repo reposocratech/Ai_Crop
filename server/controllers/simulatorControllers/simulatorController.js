@@ -11,9 +11,9 @@ class SimulatorController {
       let sql = '';
 
       if (req.body.datosForm) {
-        console.log(req.body.datosForm);
+        
         // escribimos la consulta de forma dinámica de manera que se inserten en la BD los valores medidos.
-        sql = `INSERT INTO measure (greenhouse_id, measurement_type_id, measure_value) VALUES `;
+        sql = `INSERT INTO measure (greenhouse_id, measurement_type_id, measure_value) VALUES  `;
 
         req.body.datosForm.temperatura && (sql += `(${greenhouse_id}, 1, ${req.body.datosForm.temperatura}), `);
         req.body.datosForm.co2 && (sql += `(${greenhouse_id}, 2, ${req.body.datosForm.co2}), `);
@@ -34,8 +34,9 @@ class SimulatorController {
       connection.query(sql, (error, result) => {
         error && res.json(`Error en la consulta`);
 
-          axios.get(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`)
-            .then(res => {
+          axios
+          .get(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`)
+          .then(res => {
                 console.log("EXITO")
             })
             .catch(err => {

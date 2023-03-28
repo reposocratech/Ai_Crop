@@ -10,14 +10,14 @@ import '../components/style.scss'
 
 export const SimulatorRoutes = () => {
   const {isLogged, setIsLogged, token} = useContext(SimulatorContext)
-
+ console.log(isLogged);
   return (
       <div className='cont_simulator'>
         <BrowserRouter>
           <Routes>
-            <Route path='' element={<Login setIsLogged = {setIsLogged}/>}/>
+            <Route path='/' element={<Login/>}/>
 
-            {isLogged && <Route path='home' element={<SimuladorApp/>}/>}
+            {isLogged && <Route path='/home' element={<SimuladorApp/>}/>}
             
             <Route path='*' element={<Error/>} />
           </Routes>
