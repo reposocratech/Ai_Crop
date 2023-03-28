@@ -47,6 +47,8 @@ export const OneGreenhouse = () => {
   
   
   const navigate = useNavigate();
+
+  console.log(userAlarms, "PONTE ALGO QUE TE VAS A LIAR");
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
 
