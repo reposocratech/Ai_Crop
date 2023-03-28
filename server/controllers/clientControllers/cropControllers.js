@@ -5,9 +5,9 @@ class CropController {
     //Inserta en base de datos, nuevo cultivo
     //localhost:4000/crop/createCrop
     createCrop = (req, res) => {
-        let {crop_name, crop_duration, crop_plant_variety, greenhouse_id} = req.body;
+        let {crop_name, crop_duration, crop_plant_variety, greenhouse_id, crop_size} = req.body;
         
-        let sql = `INSERT INTO crop (crop_name,  crop_duration, crop_plant_variety, greenhouse_id) VALUES ("${crop_name}", "${ crop_duration}", "${crop_plant_variety}", ${greenhouse_id})`;
+        let sql = `INSERT INTO crop (crop_name,  crop_duration, crop_plant_variety, greenhouse_id,crop_size) VALUES ("${crop_name}", "${ crop_duration}", "${crop_plant_variety}", ${greenhouse_id},"${crop_size}")`;
 
         connection.query(sql, (error, result) => {
             error
@@ -22,10 +22,10 @@ class CropController {
     //localhost:4000/Crop/editCrop/:crop_id
     editCrop = (req, res) => {
     
-        const { crop_name, crop_duration, crop_plant_variety } = req.body;
+        const { crop_name, crop_duration, crop_plant_variety ,crop_size} = req.body;
         const crop_id = req.params.crop_id;
 
-        let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}' WHERE crop_id = ${crop_id}`;
+        let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}, crop_size = '${crop_size}', WHERE crop_id = ${crop_id}`;
         
         connection.query(sql, (error, result) => {
         error 
