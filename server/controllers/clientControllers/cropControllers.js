@@ -3,7 +3,7 @@ const connection = require('../../config/db');
 class CropController {
     
     //Inserta en base de datos, nuevo cultivo
-    //localhost:4000/greenhouse/oneGreenHouse/:greenhouseId/createCrop
+    //localhost:4000/crop/createCrop
     createCrop = (req, res) => {
         let {crop_name, crop_size, crop_plant_species, greenhouse_id} = req.body;
         

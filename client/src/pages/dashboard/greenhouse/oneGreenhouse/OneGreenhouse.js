@@ -23,8 +23,8 @@ import { useParams } from 'react-router-dom'
 
 
 export const OneGreenhouse = () => {
-
-  const {user} = useContext(AICropContext);
+ 
+  const {user, userAlarms} = useContext(AICropContext);
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
   const [humedad, setHumedad] = useState();
@@ -39,6 +39,8 @@ export const OneGreenhouse = () => {
   const [greenhouseData, setGreenhouseData] = useState();
   
   const navigate = useNavigate();
+
+  console.log(userAlarms, "PONTE ALGO QUE TE VAS A LIAR");
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
 
