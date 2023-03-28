@@ -11,7 +11,8 @@ const initialValueInfo = {
   crop_name: "",
   crop_plant_variety:"",
   crop_duration: "",
-  greenhouse_id:0
+  crop_size: "",
+  greenhouse_id: 0,
 }
 
 export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
@@ -90,6 +91,16 @@ const navigate = useNavigate()
           value={cropInfo?.crop_duration}
           onChange={handleChange}
           name="crop_duration"
+        />
+         </div>
+            <div>
+
+          <input
+          type="number"
+          placeholder='Extensión'
+          value={cropInfo?.crop_size}
+          onChange={handleChange}
+          name="crop_size"
         />
          </div>
 

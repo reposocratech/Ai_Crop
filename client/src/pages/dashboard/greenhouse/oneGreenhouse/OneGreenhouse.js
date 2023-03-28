@@ -227,6 +227,7 @@ export const OneGreenhouse = () => {
               <Card key={index} >
                   <p>Nombre: {crop.crop_name}</p>
                   <p>Especie: {crop.crop_plant_variety}</p>
+                  <p>Extensión: {crop.crop_size}</p>
                   <p>Duración: {crop.crop_duration}</p>
                   <Button className='m-2' onClick={onDelete} >Eliminar </Button>
                   <Button className='m-2'>Editar </Button>
