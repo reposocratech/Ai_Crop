@@ -7,14 +7,12 @@ import { PhCard } from '../../../../components/CardsMeasures/PhCard'
 import { ConductivityCard } from '../../../../components/CardsMeasures/ConductivityCard'
 import { LeafHumidity } from '../../../../components/CardsMeasures/LeafHumidity'
 import { AICropContext } from '../../../../context/AICropContext'
-import axios from 'axios'
-
 import { useNavigate } from 'react-router-dom'
 import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
 import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
 import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
-
+import axios from 'axios'
 import './onegreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
 
@@ -24,7 +22,7 @@ import { useParams } from 'react-router-dom'
 
 export const OneGreenhouse = () => {
 
-  const {user} = useContext(AICropContext);
+  const {user, userAlarms} = useContext(AICropContext);
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
   const [humedad, setHumedad] = useState();
@@ -37,6 +35,16 @@ export const OneGreenhouse = () => {
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
+
+  
+
+  console.log(userAlarms, "userALARMSSSSSS")
+  // for (let i = 0; i < userAlarms.length; i++){
+  //   switch (userAlarms[i].measurement_type_id){
+  //     case 1:
+  //   }
+  // }
+  
   
   const navigate = useNavigate();
   
@@ -52,6 +60,7 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         console.log(res.data);
         setGreenhouseData(res.data.resultGreenhouse[0]);
+        console.log(res.data.resultMeasure, "resultmeasure");
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
@@ -81,6 +90,18 @@ export const OneGreenhouse = () => {
           }
         }
       })
+      .catch((err)=>{
+        console.log(err);
+      })
+
+    // axios
+    //   .get(`http://localhost:4000/server/alarm//seeActiveGreenhouseAlarms/${greenhouse_id}`)
+    //   .then((res)=>{
+    //     console.log(res.data, "todas las alarmassss del ghhhh")
+    //   })
+    //   .catch((err)=>{
+    //     console.log(err)
+    //   })
 
   }, [])
 
@@ -104,6 +125,8 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
   }
+
+  console.log(greenhouseData, "greenhousedaTAAAAAAAAAA");
 
   return (
     <div className='cont_greenhouses'>
@@ -147,19 +170,19 @@ export const OneGreenhouse = () => {
         :
         <section className='cards_measures'>
           {temperatura &&
-          <TemperatureCard temperatura = {temperatura}/>}
+          <TemperatureCard temperatura = {temperatura} userAlarms = {userAlarms}/>}
           {co2 &&
-          <Co2Card co2 = {co2}/>} 
+          <Co2Card co2 = {co2} userAlarms = {userAlarms}/>} 
           {humedad &&
-          <HumidityCard humedad = {humedad}/>}
+          <HumidityCard humedad = {humedad} userAlarms = {userAlarms}/>}
           {luzSolar &&
-          <SunlightCard luzSolar = {luzSolar}/>}
+          <SunlightCard luzSolar = {luzSolar} userAlarms = {userAlarms}/>}
           {ph &&
-          <PhCard ph = {ph}/>}
+          <PhCard ph = {ph} userAlarms = {userAlarms}/>}
           {conductividad &&
-          <ConductivityCard conductividad = {conductividad}/>}
+          <ConductivityCard conductividad = {conductividad} userAlarms = {userAlarms}/>}
           {humedadHoja &&
-          <LeafHumidity humedadHoja = {humedadHoja}/>}
+          <LeafHumidity humedadHoja = {humedadHoja} userAlarms = {userAlarms}/>}
         </section> 
         }
       </main>

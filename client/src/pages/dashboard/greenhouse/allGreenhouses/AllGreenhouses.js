@@ -27,7 +27,7 @@ export const AllGreenhouses = () => {
           .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
           .then((res)=>{
             setGreenhousesInfo(res.data);
-            // VVVV STO K ES VVV
+            // VVVV STO K ES VVV -------------------------------------------------
             deleteLocalStorageAICropGreenhouse()
           })
           .catch((err)=>{
