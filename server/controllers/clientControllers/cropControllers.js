@@ -5,25 +5,27 @@ class CropController {
     //Inserta en base de datos, nuevo cultivo
     //localhost:4000/greenhouse/oneGreenHouse/:greenhouseId/createCrop
     createCrop = (req, res) => {
-        let {crop_name, crop_size, crop_plant_species, greenhouse_id} = req.body;
+        let {crop_name, crop_duration, crop_plant_variety, greenhouse_id} = req.body;
         
-        let sql = `INSERT INTO crop (crop_name, crop_size, crop_plant_species, greenhouse_id) VALUES ("${crop_name}", "${crop_size}", "${crop_plant_species}", ${greenhouse_id})`;
+        let sql = `INSERT INTO crop (crop_name,  crop_duration, crop_plant_variety, greenhouse_id) VALUES ("${crop_name}", "${ crop_duration}", "${crop_plant_variety}", ${greenhouse_id})`;
 
         connection.query(sql, (error, result) => {
             error
             ? res.status(400).json({error})
+        
             : res.status(201).json("SE CREó BIEN EL CROP");
         });
+        
     };
 
     //2. Edit Crop
     //localhost:4000/Crop/editCrop/:crop_id
     editCrop = (req, res) => {
     
-        const { crop_name, crop_size, crop_duration, crop_plant_variety } = req.body;
+        const { crop_name, crop_duration, crop_plant_variety } = req.body;
         const crop_id = req.params.crop_id;
 
-        let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_size ='${crop_size}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}' WHERE crop_id = ${crop_id}`;
+        let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}' WHERE crop_id = ${crop_id}`;
         
         connection.query(sql, (error, result) => {
         error 
@@ -45,6 +47,7 @@ class CropController {
             ? res.status(400).json({ error }) 
             : res.status(200).json(`El cultivo ${crop_id} ha sido borrado`);
         });
+        console.log(sql);
     };
 
     // 4.desactiva un cultivo

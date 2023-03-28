@@ -20,11 +20,14 @@ import '../allGreenhouses/allgreenhouses.scss'
 
 
 import { useParams } from 'react-router-dom'
+import { Card, Button } from 'react-bootstrap'
+
 
 
 export const OneGreenhouse = () => {
 
-  const {user} = useContext(AICropContext);
+  
+  const {user,actionReload, setActionReload} = useContext(AICropContext);
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
   const [humedad, setHumedad] = useState();
@@ -37,7 +40,8 @@ export const OneGreenhouse = () => {
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
-  
+  //-------------------el cropito-----------------------------------
+  const [cropsCards, setCropsCards] = useState([]);
   const navigate = useNavigate();
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
@@ -52,6 +56,7 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         console.log(res.data);
         setGreenhouseData(res.data.resultGreenhouse[0]);
+        setCropsCards(res.data.resultActiveCrops)
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
@@ -82,8 +87,24 @@ export const OneGreenhouse = () => {
         }
       })
 
-  }, [])
 
+
+  }, [actionReload])
+
+  //------------------------para traer la info del cropmodal----------------------
+  // useEffect(() => {
+  //   axios
+  //       .get(`http://localhost:4000/crop/getAllCrops/${(greenhouse_id)}`)
+  //       .then((res)=>{
+  //           setcropsCards(res.data);
+  //       })
+  //       .catch((err)=>{console.log(err)})
+  // }, [actionReload])
+
+ //------------------------para traer la info del cropmodal----------------------
+  
+
+  console.log(cropsCards,"lainfo");
   let datos = {
     name: "Nasza",
     email: "naza@gmail.com",
@@ -91,7 +112,7 @@ export const OneGreenhouse = () => {
     first_name: user?.first_name,
     last_name: user?.last_name,
     greenhouse_id: greenhouse_id,
-    // greenhouse_name: "Invernadero de Carlitos"
+    // greenhouse_name: "Invernadero de Carlitos"  
   }
 
   const inviteCollab = () => {
@@ -103,6 +124,20 @@ export const OneGreenhouse = () => {
       .catch((err)=>{
         console.log(err);
       })
+  }
+
+  const onDelete = ()=>{
+
+    axios
+        .get(`http://localhost:4000/crop/deleteCrop/${cropsCards[0]?.crop_id}`)
+        .then((res)=>{
+          // navigate(`greenhouse/${greenhouse_id}`)
+          console.log(res.data,"aqui estoy");
+          setActionReload(!actionReload);
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
   }
 
   return (
@@ -123,6 +158,7 @@ export const OneGreenhouse = () => {
         
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
         
+       
 
       </section>
       <header className='header_greenhouses'>
@@ -163,6 +199,25 @@ export const OneGreenhouse = () => {
         </section> 
         }
       </main>
+        <section className='cardCrop'>
+            
+            {cropsCards?.map((crop, index)=> {
+              
+              return(
+              <Card key={index} >
+                  <p>Nombre: {crop.crop_name}</p>
+                  <p>Especie: {crop.crop_plant_variety}</p>
+                  <p>Duración: {crop.crop_duration}</p>
+                  <Button className='m-2' onClick={onDelete} >Eliminar </Button>
+                  <Button className='m-2'>Editar </Button>
+              </Card>
+              )
+          })}
+
+        
+        
+        </section>
+        
     </div>
   )
 }

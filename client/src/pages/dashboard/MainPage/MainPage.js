@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from 'react'
+import React, { useEffect, useRef, useContext, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { NavLateral } from '../../../components/NavBars/SideNavBar/NavLateral'
 import { Outlet } from 'react-router-dom'
@@ -15,6 +15,8 @@ export const MainPage = () => {
   const {user} = useContext(AICropContext);
   const outletCont_ref = useRef()
   const whiteCont_ref = useRef()
+  // const [showModalCrop, setShowModalCrop] = useState("false");
+  
 
   // useEffect(() => {
   //   if (window.location.pathname === '/user/createGreenhouse'){
@@ -33,7 +35,10 @@ export const MainPage = () => {
         <Row className='contNav_pPal'>
             <Col className='col-12 col-xl-3 p-0'>
               {user?.user_type == 1 ? <NavLateralAdmin/> :
-                <NavLateral/> }
+                <NavLateral
+                // setShowModalCrop= {setShowModalCrop}
+                // showModalCrop={showModalCrop}
+                /> }
             </Col>
             <Col className='col-12 col-xl-9 p-0 outlet_cont' ref={outletCont_ref} >
               <div className="white_cont" ref={whiteCont_ref} >

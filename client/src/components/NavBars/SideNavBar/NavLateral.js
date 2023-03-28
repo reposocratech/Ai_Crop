@@ -1,15 +1,31 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../context/AICropContext'
 import { deleteLocalStorageAICrop } from '../../../helpers/localStorage/localStorageAICrop'
+import { CreateCropModal } from '../../Crop/CreateCropModal'
+
 import "./navLateral.scss"
+
 
 export const NavLateral = () => {
 
-  const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
-  const navigate = useNavigate();
+ 
 
+  const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
+
+  const [showModalCrop, setShowModalCrop] = useState(false);
+  
+
+  const navigate = useNavigate();
+  
   const greenhouse_id = useParams().greenhouse_id;
+ 
+  
+
+  const openModalCrop = ()=>{
+     setShowModalCrop(true);
+  }
+
 
   const onLogOut = () => {
     deleteLocalStorageAICrop()
@@ -68,9 +84,14 @@ export const NavLateral = () => {
       <div className='create_new'> 
         <p>Crear nuevo cultivo</p>
         <img/>
-        <button>+</button>
+        <button onClick={openModalCrop}>+</button>
       </div>
       } 
+
+       {/* modal crop */}
+       <CreateCropModal showModalCrop={showModalCrop} setShowModalCrop={setShowModalCrop}
+       
+       />
       
       </section>
     </div>

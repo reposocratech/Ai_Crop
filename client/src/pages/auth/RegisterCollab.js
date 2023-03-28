@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import "./auth.scss" 
 
-const greenhouse_id = useParams().greenhouse_id;
+
 
 export const RegisterCollab = () => {
   
