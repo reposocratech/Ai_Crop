@@ -254,3 +254,26 @@
 .gh_img{
     width: 180px;
 }
+
+// BOTÓN UTILIZADO EN EDIT GREENHOUSE
+
+.botoneraEdit{
+    align-items: center;
+    text-align: center;
+    margin-right: 24%;
+    margin-top: 4%;
+}
+.botonAcept{
+    background-color: #60776C;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5em;
+    width: 30vw;
+    height: 10vh;
+}
+
+.botonAcept:hover{
+    background-color: #B2DCBC;
+    color: rgba(0, 0, 0, 0.443);
+}

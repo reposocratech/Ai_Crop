@@ -75,7 +75,8 @@ export const Register = () => {
   // ----------------- //
 
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if(!register.first_name || !register.last_name || !register.email || !register.password || !register.country || !register.city || !register.post_code || !register.phone || !register.user_knowledge){
       setMessageError("Debes rellenar todos los campos")
     } else {
@@ -83,7 +84,7 @@ export const Register = () => {
       .post("http://localhost:4000/user/createUser",register)
       .then((res)=>{
           console.log(res)
-          navigate('/login')
+          navigate('/login');
         })
       .catch((err)=>{
         console.log(err.config);

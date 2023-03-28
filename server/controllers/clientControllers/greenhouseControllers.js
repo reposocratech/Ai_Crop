@@ -10,29 +10,29 @@ class GreenhouseController {
     createGreenhouse = (req, res) => {
 
         // console.log(req.body);
-        let {user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size} = req.body.greenhouseInfo;
+        let {user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, responsibility_acknowledged} = req.body.greenhouseInfo;
+        console.log(responsibility_acknowledged);
 
-        let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size})`;
+        let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, responsibility_acknowledged) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size}, ${responsibility_acknowledged})`;
 
 
         connection.query(sql, (error, result) => {
             error && res.status(400).json({error});
             // 1.2 Inserta en la base de datos los máximos y los mínimos
 
+            let sql2 = `SELECT greenhouse_id FROM greenhouse WHERE user_owner_id = ${user_owner_id} AND greenhouse_name = "${greenhouse_name}" AND greenhouse_is_deleted = 0 ORDER BY greenhouse_id DESC LIMIT 1`;
 
-            let sql2 = `SELECT greenhouse_id from greenhouse WHERE user_owner_id = ${user_owner_id} AND greenhouse_name = "${greenhouse_name}" AND greenhouse_is_deleted = 0 ORDER BY greenhouse_id DESC LIMIT 1`;
-
-            connection.query(sql2, (error, result) => {
+            connection.query(sql2, (error, result2) => {
                 error && res.status(400).json({error});
 
                 let arrayMeasures = req.body.arrayMeasures;
                 let sql3 = `INSERT INTO greenhouse_measurement_type (greenhouse_id,measurement_type_id, max, min) VALUES `
 
-                console.log(result, "resuuuuult");
+                console.log(result2, "resuuuuult");
 
                 for (let i = 0; i < arrayMeasures.length; i++){
                     if(arrayMeasures[i].measurement_type_id != "" && arrayMeasures[i].max != "" && arrayMeasures[i].min != ""){
-                        sql3 += `(${result[0]?.greenhouse_id}, ${arrayMeasures[i].measurement_type_id}, ${arrayMeasures[i].max}, ${arrayMeasures[i].min}), `
+                        sql3 += `(${result2[0]?.greenhouse_id}, ${arrayMeasures[i].measurement_type_id}, ${arrayMeasures[i].max}, ${arrayMeasures[i].min}), `
                     }
                 }
     
@@ -54,16 +54,17 @@ class GreenhouseController {
     // 2.Edit Greenhouse
     // localhost:4000/greenhouse/editGreenhouse/:greenhouse_id
     editGreenhouse = (req, res) => {
-    
-        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, greenhouse_create_date, greenhouse_latitude, greenhouse_longitude } = req.body;
+       
+        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, greenhouse_latitude, greenhouse_longitude } = req.body;
         
         const greenhouse_id = req.params.greenhouse_id;
+        console.log(greenhouse_name, greenhouse_id);
         
-        let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greeenhouse_size = '${greenhouse_size}', greenhouse_create_date = '${greenhouse_create_date}', greenhouse_latitude = '${greenhouse_latitude}', greenhouse_longitude = '${greenhouse_longitude}'  WHERE greenhouse_id = ${greenhouse_id}`;
+        let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greenhouse_size = '${greenhouse_size}', greenhouse_latitude = '${greenhouse_latitude}', greenhouse_longitude = '${greenhouse_longitude}'  WHERE greenhouse_id = ${greenhouse_id}`;
         
         connection.query(sql, (error, result) => {
           error 
-          ? res.status(400).json({ error }) 
+          ? res.status(405).json({ error }) 
           : res.status(200).json(`El invernadero ${greenhouse_id} ha sido actualizado`);
         });
       };
@@ -205,25 +206,19 @@ class GreenhouseController {
     // 6. Invita a un colaborador
     // localhost:4000/greenhouse/inviteCollaborator
     inviteGreenhouseCollaborator = (req, res) => {
-        // CAMBIAR METODO A POST EN LA RUTA Y QUITAR EL HARD-CODE DE AQUÍ (O GET CON PARAMS)
-        // let body = {
-        //     name: "Pedrito",
-        //     email: "javimorera90@hotmail.com",
-        //     user_id: 1,
-        //     user_first_name: "Carlos",
-        //     user_last_name: "Riquelme",
-        //     greenhouse_id: 1
-        //     // greenhouse_name: "Invernadero de Carlitos"
-        // }
 
-        let {name, email, user_id, first_name, last_name, greenhouse_id} = req.body.datos;
+        let {name, email, user_id, first_name, last_name, greenhouse_id} = req.body;
         
         let sql = `SELECT * FROM user WHERE email = '${email}' AND is_deleted = 0 AND is_disabled = 0`;
+        console.log(email);
 
         connection.query(sql, (error, result) => {
+            error && res.status(400).json({error});
 
             if(result[0]){
-
+                
+                // SI EL USUARIO YA EXISTE, LO ASIGNAMOS AL GREENHOUSE
+                // ESTO FUNCIONA BIEN
                 let sqlAddCollaborator = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${result[0].user_id}, ${greenhouse_id})`;
 
                 connection.query(sqlAddCollaborator, (error, resultCollab) => {
@@ -262,12 +257,12 @@ class GreenhouseController {
     createHelper = (req, res) => {
  
         let body = {
-            helper_first_name: "Pedrito",
-            helper_last_name: "Piedra",
-            helper_email: "gadetru@gmail.com",
-            user_id: 6,
-            first_name: "Carlos",
-            last_name: "Riquelme",
+            helper_first_name: "Jose",
+            helper_last_name: "Diego",
+            helper_email: "josediegocastanedabenitez@gmail.com",
+            user_id: 1,
+            first_name: "Javi",
+            last_name: "More",
             greenhouse_id: req.params.greenhouse_id,
             greenhouse_name: "Invernadero de Carlitos"
         }
