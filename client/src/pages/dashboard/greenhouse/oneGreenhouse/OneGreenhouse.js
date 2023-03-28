@@ -40,7 +40,7 @@ export const OneGreenhouse = () => {
   
   const navigate = useNavigate();
   
-  const greenhouse_id = useParams().greenhouse_id;
+  const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
 
   useEffect(() => {
     
@@ -85,8 +85,8 @@ export const OneGreenhouse = () => {
   }, [])
 
   let datos = {
-    name: "Gabi",
-    email: "gd@h",
+    name: "Nasza",
+    email: "naza@gmail.com",
     user_id: user?.user_id,
     first_name: user?.first_name,
     last_name: user?.last_name,
@@ -95,14 +95,14 @@ export const OneGreenhouse = () => {
   }
 
   const inviteCollab = () => {
-    axios // CAMBIAR METODO A POST, AQUÍ Y EN LA RUTA DEL BACK
-    .post('http://localhost:4000/greenhouse/inviteCollaborator', {datos})
-    .then((res)=>{
-      console.log(res.data);
-    })
-    .catch((err)=>{
-      console.log(err.response.data.error);
-    })
+    axios
+      .post('http://localhost:4000/greenhouse/inviteCollaborator', datos)
+      .then((res)=>{
+        console.log(res.data);
+     })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
 
   return (

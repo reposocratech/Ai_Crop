@@ -7,7 +7,7 @@ export const Admin = () => {
 
   const [usersInfo, setUsersInfo] = useState();
   const navigate = useNavigate();
-  const [disableSwitch, setDisableSwitch] = useState();
+  const [action, setAction] = useState(false)
 
   useEffect(() => {
     axios
@@ -18,14 +18,13 @@ export const Admin = () => {
       .catch((err)=>{
         console.log(err)
       })
-    }, [])
+    }, [action])
 
     const onDisable = (user_id) => {
       axios
         .get(`http://localhost:4000/admin/disableUser/${user_id}`)
         .then((res)=>{
-          console.log(res)
-          navigate('/admin');
+          setAction(!action);
         })
         .catch((err)=>{
           console.log(err);
@@ -36,8 +35,7 @@ export const Admin = () => {
       axios
         .get(`http://localhost:4000/admin/enableUser/${user_id}`)
         .then((res)=>{
-          console.log(res)
-          navigate('/admin');
+          setAction(!action);
         })
         .catch((err)=>{
           console.log(err);
@@ -63,13 +61,16 @@ export const Admin = () => {
           let tipo_de_user = ""
           switch (elem.user_type){
             case 1:
-              tipo_de_user = "Agricultor"
+              tipo_de_user = "Admin"
               break;
             case 2:
+              tipo_de_user = "Agricultor"
+              break;
+            case 3:
               tipo_de_user = "Colaborador"
               break;
             default:
-              console.log("aaaªª")
+              console.log("pringao2")
           }
 
           let filterdisabled = ""
@@ -79,8 +80,8 @@ export const Admin = () => {
           }
 
           return(
-            <div className={`card_user ${filterdisabled}`} key={index}>
-              <section>
+            <div className={`card_user ${filterdisabled}`} key={index} >
+              <section onClick={()=>{navigate('')}}>
                 <div className='info_user'>
                 <h5>{elem.full_name}</h5>
                 <p>{elem.email}</p>
