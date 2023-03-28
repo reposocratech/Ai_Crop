@@ -93,7 +93,7 @@ class GreenhouseController {
                     res.status(400).json({ error }) 
                 } 
     
-                let sqlCrop = `SELECT * FROM crop WHERE greenhouse_id = ${greenhouse_id} AND is_active = 1`;
+                let sqlCrop = `SELECT * FROM crop WHERE greenhouse_id = ${greenhouse_id} AND is_active = 1 AND is_deleted = 0`;
 
                 // buscamos en BD todos los crops activos que tiene el invernadero enviado por params y guardamos los resultados en el objeto "resultActiveCrops"
                 connection.query(sqlCrop, (error, resultActiveCrops) => {
