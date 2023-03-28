@@ -14,7 +14,7 @@ export const TopNavBar = () => {
       deleteLocalStorageSimulator()
       setUser();
       setIsLogged(false);
-      navigate('../')
+      navigate('/')
     }
 
   return (

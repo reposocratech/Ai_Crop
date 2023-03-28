@@ -48,7 +48,7 @@ export const AICropProvider = (props) => {
         isLogged,
         setIsLogged,
         userAlarms,
-
+        token,
         setActionReload,
         actionReload,
 

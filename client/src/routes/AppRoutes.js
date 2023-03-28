@@ -23,20 +23,31 @@ import { ForgotPass } from '../pages/auth/ForgotPass'
 export const AppRoutes = () => {
   
   const {user, isLogged, token} = useContext(AICropContext);
-  
+  console.log(user, "este es user");
+  let type = 0;
+  if(user){
+     type = user.user_type;
+
+  }
+  console.log(type);
   return (
     <div>
         <Container fluid>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<Home/>}/> 
+
+                    {!user &&(
+                      
+                      <>
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/forgotpassword' element={<ForgotPass/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/collaborator/:greenhouse_id' element={<RegisterCollab/>}/>
-                    <Route path='/info' element={<Info/>}/>
-                    <Route path='/contact' element={<Contact/>}/>
+                    </>)
+                    }
 
+                    {(user?.user_type === 2 || user?.user_type === 3)
+                    &&
                     <Route path='/user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
@@ -46,12 +57,21 @@ export const AppRoutes = () => {
                       <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>
                       {/* <Route path='admin' element={<Admin/>}/> Vista de TODOS los usuarios (card per user) */}
                     </Route>
-
+                    }
+                    
+                    {user?.user_type === 1 && 
                     <Route path='/admin' element={<MainPage/>}>
                       <Route path='' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
                     </Route>
+                    }
 
-                    <Route path='*' element={<Error/>} />
+                    {(user?.user_type || !user?.user_type) && 
+                    <>
+                     <Route path='/' element={<Home/>}/> 
+                     <Route path='*' element={<Error/>} />
+                     <Route path='/info' element={<Info/>}/>
+                     <Route path='/contact' element={<Contact/>}/>
+                    </>}
                 </Routes>
             </BrowserRouter>
         </Container>

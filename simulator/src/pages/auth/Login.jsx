@@ -39,7 +39,7 @@ export const Login = () => {
         .then((res)=> {
           saveLocalStorageSimulator(res.data.token)
           setIsLogged(true)
-          navigate('home');
+          navigate('/home');
         })
         .catch((err)=>{
           console.log(err);
