@@ -6,11 +6,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import "./auth.scss" 
 
+
+
 export const RegisterCollab = () => {
   
   const greenhouse_id = useParams().greenhouse_id;
 
-  const initialValue = {
+  
+
+  const [register, setRegister] = useState(initialValue);
+  const [messageError, setMessageError] = useState();
+
+const initialValue = {
     first_name: "",
     last_name: "",
     email: "",
@@ -25,10 +32,8 @@ export const RegisterCollab = () => {
     user_photo: "",
     user_type: 3,
     greenhouse_id: greenhouse_id
-  }
+}
 
-  const [register, setRegister] = useState(initialValue);
-  const [messageError, setMessageError] = useState();
   const navigate = useNavigate();
 
   const handleChange = (e) => {

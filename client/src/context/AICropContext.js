@@ -10,6 +10,7 @@ export const AICropProvider = (props) => {
     const [userAlarms, setUserAlarms] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [token, setToken] = useState();
+    const [actionReload, setActionReload] = useState(false);
     
     useEffect(() => {
         const tokenStorage = getLocalStorageAICrop();
@@ -47,6 +48,10 @@ export const AICropProvider = (props) => {
         isLogged,
         setIsLogged,
         userAlarms,
+
+        setActionReload,
+        actionReload,
+
         setUserAlarms
     }}>
         {props.children}
