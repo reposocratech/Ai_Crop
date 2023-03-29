@@ -1,3 +1,5 @@
+@import "../../../../variables";
+
 .cards_measures{
     display: flex;
     flex-wrap: wrap;
@@ -5,8 +7,53 @@
     margin-top: 60px;
 }
 
+.cards_crop{
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    font-family: $sora;
+    color: #4D4D4D;
+    letter-spacing: 0.12em;
+    .card_crop{
+        background-image: url("../../../../../public/assets/images/cards/card_crop.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 11px;
+        padding: 35px 30px 30px 30px;
+        width: 24rem;
+        height: 17rem;
+        p{
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .buttons{
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            position: relative;
+            top: 50px;
+            // left: 20px;
+            gap: 10px;
+            .harvest{
+                border-radius: 0.5em;
+                filter:sepia();
+                box-shadow: 1px 2px 3px rgba(90, 90, 90, 0.24);
+            }
+            img{
+                width: 35px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
 @media(max-width: 720px){
     .cards_measures{
+        flex-direction: column;
+        align-items: center;
+    }
+    .cards_crop{
         flex-direction: column;
         align-items: center;
     }

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export const HumidityCard = ({humedad, userAlarms}) => {
-  const [alarm, setAlarm] = useState(false)
+  const [alarm, setAlarm] = useState(false);
+  const navigate = useNavigate();
 
     useEffect(() => {
       let found = false;
@@ -14,9 +16,9 @@ export const HumidityCard = ({humedad, userAlarms}) => {
     }, [])
   return (
     <div className='measure_cardCont'>
-        <div className='humidity_card responsive_card'>
+        <div className='humidity_card responsive_card' onClick={()=>navigate(`${humedad.measurement_type_id}`)}>
             <div className='humidity_body'>
-                <p>{humedad}%</p>
+                <p>{humedad.measure_value}%</p>
                 <h3>HUMEDAD</h3>
             </div>
             <img src='/assets/images/cards/humidity.png' className='responsive_img'/>

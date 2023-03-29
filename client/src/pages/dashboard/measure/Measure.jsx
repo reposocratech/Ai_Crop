@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import './measure.scss'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const Measure = () => {
 
   const navigate = useNavigate();
-  
+  const {greenhouse_id, measurement_type_id} = useParams();
+  // console.log(greenhouse_id, "gh aidIIIII");
+  // console.log(measurement_type_id, "typeee aidIIIII");
 
   return (
     <div className='cont_measure'>

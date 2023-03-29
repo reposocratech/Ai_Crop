@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './cardsmeasures.scss'
 
 export const TemperatureCard = ({temperatura, userAlarms}) => {
-  console.log(userAlarms, "temperaturaaaaaaaa");
-  const [alarm, setAlarm] = useState(false)
+  const [alarm, setAlarm] = useState(false);
+  const navigate = useNavigate();
+
+  console.log(temperatura, "result measurreeeeee")
 
   useEffect(() => {
     let found = false;
@@ -14,13 +17,12 @@ export const TemperatureCard = ({temperatura, userAlarms}) => {
       } 
     }
   }, [])
-  console.log(alarm, "alarmaAAAAA")
   
   return (
     <div className='measure_cardCont'>
-        <div className='temperature_card responsive_card'>
+        <div className='temperature_card responsive_card' onClick={()=>navigate(`${temperatura.measurement_type_id}`)}>
             <h3>TEMPERATURA</h3>
-            <p>{temperatura} ºC</p>
+            <p>{temperatura.measure_value} ºC</p>
           {alarm &&
           <div className='alarma_measure'><img className='medida' src='/assets/images/alerta.png'/></div>}
         </div>
