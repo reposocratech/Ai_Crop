@@ -36,8 +36,8 @@ class CropController {
     };
 
     // 3.Borra de manera logica un cultivo
-    //localhost:4000/crop/deleteCrop/:crop_id
-    deleteCrop = (req, res) => {
+    //localhost:4000/crop/logicDeleteCrop/:crop_id
+    logicDeleteCrop = (req, res) => {
         const crop_id = req.params.crop_id;
         
         let sql = `UPDATE crop SET is_deleted = true WHERE crop_id = ${crop_id}`;
@@ -47,8 +47,27 @@ class CropController {
             ? res.status(400).json({ error }) 
             : res.status(200).json(`El cultivo ${crop_id} ha sido borrado`);
         });
-        console.log(sql);
+        
     };
+
+    // 3.1 Borrado REAL de un cultivo
+    //localhost:4000/crop/deleteCrop/:crop_id
+    deleteCrop = (req, res) => {
+        const crop_id = req.params.crop_id;
+        
+        let sql = `DELETE FROM crop WHERE crop_id = ${crop_id}`;
+        
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({ error }) 
+            : res.status(200).json(`El cultivo ${crop_id} ha sido eliminado`);
+        });
+        
+    };
+
+
+
+
 
     // 4.desactiva un cultivo
     //localhost:4000/crop/endCrop/:crop_id

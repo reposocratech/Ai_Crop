@@ -70,7 +70,7 @@ export const NavLateral = () => {
         </a>
         {!greenhouse_id ?
         <button className='create_crop' onClick={()=> navigate('createGreenhouse')}>+</button> :
-        <button className='create_crop'>+</button>
+        <button className='create_crop' onClick={openModalCrop}>+</button>
         } 
       </div>
       {/* CREAR NUEVO INVERNADERO / CULTIVO */}

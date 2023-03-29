@@ -1,8 +1,23 @@
 import React from 'react'
-import './createUpdateCropModal.scss'
+import { Modal } from 'react-bootstrap'
 
-export const UpdateCropModal = () => {
+
+export const UpdateCropModal = ({showUpdateCrop, setShowUpdateCrop}) => {
+
+  const handleClose = ()=>{
+    setShowUpdateCrop(false);
+    
+  }
   return (
-    <div>UpdateCropModal</div>
+    <>
+      <Modal show={showUpdateCrop} onHide={handleClose}>
+        
+        <Modal.Body>
+          <h1>holita</h1>
+
+        </Modal.Body>
+
+      </Modal>
+    </>
   )
 }

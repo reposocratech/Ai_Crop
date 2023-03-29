@@ -11,9 +11,13 @@ router.post('/createCrop', CropController.createCrop);
 router.post('/editCrop/:crop_id', CropController.editCrop);
 // FALTA TESTEAR!!!
 
-// 3. Delete Crop
+// 3. Borra de manera logica un cultivo
 //localhost:4000/crop/deletedCrop/:crop_id
-router.get('/deleteCrop/:crop_id', CropController.deleteCrop);
+router.get('/logicDeleteCrop/:crop_id', CropController.deleteCrop);
+
+// 3.1 Borrado REAL de un cultivo
+//localhost:4000/crop/deletedCrop/:crop_id
+router.delete('/deleteCrop/:crop_id', CropController.deleteCrop);
 
 // 4. Desactiva Crop
 //localhost:4000/crop/endCrop/:crop_id

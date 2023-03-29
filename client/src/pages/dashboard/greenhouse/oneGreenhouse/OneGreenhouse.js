@@ -12,6 +12,7 @@ import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
 import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
 import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
+
 import axios from 'axios'
 import './onegreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
@@ -19,6 +20,8 @@ import '../allGreenhouses/allgreenhouses.scss'
 
 import { useParams } from 'react-router-dom'
 import { Card, Button } from 'react-bootstrap'
+import { ModalInvitation } from '../../../../components/greenhouseCards/ModalInvitation'
+import { UpdateCropModal } from '../../../../components/Crop/UpdateCropModal'
 
 
 
@@ -40,10 +43,10 @@ export const OneGreenhouse = () => {
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
-
+  const [showModalInvitation, setShowModalInvitation] = useState(false)
   //-------------------el cropito-----------------------------------
   const [cropsCards, setCropsCards] = useState([]);
-
+  const [showUpdateCrop, setShowUpdateCrop] = useState(false)
   const navigate = useNavigate();
 
   console.log(userAlarms, "PONTE ALGO QUE TE VAS A LIAR");
@@ -123,26 +126,10 @@ export const OneGreenhouse = () => {
   
 
   console.log(cropsCards,"lainfo");
-  let datos = {
-    name: "Nasza",
-    email: "naza@gmail.com",
-    user_id: user?.user_id,
-    first_name: user?.first_name,
-    last_name: user?.last_name,
-    greenhouse_id: greenhouse_id,
-    // greenhouse_name: "Invernadero de Carlitos"  
-  }
 
-  const inviteCollab = () => {
-    axios
-      .post('http://localhost:4000/greenhouse/inviteCollaborator', datos)
-      .then((res)=>{
-        console.log(res.data);
-     })
-      .catch((err)=>{
-        console.log(err);
-      })
-  }
+
+  
+  
 
 
   const onDelete = ()=>{
@@ -177,8 +164,8 @@ export const OneGreenhouse = () => {
         <ButtonNotif setShowModalNotif={setShowModalNotif}/>
         
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
-        
-       
+        <ModalInvitation showModalInvitation={showModalInvitation} setShowModalInvitation={setShowModalInvitation} />
+        <UpdateCropModal  showUpdateCrop={showUpdateCrop} setShowUpdateCrop={setShowUpdateCrop}></UpdateCropModal>
 
       </section>
       <header className='header_greenhouses'>
@@ -189,7 +176,7 @@ export const OneGreenhouse = () => {
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar cultivo'/>
           </div>
-          <button className='search_add' onClick={inviteCollab}>
+          <button className='search_add' onClick={() => setShowModalInvitation(true)}>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
             Añadir colaboradores
           </button>
@@ -216,6 +203,7 @@ export const OneGreenhouse = () => {
           <ConductivityCard conductividad = {conductividad} userAlarms = {userAlarms}/>}
           {humedadHoja &&
           <LeafHumidity humedadHoja = {humedadHoja} userAlarms = {userAlarms}/>}
+          
         </section> 
         }
       </main>
@@ -229,7 +217,7 @@ export const OneGreenhouse = () => {
                   <p>Especie: {crop.crop_plant_variety}</p>
                   <p>Duración: {crop.crop_duration}</p>
                   <Button className='m-2' onClick={onDelete} >Eliminar </Button>
-                  <Button className='m-2'>Editar </Button>
+                  <Button className='m-2'onClick={() => setShowUpdateCrop(true)}>Editar </Button>
               </Card>
               )
           })}
