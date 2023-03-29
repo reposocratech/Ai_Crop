@@ -145,13 +145,12 @@ export const OneGreenhouse = () => {
   }
 
 
-  const onDelete = ()=>{
+  const onDelete = (crop_id)=>{
 
     axios
-        .get(`http://localhost:4000/crop/deleteCrop/${cropsCards[0]?.crop_id}`)
+        .get(`http://localhost:4000/crop/deleteCrop/${crop_id}`)
         .then((res)=>{
           // navigate(`greenhouse/${greenhouse_id}`)
-          console.log(res.data,"aqui estoy");
           setActionReload(!actionReload);
         })
         .catch((err)=>{
@@ -229,7 +228,7 @@ export const OneGreenhouse = () => {
                   <p>Especie: {crop.crop_plant_variety}</p>
                   <p>Extensión: {crop.crop_size}</p>
                   <p>Duración: {crop.crop_duration}</p>
-                  <Button className='m-2' onClick={onDelete} >Eliminar </Button>
+                  <Button className='m-2' onClick={() =>{onDelete(crop.crop_id)}} >Eliminar </Button>
                   <Button className='m-2'>Editar </Button>
               </Card>
               )

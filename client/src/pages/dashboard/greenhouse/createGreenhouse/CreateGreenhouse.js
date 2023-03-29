@@ -130,7 +130,7 @@ export const CreateGreenhouse = () => {
       <header className='header_greenhouses'>
         <h1 className='create_gh'>crear invernadero</h1>
       </header>
-      {!showForm2 ? 
+    {!showForm2 ? 
       // 1ª PARTE FORMULARIO
       <div>
       <main className='main_creategh'>
