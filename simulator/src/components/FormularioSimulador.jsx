@@ -21,6 +21,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
 
     const [datosForm, setDatosForm] = useState(initialValue);
     const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
+    const [messageValid, setMessageValid] = useState("");
 
     const handleChange = (e) => {
         let {name, value} = e.target;
@@ -48,6 +49,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
               .then((res)=>{
                 console.log(res.data);
                 setMessageError("")
+                setMessageValid("Datos recibidos correctamente!")
 
               })
               .catch((err)=>{
@@ -58,7 +60,8 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
 
   return (
     <section className='formulario'>
-
+      { messageValid != "" &&  
+      <p className='messageSended'>{messageValid}</p>}
       <article className='greenhouse'>
       <div id="floatContainer" className="float-container">
           {/* <label htmlFor="floatField">ID de invernadero</label> */}

@@ -40,7 +40,7 @@ export const Login = () => {
           type === 2 || type === 3 ?
             navigate('/user'):
               type === 1 ?
-                navigate('/user/admin'):
+                navigate('/admin'):
                   navigate('/error')
         })
         .catch((err)=>{
