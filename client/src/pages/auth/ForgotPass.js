@@ -13,6 +13,7 @@ export const ForgotPass = () => {
 
     const [email, setEmail] = useState("");
     const [messageError, setMessageError] = useState("");
+    const [messageValidation, setMessageValidation] = useState("");
 
     const navigate = useNavigate();
 
@@ -27,8 +28,7 @@ export const ForgotPass = () => {
         axios
         .post("http://localhost:4000/user/retreivePassword", {email})
         .then((res)=> {
-            console.log(res);
-            console.log(email);
+            setMessageValidation("Correo Enviado Correctamente!")
         })
         .catch((err)=>{
             console.log(err);
@@ -65,6 +65,9 @@ export const ForgotPass = () => {
             <p className='text-center mt-3 text-danger'>{messageError}</p>
 
           </section>
+            {messageValidation != "" &&
+            <p className='messageValidation'>{messageValidation}</p>}
+            
         </main>
       </Row>
     </div>
