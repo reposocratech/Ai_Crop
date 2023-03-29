@@ -141,13 +141,12 @@ export const OneGreenhouse = () => {
   }
 
 
-  const onDelete = ()=>{
+  const onDelete = (crop_id)=>{
 
     axios
-        .get(`http://localhost:4000/crop/deleteCrop/${cropsCards[0]?.crop_id}`)
+        .get(`http://localhost:4000/crop/deleteCrop/${crop_id}`)
         .then((res)=>{
           // navigate(`greenhouse/${greenhouse_id}`)
-          console.log(res.data,"aqui estoy");
           setActionReload(!actionReload);
         })
         .catch((err)=>{
@@ -227,7 +226,7 @@ export const OneGreenhouse = () => {
                   <p>{crop.crop_duration} día(s)</p>
                   <section className='buttons'>
                   <div><img className='edit'src='/assets/images/config_admin2.png'/></div>
-                  <div><img className='harvest'src='/assets/images/cards/done.png'/></div>
+                  <div onClick={() =>{onDelete(crop.crop_id)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
                   </section>
               </div>
               )
