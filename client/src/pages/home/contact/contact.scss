@@ -44,6 +44,58 @@
     width: 40%;
     margin-top: 2%;
 }
+
+//-------------RESPONSIVE -----------------//
+
+//TABLET
+@media (max-width: 870px){
+    .firstSection{
+        display: flex;
+        flex-direction: column;
+        margin: 0 !important;
+        margin: none;
+        text-align: center;
+        justify-content: center;
+        .title3{
+            font-size: 48px;
+        }
+    }
+    .contenedorEmail{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+}
+
+//SMARTPHONE
+@media (max-width: 520px){
+    .firstSection{
+        .title3{
+            font-size: 42px;
+            display: flex;
+            flex-direction: row;
+        }
+        .puntoFinal{
+            font-size: 95px;
+        }
+    }
+    .contenedorEmail{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        .specialTwo{
+            font-size: 18px;
+        }
+        .two{
+            font-size: 15px;
+        }
+    }
+}
     
 
 

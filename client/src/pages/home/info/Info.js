@@ -15,7 +15,7 @@ export const Info = () => {
   <div class="header">
     <p class="title2">BASIC</p>
     <div class="price-container">
-      <span>€</span>19.90
+      <span className='price'>€</span>19.90
       <span>/mes</span>
     </div>
   </div>

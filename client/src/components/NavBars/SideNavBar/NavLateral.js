@@ -64,9 +64,9 @@ export const NavLateral = () => {
           <img src='/assets/images/logout.png' alt='dashboard'/>
           <p className='option' onClick={onLogOut}>Logout</p>
         </a>
-        <a className='nav_option'>
+        <a className='nav_option' onClick={() =>navigate('edit')}>
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
-          <p className='option' onClick={() =>navigate('edit')}>Configuración</p>
+          <p className='option'>Configuración</p>
         </a>
         {!greenhouse_id ?
         <button className='create_crop' onClick={()=> navigate('createGreenhouse')}>+</button> :

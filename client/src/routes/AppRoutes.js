@@ -23,22 +23,14 @@ import { ForgotPass } from '../pages/auth/ForgotPass'
 export const AppRoutes = () => {
   
   const {user, isLogged, token} = useContext(AICropContext);
-  console.log(user, "este es user");
-  let type = 0;
-  if(user){
-     type = user.user_type;
 
-  }
-  console.log(type);
   return (
     <div>
         <Container fluid>
             <BrowserRouter>
                 <Routes>
-
                     {!user &&(
-                      
-                      <>
+                    <>
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/forgotpassword' element={<ForgotPass/>}/>
                     <Route path='/login' element={<Login/>}/>
@@ -51,11 +43,10 @@ export const AppRoutes = () => {
                     <Route path='/user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
-                      <Route path='greenhouse/:greenhouse/:measure' element={<Measure/>}/>
+                      <Route path='greenhouse/:greenhouse_id/:measurement_type_id' element={<Measure/>}/>
                       <Route path='edit' element={<EditUser/>}/>
                       <Route path='editGreenhouse/:greenhouse_id' element={<EditGreenhouse/>}/>
                       <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>
-                      {/* <Route path='admin' element={<Admin/>}/> Vista de TODOS los usuarios (card per user) */}
                     </Route>
                     }
                     
