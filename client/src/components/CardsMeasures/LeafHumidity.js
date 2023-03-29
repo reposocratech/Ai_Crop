@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export const LeafHumidity = ({humedadHoja, userAlarms}) => {
   const [alarm, setAlarm] = useState(false)
+  const navigate = useNavigate();
 
     useEffect(() => {
       let found = false;
@@ -14,9 +16,9 @@ export const LeafHumidity = ({humedadHoja, userAlarms}) => {
     }, [])
   return (
     <div className='measure_cardCont'>
-        <div className='leafhumidity_card responsive_card'>
+        <div className='leafhumidity_card responsive_card' onClick={()=>navigate(`${humedadHoja.measurement_type_id}`)}>
             <div className='leafhumidity_body'>
-                <p>{humedadHoja}%</p>
+                <p>{humedadHoja.measure_value}%</p>
                 <img src='/assets/images/cards/leaf_humidity.png' className='responsive_img'/>
             </div>
             <h3>HUMEDAD DE HOJA</h3>

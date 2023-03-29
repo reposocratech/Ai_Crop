@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export const PhCard = ({ph, userAlarms}) => {
-  const [alarm, setAlarm] = useState(false)
+  const [alarm, setAlarm] = useState(false);
+  const navigate = useNavigate();
 
     useEffect(() => {
       let found = false;
@@ -15,9 +17,9 @@ export const PhCard = ({ph, userAlarms}) => {
 
   return (
     <div className='measure_cardCont'>
-    <div className='ph_card responsive_card'>
+    <div className='ph_card responsive_card' onClick={()=>navigate(`${ph.measurement_type_id}`)}>
         <div className='ph_body'>
-            <p>{ph}</p>
+            <p>{ph.measure_value}</p>
             <h3>pH</h3>
         </div>
         <img src='/assets/images/cards/ph.png' className='responsive_img'/>
