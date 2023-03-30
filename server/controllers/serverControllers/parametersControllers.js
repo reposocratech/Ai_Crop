@@ -214,6 +214,7 @@ class ParametersController {
         });
     }
 
+
     // 10.1 Muestra el promedio de mediddas por measurement_type_id por día de la última semana.
     // localhost:4000/server/parameters/year/:greenhouse_id/:measurement_type_id
     getMeasureHistoryWeek = (req, res) => {
@@ -272,6 +273,5 @@ class ParametersController {
             : res.status(200).json(result);
         });
     }
-
 }
 module.exports = new ParametersController();

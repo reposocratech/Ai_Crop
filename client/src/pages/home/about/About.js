@@ -1,12 +1,12 @@
 import React from 'react'
-import './About.scss'
+import '../home.scss'
 
 
 // INFORMACIÓN SOBRE LA PÁGINA
 
 export const About = () => {
   return (
-    <div className='cont_about p-0' id='about'>
+    <div className='cont_about' id='about'>
         <h2 className='mt-5 about'>SOBRE NOSOTROS</h2>
         <hr />
         <br/><br/><br/>

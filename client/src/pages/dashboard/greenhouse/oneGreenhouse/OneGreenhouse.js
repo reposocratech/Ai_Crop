@@ -24,8 +24,6 @@ import { Card, Button } from 'react-bootstrap'
 
 export const OneGreenhouse = () => {
 
-
-  
   const {user,actionReload,userAlarms,setActionReload} = useContext(AICropContext);
 
   const [temperatura, setTemperatura] = useState();
@@ -45,8 +43,6 @@ export const OneGreenhouse = () => {
   const [cropsCards, setCropsCards] = useState([]);
 
   const navigate = useNavigate();
-
-  console.log(userAlarms, "PONTE ALGO QUE TE VAS A LIAR");
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
 
@@ -60,32 +56,30 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         console.log(res.data);
         setGreenhouseData(res.data.resultGreenhouse[0]);
-
         setCropsCards(res.data.resultActiveCrops)
-
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
             case 1:
-              setTemperatura(res.data.resultMeasure[i].measure_value)
+              setTemperatura(res.data.resultMeasure[i])
               break;
             case 2:
-              setCo2(res.data.resultMeasure[i].measure_value)
+              setCo2(res.data.resultMeasure[i])
               break;
             case 3:
-              setHumedad(res.data.resultMeasure[i].measure_value)
+              setHumedad(res.data.resultMeasure[i])
               break;
             case 4:
-              setLuzSolar(res.data.resultMeasure[i].measure_value)
+              setLuzSolar(res.data.resultMeasure[i])
               break;
             case 5:
-              setPh(res.data.resultMeasure[i].measure_value)
+              setPh(res.data.resultMeasure[i])
               break;
             case 6:
-              setConductividad(res.data.resultMeasure[i].measure_value)
+              setConductividad(res.data.resultMeasure[i])
               break;
             case 7:
-              setHumedadHoja(res.data.resultMeasure[i].measure_value)
+              setHumedadHoja(res.data.resultMeasure[i])
               break;
             default:
               console.log("pringao")
@@ -122,7 +116,7 @@ export const OneGreenhouse = () => {
  //------------------------para traer la info del cropmodal----------------------
   
 
-  console.log(cropsCards,"lainfo");
+  // console.log(cropsCards,"lainfo");
   let datos = {
     name: "Nasza",
     email: "naza@gmail.com",
@@ -145,13 +139,12 @@ export const OneGreenhouse = () => {
   }
 
 
-  const onDelete = ()=>{
+  const onDelete = (crop_id)=>{
 
     axios
-        .get(`http://localhost:4000/crop/deleteCrop/${cropsCards[0]?.crop_id}`)
+        .get(`http://localhost:4000/crop/deleteCrop/${crop_id}`)
         .then((res)=>{
           // navigate(`greenhouse/${greenhouse_id}`)
-          console.log(res.data,"aqui estoy");
           setActionReload(!actionReload);
         })
         .catch((err)=>{
@@ -185,10 +178,10 @@ export const OneGreenhouse = () => {
         <section className='title_row'>
           <h1>mi invernadero</h1>
           <article className='input_sect'>
-          <div className='search_add'>
+          {/* <div className='search_add'>
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar cultivo'/>
-          </div>
+          </div> */}
           <button className='search_add' onClick={inviteCollab}>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
             Añadir colaboradores
@@ -203,7 +196,7 @@ export const OneGreenhouse = () => {
         :
         <section className='cards_measures'>
           {temperatura &&
-          <TemperatureCard temperatura = {temperatura} userAlarms = {userAlarms}/>}
+          <TemperatureCard temperatura = {temperatura} userAlarms = {userAlarms} greenhouse_id = {greenhouse_id}/>}
           {co2 &&
           <Co2Card co2 = {co2} userAlarms = {userAlarms}/>} 
           {humedad &&
@@ -219,24 +212,24 @@ export const OneGreenhouse = () => {
         </section> 
         }
       </main>
-        <section className='cardCrop'>
+        <section className='cards_crop'>
             
             {cropsCards?.map((crop, index)=> {
               
               return(
-              <Card key={index} >
-                  <p>Nombre: {crop.crop_name}</p>
-                  <p>Especie: {crop.crop_plant_variety}</p>
-                  <p>Extensión: {crop.crop_size}</p>
-                  <p>Duración: {crop.crop_duration}</p>
-                  <Button className='m-2' onClick={onDelete} >Eliminar </Button>
-                  <Button className='m-2'>Editar </Button>
-              </Card>
+              <div className='card_crop' key={index} >
+                  <h4>{crop.crop_name.toUpperCase()}</h4>
+                  <p>{crop.crop_plant_variety}</p>
+                  <p>Extensión: {crop.crop_size}m²</p>
+                  <p>{crop.crop_duration} día(s)</p>
+                  <section className='buttons'>
+                  <div><img className='edit'src='/assets/images/config_admin2.png'/></div>
+                  <div onClick={() =>{onDelete(crop.crop_id)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
+                  </section>
+              </div>
               )
           })}
 
-        
-        
         </section>
         
     </div>

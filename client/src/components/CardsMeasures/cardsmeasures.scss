@@ -18,11 +18,19 @@
     h3{
         font-size: 23px;
     }
-    // .alarma_measure{
-    //     img{
-    //         width: 30px;
-    //     }
-    // }
+    .alarma_measure{
+        width: 0;
+        height: 0;
+        position: relative;
+        bottom: 10px;
+        right: 18px;
+        z-index: 3;
+        // top: 200px;
+        // right: 15px;
+        img{
+            width: 35px;
+        }
+    }
 }
 
 
@@ -33,21 +41,22 @@
     height: 15rem;
     border-radius: 1em;
     padding: 35px;
+    cursor: pointer;
     p{
         margin-top: 25px;
         font-size: 33px;
         font-weight: 600;
     }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        top: 35px;
-        left: 290px;
-        img{
-            width: 30px;
-        }
-    }
+    // .alarma_measure{
+    //     width: 0;
+    //     height: 0;
+    //     position: relative;
+    //     top: 35px;
+    //     left: 290px;
+    //     img{
+    //         width: 30px;
+    //     }
+    // }
     
 }
 
@@ -60,6 +69,7 @@
     padding: 35px;
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
     display: flex;
+    cursor: pointer;
 
     img{
         width: 120px;
@@ -87,15 +97,15 @@
         top: 40px;
         margin: 0 !important;
     }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        top: 155px;
-        img{
-            width: 30px;
-        }
-    }
+    // .alarma_measure{
+    //     width: 0;
+    //     height: 0;
+    //     position: relative;
+    //     top: 155px;
+    //     img{
+    //         width: 30px;
+    //     }
+    // }
 }
 
 .humidity_card{

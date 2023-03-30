@@ -154,3 +154,41 @@
   border-radius: 10px;
 }
 
+//------------ RESPONSIVE-------------------//
+
+//TABLET
+@media (max-width: 870px){
+  .contPpal{
+    display: flex;
+    flex-wrap: wrap;
+    
+  }
+  .pack-container{
+      max-width: 800px;
+      max-height: 600px;
+    }
+}
+
+// SMARTPHONE
+@media (max-width: 520px){
+  .contPpal{
+    display: flex;
+    flex-direction: column;
+    .fuenteFront{
+      font-size: 38px;
+      text-align: center;
+      
+    }
+    .pack-container{
+      max-width: 250px;
+      max-height: 450px;
+    }
+    
+    .price-container{
+      font-size: 36px;
+    
+    }
+    
+  }
+}
+
