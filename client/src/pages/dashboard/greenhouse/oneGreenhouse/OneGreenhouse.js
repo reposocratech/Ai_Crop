@@ -17,17 +17,14 @@ import axios from 'axios'
 import './onegreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
 
-
 import { useParams } from 'react-router-dom'
-import { Card, Button } from 'react-bootstrap'
 import { ModalInvitation } from '../../../../components/greenhouseCards/ModalInvitation'
 import { UpdateCropModal } from '../../../../components/Crop/UpdateCropModal'
 
 
-
 export const OneGreenhouse = () => {
 
-  const {user,actionReload,userAlarms,setActionReload} = useContext(AICropContext);
+  const {user, actionReload, userAlarms, setActionReload} = useContext(AICropContext);
 
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
@@ -42,23 +39,21 @@ export const OneGreenhouse = () => {
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
   const [showModalInvitation, setShowModalInvitation] = useState(false)
-  //-------------------el cropito-----------------------------------
+  // ------------------- {-- el cropito --} ------------------- //
   const [cropsCards, setCropsCards] = useState([]);
   const [showUpdateCrop, setShowUpdateCrop] = useState(false)
   const [selectedCrop, setSelectedCrop] = useState();
   const navigate = useNavigate();
   
-  const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
+  const greenhouse_id = useParams().greenhouse_id; 
 
   useEffect(() => {
     
     axios
       .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
       .then((res)=>{
-
         setUserCollaborators(res.data.resultCollaborators);
         setHelpers(res.data.resultHelpers);
-        console.log(res.data);
         setGreenhouseData(res.data.resultGreenhouse[0]);
         setCropsCards(res.data.resultActiveCrops)
 
@@ -94,61 +89,13 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
 
-    // axios
-    //   .get(`http://localhost:4000/server/alarm//seeActiveGreenhouseAlarms/${greenhouse_id}`)
-    //   .then((res)=>{
-    //     console.log(res.data, "todas las alarmassss del ghhhh")
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err)
-    //   })
-
-
-
   }, [actionReload])
-
-  //------------------------para traer la info del cropmodal----------------------
-  // useEffect(() => {
-  //   axios
-  //       .get(`http://localhost:4000/crop/getAllCrops/${(greenhouse_id)}`)
-  //       .then((res)=>{
-  //           setcropsCards(res.data);
-  //       })
-  //       .catch((err)=>{console.log(err)})
-  // }, [actionReload])
-
- //------------------------para traer la info del cropmodal----------------------
-  
-
- /*  console.log(cropsCards,"lainfo");
-  let datos = {
-    name: "Nasza",
-    email: "naza@gmail.com",
-    user_id: user?.user_id,
-    first_name: user?.first_name,
-    last_name: user?.last_name,
-    greenhouse_id: greenhouse_id,
-    // greenhouse_name: "Invernadero de Carlitos"  
-  }
-
-  const inviteCollab = () => {
-    axios
-      .post('http://localhost:4000/greenhouse/inviteCollaborator', datos)
-      .then((res)=>{
-        console.log(res.data);
-     })
-      .catch((err)=>{
-        console.log(err);
-      })
-  }
- */
 
   const onDelete = (crop_id)=>{
 
     axios
         .put(`http://localhost:4000/crop/endCrop/${crop_id}`)
         .then((res)=>{
-          // navigate(`greenhouse/${greenhouse_id}`)
           setActionReload(!actionReload);
         })
         .catch((err)=>{
@@ -157,33 +104,62 @@ export const OneGreenhouse = () => {
   }
 
   const openModalUdateCrop = (crop_id)=>{
-
     setSelectedCrop(crop_id)
     setShowUpdateCrop(true)
-   
-    
   }
-
 
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
         
-        <button onClick={() => navigate('/user')}><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
+        <button onClick={() => navigate('/user')}>
+          <img 
+            alt='ir atrás' 
+            src='/assets/images/go_back.png'/>
+        </button>
 
-        <button onClick={() => navigate(`/user/editGreenhouse/${greenhouse_id}`)}><img className='config_invernadero' alt='configuracion invernadero' src='/assets/images/editar_greenhouse.png'/></button>
+        <button onClick={() => navigate(`/user/editGreenhouse/${greenhouse_id}`)}>
+          <img 
+            className='config_invernadero' 
+            alt='configuracion invernadero' 
+            src='/assets/images/editar_greenhouse.png'
+          />
+        </button>
         
          {/* Modal Collaborator */}
-         <ButtonCollaborator setShowModalCollab={setShowModalCollab}/>
+        <ButtonCollaborator 
+          setShowModalCollab={setShowModalCollab}
+        />
          
-         <ModalCollaborator showModalCollab={showModalCollab} setShowModalCollab={setShowModalCollab} userCollaborators={userCollaborators} helpers={helpers}/>
+        <ModalCollaborator 
+          showModalCollab={showModalCollab} 
+          setShowModalCollab={setShowModalCollab} 
+          userCollaborators={userCollaborators} 
+          helpers={helpers}
+        />
 
         {/* Modal */}
-        <ButtonNotif setShowModalNotif={setShowModalNotif}/>
+        <ButtonNotif 
+          setShowModalNotif={setShowModalNotif}
+        />
         
-        <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
-        <ModalInvitation showModalInvitation={showModalInvitation} setShowModalInvitation={setShowModalInvitation} greenhouse_name={greenhouseData?.greenhouse_name} />
-        <UpdateCropModal  showUpdateCrop={showUpdateCrop} setShowUpdateCrop={setShowUpdateCrop} setSelectedCrop={setSelectedCrop} selectedCrop={selectedCrop}></UpdateCropModal>
+        <ModalNotif 
+          showModalNotif={showModalNotif} 
+          setShowModalNotif={setShowModalNotif}
+        />
+
+        <ModalInvitation 
+          showModalInvitation={showModalInvitation} 
+          setShowModalInvitation={setShowModalInvitation} 
+          greenhouse_name={greenhouseData?.greenhouse_name} 
+        />
+
+        <UpdateCropModal  
+          showUpdateCrop={showUpdateCrop} 
+          setShowUpdateCrop={setShowUpdateCrop} 
+          setSelectedCrop={setSelectedCrop}
+          selectedCrop={selectedCrop}
+        />
 
       </section>
       <header className='header_greenhouses'>

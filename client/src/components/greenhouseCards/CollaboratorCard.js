@@ -13,7 +13,6 @@ export const CollaboratorCard = ({elem}) => {
     navigate(`greenhouse/${elem.greenhouse_id}`)
   }
 
-  console.log(elem.active_alarms, "alarmaasssss");
 
   return (
     <div onClick={onSubmit} className='cont_card_greenhouse'>
