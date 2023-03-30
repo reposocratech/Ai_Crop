@@ -56,13 +56,13 @@ export const NavLateral = () => {
       </div>
       {/* OPCIONES NAVBAR */}
       <div className='nav_options'>
-        <a className='nav_option'>
+        <a className='nav_option'onClick={()=>navigate('/user')}>
           <img src='/assets/images/dashboard.png' alt='dashboard'/>
-          <p className='option' onClick={()=>navigate('/user')}>Dashboard</p>
+          <p className='option' >Dashboard</p>
         </a>
-        <a className='nav_option'>
+        <a className='nav_option'onClick={onLogOut}>
           <img src='/assets/images/logout.png' alt='dashboard'/>
-          <p className='option' onClick={onLogOut}>Logout</p>
+          <p className='option' >Logout</p>
         </a>
         <a className='nav_option' onClick={() =>navigate('edit')}>
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>

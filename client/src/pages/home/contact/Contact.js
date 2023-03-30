@@ -16,9 +16,9 @@ export const Contact = () => {
           <p>Para cualquier consulta, podéis contactar directamente con nuestro servicio técnico</p>
           </div>
           <div className='contenedorEmail'>
-            <a className='special' href="http://"><p className='specialTwo'><img className='iconico' src="assets/images/social/email.png" alt="iconEmail" /> AiCrops@hotmail.com</p></a>
+            <a className='special' href="http://"><p className='specialTwo two'><img className='iconico' src="assets/images/social/email.png" alt="iconEmail" /> AiCrops@hotmail.com</p></a>
           
-          <p className='specialTwo two'> <img className='iconico' src="/assets/images/social/telefono.png" alt="iconphone" />+34 611 691 525</p>
+          <p className='specialTwo two'> <img className='iconico upp' src="/assets/images/social/telefono.png" alt="iconphone" />+34 611 691 525</p>
           </div>
         </div>
       </section>
