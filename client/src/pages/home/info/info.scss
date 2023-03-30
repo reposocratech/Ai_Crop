@@ -161,6 +161,7 @@
   .contPpal{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     
   }
   .pack-container{
@@ -174,6 +175,8 @@
   .contPpal{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     .fuenteFront{
       font-size: 38px;
       text-align: center;

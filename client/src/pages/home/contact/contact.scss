@@ -76,9 +76,13 @@
             font-size: 42px;
             display: flex;
             flex-direction: row;
+            margin: 5%;
         }
         .puntoFinal{
             font-size: 95px;
+        }
+        .bloqueParr{
+            margin: 5%;
         }
     }
     .contenedorEmail{
@@ -90,9 +94,14 @@
         margin: auto;
         .specialTwo{
             font-size: 18px;
+            margin: 8%;
         }
         .two{
-            font-size: 15px;
+            font-size: 18px !important;
+            .upp{
+               display: flex;
+               margin-left: 42%;
+            }
         }
     }
 }

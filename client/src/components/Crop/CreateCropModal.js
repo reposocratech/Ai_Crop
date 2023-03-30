@@ -60,12 +60,13 @@ const navigate = useNavigate()
     <>
       <Modal show={showModalCrop} onHide={handleClose}>
         
-        <Modal.Body>
-          <section>
+        <Modal.Body className='divMaster'>
+          <section className='d-flex secPpal'>
 
-            <div>
+            <div className='d-flex justify-content-center'>
 
           <input
+          className='note'
           type="text"
           placeholder='Nombre del cultivo'
           value={cropInfo?.crop_name}
@@ -73,9 +74,10 @@ const navigate = useNavigate()
           name="crop_name"
           />
          </div>
-            <div>
+            <div className='d-flex justify-content-center'>
 
           <input
+          className='note'
           type="text"
           placeholder='especie vegetal'
           value={cropInfo?.crop_plant_variety}
@@ -83,9 +85,10 @@ const navigate = useNavigate()
           name="crop_plant_variety"
         />
          </div>
-            <div>
+            <div className='d-flex justify-content-center'>
 
           <input
+          className='note'
           type="number"
           placeholder='duración estimada'
           value={cropInfo?.crop_duration}
@@ -93,6 +96,19 @@ const navigate = useNavigate()
           name="crop_duration"
         />
          </div>
+            <div className='d-flex justify-content-center'>
+
+          <input
+          className='note'
+          type="number"
+          placeholder='Extensión'
+          value={cropInfo?.crop_size}
+          onChange={handleChange}
+          name="crop_size"
+        />
+         </div>
+
+
             <div>
 
           <input
@@ -104,18 +120,10 @@ const navigate = useNavigate()
         />
          </div>
 
-            <div>
-
-          <input
-          type="number"
-          placeholder='Extensión'
-          value={cropInfo?.crop_size}
-          onChange={handleChange}
-          name="crop_size"
-        />
+         <div className='botoneraCrops'>
+            <button className='botonCrops' onClick={handleSubmit}>Añadir</button>
          </div>
 
-         <button onClick={handleSubmit}>Añadir</button>
 
           </section>
          
