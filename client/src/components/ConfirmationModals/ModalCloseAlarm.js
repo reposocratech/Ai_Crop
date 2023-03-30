@@ -29,13 +29,21 @@ export const ModalCloseAlarm = ({showModalCloseAlarm, setShowModalCloseAlarm, on
   return (
     <div className='modalCloseAlarm'>
     <Modal className='modal' show={showModalCloseAlarm} onHide={handleClose}>
+        <div className='alarmm'>
+        <h1 className='tituloAlarm'>Desactivar Alarma</h1>
+        </div>
+
         <Modal.Body className='modalCont'>
-            <div className='noseque'>
-                <p>¿Quieres desactivar esta alerta?</p>
-                <label>Aaa</label>
-                <textarea value={closeMessage} onChange={handleChange}></textarea>
-                <button onClick={handleCloseAlarm}>Cerrar alarma</button>
+            <div>
+                <p className='parrafAlarm'>Explique brevemente el manejo de la alerta</p>
             </div>
+            <div className='noseque'>
+                <textarea value={closeMessage} onChange={handleChange}></textarea> 
+            </div>
+            <div className='d-flex justify-content-center'>
+                <button className='botonInv alrm' onClick={handleCloseAlarm}>Cerrar alarma</button>
+            </div>
+           
         </Modal.Body>
     </Modal>
     </div>

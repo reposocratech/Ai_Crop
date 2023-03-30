@@ -1,17 +1,26 @@
-.modalCloseAlarm{
-    div.modal-content{
 
-    }
-    .modal{
-        // background-color: red;
-        // .modalCont.mod{
-        //     background-color: red;
-        // }
-    }
-
-    .noseque{
-        background-color: lightgrey;
-        display: flex;
-        flex-direction: column;
-    }
+.noseque{
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }
+
+.tituloAlarm{
+    color: white;
+}
+.alarmm{
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+.parrafAlarm{
+    color: whitesmoke;
+    text-align: center;
+}
+.alrm{
+    width: 48vw;
+    height: 6vh;
+}
+
+
