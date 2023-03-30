@@ -30,4 +30,9 @@ router.get('/seeActiveGreenhouseAlarms/:greenhouse_id', AlarmController.seeActiv
 // localhost:4000/server/alarm/seeAlarmsByMeasure/:greenhouse_id
 router.get('/seeAlarmsByMeasure/:greenhouse_id', AlarmController.seeAlarmsByMeasure);
 
+// 8. Muestra la información de una alarma activa para un greenhouse y parámetro específico pasado por params
+// localhost:4000/server/alarm/seeAlarm/:greenhouse_id/:measurement_type_id
+router.get('/seeAlarm/:greenhouse_id/:measurement_type_id', AlarmController.seeOneAlarm);
+
+
 module.exports = router;

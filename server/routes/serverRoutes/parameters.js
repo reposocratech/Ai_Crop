@@ -34,4 +34,20 @@ router.get('/history/ce/:greenhouse_id', ParametersController.getCeHistory);
 // localhost:4000/server/parameters/history/leafhumidity/:greenhouse_id
 router.get('/history/leafhumidity/:greenhouse_id', ParametersController.getLeafHumidityHistory);
 
+// 9. Muestra la última medida de un parámetro específico de un greenhouse específico
+// localhost:4000/server/parameters/current/:greenhouse_id/:measurement_type_id
+router.get('/current/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureDetails);
+
+// 10.1 Muestra el promedio de mediddas por measurement_type_id por día dela última semana.
+// localhost:4000/server/parameters/week/:greenhouse_id/:measurement_type_id
+router.get('/week/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureHistoryWeek);
+
+// 10.2 Muestra el promedio de mediddas por measurement_type_id por mes del último año.
+// localhost:4000/server/parameters/month/:greenhouse_id/:measurement_type_id
+router.get('/month/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureHistoryMonth);
+
+// 10.3 Muestra el promedio de mediddas por measurement_type_id por mes del último año.
+// localhost:4000/server/parameters/year/:greenhouse_id/:measurement_type_id
+router.get('/year/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureHistoryYear);
+
 module.exports = router;

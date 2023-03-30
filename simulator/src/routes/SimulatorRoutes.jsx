@@ -6,6 +6,7 @@ import { SimuladorApp } from '../components/SimuladorApp'
 import { TopNavBar } from '../components/TopNavBar/TopNavBar'
 import { SimulatorContext } from '../context/SimulatorContext'
 import '../components/style.scss'
+import { Container } from 'react-bootstrap'
 
 
 export const SimulatorRoutes = () => {
@@ -13,6 +14,7 @@ export const SimulatorRoutes = () => {
  console.log(isLogged);
   return (
       <div className='cont_simulator'>
+      <Container fluid>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Login/>}/>
@@ -22,6 +24,7 @@ export const SimulatorRoutes = () => {
             <Route path='*' element={<Error/>} />
           </Routes>
         </BrowserRouter>
+      </Container>
       </div>
   )
 }

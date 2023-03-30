@@ -88,11 +88,9 @@ class EmailController {
         let email_list = req.body.emailList;
         let resultAlarm = req.body.resultAlarm[0];
         let {alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name} = resultAlarm;
-
-        for(let i = 0; i < email_list.length; i++){
           
-            nodemailerAlarm(email_list[i], alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name);
-        }
+        nodemailerAlarm(email_list, alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name);
+
 
         res.status(200).json("HA LLEGADO AL FINAL");
     }
