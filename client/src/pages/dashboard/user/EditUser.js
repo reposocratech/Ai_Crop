@@ -9,6 +9,7 @@ import { SpainProvinces } from '../../auth/lists/SpainProvinces'
 import { Row } from 'react-bootstrap';
 import { ButtonNotif } from '../../../components/Notifications/ButtonNotif';
 import { ModalNotif } from '../../../components/Notifications/ModalNotif';
+
 const initialValue = {
   first_name: "",
   last_name:"",
@@ -21,32 +22,49 @@ const initialValue = {
   user_knowledge: "",
   user_type: 2,
 }
+
+const initialValuePass = {
+    email: "",
+    currentPass: "",
+    newPass: "",
+    newPassConfirm: "",
+}
+
 export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
-  const { user,setUser } = useContext(AICropContext);
+  const { user, setUser } = useContext(AICropContext);
   const [editUser, setEditUser] = useState(initialValue);
   const [file, setFile] =  useState();
   const [showForm1, setShowForm1] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
+  const [showForm4, setShowForm4] = useState(false);
+  const [activeButton, setActiveButton] = useState(0);
   const [showModalNotif, setShowModalNotif] = useState(false);
+  const [changePassForm, setChangePassForm] = useState(initialValuePass);
+  const [errorMessage, setErrorMessage] = useState("");
 
     const navigate = useNavigate()
+
     useEffect(()=>{
         if(user){
         setEditUser(user)
         }
     },[user])
+
     const handleChange = (e) =>{
         const {name, value} = e.target;
         setEditUser({...editUser, [name]:value})
     }
+
      const handleChangeFile = (e) =>{
         setFile(e.target.files[0])
     }
+
     const handleSubmit = () =>{
         const newFormData = new FormData();
         newFormData.append("file", file);
         newFormData.append("register", JSON.stringify(editUser));
+
         axios
             .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
             .then((res)=>{
@@ -57,32 +75,56 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                     setUser(editUser)
                 }else{
                     setUser({...editUser, user_photo:res.data.img})
-                    
                 }
                 navigate("/user")
             })
             .catch((err)=>console.log(err));
+
+        if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) {    
+            axios 
+                .post(`http://localhost:4000/user/changePassword`, changePassForm)
+                .then((res)=>{
+                    console.log(res.data);
+                })
+                .catch((err)=>console.log(err));
+            }
         }
 
         const handleForm1 = ()=>{
-
-            setShowForm1(!showForm1);
+            setShowForm1(true);
             setShowForm2(false);
             setShowForm3(false);
+            setShowForm4(false);
+            setActiveButton(1);
         }
         
         const handleForm2 = ()=>{
-
-            setShowForm2(!showForm2);
             setShowForm1(false);
+            setShowForm2(true);
             setShowForm3(false);
+            setShowForm4(false);
+            setActiveButton(2);
         }
         
         const handleForm3 = ()=>{
-
-            setShowForm3(!showForm3);
-            setShowForm2(false);
             setShowForm1(false);
+            setShowForm2(false);
+            setShowForm3(true);
+            setShowForm4(false);
+            setActiveButton(3);
+        }
+
+        const handleForm4 = ()=>{
+            setShowForm1(false);
+            setShowForm2(false);
+            setShowForm3(false);
+            setShowForm4(true);
+            setActiveButton(4);
+        }
+
+        const handlePassword = (e) => {
+            const {name, value} = e.target;
+            setChangePassForm({...changePassForm, [name]:value, email: user.email})
         }
         
   return (
@@ -101,7 +143,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
 
         {showForm1 && 
         //PARTE 1-----
-        <section /* className='contEdit fondo' */>
+        <section className='contEdit fondo' >
             <div id="floatContainer"  className="float-container">
                 
                 <label>Nombre</label>
@@ -148,7 +190,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         }
         
         {showForm2 && 
-        <section >
+        <section className='contEdit fondo' >
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>
                 <input
@@ -165,54 +207,31 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={editUser.post_code}
                 onChange={handleChange}
                 name="post_code"        />
-
             </div>
 
-            
-
-            
-            
-
             <div id="floatContainer" className="float-container">
-                    <label htmlFor="countries">País</label>
-                    <select id="countries" className='select_form'
-                    required 
-                    name='country' 
-                    value={editUser.country}
-                    onChange={handleChange}>
-                    <Countries/>
-                    </select>
-                </div>
+                <label htmlFor="countries">País</label>
+                <select id="countries" className='select_form'
+                required 
+                name='country' 
+                value={editUser.country}
+                onChange={handleChange}>
+                <Countries/>
+                </select>
+            </div>
             <div id="floatContainer" className="float-container">
-
-                    {editUser.country === "España" ?
-                    
-                    <>
-                    <label htmlFor="floatField">Provincia</label>
-                    <select id="countries" className='select_form'
-                    required 
-                    name='city' 
-                    value={editUser.city}
-                    onChange={handleChange}>
-                        <SpainProvinces/>
-                    </select>
-                    </>
-                    :
-                    <>
-                    <label htmlFor="floatField">Ciudad</label>
-                    <input type="text" maxLength="80" required 
-                    name='city' 
-                    value={editUser.city}
-                    onChange={handleChange}/>
-                    </>
-                    }
-                </div>
+                <label htmlFor="floatField">Ciudad</label>
+                <input type="text" maxLength="80" required 
+                name='city' 
+                value={editUser.city}
+                onChange={handleChange}/>
+            </div>
            
         </section>
          }
 
          {showForm3 &&
-         <section > 
+        <section className='contEdit fondo' >
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos previos</label>
                 <select id="countries" className='select_form'
@@ -228,31 +247,57 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 </select>
             </div>
 
-
             <div id="floatContainer" className=" fileInput">
-                
                 <input
                 type="file"
                 name="src-file1"
                 onChange={handleChangeFile}
             />
+            </div> 
+        </section>
+    }
+
+         {showForm4 &&
+        <section className='contEdit fondo' >
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Correo electrónico</label>
+                <input type="email" maxLength="80" required disabled
+                name='email' className='disabled' 
+                value={user.email}/>
             </div>
-            
-            
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Contraseña actual</label>
+                <input type="password" maxLength="80" required 
+                name='currentPass' 
+                value={changePassForm.currentPass}
+                onChange={handlePassword}/>
+            </div>
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Nueva contraseña</label>
+                <input type="password" maxLength="80" required 
+                name='newPass'
+                value={changePassForm.newPass}
+                onChange={handlePassword}/>
+            </div>
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Repetir contraseña</label>
+                <input type="password" maxLength="80" required 
+                name='newPassConfirm' 
+                value={changePassForm.newPassConfirm}
+                onChange={handlePassword}/>
+            </div>
         </section>
 }
 
     <article  className='button_section'>
-    <button onClick={handleForm1}>{showForm1? `volver `:` Datos personales`}</button>
-    <button onClick={handleForm2}>{showForm2? `volver `:`Localización`}</button>
-    <button onClick={handleForm3}>{showForm3? `volver `:`Perfil `}</button>
+    <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Datos personales</button>
+    <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
+    <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Perfil</button>
+    <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
     </article>
-
-            <article className='button_section'>
-                <button onClick={handleSubmit} className='bg_verde'>aceptar</button>
-                
-            </article>
-
+        <article className='button_section'>
+            <button onClick={handleSubmit} className='bg_verde'>Aceptar</button>
+        </article>
     </section>
 
   )

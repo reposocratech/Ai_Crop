@@ -168,26 +168,48 @@ class UserController{
   };
 
   //5. Change password
-  // localhost:4000/user/changePassword/:user_id
+  // localhost:4000/user/changePassword
   changePasswordFromSettings = (req, res) => { // este método recupera la contraseña desde el correo
 
-    // ESTE METODO recibe un email y una contrasña y actualiza la BD: NO HACE VALIDACION DE PW NI HASH......
-    const {email, password} = req.body;
+    const {email, currentPass, newPass} = req.body;
+    console.log(req.body);
 
-    let saltRounds = 8;
-    
-    bcrypt.genSalt(saltRounds, function(err, saltRounds){
+    let sql = `SELECT * FROM user WHERE email = '${email}'`;
 
-      bcrypt.hash(password, saltRounds, function(err, hash){
-        let sql = `UPDATE user SET password = '${hash}' WHERE email = '${email}'`;
+    // Buscamos en BD al usuario por correo electronico
+    connection.query(sql, (error, result) => {
+      error && res.status(400).json(error);
 
-          connection.query(sql, (error, result) => {
-          error
-            ? res.status(400).json({error})
-            : res.status(201).json("Contraseña cambiada con éxito");
-          })
+      const [user] = result;
+      const hash = user.password;
+      const user_id = user.user_id;
+
+      // compara la PW ingresada con la ecnriptada (hash)
+      bcrypt.compare(currentPass, hash, (error, response) => {
+        error && res.status(400).json(error); 
+
+          if (response === true) { // si la contraseña coincide
+            
+            let saltRounds = 8;
+            
+            bcrypt.genSalt(saltRounds, function(err, saltRounds){
+        
+              bcrypt.hash(newPass, saltRounds, function(err, hash){
+                let sql = `UPDATE user SET password = '${hash}' WHERE email = '${email}'`;
+        
+                  connection.query(sql, (error3, result3) => {
+                  error3
+                    ? res.status(400).json({error3})
+                    : res.status(201).json("Contraseña cambiada con éxito");
+                  })
+              })
+            })
+
+          } else { // si la contraseña no coincide
+            res.status(401).json("Contraseña incorrecta");
+          }
+        });
       })
-    })
   }
 
   //6. Retreive Password (envía un correo electrónico al correo introducido para confirmar el correo)

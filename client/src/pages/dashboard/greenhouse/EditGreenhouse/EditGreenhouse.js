@@ -4,8 +4,6 @@ import { Form, Row } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../../context/AICropContext'
 
-
-
 const initialValueInfo = {
   greenhouse_name: "",
   greenhouse_location: "",
@@ -22,6 +20,7 @@ const initialValueMaxMin = {
   min : ""
 }
 
+
 export const EditGreenhouse = () => {
 
   const user_id = useContext(AICropContext).user?.user_id;
@@ -36,12 +35,19 @@ export const EditGreenhouse = () => {
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
   const [error, setError] = useState("");
   const [showForm2, setShowForm2] = useState(false);
+
  //************************************************* */
+
   const greenhouse_id = useParams().greenhouse_id;
+
 //************************************************** */
+
   let arrayMeasures = [];
+
 //************************************************** */
+
   const navigate = useNavigate();
+
 //************************************************** */
 
   useEffect(() => {
@@ -55,46 +61,70 @@ export const EditGreenhouse = () => {
   )
 
 //************************************************** */
+  
+  let disable = false;
+  if (!editGreenhouse?.greenhouse_name || !editGreenhouse?.greenhouse_location || !editGreenhouse?.greenhouse_orientation || !editGreenhouse?.greenhouse_size || !editGreenhouse?.greenhouse_type || editGreenhouse?.greenhouse_type === ""){
+    disable = true;
+  }
+
+//************************************************** */
+
   const handleContinue = () => {
     setShowForm2(true)
   }
+
 //************************************************** */
+
   // HANDLE CHANGE MEDIDAS
    const handleChangeTemp = (e) => {
     const {name, value} = e.target;
     setTemperatura({...temperatura, [name]:value, measurement_type_id:1});
   }
-//************************************************** */    
+
+//************************************************** */   
+
   const handleChangeCo2 = (e) => {
     const {name, value} = e.target;
     setCo2({...co2, [name]:value, measurement_type_id:2})
   }
+
 //************************************************** */
+
   const handleChangeHumidity = (e) => {
     const {name, value} = e.target;
     setHumidity({...humidity, [name]:value, measurement_type_id:3})
   }
+
 //************************************************** */
+
   const handleChangeSunlight = (e) => {
     const {name, value} = e.target;
     setSunlight({...sunlight, [name]:value, measurement_type_id:4})
   }
+
 //************************************************** */  
+
   const handleChangepH = (e) => {
     const {name, value} = e.target;
     setPh({...ph, [name]:(value), measurement_type_id:5})
   }
+
 //************************************************** */  
+
   const handleChangeConductivity = (e) => {
     const {name, value} = e.target;
     setConductivity({...conductivity, [name]:value, measurement_type_id:6})
   }
+
 //************************************************** */  
+
   const handleChangeLeafHumidity = (e) => {
     const {name, value} = e.target;
     setLeafHumidity({...leafHumidity, [name]:value, measurement_type_id:7})
   }
+
 //************************************************** */
+
   useEffect(() => {
     axios
     .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
@@ -105,7 +135,9 @@ export const EditGreenhouse = () => {
       console.log(err);
     })
   }, [])
+
 //************************************************** */  
+
   const handleChange = (e) => {
     const {name, value, checked} = e.target;
     // checked? checked = 1 : checked = 0;
@@ -114,29 +146,23 @@ export const EditGreenhouse = () => {
     console.log(editGreenhouse);
   }
 
-  //************************************************** */
-  // const handleResponsability = (e) => {
-  //   const name = e.target.name;
-  //   let value = e.target.checked;
-  //   value? value = 1 : value = 0;
-  //   setEditGreenhouse({...editGreenhouse, [name]:value})
-  // }
 //************************************************** */  
+
   const handleSubmit = () => {
     arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
-    console.log(arrayMeasures);
-    console.log(editGreenhouse);
     axios
       .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`, {editGreenhouse, arrayMeasures})
       .then((res)=> {
         console.log(res.data);
-        navigate('/user');
+        navigate(`/user/greenhouse/${greenhouse_id}`);
       })
       .catch((err)=>{
         console.log(err);
       })
   }
+
   //************************************************** */    
+
   return (
     <div>
     {!showForm2 ? 
@@ -204,7 +230,9 @@ export const EditGreenhouse = () => {
               name='greenhouse_type'
               value={editGreenhouse.greenhouse_type}
               onChange={handleChange}
-              >   <option>Slecciona Método de cultivo</option>
+              required
+              >
+                <option value="">Slecciona Método de cultivo</option>
                 <optgroup label="Cultivos en agua">
                   <option value="NFT">NFT</option>
                   <option value="NGS">NGS</option>
@@ -224,7 +252,7 @@ export const EditGreenhouse = () => {
         </Form>
       </main>
       <div className='bottom_sect'>
-       <button onClick={handleContinue}><img src='/assets/images/next1.png'/></button>
+       <button onClick={handleContinue} disabled={disable}><img src='/assets/images/next1.png'/></button>
        </div>
       
       </div>
