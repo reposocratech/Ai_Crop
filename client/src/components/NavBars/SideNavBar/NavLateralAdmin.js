@@ -37,18 +37,18 @@ export const NavLateralAdmin = () => {
       </div>
       {/* OPCIONES NAVBAR */}
       <div className='nav_options'>
-        <a className='nav_option'>
+        {/* <a className='nav_option'>
           <img src='/assets/images/dashboard.png' alt='dashboard'/>
           <p className='option' onClick={()=>navigate('/user/admin')}>Dashboard</p>
-        </a>
-        <a className='nav_option'>
+        </a> */}
+        <a className='nav_option'onClick={onLogOut}>
           <img src='/assets/images/logout.png' alt='dashboard'/>
-          <p className='option' onClick={onLogOut}>Logout</p>
+          <p className='option' >Logout</p>
         </a>
-        <a className='nav_option'>
+        {/* <a className='nav_option'>
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
-          <p className='option' onClick={() =>navigate('edit')}>Configuración</p>
-        </a>
+          <p className='option'onClick={() =>navigate('edit')} >Configuración</p>
+        </a> */}
         {/* <button className='create_crop'>+</button> */}
       </div>
     </section>
