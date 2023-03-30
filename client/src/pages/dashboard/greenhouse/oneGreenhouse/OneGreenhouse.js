@@ -24,8 +24,6 @@ import { Card, Button } from 'react-bootstrap'
 
 export const OneGreenhouse = () => {
 
-
-  
   const {user,actionReload,userAlarms,setActionReload} = useContext(AICropContext);
 
   const [temperatura, setTemperatura] = useState();
@@ -180,10 +178,10 @@ export const OneGreenhouse = () => {
         <section className='title_row'>
           <h1>mi invernadero</h1>
           <article className='input_sect'>
-          <div className='search_add'>
+          {/* <div className='search_add'>
             <img alt='buscar' src='/assets/images/search.png'/>
             <input placeholder='Buscar cultivo'/>
-          </div>
+          </div> */}
           <button className='search_add' onClick={inviteCollab}>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
             Añadir colaboradores

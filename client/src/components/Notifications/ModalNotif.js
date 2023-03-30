@@ -6,8 +6,6 @@ import './notification.scss'
 
 export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
 
-  
-
     const handleClose = () => {
         setShowModalNotif(false);
     }
@@ -15,8 +13,7 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
     const {userAlarms} = useContext(AICropContext)    
 
   return (
-    <>
-    <Modal className='ModalTop' show={showModalNotif} onHide={handleClose}>
+    <Modal className='modalNotification' show={showModalNotif} onHide={handleClose}>
         <Modal.Body className='modalCont'>
 
         {userAlarms?.map((alarma, index)=> {
@@ -29,7 +26,6 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
         })}
     </Modal.Body>
     </Modal>
-     </>
     ) 
 }
 

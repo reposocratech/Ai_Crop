@@ -34,4 +34,8 @@ router.get('/history/ce/:greenhouse_id', ParametersController.getCeHistory);
 // localhost:4000/server/parameters/history/leafhumidity/:greenhouse_id
 router.get('/history/leafhumidity/:greenhouse_id', ParametersController.getLeafHumidityHistory);
 
+// 9. Muestra la última medida de un parámetro específico de un greenhouse específico
+// localhost:4000/server/parameters/current/:greenhouse_id/:measurement_type_id
+router.get('/current/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureDetails);
+
 module.exports = router;

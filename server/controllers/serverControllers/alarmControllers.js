@@ -47,13 +47,16 @@ class AlarmController {
 
     closeAlarm = (req, res) => {   
 
-        let {alarm_id, message}= req.params;
-        let sql = `UPDATE alarm SET is_active = 1, alarm_closing_message = "${message}" WHERE alarm_id = ${alarm_id}`;
+        let {alarm_id}= req.params;
+        let closeMessage = req.body.closeMessage;
+        console.log(req.body);
+
+        let sql = `UPDATE alarm SET is_active = 0, alarm_closing_message = "${closeMessage}", alarm_end_date_time = now() WHERE alarm_id = ${alarm_id}`;
 
         connection.query(sql, (error, result) => {
             error 
             ? res.json(`Error en la consulta`)
-            : res.json(`La alarma ${alarm_id} se ha desactivado. Mesange de cierre: ${message}`);
+            : res.status(200).json(`La alarma ${alarm_id} se ha desactivado. Mesagne ed ceirre: ${closeMessage}`);
         });
     }
 
@@ -213,6 +216,26 @@ class AlarmController {
             });
         });
     }); 
+    }
+
+     // 8. Muestra la información de una alarma activa para un greenhouse y parámetro específico pasado por params
+    // localhost:4000/server/alarm/seeAlarm/:greenhouse_id/:measurement_type_id
+    seeOneAlarm = (req, res) => {   
+        let {greenhouse_id, measurement_type_id} = req.params;
+
+        let sql = `SELECT alarm.*, measurement_type.measurement_type_name, measurement_type.unit FROM alarm, measurement_type
+        WHERE alarm.measurement_type_id = measurement_type.measurement_type_id  
+        AND measurement_type.measurement_type_id = ${measurement_type_id}
+        AND alarm.greenhouse_id = ${greenhouse_id}
+        AND alarm.is_active = 1
+        ORDER BY alarm.alarm_id DESC
+        LIMIT 1`;
+        
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.json(`Error en la consulta`)
+            : res.status(201).json(result[0]);
+        });
     }
 
 }
