@@ -28,7 +28,7 @@ export const NavLateralAdmin = () => {
       <section className='nav_lateral'>
       {/* AI CROP LOGO */}
       <div className='company me-2'>
-        <img src='/assets/images/logo.png' alt='logo'/><h5 className='m-0 ms-2'>AI crop</h5>
+        <img onClick={()=>navigate('/')} src='/assets/images/logo.png' alt='logo'/><h5 onClick={()=>navigate('/')} className='m-0 ms-2'>AI crop</h5>
       </div>
       {/* FOTO & NOMBRE USER */}
       <div className='profile_pic text-center'>
