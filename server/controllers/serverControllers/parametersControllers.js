@@ -188,5 +188,31 @@ class ParametersController {
         });
     }
 
+    // 9. Muestra la última medida de un parámetro específico de un greenhouse específico
+    // localhost:4000/server/parameters/current/:greenhouse_id/:measurement_type_id
+    getMeasureDetails = (req, res) => {
+
+        let {greenhouse_id, measurement_type_id} = req.params;
+
+        // nombre de la medida, medida actual, fecha, alerta, nombre del inv, max, min
+ 
+        let sql = `SELECT measure.measure_value, measure.measure_date_time, greenhouse_measurement_type.min, greenhouse_measurement_type.max, measurement_type.measurement_type_name, measurement_type.unit, greenhouse.greenhouse_name 
+        FROM measure, measurement_type, greenhouse_measurement_type, greenhouse
+        WHERE measure.measurement_type_id = measurement_type.measurement_type_id
+        AND greenhouse_measurement_type.measurement_type_id = measurement_type.measurement_type_id
+        AND greenhouse_measurement_type.greenhouse_id = greenhouse.greenhouse_id
+        AND greenhouse.greenhouse_id = ${greenhouse_id}
+        AND measure.measurement_type_id = ${measurement_type_id}
+        ORDER BY measure.measure_date_time DESC
+        LIMIT 1`
+        
+        // buscamos en BD las medidas actuales del inveradero solicitado por req.params
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
 }
 module.exports = new ParametersController();
