@@ -138,3 +138,25 @@
         }
     }
 }
+
+  //----------RESPONSIVE---------------//
+
+  //TABLET
+
+  @media (max-width: 870px){
+       
+  }
+
+  //SMARTPHONE
+
+  @media (max-width: 520px){
+        .botones_admin{
+            display: flex;
+            justify-content: center !important;
+            
+        }
+        .titleMini{
+            font-size: 40px !important;
+        }
+      
+  }
