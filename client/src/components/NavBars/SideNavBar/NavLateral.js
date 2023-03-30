@@ -9,17 +9,11 @@ import "./navLateral.scss"
 
 export const NavLateral = () => {
 
- 
-
   const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
-
   const [showModalCrop, setShowModalCrop] = useState(false);
   
-
   const navigate = useNavigate();
-  
   const greenhouse_id = useParams().greenhouse_id;
- 
   
 
   const openModalCrop = ()=>{

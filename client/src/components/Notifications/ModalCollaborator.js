@@ -10,16 +10,21 @@ export const ModalCollaborator = ({showModalCollab, setShowModalCollab, userColl
     }
 
   return (
-    <>
-    <Modal className='ModalTop' show={showModalCollab} onHide={handleClose2}>
+    <Modal className='modalCollaborator' show={showModalCollab} onHide={handleClose2}>
         <Modal.Body className='modalCont2'>
-
         {userCollaborators?.map((collab, index)=> {
             // console.log(collab);
             return(
+            <>
+            {collab ? 
             <div key={index} className='emergencia2'>
                 <p>Colaborador: {collab.email}</p>
+            </div> :
+            <div key={index} className='emergencia2'>
+                <p>aaaaaaaaa</p>
             </div>
+            }
+            </>
             )
         })}
         {helpers?.map((helper, index)=> {
@@ -30,9 +35,8 @@ export const ModalCollaborator = ({showModalCollab, setShowModalCollab, userColl
             </div>
             )
         })}
-    </Modal.Body>
-    </Modal>
-     </>
+        </Modal.Body>
+    </Modal> 
     ) 
   
 }

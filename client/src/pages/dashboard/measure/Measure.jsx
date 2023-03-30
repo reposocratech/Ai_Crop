@@ -4,16 +4,20 @@ import './measure.scss'
 import { useNavigate, useParams } from 'react-router-dom';
 import { AICropContext } from '../../../context/AICropContext';
 import { ModalCloseAlarm } from '../../../components/ConfirmationModals/ModalCloseAlarm';
+import  dayjs from 'dayjs'
 
 export const Measure = () => {
 
+  const {actionReload, setActionReload} = useContext(AICropContext)
   const [measure, setMeasure] = useState();
-  const [alarma, setAlarma] = useState()
-  const [closeMessage, setCloseMessage] = useState("noseque")
+  const [measureHistoricalData, setMeasureHistoricalData] = useState();
+  const [alarma, setAlarma] = useState();
+  const [closeMessage, setCloseMessage] = useState("noseque");
   const {greenhouse_id, measurement_type_id} = useParams();
-  const [showModalCloseAlarm, setShowModalCloseAlarm] = useState(false)
+  const [showModalCloseAlarm, setShowModalCloseAlarm] = useState(false);
   
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     axios
@@ -34,17 +38,25 @@ export const Measure = () => {
       .catch((err)=>{
         console.log(err);
       })
-      
-    },[])
 
-    console.log(alarma);
-    // setCloseMessage("noseque")
+    axios
+      .get(`http://localhost:4000/server/parameters/week/${greenhouse_id}/${measurement_type_id}`)
+      .then((res)=>{
+        console.log(res.data, "elmmmm coso este");
+        setMeasureHistoricalData(res.data)
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+      
+    },[actionReload])
 
     const onClose = () => {
       axios
         .put(`http://localhost:4000/server/alarm/closeAlarm/${alarma.alarm_id}`, {closeMessage})
         .then((res)=>{
           console.log(closeMessage, "otracosa");
+          setActionReload(!actionReload)
           
         })
         .catch((err)=>{
@@ -52,15 +64,26 @@ export const Measure = () => {
         })
     } 
     
+    const fechaLocal = new Date(measure?.measure_date_time).toLocaleString();
 
+    const getWeekDay = (number) => {
+  
+      let weekdays = 
+      ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+      return weekdays[number];
+    }
+    
+    
   return (
     <div className='cont_measure'>
       <section className='botones_user'>
         <div className='alerta'>
         {alarma &&
-        <div className='d-flex'>
+        <div className='d-flex alerta_cont'>
+        <img src='/assets/images/alerta.png'/>
         <p>{alarma.alarm_message}</p>
-        <button onClick={() => {setShowModalCloseAlarm(true)}}>desactivar</button>
+        <img className='cerrar' src='/assets/images/cerrar.png' onClick={() => {setShowModalCloseAlarm(true)}}/>
         <ModalCloseAlarm onClose = {onClose} setShowModalCloseAlarm = {setShowModalCloseAlarm} showModalCloseAlarm = {showModalCloseAlarm} closeMessage = {closeMessage} setCloseMessage = {setCloseMessage}/>
         </div>
         }
@@ -79,7 +102,7 @@ export const Measure = () => {
           <div className='card_measure'>
             <h3>{measure?.measurement_type_name.toUpperCase()}</h3>
             <p className='medida'>{measure?.measure_value}{measure?.unit}</p>
-            <p>A las 00:00, del L-D X de E-D</p>
+            <p>{fechaLocal}</p>
           </div>
           <div className='card_maxMin'>
             <h3>MÁXIMO <span>{measure?.max}{measure?.unit}</span></h3>
@@ -100,6 +123,16 @@ export const Measure = () => {
           </div>
           <div className='chart'>
             <h4>MEDIDAS HISTORICAS</h4>
+            <div>{
+              measureHistoricalData?.map((data, index)=>{
+                let newReferenceDay = new Date(data.day)
+                let day = getWeekDay(newReferenceDay.getDay())
+                let formatedDate = dayjs(newReferenceDay).format('DD/MM/YYYY')
+                return(
+                  <p key={index}>{day} ({formatedDate}) : {data.avg_value}</p>
+                )
+              })
+              }</div>
           </div>
         </section>
       </main>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Row } from 'react-bootstrap'
+import { Form, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
 import { saveLocalStorageAICrop } from '../../helpers/localStorage/localStorageAICrop'
@@ -53,6 +53,12 @@ export const Login = () => {
     }
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  };
+
   return (
     <div>
       <Row className='cont_auth d-flex flex-column p-0'>
@@ -64,7 +70,7 @@ export const Login = () => {
           </div>
           <p className='ms-1'>¿Aún no te has registrado? <span className='etiq_login' onClick={()=>navigate('/register')}>Regístrate</span></p>
 
-          <section className='form_registro'>
+          <main className='form_registro'>
 
             <div id="floatContainer" className="float-container">
                   <label htmlFor="floatField">Email</label>
@@ -72,15 +78,17 @@ export const Login = () => {
                   name='email' 
                   value={login.email}
                   onChange={handleChange}
+                  onKeyPress={handleKeyPress}
                   />
             </div>
 
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField" className='verde2'>Password</label>
-                <input className='password' type="password" maxLength="25" 
+                <input className='password' type="password" maxLength="20" 
                 name='password' 
                 value={login.password}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 />
             </div>
 
@@ -94,7 +102,7 @@ export const Login = () => {
 
             <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <span className='etiq_login' onClick={()=>{navigate('../forgotpassword')}}>Recupérala</span></p>
 
-          </section>
+          </main>
         </main>
       </Row>
     </div>

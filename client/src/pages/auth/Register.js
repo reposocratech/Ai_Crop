@@ -37,7 +37,14 @@ export const Register = () => {
   const handleChange = (e) => {
     const {name, value} = e.target;
     setRegister({...register, [name]:value})
+    
   }
+
+  const handleKeyPress = (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  };
 
 
   // ---- Show/Dont show forms --- //
@@ -144,6 +151,7 @@ export const Register = () => {
                 name='email' 
                 value={register.email}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 />
             </div>
 
@@ -153,6 +161,7 @@ export const Register = () => {
                 name='password' 
                 value={register.password}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 />
             </div>
 
@@ -188,7 +197,7 @@ export const Register = () => {
             </div>
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>
-                <input type="text" maxLength="25" required 
+                <input type="text" maxLength="40" required 
                 name='address' 
                 value={register.address}
                 onChange={handleChange}
@@ -232,19 +241,21 @@ export const Register = () => {
             <article className='nombre_apell'>
               <div id="floatContainer" className="float-container">
                   <label htmlFor="floatField">DNI</label>
-                  <input type="text" maxLength="25" required 
+                  <input type="text" maxLength="15" required 
                   name='dni' 
                   value={register.dni}
                   onChange={handleChange}
+                  onKeyPress={handleKeyPress}
                   />
               </div>
               <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Teléfono</label>
-                <input type="number" 
+                <input type="tel" 
                 maxLength="12" required 
                 name='phone' 
                 value={register.phone}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
