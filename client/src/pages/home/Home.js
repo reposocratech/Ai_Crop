@@ -20,15 +20,6 @@ export const Home = () => {
 
             <h3 className='mt-3'>Contamos con una tecnología segura aplicada a cultivos hidropónicos.</h3>
             <a href="#about"><button className='mt-5 mb-5'>CONÓCENOS</button></a>
-
-            {/* REDES */}
-            {/* <section className='rrss mb-5'>
-                <p className='m-0'>Follow us</p>
-                <img alt='facebook' src='/assets/images/facebook.png'/>
-                <img alt='linkedin' src='/assets/images/linkedin.png'/>
-                <img alt='instagram' src='/assets/images/instagram.png'/>
-                <img alt='twitter' src='/assets/images/twitter.png'/>
-            </section> */}
         </Col>
     </Row>
 

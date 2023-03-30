@@ -56,12 +56,18 @@
     .cards_crop{
         flex-direction: column;
         align-items: center;
+        
+    
     }
 }
 
-@media(max-width: 570px){
-    .cards_measures{
+
+@media(max-width: 450px ){
+    .cards_crop{
         flex-direction: column;
         align-items: center;
+        .card_crop{
+            width: 80vw;
+        }
     }
 }

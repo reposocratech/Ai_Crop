@@ -76,7 +76,7 @@ class CropController {
     
         const crop_id = req.params.crop_id;
         
-        let sql = `UPDATE crop SET is_active = false WHERE crop_id = ${crop_id}`;
+        let sql = `UPDATE crop SET is_active = 0 WHERE crop_id = ${crop_id}`;
         
         connection.query(sql, (error, result) => {
         error 
@@ -134,8 +134,10 @@ class CropController {
         });
     };
 
+
       // 8.  Trae la info de un crop pasado por params
     //localhost:4000/crop/getOneCrop/:crop_id
+
     getOneCrop = (req, res) => {
     
         const crop_id = req.params.crop_id;

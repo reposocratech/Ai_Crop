@@ -31,13 +31,13 @@ router.get('/activateCrop/:crop_id', CropController.activateCrop);
 //localhost:4000/crop/getAllCrops/:greenhouse_id
 router.get('/getAllCrops/:greenhouse_id', CropController.getAllCrops);
 
-// 7?.  trae los cultivos de un invernadero (activo)
+ // 7.  trae los cultivos de un invernadero (activo)
  //localhost:4000/crop/getActiveCrops/:greenhouse_id
  router.get('/getActiveCrops/:greenhouse_id', CropController.getActiveCrops);
-
 
  // 8.  Trae la info de un crop pasado por params
  //localhost:4000/crop/getOneCrop/:crop_id
  router.get('/getOneCrop/:crop_id', CropController.getOneCrop);
+
 
 module.exports = router;

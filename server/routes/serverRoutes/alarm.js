@@ -8,7 +8,7 @@ router.post('/createAlarm', AlarmController.createAlarm);
 
 //2. Cierra la alarma indicada en la URL
 // localhost:4000/server/alarm/closeAlarm/:alarm_id
-router.get('/closeAlarm/:alarm_id', AlarmController.closeAlarm);
+router.put('/closeAlarm/:alarm_id', AlarmController.closeAlarm);
 
 //3. Muestra TODAS las alarmas de un usuario indicado en la URL
 // localhost:4000/server/alarm/seeAllAlarms/:user_id
@@ -29,5 +29,9 @@ router.get('/seeActiveGreenhouseAlarms/:greenhouse_id', AlarmController.seeActiv
 // 7. Muestra la última alarma de cada medida de un invernadero indicado en la URL
 // localhost:4000/server/alarm/seeAlarmsByMeasure/:greenhouse_id
 router.get('/seeAlarmsByMeasure/:greenhouse_id', AlarmController.seeAlarmsByMeasure);
+
+// 8. Muestra la información de una alarma activa para un greenhouse y parámetro específico pasado por params
+// localhost:4000/server/alarm/seeAlarm/:greenhouse_id/:measurement_type_id
+router.get('/seeAlarm/:greenhouse_id/:measurement_type_id', AlarmController.seeOneAlarm);
 
 module.exports = router;
