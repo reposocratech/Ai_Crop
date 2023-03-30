@@ -7,21 +7,17 @@ var router = express.Router();
 // localhost:4000/greenhouse/createGreenhouse
 router.post('/createGreenhouse', GreenhouseController.createGreenhouse);
 
-
 //2. edit greenhouse
 // localhost:4000/greenhouse/editGreenhouse
 router.put('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhouse);
-
 
 //3. see greenhouse info by gh ID
 // localhost:4000/greenhouse/details/:greenhouse_id
 router.get('/details/:greenhouse_id', GreenhouseController.getGreenhouseDetails);
 
-
 //4. trae la info de todos los invernaderos que tengo o colaboro
 //localhost:4000/greenhouse/getAllGreenhouses/:user_owner_id
 router.get("/getAllGreenhouses/:user_id", GreenhouseController.getAllGreenhouses); 
-
 
 //5. borrado lógico de un Invernadero
 //localhost:4000/greenhouse/deleteGreenhouse/:greenhouse_id

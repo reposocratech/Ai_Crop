@@ -15,7 +15,6 @@ class GreenhouseController {
 
         let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, responsibility_acknowledged) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size}, ${responsibility_acknowledged})`;
 
-
         connection.query(sql, (error, result) => {
             error && res.status(400).json({error});
             // 1.2 Inserta en la base de datos los máximos y los mínimos
