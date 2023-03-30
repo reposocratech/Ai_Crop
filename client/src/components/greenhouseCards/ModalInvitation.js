@@ -9,14 +9,13 @@ import { AICropContext } from "../../context/AICropContext";
 export const ModalInvitation = ({
   showModalInvitation,
   setShowModalInvitation,
-  greenhouse_name,
+  greenhouse_name
 }) => {
 
-
-
-  const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
+  const greenhouse_id = useParams().greenhouse_id;
   const { user } = useContext(AICropContext);
- let datos = {
+
+  let datosCollab = {
     name: "",
     email: "",
     user_id: user?.user_id,
@@ -26,14 +25,22 @@ export const ModalInvitation = ({
     greenhouse_name: greenhouse_name
   };
 
+  let datosHelper = {
+    helper_first_name: "",
+    helper_last_name: "",
+    helper_email: "",
+    user_id: user?.user_id,
+    first_name: user?.first_name,
+    last_name: user?.last_name,
+    greenhouse_id: greenhouse_id,
+    greenhouse_name: greenhouse_name
+  };
+  
   const [showForm, setShowForm] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
   const [showButton, setShowButton] = useState(true);
-  const [collabInfo, setCollabInfo ] = useState(datos);
-  const [helperInfo, setHelperInfo ] = useState(datos);
-
-
- 
+  const [collabInfo, setCollabInfo ] = useState(datosCollab);
+  const [helperInfo, setHelperInfo ] = useState(datosHelper);
 
   const handleClose = () => {
     setShowModalInvitation(false);
@@ -57,17 +64,15 @@ export const ModalInvitation = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCollabInfo({ ...collabInfo, [name]: value });
+    setCollabInfo({ ...collabInfo, [name]: value, greenhouse_name: greenhouse_name});
+    console.log(collabInfo);
   };
+
   const handleChange2 = (e) => {
     const { name, value } = e.target;
-    setHelperInfo({ ...helperInfo, [name]: value });
+    setHelperInfo({ ...helperInfo, [name]: value, greenhouse_name: greenhouse_name});
   };
 
-  
-
- 
-  // ------------esto esta hardcodeado al boton, hay que y mirando como hacerlo dinamico.
   const inviteCollab = () => {
     axios
       .post("http://localhost:4000/greenhouse/inviteCollaborator", collabInfo)
@@ -79,13 +84,12 @@ export const ModalInvitation = ({
       });
   };
 
-
   const inviteHelper = () => {
     axios
-      .post('http://localhost:4000/greenhouse/createHelper',helperInfo)
+      .post('http://localhost:4000/greenhouse/createHelper', helperInfo)
       .then((res) => {
         setShowModalInvitation(false)
-        console.log(res,"el ressss");
+        console.log(res.data,"el ressss");
       })
       .catch((err) => {
         console.log(err);
@@ -133,18 +137,27 @@ export const ModalInvitation = ({
               <input
                 type="text"
                 placeholder="Nombre"
-                value={helperInfo.name}
+                value={helperInfo.helper_first_name}
                 onChange={handleChange2}
-                name="name"
+                name="helper_first_name"
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Apellido"
+                value={helperInfo.helper_last_name}
+                onChange={handleChange2}
+                name="helper_last_name"
               />
             </div>
             <div>
               <input
                 type="text"
                 placeholder="Email"
-                value={helperInfo.email}
+                value={helperInfo.helper_email}
                 onChange={handleChange2}
-                name="email"
+                name="helper_email"
               />
             </div>
 
