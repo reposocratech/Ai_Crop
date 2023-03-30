@@ -14,7 +14,7 @@ const initialValueInfo = {
   greenhouse_type: "",
   greenhouse_latitude: "",
   greenhouse_longitude: "",
-  
+  responsibility_acknowledged: 0
 }
 const initialValueMaxMin = {
   measurement_type_id: "",
@@ -34,30 +34,32 @@ export const EditGreenhouse = () => {
   const [ph, setPh] = useState(initialValueMaxMin);
   const [conductivity, setConductivity] = useState(initialValueMaxMin);
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
-  const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo);
   const [error, setError] = useState("");
   const [showForm2, setShowForm2] = useState(false);
  //************************************************* */
   const greenhouse_id = useParams().greenhouse_id;
 //************************************************** */
-  const navigate = useNavigate();
-//************************************************** */
   let arrayMeasures = [];
 //************************************************** */
-  const handleResponsability = (e) => {
-    const name = e.target.name;
-    let value = e.target.checked;
-    value? value = 1 : value = 0;
-    setGreenhouseInfo({...greenhouseInfo, [name]:value})
-  }
+  const navigate = useNavigate();
+//************************************************** */
+
+  useEffect(() => {
+    if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
+      setError("Los mínimos no deben superar los máximos")
+    }
+    else {
+      setError("");
+    }
+  }, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity]
+  )
+
 //************************************************** */
   const handleContinue = () => {
     setShowForm2(true)
   }
 //************************************************** */
-
-
-   // HANDLE CHANGE MEDIDAS
+  // HANDLE CHANGE MEDIDAS
    const handleChangeTemp = (e) => {
     const {name, value} = e.target;
     setTemperatura({...temperatura, [name]:value, measurement_type_id:1});
@@ -105,21 +107,34 @@ export const EditGreenhouse = () => {
   }, [])
 //************************************************** */  
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setEditGreenhouse({...editGreenhouse, [name]:value});
+    const {name, value, checked} = e.target;
+    // checked? checked = 1 : checked = 0;
+    setEditGreenhouse({...editGreenhouse, [name]:value, responsibility_acknowledged: checked });
+    console.log(checked);
+    console.log(editGreenhouse);
   }
+
+  //************************************************** */
+  // const handleResponsability = (e) => {
+  //   const name = e.target.name;
+  //   let value = e.target.checked;
+  //   value? value = 1 : value = 0;
+  //   setEditGreenhouse({...editGreenhouse, [name]:value})
+  // }
 //************************************************** */  
-    const handleSubmit = () => {
-      
-      axios
-        .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`,editGreenhouse)
-        .then((res) => {
-        console.log("blablabla",res);
-        navigate(`/user/greenhouse/${greenhouse_id}`);
+  const handleSubmit = () => {
+    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
+    console.log(arrayMeasures);
+    console.log(editGreenhouse);
+    axios
+      .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`, {editGreenhouse, arrayMeasures})
+      .then((res)=> {
+        console.log(res.data);
+        navigate('/user');
       })
-      .catch((err) => {
-      console.log(err);
-    })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
   //************************************************** */    
   return (
@@ -412,11 +427,11 @@ export const EditGreenhouse = () => {
           <div className='checkbox_cont'>
             <div>
             <p>Si las medidas no son las correctas, asumo la responsabilidad</p>
-            <input type='checkbox' name='responsibility_acknowledged' value={greenhouseInfo.responsibility_acknowledged} onClick={handleResponsability}></input>
+            <input type='checkbox' name='responsibility_acknowledged' value={editGreenhouse.responsibility_acknowledged} onClick={handleChange}></input>
             
             </div>
             <div className='botoneraEdit d-flex flex-column'>
-      <button className='botonAcept' onClick={handleSubmit}>Aceptar</button></div>
+        <button className='botonAcept' onClick={handleSubmit}>Aceptar</button></div>
           </div>
         </section>
      </main> 

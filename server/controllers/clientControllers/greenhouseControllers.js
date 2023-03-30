@@ -55,8 +55,8 @@ class GreenhouseController {
     // localhost:4000/greenhouse/editGreenhouse/:greenhouse_id
     editGreenhouse = (req, res) => {
        
-        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body;
-        console.log(req.body);
+        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body.editGreenhouse;
+        console.log(req.body.editGreenhouse);
         
         const greenhouse_id = req.params.greenhouse_id;
         console.log(greenhouse_name, greenhouse_id);
@@ -68,7 +68,8 @@ class GreenhouseController {
           ? res.status(405).json({ error }) 
           : res.status(200).json(`El invernadero ${greenhouse_id} ha sido actualizado`);
         });
-      };
+
+    };
 
 
     //3. see greenhouse info
@@ -256,30 +257,19 @@ class GreenhouseController {
     // 8. crear un helper
     // localhost:4000/greenhouse/createHelperrs
     createHelper = (req, res) => {
- 
-        /*  let body = {
-            helper_first_name: "Jose",
-            helper_last_name: "Diego",
-            helper_email: "gadetru@gmail.com",
-            user_id: 1,
-            first_name: "Javi",
-            last_name: "More",
-            greenhouse_id: 1,
-            greenhouse_name: "Invernadero de Carlitos"
-        } */ 
-        
+         
         let {helper_first_name, helper_last_name, helper_email, user_id, first_name, last_name, greenhouse_id, greenhouse_name} = req.body;
 
-        
         let sql = `SELECT * FROM helper WHERE helper_email = '${helper_email}' AND greenhouse_id = ${greenhouse_id}`;
-       console.log(sql,"el sql-----------------");
-        console.log(req.body,"--------------------");
+
         connection.query(sql, (error, result) => {
 
             if(!result[0]){
 
                 let sqlAddHelper = `INSERT INTO helper (greenhouse_id, helper_first_name, helper_last_name, helper_email) VALUES (${greenhouse_id}, "${helper_first_name}", "${helper_last_name}", "${helper_email}")`;
+
                 console.log(sqlAddHelper,"addhelper-------------");
+
                 connection.query(sqlAddHelper, (error, resultHelper) => {
                     if(error){
                         res.status(400).json({ error }) 
