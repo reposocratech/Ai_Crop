@@ -1,0 +1,82 @@
+@import "../../mixin";
+@import "../../variables";
+
+.botoneraInv{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.botonInv{
+    border-radius: 25px;
+    width: 14vw;
+    font-size: 17px;
+    margin: 5px;
+    height: 5vh;
+    
+}
+.botonInv:hover{
+    background-color: #D4DDC5;
+    color: #3B3F2B;
+    font-weight: 400;
+    transition: 0.2;
+}
+.titular{
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+    color: white;
+}
+.accept{
+    margin-left: 23%;
+}
+
+
+//-------------RESPONSIVE-----------------//
+
+//TABLET
+@media (max-width: 870px){
+    .divMaster{
+        height: 40vh;
+    }
+    .botonInv{
+        width: 48vw;
+        
+    }
+    .uni{
+        // position: absolute;
+        // top: 60%;
+        // right: 11%;
+    }
+    .accept{
+        position: absolute;
+        // top: 75%;
+        right: 11%;
+        
+    }
+    .PpalInp{
+        input{
+            margin: 4%;
+        }
+    }
+    .nam{
+        margin: none;
+    }
+ 
+    
+}
+
+//SMARTPHONE
+@media (max-width: 520px){
+    .botonInv{
+        width: 48vw;
+        height: 5vh;
+    }
+    .coll{
+        height: 10vh;
+        width: 48vw;
+    }
+    .accept{
+        margin-right: 14%;
+    }
+}

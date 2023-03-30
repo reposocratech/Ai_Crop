@@ -40,8 +40,8 @@ export const NavLateral = () => {
     <div className='navLat_cont'>
       <section className='nav_lateral'>
       {/* AI CROP LOGO */}
-      <div className='company me-2' onClick={()=>navigate('/')}>
-        <img src='/assets/images/logo.png' alt='logo'/><h5 className='m-0 ms-2'>AI crop</h5>
+      <div className='company me-2'onClick={()=>navigate('/')}>
+        <img  src='/assets/images/logo.png' alt='logo'/><h5  className='m-0 ms-2'>AI crop</h5>
       </div>
       {/* FOTO & NOMBRE USER */}
       <div className='profile_pic text-center'>
@@ -62,12 +62,15 @@ export const NavLateral = () => {
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
           <p className='option'>Configuración</p>
         </a>
+        {user.user_type === 2 && <>
         {!greenhouse_id ?
         <button className='create_crop' onClick={()=> navigate('createGreenhouse')}>+</button> :
         <button className='create_crop' onClick={openModalCrop}>+</button>
         } 
+        </>}
       </div>
       {/* CREAR NUEVO INVERNADERO / CULTIVO */}
+      {user.user_type === 2 && <>
       {!greenhouse_id ? 
       <div className='create_new'> 
         <p>Crear nuevo invernadero</p>
@@ -80,7 +83,9 @@ export const NavLateral = () => {
         <img/>
         <button onClick={openModalCrop}>+</button>
       </div>
-      } 
+      }
+      </>
+       }
 
        {/* modal crop */}
        <CreateCropModal showModalCrop={showModalCrop} setShowModalCrop={setShowModalCrop}

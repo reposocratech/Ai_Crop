@@ -15,7 +15,6 @@ class GreenhouseController {
 
         let sql = `INSERT INTO greenhouse (user_owner_id, greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size, responsibility_acknowledged) VALUES (${user_owner_id}, "${greenhouse_name}", "${greenhouse_location}", "${greenhouse_orientation}", "${greenhouse_type}", ${greenhouse_size}, ${responsibility_acknowledged})`;
 
-
         connection.query(sql, (error, result) => {
             error && res.status(400).json({error});
             // 1.2 Inserta en la base de datos los máximos y los mínimos
@@ -55,20 +54,40 @@ class GreenhouseController {
     // localhost:4000/greenhouse/editGreenhouse/:greenhouse_id
     editGreenhouse = (req, res) => {
        
-        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body;
-        console.log(req.body);
-        
         const greenhouse_id = req.params.greenhouse_id;
-        console.log(greenhouse_name, greenhouse_id);
+        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body.editGreenhouse;
         
         let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greenhouse_size = '${greenhouse_size}' WHERE greenhouse_id = ${greenhouse_id}`;
         
         connection.query(sql, (error, result) => {
-          error 
-          ? res.status(405).json({ error }) 
-          : res.status(200).json(`El invernadero ${greenhouse_id} ha sido actualizado`);
+            error && res.status(405).json({ error }) ;
+
+            let sql2 = `DELETE FROM greenhouse_measurement_type WHERE greenhouse_id = ${greenhouse_id}`;
+
+            connection.query(sql2, (error, result2) => {
+                error && res.status(400).json({error});
+
+                let arrayMeasures = req.body.arrayMeasures;
+                let sql3 = `INSERT INTO greenhouse_measurement_type (greenhouse_id,measurement_type_id, max, min) VALUES `
+
+                for (let i = 0; i < arrayMeasures.length; i++){
+                    if(arrayMeasures[i].measurement_type_id != "" && arrayMeasures[i].max != "" && arrayMeasures[i].min != ""){
+                        sql3 += `(${greenhouse_id}, ${arrayMeasures[i].measurement_type_id}, ${arrayMeasures[i].max}, ${arrayMeasures[i].min}), `
+                    }
+                }
+                
+                sql3 = sql3.slice(0, -2);
+                console.log(sql3);
+    
+                connection.query(sql3, (error, result) => {
+                    error 
+                    ? res.status(400).json({error}) 
+                    : res.status(201).json("SE CREÓ BIEN EL INVERNADERO AAA");
+                });
+            });
         });
-      };
+
+    };
 
 
     //3. see greenhouse info
@@ -256,30 +275,19 @@ class GreenhouseController {
     // 8. crear un helper
     // localhost:4000/greenhouse/createHelperrs
     createHelper = (req, res) => {
- 
-        /*  let body = {
-            helper_first_name: "Jose",
-            helper_last_name: "Diego",
-            helper_email: "gadetru@gmail.com",
-            user_id: 1,
-            first_name: "Javi",
-            last_name: "More",
-            greenhouse_id: 1,
-            greenhouse_name: "Invernadero de Carlitos"
-        } */ 
-        
+         
         let {helper_first_name, helper_last_name, helper_email, user_id, first_name, last_name, greenhouse_id, greenhouse_name} = req.body;
 
-        
         let sql = `SELECT * FROM helper WHERE helper_email = '${helper_email}' AND greenhouse_id = ${greenhouse_id}`;
-       console.log(sql,"el sql-----------------");
-        console.log(req.body,"--------------------");
+
         connection.query(sql, (error, result) => {
 
             if(!result[0]){
 
                 let sqlAddHelper = `INSERT INTO helper (greenhouse_id, helper_first_name, helper_last_name, helper_email) VALUES (${greenhouse_id}, "${helper_first_name}", "${helper_last_name}", "${helper_email}")`;
+
                 console.log(sqlAddHelper,"addhelper-------------");
+
                 connection.query(sqlAddHelper, (error, resultHelper) => {
                     if(error){
                         res.status(400).json({ error }) 

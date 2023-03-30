@@ -49,3 +49,28 @@ div.modal-content{
     color: white;
 }
 
+//-------------RESPONSIVE-----------------//
+
+//TABLET
+@media (max-width: 870px){
+    .note{
+        width: 42vw;
+    }
+    .botonCrops{
+        width: 36vw;
+    }
+}
+
+//SMARTPHONE
+@media (max-width: 520px){
+    .note{
+        width: 42vw;
+    }
+    .botonCrops{
+        width: 36vw;
+    }
+    .botonCrops2 {
+        width: 36vw;
+    }
+}
+

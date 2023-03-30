@@ -16,7 +16,9 @@ const initialValue = {
 export const Login = () => {
   const [login, setLogin] = useState(initialValue)
   const [messageError, setMessageError] = useState("")
+  const [messageError2, setMessageError2] = useState("")
   const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext)
+
 
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ export const Login = () => {
   const handleSubmit = () => {
     if (!login.email || !login.password){
       setMessageError("Debes rellenar todos los campos")
+      
     } else{
       axios
       .post("http://localhost:4000/user/login", login)
@@ -45,6 +48,7 @@ export const Login = () => {
         })
         .catch((err)=>{
           console.log(err);
+          setMessageError2("Credenciales Incorrectos!")
         })
     }
   }
@@ -93,6 +97,8 @@ export const Login = () => {
               <button className='bg_verde' onClick={handleSubmit}>Login</button>
             </article>
             <p className='text-center mt-3 text-danger'>{messageError}</p>
+            <p className='text-center mt-3 text-danger'>{messageError2}</p>
+           
 
             <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <span className='etiq_login' onClick={()=>{navigate('../forgotpassword')}}>Recupérala</span></p>
 

@@ -189,28 +189,11 @@ export const Register = () => {
                 </select>
             </div>
             <div id="floatContainer" className="float-container">
-
-                {register.country === "España" ?
-                
-                <>
-                  <label htmlFor="floatField">Provincia</label>
-                  <select id="countries" className='select_form'
-                  required 
-                  name='city' 
-                  value={register.city}
-                  onChange={handleChange}>
-                    <SpainProvinces/>
-                  </select>
-                </>
-                :
-                <>
                 <label htmlFor="floatField">Ciudad</label>
                 <input type="text" maxLength="80" required 
                 name='city' 
                 value={register.city}
                 onChange={handleChange}/>
-                </>
-                }
             </div>
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>

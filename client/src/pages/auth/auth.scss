@@ -219,9 +219,14 @@
 
 }
 
+//----------------RESPONSIVE---------------//   
+
+//TABLETA
+
 
 @media (max-width: 870px){
     .cont_auth{
+        
         .title{
             text-align: center;
             margin: 70px 0 50px;
@@ -271,12 +276,15 @@
     }
 }
 
+//SMARTPHONE
+
 @media (max-width: 570px){
     .cont_auth{
         .title{
             margin: 30px 0 50px;
             .forgotpasstitle{
                 font-size: 15vw;
+
             }
         }
         .form_registro{
@@ -288,4 +296,5 @@
             }
         }
     }
+    
 }

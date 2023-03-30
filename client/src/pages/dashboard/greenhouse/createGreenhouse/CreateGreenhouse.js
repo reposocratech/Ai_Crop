@@ -49,6 +49,12 @@ export const CreateGreenhouse = () => {
     console.log(greenhouseInfo);
   }
 
+  let disable = false;
+  if (!greenhouseInfo?.greenhouse_name || !greenhouseInfo?.greenhouse_location || !greenhouseInfo?.greenhouse_orientation || !greenhouseInfo?.greenhouse_size || !greenhouseInfo?.greenhouse_type || greenhouseInfo?.greenhouse_type == ""){
+    disable = true;
+  }
+
+
   const handleChangeGreenhouseInfo = (e) => {
     const {name, value} = e.target;
     setGreenhouseInfo({...greenhouseInfo, [name]:value, user_owner_id:user_id})
@@ -203,27 +209,28 @@ export const CreateGreenhouse = () => {
               name='greenhouse_type'
               value={greenhouseInfo.greenhouse_type}
               onChange={handleChangeGreenhouseInfo}
-              >   <option>Selecciona método de cultivo</option>
-                <optgroup label="Cultivos en agua">
-                  <option value="NFT">NFT</option>
-                  <option value="NGS">NGS</option>
-                  <option value="Balsa flotante">Balsa flotante</option>
-                </optgroup>
-                <optgroup label="Cultivos en aire">
-                  <option value="Aeropónica">Aeropónica</option>
-                </optgroup>
-                <optgroup label="Cultivos en sustratps">
-                  <option value="Ebb & Flow">Ebb & Flow</option>
-                  <option value="De mecha">De meca</option>
-                  <option value="Goteo">Goteo</option>
-                </optgroup>
+              required> 
+                <option value="">Selecciona método de cultivo</option>
+                  <optgroup label="Cultivos en agua">
+                    <option value="NFT">NFT</option>
+                    <option value="NGS">NGS</option>
+                    <option value="Balsa flotante">Balsa flotante</option>
+                  </optgroup>
+                  <optgroup label="Cultivos en aire">
+                    <option value="Aeropónica">Aeropónica</option>
+                  </optgroup>
+                  <optgroup label="Cultivos en sustratps">
+                    <option value="Ebb & Flow">Ebb & Flow</option>
+                    <option value="De mecha">De meca</option>
+                    <option value="Goteo">Goteo</option>
+                  </optgroup>
               </select>
             </div>
           </article>
         </Form>
       </main>
       <div className='bottom_sect'>
-       <button onClick={handleContinue}><img src='/assets/images/next1.png'/></button>
+       <button onClick={handleContinue} disabled={disable} ><img src='/assets/images/next1.png'/></button>
         <img className='gh_img' src='/assets/images/greenhouse.png'/>
       </div>
       </div>

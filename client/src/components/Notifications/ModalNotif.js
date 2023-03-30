@@ -5,18 +5,32 @@ import { AICropContext } from '../../context/AICropContext'
 import './notification.scss'
 
 export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
+   
+    const {user, actionReload} = useContext(AICropContext)   
+    const [activeAlarms, setActiveAlarms] = useState() 
 
+    useEffect(() => {
+        axios
+        .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user?.user_id}`)
+        .then((res)=>{
+            console.log(res.data);
+            setActiveAlarms(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+    }, [actionReload])
+    
     const handleClose = () => {
         setShowModalNotif(false);
     }
-
-    const {userAlarms} = useContext(AICropContext)    
-
+    
   return (
     <Modal className='modalNotification' show={showModalNotif} onHide={handleClose}>
         <Modal.Body className='modalCont'>
 
-        {userAlarms?.map((alarma, index)=> {
+        {activeAlarms?.map((alarma, index)=> {
 
             return(
             <div className='emergencia' key={index}>

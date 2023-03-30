@@ -5,6 +5,7 @@ import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import "./auth.scss" 
+import { Countries } from './lists/Countries';
 
 
 
@@ -12,25 +13,26 @@ export const RegisterCollab = () => {
   
   const greenhouse_id = useParams().greenhouse_id;
 
-  const initialValue = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      dni: "",
-      phone: "",
-      address: "",
-      post_code: "",
-      city: "",
-      country: "",
-      user_knowledge: "",
-      user_photo: "",
-      user_type: 3,
-      greenhouse_id: greenhouse_id
-  }
-
+ 
+const initialValue = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    dni: "",
+    phone: "",
+    address: "",
+    post_code: "",
+    city: "",
+    country: "",
+    user_knowledge: "",
+    user_photo: "",
+    user_type: 3,
+    greenhouse_id: greenhouse_id
+}
   const [register, setRegister] = useState(initialValue);
   const [messageError, setMessageError] = useState();
+
 
   const navigate = useNavigate();
 
@@ -165,18 +167,18 @@ export const RegisterCollab = () => {
         </div>
         </article>
         <article className='nombre_apell'>
-        <div className='float-container'>
 
-            <label>Pais</label>
-            <input
-              type="text"
-              required
-              value={register.country}
-              onChange={handleChange}
-              name="country"
-            />
+        <div id="floatContainer" className="float-container">
+                <label htmlFor="countries">País</label>
+                <select id="countries" className='select_form'
+                required 
+                name='country' 
+                value={register.country}
+                onChange={handleChange}>
+                  <Countries/>
+                </select>
+            </div>
 
-        </div>
         <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos previos</label>
                 <select id="countries" className='select_form'

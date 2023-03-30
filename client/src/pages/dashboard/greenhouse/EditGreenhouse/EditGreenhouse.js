@@ -4,8 +4,6 @@ import { Form, Row } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../../context/AICropContext'
 
-
-
 const initialValueInfo = {
   greenhouse_name: "",
   greenhouse_location: "",
@@ -14,13 +12,14 @@ const initialValueInfo = {
   greenhouse_type: "",
   greenhouse_latitude: "",
   greenhouse_longitude: "",
-  
+  responsibility_acknowledged: 0
 }
 const initialValueMaxMin = {
   measurement_type_id: "",
   max : "",
   min : ""
 }
+
 
 export const EditGreenhouse = () => {
 
@@ -34,94 +33,186 @@ export const EditGreenhouse = () => {
   const [ph, setPh] = useState(initialValueMaxMin);
   const [conductivity, setConductivity] = useState(initialValueMaxMin);
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
-  const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo);
   const [error, setError] = useState("");
   const [showForm2, setShowForm2] = useState(false);
+
  //************************************************* */
+
   const greenhouse_id = useParams().greenhouse_id;
+
 //************************************************** */
-  const navigate = useNavigate();
-//************************************************** */
+
   let arrayMeasures = [];
+
 //************************************************** */
-  const handleResponsability = (e) => {
-    const name = e.target.name;
-    let value = e.target.checked;
-    value? value = 1 : value = 0;
-    setGreenhouseInfo({...greenhouseInfo, [name]:value})
+
+  const navigate = useNavigate();
+
+//************************************************** */
+
+  useEffect(() => {
+    if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
+      setError("Los mínimos no deben superar los máximos")
+    }
+    else {
+      setError("");
+    }
+  }, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity]
+  )
+
+//************************************************** */
+  
+  let disable = false;
+  if (!editGreenhouse?.greenhouse_name || !editGreenhouse?.greenhouse_location || !editGreenhouse?.greenhouse_orientation || !editGreenhouse?.greenhouse_size || !editGreenhouse?.greenhouse_type || editGreenhouse?.greenhouse_type === ""){
+    disable = true;
   }
+
 //************************************************** */
+
   const handleContinue = () => {
     setShowForm2(true)
   }
+
 //************************************************** */
 
-
-   // HANDLE CHANGE MEDIDAS
+  // HANDLE CHANGE MEDIDAS
    const handleChangeTemp = (e) => {
     const {name, value} = e.target;
     setTemperatura({...temperatura, [name]:value, measurement_type_id:1});
   }
-//************************************************** */    
+
+//************************************************** */   
+
   const handleChangeCo2 = (e) => {
     const {name, value} = e.target;
     setCo2({...co2, [name]:value, measurement_type_id:2})
   }
+
 //************************************************** */
+
   const handleChangeHumidity = (e) => {
     const {name, value} = e.target;
     setHumidity({...humidity, [name]:value, measurement_type_id:3})
   }
+
 //************************************************** */
+
   const handleChangeSunlight = (e) => {
     const {name, value} = e.target;
     setSunlight({...sunlight, [name]:value, measurement_type_id:4})
   }
+
 //************************************************** */  
+
   const handleChangepH = (e) => {
     const {name, value} = e.target;
     setPh({...ph, [name]:(value), measurement_type_id:5})
   }
+
 //************************************************** */  
+
   const handleChangeConductivity = (e) => {
     const {name, value} = e.target;
     setConductivity({...conductivity, [name]:value, measurement_type_id:6})
   }
+
 //************************************************** */  
+
   const handleChangeLeafHumidity = (e) => {
     const {name, value} = e.target;
+    
     setLeafHumidity({...leafHumidity, [name]:value, measurement_type_id:7})
   }
+
 //************************************************** */
+
+const handleBack = () => {
+  setShowForm2(false)
+}
+
+useEffect(() => {
+
+  if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
+    setError("Los mínimos no deben superar los máximos")
+  } 
+  else {
+    setError("");
+  }
+
+}, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity])
+
+
   useEffect(() => {
     axios
     .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
     .then((res) => {
-      setEditGreenhouse(res.data.resultGreenhouse[0]);
+     
+     // console.log(res.data,"dime que tu tiene");
+      setEditGreenhouse(res.data.resultGreenhouse[0])
+      for (let i = 0; i < res.data.resultParameters.length; i++){
+        switch (res.data.resultParameters[i].measurement_type_id){
+          case 1:
+            setTemperatura(res.data.resultParameters[i])
+            break;
+          case 2:
+            setCo2(res.data.resultParameters[i])
+            break;
+          case 3:
+            setHumidity(res.data.resultParameters[i])
+            break;
+          case 4:
+            setSunlight(res.data.resultParameters[i])
+            break;
+          case 5:
+            setPh(res.data.resultParameters[i])
+            break;
+          case 6:
+            setConductivity(res.data.resultParameters[i])
+            break;
+          case 7:
+            setLeafHumidity(res.data.resultParameters[i])
+            break;
+          default:
+            console.log("pringao")
+        }
+      }
+    
     })
     .catch((err) => {
       console.log(err);
     })
   }, [])
+
 //************************************************** */  
+
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setEditGreenhouse({...editGreenhouse, [name]:value});
+
+    let checked = e.target.checked;
+   const  {name, value} = e.target;
+
+    checked? checked = 1 : checked = 0;
+    setEditGreenhouse({...editGreenhouse, [name]:value, responsibility_acknowledged: checked });
+    /* console.log(checked);
+    console.log(editGreenhouse); */
   }
+
 //************************************************** */  
-    const handleSubmit = () => {
-      
-      axios
-        .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`,editGreenhouse)
-        .then((res) => {
-        console.log("blablabla",res);
+
+  const handleSubmit = () => {
+    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
+
+    axios
+      .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`, {editGreenhouse, arrayMeasures})
+      .then((res)=> {
         navigate(`/user/greenhouse/${greenhouse_id}`);
       })
-      .catch((err) => {
-      console.log(err);
-    })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
+
   //************************************************** */    
+
   return (
     <div>
     {!showForm2 ? 
@@ -189,7 +280,9 @@ export const EditGreenhouse = () => {
               name='greenhouse_type'
               value={editGreenhouse.greenhouse_type}
               onChange={handleChange}
-              >   <option>Slecciona Método de cultivo</option>
+              required
+              >
+                <option value="">Slecciona Método de cultivo</option>
                 <optgroup label="Cultivos en agua">
                   <option value="NFT">NFT</option>
                   <option value="NGS">NGS</option>
@@ -209,7 +302,7 @@ export const EditGreenhouse = () => {
         </Form>
       </main>
       <div className='bottom_sect'>
-       <button onClick={handleContinue}><img src='/assets/images/next1.png'/></button>
+       <button onClick={handleContinue} disabled={disable}><img src='/assets/images/next1.png'/></button>
        </div>
       
       </div>
@@ -412,11 +505,14 @@ export const EditGreenhouse = () => {
           <div className='checkbox_cont'>
             <div>
             <p>Si las medidas no son las correctas, asumo la responsabilidad</p>
-            <input type='checkbox' name='responsibility_acknowledged' value={greenhouseInfo.responsibility_acknowledged} onClick={handleResponsability}></input>
+            <input type='checkbox' name='responsibility_acknowledged' value={editGreenhouse.responsibility_acknowledged} onClick={handleChange}></input>
             
             </div>
-            <div className='botoneraEdit d-flex flex-column'>
-      <button className='botonAcept' onClick={handleSubmit}>Aceptar</button></div>
+            <div className='aaa'>
+            <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
+            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Crear</button>
+            <img className='gh_img' src='/assets/images/greenhouse.png'/>
+          </div>
           </div>
         </section>
      </main> 
@@ -424,24 +520,7 @@ export const EditGreenhouse = () => {
     }
     </div>
      
-      
-      
-      
   )  
   }
 
       
-  
-   
-  
- 
-   
-
-  
-
-
-
-  
-
-
-

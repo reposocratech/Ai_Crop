@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AICropContext } from '../../context/AICropContext'
 import './notification.scss'
 
 export const ButtonNotif = ({setShowModalNotif}) => {
 
+  const {setActionReload, actionReload} = useContext(AICropContext)
+
   const openModal = () => {
+      setActionReload(!actionReload)
       setShowModalNotif(true);
   }
 
