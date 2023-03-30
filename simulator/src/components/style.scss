@@ -12,13 +12,11 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
-    width: 100%;
     font-family: $urbanist;
     color: white;
     display: flex;
     flex-direction: column;
-
+    height: 100vh;
 }
 
 .simulator{
@@ -31,6 +29,7 @@
         width: 40%;
         margin-top: 30px;
         transition: 0.2s;
+        gap: 50px;
         // border: 2px solid red;
     
         .greenhouse {
@@ -38,13 +37,13 @@
             justify-content: space-between;
             gap: 4%;
             .float-container {
-                display: flex;
-                width: 47%;
+                // display: flex;
+                // width: 50%;
             }
         }
     
         .float-container {
-            margin: 20px 30px 0 0; 
+            margin-bottom: 20px; 
             padding: 5px 24px;
             border-radius: 1.8em;
             color: white;
@@ -68,6 +67,7 @@
             letter-spacing: 0.08em;
             color: white;
             background-color: transparent;
+            width: 100%;
         }
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -102,12 +102,12 @@
     
         .button_section{
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
     
             button {
-                width: 314px;
+                width: 45%;
                 padding: 15px 30px;
-                margin: 20px 30px 0 0;
+                margin-top: 20px;
                 border: none;
                 border-radius: 2em;
                 font-family: $urbanist;
@@ -128,31 +128,98 @@
         }
     }
 
-    .derecha{
-        // border: 2px solid red;
-        width: 50%;
-        h1{
-            margin-top: 50px;
+.derecha{
+    width: 60%;
+    h1{
+        margin-top: 20px;
+        font-weight: 800;
+        font-size: 75px;
+        line-height: 0.6;
+        text-align: center;
+    }
+
+    .punto{
+        margin-left: 10px;
+        font-size: 120px;
+        line-height: 0;
+        color: $verde7A;
+    }
+    .greenhouseInfo{
+        background-color: $grisCard;
+        width: 18rem;
+        height: 27rem;
+        border-radius: 1em;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        filter: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.25));
+        cursor: pointer;
+
+    .card_header {
+        width: 100%;
+        border-radius: 1em 1em 0 0 ;
+        background-color: $verdeCard;
+        height: 120px;
+    }
+    .card_header_colab{
+        width: 100%;
+        border-radius: 1em 1em 0 0 ;
+        background-color: gray;
+        height: 120px;
+    }
+    .img_greenhouse{
+        bottom: 40px;
+        position: relative;
+        border-radius: 5em;
+        background-color: white;
+        padding: 20px;
+        width: fit-content;
+        box-sizing:content-box;
+        outline: 2px solid white;
+        outline-offset: 7px;
+        img{
+            width: 70px;
+        }
+    }
+    .card_description {
+        bottom: 30px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: $sora;
+        padding: 10px 20px;
+        color: white;
+        letter-spacing: 0.12em;
+        p{
+            font-size: 16px;
+            font-weight: 300;
+        }
+        .title{
             font-weight: 800;
-            font-size: 75px;
-            line-height: 0.6;
-            text-align: center;
+            margin: 0;
         }
-    
-        .punto{
-            margin-left: 10px;
-            font-size: 120px;
-            line-height: 0;
-            color: $verde7A;
+        hr{
+            width: 150px;
+            // width: fit-content;
+            border: 1px solid white;
+            opacity: 100%;
         }
-        .greenhouseInfo{
-            margin-top: 50px;
-            border: 2px solid $verde2A;
-            border-radius: 3em;
-            letter-spacing: 0.25em;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 50px 50px;
-            width: 100%;
+    }
+    .alerta{
+        width: 40px;
+        position:fixed;
+        left: 230px;
+        bottom: 15px;
+    }
+    .delete {
+        width: 40px;
+        position: fixed;
+        right: 230px;
+        bottom: 15px;
+        z-index: 3;
+    }
             h2 {
                 width: 40vw;
                 span {

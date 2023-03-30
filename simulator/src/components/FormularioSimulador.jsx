@@ -25,7 +25,9 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
 
     const handleChange = (e) => {
         let {name, value} = e.target;
-        setDatosForm({...datosForm,[name]: value})    
+        setDatosForm({...datosForm,[name]: value});
+        setMessageError("");
+        setMessageValid("");
     }
 
     const handleGreenhouse = (e) => {
@@ -50,7 +52,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
                 console.log(res.data);
                 setMessageError("")
                 setMessageValid("Datos recibidos correctamente!")
-
+                setDatosForm(initialValue)
               })
               .catch((err)=>{
                   console.log(err)
@@ -63,26 +65,26 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
       { messageValid != "" &&  
       <p className='messageSended'>{messageValid}</p>}
       <article className='greenhouse'>
-      <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">ID de invernadero</label> */}
+        <div id="floatContainer" className="float-container">
+            {/* <label htmlFor="floatField">ID de invernadero</label> */}
+            <input 
+              type="number"
+              placeholder='ID de Invernadero'
+              value={greenhouse.greenhouse_id}
+              name="greenhouse_id"
+              onChange={handleGreenhouse}
+            />
+        </div>
+        <div id="floatContainer" className="float-container">
+          {/* <label htmlFor="floatField">Nombre del invernadero</label> */}
           <input 
-            type="number"
-            placeholder='ID de Invernadero'
-            value={greenhouse.greenhouse_id}
-            name="greenhouse_id"
+            type="text"
+            placeholder='Nombre del invernadero'
+            value={greenhouse.greenhouse_name}
+            name="greenhouse_name"
             onChange={handleGreenhouse}
           />
-      </div>
-      <div id="floatContainer" className="float-container">
-        {/* <label htmlFor="floatField">Nombre del invernadero</label> */}
-        <input 
-          type="text"
-          placeholder='Nombre del invernadero'
-          value={greenhouse.greenhouse_name}
-          name="greenhouse_name"
-          onChange={handleGreenhouse}
-        />
-      </div>
+        </div>
       </article>
 
       <div id="floatContainer" className="float-container">
@@ -90,7 +92,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='Temperatura (C)'
           name='temperatura' 
-          value={greenhouse.temperatura}
+          value={datosForm.temperatura}
           onChange={handleChange}
           />
           <img src='./assets/termometro.png'/>
@@ -101,7 +103,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='CO2 (ppm)'
           name='co2' 
-          value={greenhouse.co2}
+          value={datosForm.co2}
           onChange={handleChange}/>
           <img src='./assets/nube-de-co2.png'/>
       </div>
@@ -110,7 +112,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='Humedad (%)'
           name='humedad' 
-          value={greenhouse.humedad}
+          value={datosForm.humedad}
           onChange={handleChange}/>
           <img src='./assets/humedad.png'/>
       </div>
@@ -119,7 +121,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='Luz solar (nm)'
           name='luz_solar' 
-          value={greenhouse.luz_solar}
+          value={datosForm.luz_solar}
           onChange={handleChange}/>
           <img src='./assets/soleado.png'/>
       </div>
@@ -128,7 +130,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='PH'
           name='ph' 
-          value={greenhouse.ph}
+          value={datosForm.ph}
           onChange={handleChange}/>
           <img src='./assets/doctorado.png'/>
       </div>
@@ -137,7 +139,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='CE (mS/cm)'
           name='ce' 
-          value={greenhouse.ce}
+          value={datosForm.ce}
           onChange={handleChange}/>
           <img src='./assets/energia-renovable.png'/>
       </div>
@@ -146,7 +148,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <input type="number" 
           placeholder='Humedad de la hoja (%)'
           name='humedad_hoja' 
-          value={greenhouse.humedad_hoja}
+          value={datosForm.humedad_hoja}
           onChange={handleChange}/>
           <img src='./assets/agua.png'/>
       </div>

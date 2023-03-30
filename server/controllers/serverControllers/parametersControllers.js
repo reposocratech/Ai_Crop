@@ -214,5 +214,64 @@ class ParametersController {
         });
     }
 
+
+    // 10.1 Muestra el promedio de mediddas por measurement_type_id por día de la última semana.
+    // localhost:4000/server/parameters/year/:greenhouse_id/:measurement_type_id
+    getMeasureHistoryWeek = (req, res) => {
+
+        let {greenhouse_id, measurement_type_id} = req.params;
+
+        let sql = `SELECT DATE(measure_date_time) as day, measurement_type_id, avg(measure_value) FROM measure
+        WHERE greenhouse_id = ${greenhouse_id}
+        AND measurement_type_id = ${measurement_type_id}
+        AND DATE(measure_date_time) >= DATE(NOW()) - INTERVAL 7 DAY
+        AND measure_date_time < now()
+        GROUP BY day, measurement_type_id
+        ORDER BY day DESC`
+
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+
+    // HACEEERRR 10.2 Muestra el promedio de mediddas por measurement_type_id (CADA 3 DIAS??)) del último mes.
+    // localhost:4000/server/parameters/year/:greenhouse_id/:measurement_type_id
+    getMeasureHistoryMonth = (req, res) => {
+
+        let {greenhouse_id, measurement_type_id} = req.params;
+
+        let sql = `SELECT month(measure_date_time) as month, year(measure_date_time) as year, measurement_type_id, avg(measure_value) FROM measure
+        WHERE greenhouse_id = ${greenhouse_id}
+        AND measurement_type_id = ${measurement_type_id}
+        GROUP BY month, year, measurement_type_id
+        ORDER BY year, month`
+
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
+    
+    // 10.3 Muestra el promedio de mediddas por measurement_type_id por mes del último año.
+    // localhost:4000/server/parameters/year/:greenhouse_id/:measurement_type_id
+    getMeasureHistoryYear = (req, res) => {
+
+        let {greenhouse_id, measurement_type_id} = req.params;
+
+        let sql = `SELECT month(measure_date_time) as month, year(measure_date_time) as year, measurement_type_id, avg(measure_value) FROM measure
+        WHERE greenhouse_id = ${greenhouse_id}
+        AND measurement_type_id = ${measurement_type_id}
+        GROUP BY month, year, measurement_type_id
+        ORDER BY year, month`
+
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
 }
 module.exports = new ParametersController();

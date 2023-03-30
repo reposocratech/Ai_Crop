@@ -41,8 +41,14 @@ class AlarmController {
                 ? res.json(`Error en la consulta`)
                 : res.redirect(`http://localhost:4000/server/notification/getAlarmEmails/${alarm_id}`);
                 // si todo fue bien, nos redirije al siguiente end point al que le mandamos por params el alarm_id
-            })
-        })
+
+                let sqlOldAlarm = `UPDATE alarm SET is_active = 0, alarm_closing_message = 'Alarma cerrada automáticamente por generación de nueva alarma' WHERE measure_id != ${measure_id} AND measurement_type_id = ${measurement_type_id} AND is_active = 1`;
+
+                connection.query(sqlOldAlarm, (error, resultOldAlarm) => {
+                    error && res.status(400).json({ error });
+                });
+            });
+        });
     }
 
     closeAlarm = (req, res) => {   
@@ -218,7 +224,8 @@ class AlarmController {
     }); 
     }
 
-     // 8. Muestra la información de una alarma activa para un greenhouse y parámetro específico pasado por params
+
+    // 8. Muestra la información de una alarma activa para un greenhouse y parámetro específico pasado por params
     // localhost:4000/server/alarm/seeAlarm/:greenhouse_id/:measurement_type_id
     seeOneAlarm = (req, res) => {   
         let {greenhouse_id, measurement_type_id} = req.params;
@@ -237,6 +244,7 @@ class AlarmController {
             : res.status(201).json(result[0]);
         });
     }
+
 
 }
 module.exports = new AlarmController();
