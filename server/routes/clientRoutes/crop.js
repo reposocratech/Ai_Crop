@@ -8,7 +8,7 @@ router.post('/createCrop', CropController.createCrop);
 
 // 2. Edit Crop
 // localhost:4000/crop/editCrop/:crop_id
-router.post('/editCrop/:crop_id', CropController.editCrop);
+router.put('/editCrop/:crop_id', CropController.editCrop);
 // FALTA TESTEAR!!!
 
 // 3. Borra de manera logica un cultivo
@@ -21,7 +21,7 @@ router.delete('/deleteCrop/:crop_id', CropController.deleteCrop);
 
 // 4. Desactiva Crop
 //localhost:4000/crop/endCrop/:crop_id
-router.get('/endCrop/:crop_id', CropController.endCrop);
+router.put('/endCrop/:crop_id', CropController.endCrop);
 
 // 5. Activa Crop
 //localhost:4000/crop/endCrop/:crop_id
@@ -36,6 +36,8 @@ router.get('/getAllCrops/:greenhouse_id', CropController.getAllCrops);
  router.get('/getActiveCrops/:greenhouse_id', CropController.getActiveCrops);
 
 
-
+ // 8.  Trae la info de un crop pasado por params
+ //localhost:4000/crop/getOneCrop/:crop_id
+ router.get('/getOneCrop/:crop_id', CropController.getOneCrop);
 
 module.exports = router;

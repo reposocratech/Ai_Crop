@@ -47,6 +47,7 @@ export const OneGreenhouse = () => {
   //-------------------el cropito-----------------------------------
   const [cropsCards, setCropsCards] = useState([]);
   const [showUpdateCrop, setShowUpdateCrop] = useState(false)
+  const [selectedCrop, setSelectedCrop] = useState();
   const navigate = useNavigate();
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
@@ -121,7 +122,7 @@ export const OneGreenhouse = () => {
  //------------------------para traer la info del cropmodal----------------------
   
 
-  console.log(cropsCards,"lainfo");
+ /*  console.log(cropsCards,"lainfo");
   let datos = {
     name: "Nasza",
     email: "naza@gmail.com",
@@ -142,12 +143,12 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
   }
-
+ */
 
   const onDelete = (crop_id)=>{
 
     axios
-        .get(`http://localhost:4000/crop/deleteCrop/${crop_id}`)
+        .put(`http://localhost:4000/crop/endCrop/${crop_id}`)
         .then((res)=>{
           // navigate(`greenhouse/${greenhouse_id}`)
           setActionReload(!actionReload);
@@ -155,6 +156,14 @@ export const OneGreenhouse = () => {
         .catch((err)=>{
           console.log(err);
         })
+  }
+
+  const openModalUdateCrop = (crop_id)=>{
+
+    setSelectedCrop(crop_id)
+    setShowUpdateCrop(true)
+   
+    
   }
 
 
@@ -175,8 +184,8 @@ export const OneGreenhouse = () => {
         <ButtonNotif setShowModalNotif={setShowModalNotif}/>
         
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
-        <ModalInvitation showModalInvitation={showModalInvitation} setShowModalInvitation={setShowModalInvitation} />
-        <UpdateCropModal  showUpdateCrop={showUpdateCrop} setShowUpdateCrop={setShowUpdateCrop}></UpdateCropModal>
+        <ModalInvitation showModalInvitation={showModalInvitation} setShowModalInvitation={setShowModalInvitation} greenhouse_name={greenhouseData?.greenhouse_name} />
+        <UpdateCropModal  showUpdateCrop={showUpdateCrop} setShowUpdateCrop={setShowUpdateCrop} setSelectedCrop={setSelectedCrop} selectedCrop={selectedCrop}></UpdateCropModal>
 
       </section>
       <header className='header_greenhouses'>
@@ -229,7 +238,7 @@ export const OneGreenhouse = () => {
                   <p>Extensión: {crop.crop_size}m²</p>
                   <p>{crop.crop_duration} día(s)</p>
                   <section className='buttons'>
-                  <div><img className='edit'src='/assets/images/config_admin2.png'/></div>
+                  <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img className='edit'src='/assets/images/config_admin2.png'/></div>
                   <div onClick={() =>{onDelete(crop.crop_id)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
                   </section>
               </div>
