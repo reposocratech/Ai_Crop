@@ -2,6 +2,27 @@
 @import "../../../variables";
 
 .cont_measure{
+    .alerta{
+        .alerta_cont{
+           display: flex;
+           align-items: center;
+           gap: 10px;
+           p{
+            margin: 0;
+            color: #D34646;
+            font-family: $sora;
+           }
+           .cerrar{
+            width: 25px;
+            height: 25px;
+            transition: 0.2s;
+           }
+           .cerrar:hover{
+            filter:grayscale(1);
+           }
+        }
+        
+    }
     .botones_user{
         display: flex;
         justify-content: space-between;

@@ -221,7 +221,7 @@ class ParametersController {
 
         let {greenhouse_id, measurement_type_id} = req.params;
 
-        let sql = `SELECT DATE(measure_date_time) as day, measurement_type_id, avg(measure_value) FROM measure
+        let sql = `SELECT DATE(measure_date_time) as day, measurement_type_id, avg(measure_value) as avg_value FROM measure
         WHERE greenhouse_id = ${greenhouse_id}
         AND measurement_type_id = ${measurement_type_id}
         AND DATE(measure_date_time) >= DATE(NOW()) - INTERVAL 7 DAY
@@ -242,7 +242,7 @@ class ParametersController {
 
         let {greenhouse_id, measurement_type_id} = req.params;
 
-        let sql = `SELECT month(measure_date_time) as month, year(measure_date_time) as year, measurement_type_id, avg(measure_value) FROM measure
+        let sql = `SELECT month(measure_date_time) as month, year(measure_date_time) as year, measurement_type_id, avg(measure_value) as avg_value FROM measure
         WHERE greenhouse_id = ${greenhouse_id}
         AND measurement_type_id = ${measurement_type_id}
         GROUP BY month, year, measurement_type_id

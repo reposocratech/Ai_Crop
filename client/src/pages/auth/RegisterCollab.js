@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import {Row} from 'react-bootstrap';
+import {Form, Row} from 'react-bootstrap';
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -12,27 +12,25 @@ export const RegisterCollab = () => {
   
   const greenhouse_id = useParams().greenhouse_id;
 
-  
+  const initialValue = {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      dni: "",
+      phone: "",
+      address: "",
+      post_code: "",
+      city: "",
+      country: "",
+      user_knowledge: "",
+      user_photo: "",
+      user_type: 3,
+      greenhouse_id: greenhouse_id
+  }
 
   const [register, setRegister] = useState(initialValue);
   const [messageError, setMessageError] = useState();
-
-const initialValue = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    dni: "",
-    phone: "",
-    address: "",
-    post_code: "",
-    city: "",
-    country: "",
-    user_knowledge: "",
-    user_photo: "",
-    user_type: 3,
-    greenhouse_id: greenhouse_id
-}
 
   const navigate = useNavigate();
 
@@ -40,8 +38,15 @@ const initialValue = {
     const { name, value } = e.target;
     setRegister({ ...register, [name]: value });
   };
+  
+  const handleKeyPress = (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  };
 
   const handleSubmit = () => {
+    
     if (
       !register.first_name ||
       !register.last_name ||
@@ -53,7 +58,7 @@ const initialValue = {
       !register.user_knowledge
     ) {
       setMessageError("Debes rellenar todos los campos");
-    } else {
+    }  else {
       axios
         .post("http://localhost:4000/user/createUser", register)
         .then((res) => {
@@ -77,7 +82,7 @@ const initialValue = {
     <div className='PpalColl'>
     <Row className='cont_auth d-flex flex-column p-0'>
       <TopNavBar/>
-      <section className='registro-form form_registro d-flex  flex-column ms-5'>
+      <main className='registro-form form_registro d-flex  flex-column ms-5'>
         <div className='title m-0'>
         <h1 className='title'>Bienvenido Colaborador/a <span className='punto'>.</span></h1>
         </div>
@@ -86,7 +91,6 @@ const initialValue = {
             <label>Nombre</label>
             <input 
                 type="text" maxLength="20"
-                placeholder='Nombre'
                 value={register.first_name}
                 onChange={handleChange}
                 name='first_name'
@@ -96,7 +100,6 @@ const initialValue = {
             <label>Apellidos</label>
             <input 
                 type="text" maxLength="25"
-                placeholder='Apellidos'
                 value={register.last_name}
                 onChange={handleChange}
                 name="last_name"
@@ -111,10 +114,10 @@ const initialValue = {
               type="email"
               maxLength="35"
               required
-              placeholder="Email"
               value={register.email}
               onChange={handleChange}
               name="email"
+              onKeyPress={handleKeyPress}
             />
 
         </div>
@@ -125,7 +128,6 @@ const initialValue = {
               type="password"
               maxLength="25"
               required
-              placeholder="Contraseña"
               value={register.password}
               onChange={handleChange}
               name="password"
@@ -138,13 +140,13 @@ const initialValue = {
 
             <label>Telefono</label>
             <input
-              type="text"
-              maxLength="20"
+              type="tel"
+              maxLength="12"
               required
-              placeholder="Telefono"
               value={register.phone}
               onChange={handleChange}
               name="phone"
+              onKeyPress={handleKeyPress}
             />
 
         </div>
@@ -155,7 +157,6 @@ const initialValue = {
               type="text"
               maxLength="80"
               required
-              placeholder="Ciudad"
               value={register.city}
               onChange={handleChange}
               name="city"
@@ -170,7 +171,6 @@ const initialValue = {
             <input
               type="text"
               required
-              placeholder="Pais"
               value={register.country}
               onChange={handleChange}
               name="country"
@@ -196,7 +196,7 @@ const initialValue = {
                 <button className="bg_verde" onClick={handleSubmit}>Aceptar</button>
                 <p className='text-danger'>{messageError}</p>
             </div>
-          </section>
+          </main>
     </Row>
   </div>
   )

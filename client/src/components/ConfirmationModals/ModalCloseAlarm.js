@@ -16,7 +16,7 @@ export const ModalCloseAlarm = ({showModalCloseAlarm, setShowModalCloseAlarm, on
     const handleCloseAlarm = () => {
         setShowModalCloseAlarm(false)
         onClose();
-        setActionReload(true);
+        setActionReload(!actionReload);
     }
     
     const handleChange = (e) => {

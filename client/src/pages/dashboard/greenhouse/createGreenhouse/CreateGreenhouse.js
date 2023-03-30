@@ -121,6 +121,12 @@ export const CreateGreenhouse = () => {
       })
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === " " || event.key === "-" || event.key === "+") {
+      event.preventDefault();
+    }
+
+  };
 
   return (
     <div className='cont_greenhouses'>
@@ -171,6 +177,7 @@ export const CreateGreenhouse = () => {
               name='greenhouse_orientation'
               value={greenhouseInfo.greenhouse_orientation}
               onChange={handleChangeGreenhouseInfo}
+              onKeyPress={handleKeyPress}
               />
             </div>
           </article>
@@ -179,12 +186,13 @@ export const CreateGreenhouse = () => {
             <div>
               <p>Extensión (m2):</p>
               <input
-              placeholder='15m2'
+              placeholder='15'
               autoComplete='off'
               className='input_1'
               name='greenhouse_size'
               value={greenhouseInfo.greenhouse_size}
               onChange={handleChangeGreenhouseInfo}
+              onKeyPress={handleKeyPress}
               />
             </div>
             <div>
@@ -195,7 +203,7 @@ export const CreateGreenhouse = () => {
               name='greenhouse_type'
               value={greenhouseInfo.greenhouse_type}
               onChange={handleChangeGreenhouseInfo}
-              >   <option>Slecciona Método de cultivo</option>
+              >   <option>Selecciona método de cultivo</option>
                 <optgroup label="Cultivos en agua">
                   <option value="NFT">NFT</option>
                   <option value="NGS">NGS</option>
@@ -241,6 +249,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={temperatura.min}
                 onChange={handleChangeTemp}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -252,6 +261,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={temperatura.max}
                 onChange={handleChangeTemp}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
@@ -268,6 +278,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={co2.min}
                 onChange={handleChangeCo2}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -278,6 +289,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={co2.max}
                 onChange={handleChangeCo2}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
@@ -294,6 +306,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={humidity.min}
                 onChange={handleChangeHumidity}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -304,6 +317,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={humidity.max}
                 onChange={handleChangeHumidity}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
@@ -320,6 +334,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={sunlight.min}
                 onChange={handleChangeSunlight}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -330,6 +345,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={sunlight.max}
                 onChange={handleChangeSunlight}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
@@ -351,6 +367,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={ph.min}
                 onChange={handleChangepH}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -361,6 +378,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={ph.max}
                 onChange={handleChangepH}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
@@ -377,6 +395,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={conductivity.min}
                 onChange={handleChangeConductivity}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -387,6 +406,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={conductivity.max}
                 onChange={handleChangeConductivity}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>
@@ -403,6 +423,7 @@ export const CreateGreenhouse = () => {
                 name='min'
                 value={leafHumidity.min}
                 onChange={handleChangeLeafHumidity}
+                onKeyPress={handleKeyPress}
                 />
               </div>
               <div className='container'>
@@ -413,6 +434,7 @@ export const CreateGreenhouse = () => {
                 name='max'
                 value={leafHumidity.max}
                 onChange={handleChangeLeafHumidity}
+                onKeyPress={handleKeyPress}
                 />
               </div>
             </article>

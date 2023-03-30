@@ -104,8 +104,8 @@ export const OneGreenhouse = () => {
   }
 
   const openModalUdateCrop = (crop_id)=>{
-    setSelectedCrop(crop_id)
-    setShowUpdateCrop(true)
+      setSelectedCrop(crop_id)
+      setShowUpdateCrop(true)
   }
 
   return (

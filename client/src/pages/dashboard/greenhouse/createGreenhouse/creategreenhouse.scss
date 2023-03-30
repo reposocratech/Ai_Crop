@@ -211,6 +211,9 @@
                 filter: invert(1);
             }
         }
+            button:hover{
+                background-color: $black3;
+        }
         .crear{
             font-size: 22px;
             font-family: $urbanist;
@@ -276,4 +279,16 @@
 .botonAcept:hover{
     background-color: #B2DCBC;
     color: rgba(0, 0, 0, 0.443);
+}
+
+@media (max-width: 1999px){
+    .main_creategh{
+        margin-top: 70px;
+        width: 90%;
+        .top_section{
+            display: flex;
+            justify-content: space-between;
+            height: 30px;
+        }
+    }
 }
