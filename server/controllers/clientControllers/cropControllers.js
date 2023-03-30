@@ -22,12 +22,13 @@ class CropController {
     //localhost:4000/Crop/editCrop/:crop_id
     editCrop = (req, res) => {
     
-        const { crop_name, crop_duration, crop_plant_variety, crop_size } = req.body;
+        const { crop_name, crop_duration, crop_plant_variety, crop_size} = req.body;
         const crop_id = req.params.crop_id;
 
-        let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}', crop_size = '${crop_size}', WHERE crop_id = ${crop_id}`;
+        let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}', crop_size = ${crop_size} WHERE crop_id = ${crop_id}`;
         
         connection.query(sql, (error, result) => {
+            console.log(result);
         error 
         ? res.status(400).json({ error }) 
         : res.status(200).json(`El cultivo ${crop_id} ha sido modificado con éxito`);
@@ -64,6 +65,10 @@ class CropController {
         });
         
     };
+
+
+
+
 
     // 4.desactiva un cultivo
     //localhost:4000/crop/endCrop/:crop_id
@@ -129,8 +134,10 @@ class CropController {
         });
     };
 
-    // 8.  Trae la info de un crop pasado por params
-    //localhost:4000/crop/getActiveCrops/:greenhouse_id
+
+      // 8.  Trae la info de un crop pasado por params
+    //localhost:4000/crop/getOneCrop/:crop_id
+
     getOneCrop = (req, res) => {
     
         const crop_id = req.params.crop_id;

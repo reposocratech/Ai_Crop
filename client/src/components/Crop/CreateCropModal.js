@@ -104,6 +104,17 @@ const navigate = useNavigate()
         />
          </div>
 
+            <div>
+
+          <input
+          type="number"
+          placeholder='Extensión'
+          value={cropInfo?.crop_size}
+          onChange={handleChange}
+          name="crop_size"
+        />
+         </div>
+
          <button onClick={handleSubmit}>Añadir</button>
 
           </section>
