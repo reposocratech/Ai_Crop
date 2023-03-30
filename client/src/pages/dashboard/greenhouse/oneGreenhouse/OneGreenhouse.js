@@ -12,6 +12,7 @@ import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif'
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif'
 import { ButtonCollaborator } from '../../../../components/Notifications/ButtonCollaborator'
 import { ModalCollaborator } from '../../../../components/Notifications/ModalCollaborator'
+
 import axios from 'axios'
 import './onegreenhouse.scss'
 import '../allGreenhouses/allgreenhouses.scss'
@@ -19,13 +20,13 @@ import '../allGreenhouses/allgreenhouses.scss'
 
 import { useParams } from 'react-router-dom'
 import { Card, Button } from 'react-bootstrap'
+import { ModalInvitation } from '../../../../components/greenhouseCards/ModalInvitation'
+import { UpdateCropModal } from '../../../../components/Crop/UpdateCropModal'
 
 
 
 export const OneGreenhouse = () => {
 
-
-  
   const {user,actionReload,userAlarms,setActionReload} = useContext(AICropContext);
 
   const [temperatura, setTemperatura] = useState();
@@ -40,10 +41,11 @@ export const OneGreenhouse = () => {
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
-
+  const [showModalInvitation, setShowModalInvitation] = useState(false)
   //-------------------el cropito-----------------------------------
   const [cropsCards, setCropsCards] = useState([]);
-
+  const [showUpdateCrop, setShowUpdateCrop] = useState(false)
+  const [selectedCrop, setSelectedCrop] = useState();
   const navigate = useNavigate();
   
   const greenhouse_id = useParams().greenhouse_id; // ESTE GH ID SE CAPTURA BIEN
@@ -118,7 +120,7 @@ export const OneGreenhouse = () => {
  //------------------------para traer la info del cropmodal----------------------
   
 
-  // console.log(cropsCards,"lainfo");
+ /*  console.log(cropsCards,"lainfo");
   let datos = {
     name: "Nasza",
     email: "naza@gmail.com",
@@ -139,12 +141,12 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
   }
-
+ */
 
   const onDelete = (crop_id)=>{
 
     axios
-        .get(`http://localhost:4000/crop/deleteCrop/${crop_id}`)
+        .put(`http://localhost:4000/crop/endCrop/${crop_id}`)
         .then((res)=>{
           // navigate(`greenhouse/${greenhouse_id}`)
           setActionReload(!actionReload);
@@ -152,6 +154,14 @@ export const OneGreenhouse = () => {
         .catch((err)=>{
           console.log(err);
         })
+  }
+
+  const openModalUdateCrop = (crop_id)=>{
+
+    setSelectedCrop(crop_id)
+    setShowUpdateCrop(true)
+   
+    
   }
 
 
@@ -172,19 +182,15 @@ export const OneGreenhouse = () => {
         <ButtonNotif setShowModalNotif={setShowModalNotif}/>
         
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
-        
-       
+        <ModalInvitation showModalInvitation={showModalInvitation} setShowModalInvitation={setShowModalInvitation} greenhouse_name={greenhouseData?.greenhouse_name} />
+        <UpdateCropModal  showUpdateCrop={showUpdateCrop} setShowUpdateCrop={setShowUpdateCrop} setSelectedCrop={setSelectedCrop} selectedCrop={selectedCrop}></UpdateCropModal>
 
       </section>
       <header className='header_greenhouses'>
         <section className='title_row'>
           <h1>mi invernadero</h1>
           <article className='input_sect'>
-          <div className='search_add'>
-            <img alt='buscar' src='/assets/images/search.png'/>
-            <input placeholder='Buscar cultivo'/>
-          </div>
-          <button className='search_add' onClick={inviteCollab}>
+          <button className='search_add' onClick={() => setShowModalInvitation(true)}>
           <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
             Añadir colaboradores
           </button>
@@ -211,6 +217,7 @@ export const OneGreenhouse = () => {
           <ConductivityCard conductividad = {conductividad} userAlarms = {userAlarms}/>}
           {humedadHoja &&
           <LeafHumidity humedadHoja = {humedadHoja} userAlarms = {userAlarms}/>}
+          
         </section> 
         }
       </main>
@@ -225,7 +232,7 @@ export const OneGreenhouse = () => {
                   <p>Extensión: {crop.crop_size}m²</p>
                   <p>{crop.crop_duration} día(s)</p>
                   <section className='buttons'>
-                  <div><img className='edit'src='/assets/images/config_admin2.png'/></div>
+                  <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img className='edit'src='/assets/images/config_admin2.png'/></div>
                   <div onClick={() =>{onDelete(crop.crop_id)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
                   </section>
               </div>

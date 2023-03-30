@@ -94,7 +94,7 @@ class GreenhouseController {
                     res.status(400).json({ error }) 
                 } 
     
-                let sqlCrop = `SELECT * FROM crop WHERE greenhouse_id = ${greenhouse_id} AND is_active = 1 AND is_deleted = 0`;
+                let sqlCrop = `SELECT * FROM crop WHERE greenhouse_id = ${greenhouse_id}  AND is_deleted = 0`;
 
                 // buscamos en BD todos los crops activos que tiene el invernadero enviado por params y guardamos los resultados en el objeto "resultActiveCrops"
                 connection.query(sqlCrop, (error, resultActiveCrops) => {
@@ -208,7 +208,7 @@ class GreenhouseController {
     // localhost:4000/greenhouse/inviteCollaborator
     inviteGreenhouseCollaborator = (req, res) => {
 
-        let {name, email, user_id, first_name, last_name, greenhouse_id} = req.body;
+        let {name, email, first_name, last_name, greenhouse_id} = req.body;
         
         let sql = `SELECT * FROM user WHERE email = '${email}' AND is_deleted = 0 AND is_disabled = 0`;
         console.log(email);
@@ -226,7 +226,7 @@ class GreenhouseController {
                     error && res.status(400).json({ error }) ;
                     
                     nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
-
+                        console.log(email);
                     res.status(200).json(`El usuario ${result[0].user_id} ha sido añadido como colaborador del invernadero ${greenhouse_id}`);
                 });
 
@@ -254,30 +254,32 @@ class GreenhouseController {
     };
 
     // 8. crear un helper
-    // localhost:4000/greenhouse/createHelper/:greenhouse_id
+    // localhost:4000/greenhouse/createHelperrs
     createHelper = (req, res) => {
  
-        let body = {
+        /*  let body = {
             helper_first_name: "Jose",
             helper_last_name: "Diego",
-            helper_email: "josediegocastanedabenitez@gmail.com",
+            helper_email: "gadetru@gmail.com",
             user_id: 1,
             first_name: "Javi",
             last_name: "More",
-            greenhouse_id: req.params.greenhouse_id,
+            greenhouse_id: 1,
             greenhouse_name: "Invernadero de Carlitos"
-        }
+        } */ 
         
-        let {helper_first_name, helper_last_name, helper_email, user_id, first_name, last_name, greenhouse_id, greenhouse_name} = body;
+        let {helper_first_name, helper_last_name, helper_email, user_id, first_name, last_name, greenhouse_id, greenhouse_name} = req.body;
+
         
         let sql = `SELECT * FROM helper WHERE helper_email = '${helper_email}' AND greenhouse_id = ${greenhouse_id}`;
-
+       console.log(sql,"el sql-----------------");
+        console.log(req.body,"--------------------");
         connection.query(sql, (error, result) => {
 
             if(!result[0]){
 
                 let sqlAddHelper = `INSERT INTO helper (greenhouse_id, helper_first_name, helper_last_name, helper_email) VALUES (${greenhouse_id}, "${helper_first_name}", "${helper_last_name}", "${helper_email}")`;
-
+                console.log(sqlAddHelper,"addhelper-------------");
                 connection.query(sqlAddHelper, (error, resultHelper) => {
                     if(error){
                         res.status(400).json({ error }) 
@@ -407,7 +409,7 @@ class GreenhouseController {
         });
     }
     
-}
+} 
 
 module.exports = new GreenhouseController();
 

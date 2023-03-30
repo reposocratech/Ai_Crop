@@ -1,11 +1,13 @@
 const nodemailer = require('nodemailer');
 
-// "use strict";
+"use strict";
 
 // async..await is not allowed in global scope, must use a wrapper
-async function main(email, alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name) {
+async function main(email_list, alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
+
+  let emails = email_list.toString();
 
   let text = "";
   high_low === "high" ? text = "por encima" : text = "por debajo";
@@ -25,7 +27,7 @@ async function main(email, alarm_id, measurement_type_name, high_low, alarm_mess
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
-    to: `${email}`, // list of receivers
+    to: `${emails}`, // list of receivers
     subject: `ALARMA! ${measurement_type_name} ${text} del límite establecido en tu invernadero ${greenhouse_name}`, // Subject line
     text: `${alarm_date_time}: ${alarm_message}. Id de alarma: ${alarm_id}`, // plain text body
     // html: "<b>Hello world?</b>", // html body

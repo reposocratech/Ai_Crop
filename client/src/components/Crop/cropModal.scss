@@ -1,8 +1,6 @@
 
 .secPpal{
     flex-direction: column;
-    
-    
 }
 div.modal-content{
     background-color: rgba(0, 0, 0, 0.494);
@@ -15,7 +13,6 @@ div.modal-content{
     border-radius: 10px;
     text-align: center;
 }
-
 .botoneraCrops{
     display: flex;
     justify-content: center;
@@ -36,3 +33,19 @@ div.modal-content{
     background-color: green;
     color: white;
 }
+.botonCrops2{
+    width: 12vw;
+    height: 6vh;
+    margin: 5px;
+    align-items: center;
+    border-radius: 25px;
+    background-color: #c8a344;
+    border: none;
+    font-size: 20px;
+    font-weight: 400;
+}
+.botonCrops2:hover{
+    background-color: rgb(128, 0, 0);
+    color: white;
+}
+

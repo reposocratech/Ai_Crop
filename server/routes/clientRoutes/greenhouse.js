@@ -36,8 +36,8 @@ router.post('/inviteCollaborator', GreenhouseController.inviteGreenhouseCollabor
 router.get('/deleteGreenhouseCollaborator/:greenhouse_id/:user_id', GreenhouseController.deleteGreenhouseCollaborator);
 
 // 8. crear un helper
-// localhost:4000/greenhouse/createHelper/:greenhouse_id
-router.get('/createHelper/:greenhouse_id', GreenhouseController.createHelper);
+// localhost:4000/greenhouse/createHelper/
+router.post('/createHelper', GreenhouseController.createHelper);
 
 // 9. borrado REAL  de un helper
 // localhost:4000/greenhouse/deleteHelper/:helper_id
