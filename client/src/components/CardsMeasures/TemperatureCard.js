@@ -8,7 +8,7 @@ export const TemperatureCard = ({temperatura}) => {
   const navigate = useNavigate();
   const {userAlarms} = useContext(AICropContext)
 
-  console.log(temperatura, "result measurreeeeee")
+  //console.log(temperatura, "result measurreeeeee")
 
   useEffect(() => {
     let found = false;

@@ -92,14 +92,60 @@ export const EditGreenhouse = () => {
 //************************************************** */  
   const handleChangeLeafHumidity = (e) => {
     const {name, value} = e.target;
+    
     setLeafHumidity({...leafHumidity, [name]:value, measurement_type_id:7})
   }
 //************************************************** */
+const handleBack = () => {
+  setShowForm2(false)
+}
+
+useEffect(() => {
+
+  if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
+    setError("Los mínimos no deben superar los máximos")
+  } 
+  else {
+    setError("");
+  }
+
+}, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity])
+
   useEffect(() => {
     axios
     .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
     .then((res) => {
-      setEditGreenhouse(res.data.resultGreenhouse[0]);
+     
+     // console.log(res.data,"dime que tu tiene");
+      setEditGreenhouse(res.data.resultGreenhouse[0])
+      for (let i = 0; i < res.data.resultParameters.length; i++){
+        switch (res.data.resultParameters[i].measurement_type_id){
+          case 1:
+            setTemperatura(res.data.resultParameters[i])
+            break;
+          case 2:
+            setCo2(res.data.resultParameters[i])
+            break;
+          case 3:
+            setHumidity(res.data.resultParameters[i])
+            break;
+          case 4:
+            setSunlight(res.data.resultParameters[i])
+            break;
+          case 5:
+            setPh(res.data.resultParameters[i])
+            break;
+          case 6:
+            setConductivity(res.data.resultParameters[i])
+            break;
+          case 7:
+            setLeafHumidity(res.data.resultParameters[i])
+            break;
+          default:
+            console.log("pringao")
+        }
+      }
+    
     })
     .catch((err) => {
       console.log(err);
@@ -107,11 +153,14 @@ export const EditGreenhouse = () => {
   }, [])
 //************************************************** */  
   const handleChange = (e) => {
-    const {name, value, checked} = e.target;
-    // checked? checked = 1 : checked = 0;
+
+    let checked = e.target.checked;
+   const  {name, value} = e.target;
+
+    checked? checked = 1 : checked = 0;
     setEditGreenhouse({...editGreenhouse, [name]:value, responsibility_acknowledged: checked });
-    console.log(checked);
-    console.log(editGreenhouse);
+    /* console.log(checked);
+    console.log(editGreenhouse); */
   }
 
   //************************************************** */
@@ -124,18 +173,21 @@ export const EditGreenhouse = () => {
 //************************************************** */  
   const handleSubmit = () => {
     arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
-    console.log(arrayMeasures);
-    console.log(editGreenhouse);
+    /* console.log(arrayMeasures);
+    console.log(editGreenhouse); */
     axios
       .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`, {editGreenhouse, arrayMeasures})
       .then((res)=> {
-        console.log(res.data);
-        navigate('/user');
+       // console.log(res.data);
+        navigate(`/user/greenhouse/${greenhouse_id}`);
       })
       .catch((err)=>{
         console.log(err);
       })
   }
+
+  console.log(error,"el error");
+  console.log(editGreenhouse.responsibility_acknowledged,"el greeeeeeeeeeeeeeeeen");
   //************************************************** */    
   return (
     <div>
@@ -430,8 +482,11 @@ export const EditGreenhouse = () => {
             <input type='checkbox' name='responsibility_acknowledged' value={editGreenhouse.responsibility_acknowledged} onClick={handleChange}></input>
             
             </div>
-            <div className='botoneraEdit d-flex flex-column'>
-        <button className='botonAcept' onClick={handleSubmit}>Aceptar</button></div>
+            <div className='aaa'>
+            <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
+            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Crear</button>
+            <img className='gh_img' src='/assets/images/greenhouse.png'/>
+          </div>
           </div>
         </section>
      </main> 
