@@ -25,10 +25,12 @@ export const ModalInvitation = ({
     greenhouse_id: greenhouse_id,
     greenhouse_name: greenhouse_name
   };
+
   const [showForm, setShowForm] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const [collabInfo, setCollabInfo ] = useState(datos);
+  const [helperInfo, setHelperInfo ] = useState(datos);
 
 
  
@@ -57,6 +59,12 @@ export const ModalInvitation = ({
     const { name, value } = e.target;
     setCollabInfo({ ...collabInfo, [name]: value });
   };
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    setHelperInfo({ ...helperInfo, [name]: value });
+  };
+
+  
 
  
   // ------------esto esta hardcodeado al boton, hay que y mirando como hacerlo dinamico.
@@ -70,6 +78,20 @@ export const ModalInvitation = ({
         console.log(err);
       });
   };
+
+
+  const inviteHelper = () => {
+    axios
+      .post('http://localhost:4000/greenhouse/createHelper',helperInfo)
+      .then((res) => {
+        setShowModalInvitation(false)
+        console.log(res,"el ressss");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   return (
     <>
@@ -111,8 +133,8 @@ export const ModalInvitation = ({
               <input
                 type="text"
                 placeholder="Nombre"
-                value={collabInfo.name}
-                onChange={handleChange}
+                value={helperInfo.name}
+                onChange={handleChange2}
                 name="name"
               />
             </div>
@@ -120,13 +142,13 @@ export const ModalInvitation = ({
               <input
                 type="text"
                 placeholder="Email"
-                value={collabInfo.email}
-                onChange={handleChange}
+                value={helperInfo.email}
+                onChange={handleChange2}
                 name="email"
               />
             </div>
 
-            <button onClick={inviteCollab}> aceptar </button>
+            <button onClick={inviteHelper}> aceptar </button>
           </>
 
             }
