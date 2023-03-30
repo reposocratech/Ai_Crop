@@ -108,26 +108,10 @@ const navigate = useNavigate()
         />
          </div>
 
-
-            <div>
-
-          <input
-          type="number"
-          placeholder='Extensión'
-          value={cropInfo?.crop_size}
-          onChange={handleChange}
-          name="crop_size"
-        />
-         </div>
-
          <div className='botoneraCrops'>
             <button className='botonCrops' onClick={handleSubmit}>Añadir</button>
          </div>
-
-
-          </section>
-         
-        
+     </section>
 
         </Modal.Body>
 
@@ -136,3 +120,7 @@ const navigate = useNavigate()
 
   )
 }
+
+
+         
+        

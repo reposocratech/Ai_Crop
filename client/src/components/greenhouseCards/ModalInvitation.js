@@ -4,6 +4,8 @@ import { Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { AICropContext } from "../../context/AICropContext";
 
+import './modalstyle.scss'
+
 
 
 export const ModalInvitation = ({
@@ -100,14 +102,15 @@ export const ModalInvitation = ({
   return (
     <>
       <Modal show={showModalInvitation} onHide={handleClose}>
-        <Modal.Body>
-          <section>
+        <Modal.Body className="divMaster">
+          <section className="d-flex secPpal">
             {showForm && (
-              <>
-                <h1> Para colaborador </h1>
+              <div className="d-flex flex-column">
+                <h1 className="titular">colaborador</h1>
 
-                <div>
+                <div className="d-flex justify-content-center">
                   <input
+                    className="note"
                     type="text"
                     placeholder="Nombre"
                     value={collabInfo.name}
@@ -115,8 +118,9 @@ export const ModalInvitation = ({
                     name="name"
                   />
                 </div>
-                <div>
+                <div className="d-flex justify-content-center">
                   <input
+                    className="note"
                     type="text"
                     placeholder="Email"
                     value={collabInfo.email}
@@ -124,17 +128,19 @@ export const ModalInvitation = ({
                     name="email"
                   />
                 </div>
-
-                <button onClick={inviteCollab}> aceptar </button>
-              </>
+                <div>
+                <button className="botonInv accept uni" onClick={inviteCollab}> aceptar </button>
+                </div>
+              </div>
             )}
             {showForm2 && 
             
             <>
-            <h1> Para helper </h1>
+            <h1 className="titular">helper</h1>
 
-            <div>
+            <div className=" PpalInp d-flex justify-content-center">
               <input
+                className="note nam"
                 type="text"
                 placeholder="Nombre"
                 value={helperInfo.helper_first_name}
@@ -142,8 +148,9 @@ export const ModalInvitation = ({
                 name="helper_first_name"
               />
             </div>
-            <div>
+            <div className="d-flex justify-content-center">
               <input
+                className="note"
                 type="text"
                 placeholder="Apellido"
                 value={helperInfo.helper_last_name}
@@ -151,8 +158,9 @@ export const ModalInvitation = ({
                 name="helper_last_name"
               />
             </div>
-            <div>
+            <div className="d-flex justify-content-center">
               <input
+                className="note"
                 type="text"
                 placeholder="Email"
                 value={helperInfo.helper_email}
@@ -160,22 +168,26 @@ export const ModalInvitation = ({
                 name="helper_email"
               />
             </div>
-
-            <button onClick={inviteHelper}> aceptar </button>
+              <div>
+            <button className="botonInv accept uni" onClick={inviteHelper}> aceptar </button>
+            </div>
           </>
 
             }
 
             {showButton ? 
               <>
-                <button onClick={seeForm1}>
+              <div className="botoneraInv">
+                <button className="botonInv coll" onClick={seeForm1}>
                   {" "}
-                  quiere invitar un colaborador?
+                  Invitar a un Colaborador
                 </button>
-                <button onClick={seeForm2}> quiere invitar un helper?</button>
+                <button className="botonInv coll" onClick={seeForm2}>Invitar a un Helper</button>
+              </div>
               </>
             : 
-              <button onClick={goBack}> volver </button>
+              
+              <button className="botonInv accept" onClick={goBack}> volver </button>
             }
           </section>
         </Modal.Body>

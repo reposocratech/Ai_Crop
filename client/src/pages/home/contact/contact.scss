@@ -1,106 +1,128 @@
 @import "../../../mixin";
 @import "../../../variables";
 
-.firstSection {
+.firstSectionContact {
+    display: flex;
     flex-direction: column;
-}
-.title3{
-    font-size: 72px;
-    font-family: $sora;
-    letter-spacing: 0.2em;
-    font-weight: bold;
-}
-.puntoFinal{
-    font-size: 212px;
-    font-family: $urbanist;
-    color: $verde7A;
-}
-.bloqueParr{
-    p{
-        font-family: $workSans;
-        font-size: 22px;
-        font-weight: 100;
+    // margin: 5%;
+    padding: 5%;
+    .title3{
+        font-size: 72px;
+        font-family: $sora;
+        letter-spacing: 0.2em;
+        font-weight: bold;
+        line-height: 0.5;
+        margin-bottom: 60px;
     }
-}  
-.special{
-    text-decoration: none;
-    color: white;
-    
-}  
-.iconico{
-    -webkit-filter: invert(100%);
-    -moz-filter: invert(100%);
-     filter: invert(100%);
-     width: 30px;
-     height: 30px;
-       
-}
-.specialTwo{
-    font-size: 22px !important;
-    letter-spacing: 0.2em !important;
-    
-}
-.contenedorEmail{
-    width: 40%;
-    margin-top: 2%;
+    .puntoFinal{
+        font-size: 212px;
+        font-family: $urbanist;
+        color: $verde7A;
+    }
+    .bloqueParr{
+        p{
+            font-family: $workSans;
+            font-size: 22px;
+            font-weight: 100;
+        }
+    }  
+    .special{
+        text-decoration: none;
+        color: white;
+        
+    }  
+    .iconico{
+        -webkit-filter: invert(100%);
+        -moz-filter: invert(100%);
+         filter: invert(100%);
+         width: 30px;
+         height: 30px;
+           
+    }
+    .specialTwo{
+        font-size: 22px !important;
+        letter-spacing: 0.2em !important;
+        
+    }
+    .contenedorEmail{
+        width: 40%;
+        margin-top: 2%;
+    }
 }
 
 //-------------RESPONSIVE -----------------//
 
 //TABLET
 @media (max-width: 870px){
-    .firstSection{
-        display: flex;
-        flex-direction: column;
-        margin: 0 !important;
-        margin: none;
+    .firstSectionContact{
+        margin-top: 10%;
         text-align: center;
         justify-content: center;
         .title3{
             font-size: 48px;
+            line-height: 0.6;
+            margin-bottom: 40px;
         }
-    }
-    .contenedorEmail{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
+        .puntoFinal{
+            font-size: 90px;
+        }
+        .contenedorEmail{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        
+            .two{
+                font-size: 18px !important;
+                .upp{
+                display: flex;
+                margin-left: 42%;
+                }
+            }
+        }
+        .special{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
 
 //SMARTPHONE
 @media (max-width: 520px){
-    .firstSection{
+    .firstSectionContact{
         .title3{
             font-size: 42px;
             display: flex;
             flex-direction: row;
             margin: 5%;
+            line-height: 1.5;
         }
         .puntoFinal{
             font-size: 95px;
+            display: none;
         }
         .bloqueParr{
             margin: 5%;
         }
-    }
-    .contenedorEmail{
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
-        .specialTwo{
-            font-size: 18px;
-            margin: 8%;
-        }
-        .two{
-            font-size: 18px !important;
-            .upp{
-               display: flex;
-               margin-left: 42%;
+        .contenedorEmail{
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .specialTwo{
+                font-size: 18px;
+                margin: 8%;
+            }
+            .two{
+                font-size: 18px !important;
+                .upp{
+                   display: flex;
+                   margin-left: 42%;
+                }
             }
         }
     }

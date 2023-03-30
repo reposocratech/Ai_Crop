@@ -48,11 +48,11 @@ export const Admin = () => {
         <button onClick={()=>navigate('/')}><img src='/assets/images/go_back.png'/></button>
       </section>
       <header className='header_admin'>
-        <h1>bienvenido, administrador</h1>
-        <div className='search'>
+        <h1 className='titleMini'>bienvenido, administrador</h1>
+        {/* <div className='search'>
           <img alt='buscar' src='/assets/images/search.png'/>
           <input placeholder='Buscar usuario'/>
-        </div>
+        </div> */}
       </header>
       <p>Puede acceder a los invernaderos de un usuario desde aquí</p>
       <main className='main_admin'>
