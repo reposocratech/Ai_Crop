@@ -13,7 +13,6 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
         axios
         .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user?.user_id}`)
         .then((res)=>{
-            console.log(res.data);
             setActiveAlarms(res.data);
         })
         .catch((err)=>{

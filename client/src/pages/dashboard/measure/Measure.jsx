@@ -12,7 +12,7 @@ export const Measure = () => {
   const [measure, setMeasure] = useState();
   const [measureHistoricalData, setMeasureHistoricalData] = useState();
   const [alarma, setAlarma] = useState();
-  const [closeMessage, setCloseMessage] = useState("noseque");
+  const [closeMessage, setCloseMessage] = useState("");
   const {greenhouse_id, measurement_type_id} = useParams();
   const [showModalCloseAlarm, setShowModalCloseAlarm] = useState(false);
   
@@ -32,7 +32,6 @@ export const Measure = () => {
     axios
       .get(`http://localhost:4000/server/alarm/seeAlarm/${greenhouse_id}/${measurement_type_id}`)
       .then((res)=>{
-        console.log(res.data, "alarmAAAAAAAA");
         setAlarma(res.data);
       })
       .catch((err)=>{
@@ -42,7 +41,6 @@ export const Measure = () => {
     axios
       .get(`http://localhost:4000/server/parameters/week/${greenhouse_id}/${measurement_type_id}`)
       .then((res)=>{
-        console.log(res.data, "elmmmm coso este");
         setMeasureHistoricalData(res.data)
       })
       .catch((err)=>{
@@ -55,7 +53,6 @@ export const Measure = () => {
       axios
         .put(`http://localhost:4000/server/alarm/closeAlarm/${alarma.alarm_id}`, {closeMessage})
         .then((res)=>{
-          console.log(closeMessage, "otracosa");
           setActionReload(!actionReload)
           
         })
@@ -111,7 +108,7 @@ export const Measure = () => {
           </div>
         </section>
         <section className='chart_cont'>
-          <div className='chart_options'>
+          {/* <div className='chart_options'>
             <div className='wk_mnth_year'>
               <button>SEMANA</button>
               <button>MES</button>
@@ -120,7 +117,7 @@ export const Measure = () => {
             <div className='media'>
               <button>VER LA MEDIA TOTAL</button>
             </div>
-          </div>
+          </div> */}
           <div className='chart'>
             <h4>MEDIDAS HISTORICAS</h4>
             <div>{
@@ -129,7 +126,7 @@ export const Measure = () => {
                 let day = getWeekDay(newReferenceDay.getDay())
                 let formatedDate = dayjs(newReferenceDay).format('DD/MM/YYYY')
                 return(
-                  <p key={index}>{day} ({formatedDate}) : {data.avg_value}</p>
+                  <p key={index}>{day} ({formatedDate}) : {data.avg_value}{measure?.unit}</p>
                 )
               })
               }</div>
