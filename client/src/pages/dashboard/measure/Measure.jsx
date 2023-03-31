@@ -70,6 +70,11 @@ export const Measure = () => {
 
       return weekdays[number];
     }
+
+    const goBack = () =>{
+      setActionReload(!actionReload)
+      navigate(-1)
+    }
     
     
   return (
@@ -86,7 +91,7 @@ export const Measure = () => {
         }
         </div>
         <div>
-          <button onClick={() => navigate(-1)}><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
+          <button onClick={goBack}><img alt='ir atrás' src='/assets/images/go_back.png'/></button>
         </div>
       </section>
       <header className="title_row">
