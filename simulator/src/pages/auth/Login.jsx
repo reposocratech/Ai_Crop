@@ -5,6 +5,7 @@ import { SimulatorContext } from '../../context/SimulatorContext'
 import axios from 'axios'
 
 import "./auth.scss" 
+import { Row } from 'react-bootstrap'
 
 const initialValue = {
   email: "",
@@ -44,7 +45,7 @@ export const Login = () => {
   }
 
   return (
-      <div className='cont_auth d-flex flex-column p-0'>
+      <Row className='cont_auth d-flex flex-column p-0'>
         <main className='form'>
           <h2 className='company_name'>AI crop</h2>
           <div className='title'>
@@ -79,6 +80,6 @@ export const Login = () => {
 
           </section>
         </main>
-      </div>
+      </Row>
   )
 }
