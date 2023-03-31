@@ -6,9 +6,7 @@ import './cardsmeasures.scss'
 export const TemperatureCard = ({temperatura}) => {
   const [alarm, setAlarm] = useState(false);
   const navigate = useNavigate();
-  const {userAlarms} = useContext(AICropContext)
-
-  //console.log(temperatura, "result measurreeeeee")
+  const {userAlarms, actionReload} = useContext(AICropContext)
 
   useEffect(() => {
     let found = false;

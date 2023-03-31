@@ -89,7 +89,7 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
 
-  }, [actionReload])
+  }, [])
 
   const onDelete = (crop_id)=>{
 
