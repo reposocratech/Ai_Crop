@@ -18,7 +18,6 @@
     flex-direction: column;
     min-height: 100vh;
 }
-
 .simulator{
     padding: 0 5%;
     width: auto;
@@ -36,10 +35,6 @@
             display: flex;
             justify-content: space-between;
             gap: 4%;
-            .float-container {
-                // display: flex;
-                // width: 50%;
-            }
         }
     
         .float-container {
@@ -264,36 +259,62 @@
 
 
 
+
 @media (max-width: 870px){
     .cont_simulator{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         .derecha{
+            width: 100%;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             margin: 70px 0 50px;
             
             h1{
                 line-height: 1;
             }
+
         }
         p{
             text-align: center;
         }
-        .simulator{
-            display: flex;
+        
+
+        article{
             flex-direction: column;
+
+            div{
+                margin: 10px 0;
+            }
         }
+
+    }
+
+    .simulator{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
         .formulario{
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 !important;
+            margin-top: 0;
+            gap: 0;
 
             .nombre_apell{
                 width: 100%;
             }
             .float-container{
-                margin: 20px 0 0 0 !important;
+                // margin: 20px 0 0 0 !important;
                 width: 100%;
+                height: 80px;
+                
             }
             .button_section{
                 flex-direction: row;
@@ -307,15 +328,6 @@
                 }
             }
         }
-
-        article{
-            flex-direction: column;
-
-            div{
-                margin: 10px 0;
-            }
-        }
-
     }
 }
 
@@ -326,7 +338,8 @@
         }
         .simulator{
             .button_section{
-                display: inline;
+                display: flex;
+                flex-direction: column;
                 button{
                     margin: 20px 0 0 0;
                 }

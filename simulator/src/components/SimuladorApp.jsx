@@ -25,8 +25,8 @@ export const SimuladorApp = () => {
     
   return (
     <>
+    <Row className='cont_simulator'>
     <TopNavBar />
-    <Row>
         <div className='simulator'>
             <FormularioSimulador
             setGreenhouse_id = {setGreenhouse_id}
