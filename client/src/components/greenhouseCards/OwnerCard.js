@@ -25,6 +25,8 @@ export const OwnerCard = ({elem}) => {
       })
   }
 
+  console.log(elem, "elem");
+
   return (
     <div onClick={onSubmit} className='cont_card_greenhouse'>
         <header className='card_header'>

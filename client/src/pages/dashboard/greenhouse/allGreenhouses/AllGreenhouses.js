@@ -33,9 +33,10 @@ export const AllGreenhouses = () => {
           .catch((err)=>{
             console.log(err);
           })
-      }
-  }, [user])
-
+        }
+      }, [user])
+      
+      console.log(greenhousesInfo, "greenhouseefdsf")
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>

@@ -242,6 +242,7 @@ class GreenhouseController {
         LEFT JOIN user ON greenhouse.user_owner_id = user.user_id 
         WHERE user_owner_id = ${user_id} 
         AND greenhouse.greenhouse_is_deleted = 0
+        AND alarm.is_active = 1
         GROUP BY greenhouse_id`;
         
         // consulto en BD los invernaderos que posee el usuario. Estos invernaderos los enviaré al fron en un objeto llamado resultOwner
@@ -265,8 +266,9 @@ class GreenhouseController {
             let sqlCollaborator = `SELECT greenhouse.*, CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, count(alarm.alarm_id) as active_alarms FROM greenhouse LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
             LEFT JOIN user ON user_greenhouse.user_id = user.user_id
             LEFT JOIN alarm ON alarm.greenhouse_id = greenhouse.greenhouse_id 
-            ${ownerFilter}
             WHERE user.user_id = ${user_id}
+            ${ownerFilter}
+            AND alarm.is_active = 1
             GROUP BY greenhouse_id`;
 
             connection.query(sqlCollaborator, (error, resultCollaborator) => {
