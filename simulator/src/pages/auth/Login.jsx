@@ -25,11 +25,6 @@ export const Login = () => {
     setLogin({...login, [name]:value})
   }
 
-  
- 
-  
-     
-
   const handleSubmit = () => {
     if (!login.email || !login.password){
       setMessageError("Debes rellenar todos los campos")
@@ -42,6 +37,7 @@ export const Login = () => {
           navigate('/home');
         })
         .catch((err)=>{
+          setMessageError("Credenciales incorrectas")
           console.log(err);
         })
     }
