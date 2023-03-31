@@ -80,6 +80,7 @@ export const ModalInvitation = ({
       .post("http://localhost:4000/greenhouse/inviteCollaborator", collabInfo)
       .then((res) => {
         setShowModalInvitation(false)
+        setCollabInfo()
       })
       .catch((err) => {
         console.log(err);
@@ -92,6 +93,7 @@ export const ModalInvitation = ({
       .then((res) => {
         setShowModalInvitation(false)
         console.log(res.data,"el ressss");
+        helperInfo(datosHelper)
       })
       .catch((err) => {
         console.log(err);
