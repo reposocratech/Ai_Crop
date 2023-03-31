@@ -21,7 +21,7 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
   
   const [cropInfo, setcropInfo] = useState(initialValueInfo);
   const {actionReload, setActionReload} = useContext(AICropContext);
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
   
 
@@ -29,7 +29,7 @@ const navigate = useNavigate()
 
   const handleClose = ()=>{
     setShowModalCrop(false);
-    
+    setActionReload(!actionReload);
   }
 
  
@@ -47,6 +47,7 @@ const navigate = useNavigate()
         .then((res)=>{ 
           setShowModalCrop(false);
           setActionReload(!actionReload);
+          setcropInfo(initialValueInfo);
         })
         .catch((err)=>{console.log(err);})
 
