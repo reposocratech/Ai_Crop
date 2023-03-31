@@ -12,15 +12,10 @@ const initialValue = {
   humedad_hoja: ""
 }
 
-const initialGreenhouse = {
-  greenhouse_id: "",
-  greenhouse_name: ""
-}
 
-export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messageError, setMessageError}) => {
+export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messageError, setMessageError, action, setAction, greenhouse_name, setGreenhouse_name, greenhouse, setGreenhouse}) => {
 
     const [datosForm, setDatosForm] = useState(initialValue);
-    const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
     const [messageValid, setMessageValid] = useState("");
 
     const handleChange = (e) => {
@@ -32,12 +27,21 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
 
     const handleGreenhouse = (e) => {
       let {name, value} = e.target;
-      setGreenhouse({...greenhouse,[name]: value})  
+      setGreenhouse({...greenhouse,[name]: value}) ;  
     }
 
     const seeGreenhouse = () => {
-      setGreenhouse_id(greenhouse.greenhouse_id)
-      setShowGreenhouse(true)
+      if (greenhouse?.greenhouse_name){
+          setGreenhouse_name(greenhouse.greenhouse_name);
+          setShowGreenhouse(true);
+          setAction(!action);
+      } else {
+        if (greenhouse?.greenhouse_id){
+            setGreenhouse_id(greenhouse.greenhouse_id);
+            setShowGreenhouse(true);
+            setAction(!action);
+        }
+      }
     }
 
     const handleSubmit = () => {
@@ -50,9 +54,10 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
               .post('http://localhost:4000/simulator', {datosForm, greenhouse})
               .then((res)=>{
                 console.log(res.data);
-                setMessageError("")
-                setMessageValid("Datos recibidos correctamente!")
-                setDatosForm(initialValue)
+                setMessageError("");
+                setMessageValid("Datos recibidos correctamente!");
+                setDatosForm(initialValue);
+                setAction(!action);
               })
               .catch((err)=>{
                   console.log(err)
@@ -94,6 +99,7 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           name='temperatura' 
           value={datosForm.temperatura}
           onChange={handleChange}
+          max='9999'
           />
           <img src='./assets/termometro.png'/>
       </div>

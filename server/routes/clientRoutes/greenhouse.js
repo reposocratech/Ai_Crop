@@ -15,6 +15,10 @@ router.put('/editGreenhouse/:greenhouse_id', GreenhouseController.editGreenhouse
 // localhost:4000/greenhouse/details/:greenhouse_id
 router.get('/details/:greenhouse_id', GreenhouseController.getGreenhouseDetails);
 
+//3.1 see greenhouse info by gh name
+// localhost:4000/greenhouse/detailsName/:greenhouse_name
+router.get('/detailsName/:greenhouse_name', GreenhouseController.getGreenhouseDetailsName);
+
 //4. trae la info de todos los invernaderos que tengo o colaboro
 //localhost:4000/greenhouse/getAllGreenhouses/:user_owner_id
 router.get("/getAllGreenhouses/:user_id", GreenhouseController.getAllGreenhouses); 
