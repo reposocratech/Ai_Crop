@@ -109,6 +109,10 @@ export const OneGreenhouse = () => {
       setShowUpdateCrop(true)
   }
 
+  
+
+
+
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
@@ -198,12 +202,19 @@ export const OneGreenhouse = () => {
         </section> 
         }
       </main>
+      
         <section className='cards_crop'>
             
             {cropsCards?.map((crop, index)=> {
               
+              let filterdisabled = ""
+  
+              if (crop.is_active === 0){
+                filterdisabled = "disabledGreenhouse"
+              }
+    
               return(
-              <div className='card_crop' key={index} >
+              <div className={`card_crop ${filterdisabled}`} key={index} >
                   <h4>{crop.crop_name.toUpperCase()}</h4>
                   <p>{crop.crop_plant_variety}</p>
                   <p>Extensión: {crop.crop_size}m²</p>

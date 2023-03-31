@@ -46,6 +46,9 @@
             }
         }
     }
+    .disabledGreenhouse{
+        filter: grayscale(1);
+    }
 }
 
 @media(max-width: 720px){
