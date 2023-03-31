@@ -13,6 +13,9 @@ export const CollaboratorCard = ({elem}) => {
     navigate(`greenhouse/${elem.greenhouse_id}`)
   }
 
+  if (!elem.active_alarms){
+    elem.active_alarms = 0
+  }
 
   return (
     <div onClick={onSubmit} className='cont_card_greenhouse'>

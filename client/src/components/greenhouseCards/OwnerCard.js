@@ -25,7 +25,10 @@ export const OwnerCard = ({elem}) => {
       })
   }
 
-  console.log(elem, "elem");
+  if (!elem.active_alarms){
+    elem.active_alarms = 0
+  }
+
 
   return (
     <div onClick={onSubmit} className='cont_card_greenhouse'>

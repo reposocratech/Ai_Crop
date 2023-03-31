@@ -73,7 +73,7 @@ export const Measure = () => {
 
     const goBack = () =>{
       setActionReload(!actionReload)
-      navigate(-1)
+      navigate(`../greenhouse/${greenhouse_id}`)
     }
     
     
