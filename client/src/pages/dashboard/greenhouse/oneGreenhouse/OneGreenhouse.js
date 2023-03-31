@@ -56,7 +56,6 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         setGreenhouseData(res.data.resultGreenhouse[0]);
         setCropsCards(res.data.resultActiveCrops)
-        console.log(res.data.resultParameters);
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){

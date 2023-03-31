@@ -21,14 +21,12 @@ export const ModalCloseAlarm = ({showModalCloseAlarm, setShowModalCloseAlarm, on
     
     const handleChange = (e) => {
         setCloseMessage(e.target.value)
-        console.log(closeMessage, "clousemeseech")
     }
 
     const {actionReload, setActionReload} = useContext(AICropContext)
 
   return (
-    <div className='modalCloseAlarm'>
-    <Modal className='modal' show={showModalCloseAlarm} onHide={handleClose}>
+    <Modal className='modalCloseAlarm' show={showModalCloseAlarm} onHide={handleClose}>
         <div className='alarmm'>
         <h1 className='tituloAlarm'>Desactivar Alarma</h1>
         </div>
@@ -37,15 +35,9 @@ export const ModalCloseAlarm = ({showModalCloseAlarm, setShowModalCloseAlarm, on
             <div>
                 <p className='parrafAlarm'>Explique brevemente el manejo de la alerta</p>
             </div>
-            <div className='noseque'>
-                <textarea value={closeMessage} onChange={handleChange}></textarea> 
-            </div>
-            <div className='d-flex justify-content-center'>
-                <button className='botonInv alrm' onClick={handleCloseAlarm}>Cerrar alarma</button>
-            </div>
-           
+            <textarea value={closeMessage} onChange={handleChange}></textarea> 
+            <button className='botonInv alrm' onClick={handleCloseAlarm}>Cerrar alarma</button>
         </Modal.Body>
     </Modal>
-    </div>
   )
 }
