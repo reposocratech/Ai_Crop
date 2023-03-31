@@ -61,12 +61,11 @@ export const Register = () => {
     }
   }
   const handleContinue2 = (e) => { // Pasa al 3 formulario
-    if(!register.first_name || !register.last_name || !register.email || !register.password ||!register.city || !register.country || !register.address || !register.post_code){
+    if(!register.first_name || !register.last_name || !register.email || !register.password ||!register.city || !register.country || !register.address || !register.post_code ){
       setMessageError("Debes rellenar todos los campos")
     } else {
       setShowForm2(false)
       setShowForm3(true);
-      console.log(register, "register")
     }
   }
 

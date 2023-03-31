@@ -1,26 +1,57 @@
+@import "../../variables";
 
-.noseque{
-    background-color: lightgrey;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-}
-
-.tituloAlarm{
-    color: white;
-}
-.alarmm{
-    display: flex;
-    justify-content: center;
-    margin: 15px;
-}
-.parrafAlarm{
-    color: whitesmoke;
-    text-align: center;
-}
-.alrm{
-    width: 48vw;
-    height: 6vh;
+.modalCloseAlarm{
+    font-family: $urbanist;
+    .modalCont{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px 50px 20px 50px;
+    }
+    .message{
+        background-color: lightgrey;
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+    textarea{
+        border-radius: 1em;
+        width: 100%;
+        resize: none;
+        height: 100px;
+        padding: 10px 15px;  
+        font-size: 18px;    
+    }
+    textarea:focus{
+        outline: none;
+    }
+    
+    .tituloAlarm{
+        color: white;
+    }
+    .alarmm{
+        display: flex;
+        justify-content: center;
+        margin: 15px;
+    }
+    .parrafAlarm{
+        color: whitesmoke;
+        text-align: center;
+    }
+    .alrm{
+        // width: 48vw;
+        width: 100%;
+        height: 6vh;
+        transition: 0.2s;
+        border: none;
+        font-size: 20px;
+        font-weight:600;
+        color: gray;
+    }
+    .alrm:hover{
+        background-color: $verde6A;
+        color: white;
+    }
 }
 
 

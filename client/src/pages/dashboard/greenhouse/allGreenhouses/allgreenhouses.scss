@@ -109,6 +109,7 @@
 
 @media(max-width: 1300px){
     .cont_greenhouses{
+        // height: 100vh;
         .header_greenhouses{
             .title_row{
                 .input_sect{
@@ -118,6 +119,7 @@
         }
     }
 }
+
 @media(max-width: 720px){
     .cont_greenhouses{
         text-align: center;

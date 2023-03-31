@@ -23,7 +23,6 @@ export const AICropProvider = (props) => {
                 .get(`http://localhost:4000/user/getOneUser/${user_id}`)
                 .then((res)=>{
                     setUser(res.data.resultUser[0]);
-                    // console.log(res.data.resultUser[0], "userdataaaa")
                     setIsLogged(true);
                 })
                 .catch((error)=>console.log(error))
@@ -38,7 +37,7 @@ export const AICropProvider = (props) => {
                 .catch((error)=>console.log(error))
         }
 
-    }, [])
+    }, [actionReload])
     
 
   return (

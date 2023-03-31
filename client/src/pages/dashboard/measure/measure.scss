@@ -132,3 +132,45 @@
         }
     }
 }
+
+@media (max-width: 1199px){
+
+}
+
+@media (max-width: 700px){
+    .cont_measure{
+        .botones_user{
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 20px;
+        }
+        .alerta{
+            .alerta_cont{
+                justify-content: center;
+                flex-direction: column;
+                padding: 20px;
+                background-color: rgb(238, 238, 238);
+                border-radius: 2em;
+                margin-bottom: 20px;
+                p{
+                    text-align: center;
+                }
+            }
+        }
+
+        .title_row{
+            hr{
+                display: none;
+            }
+        }
+
+        .main_measure{
+            flex-direction: column;
+            .cards_izq{
+                .card_measure{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

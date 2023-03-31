@@ -3,17 +3,18 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { AICropContext } from '../../context/AICropContext'
 import './notification.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
    
     const {user, actionReload} = useContext(AICropContext)   
     const [activeAlarms, setActiveAlarms] = useState() 
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
         .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user?.user_id}`)
         .then((res)=>{
-            console.log(res.data);
             setActiveAlarms(res.data);
         })
         .catch((err)=>{
@@ -25,6 +26,10 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
     const handleClose = () => {
         setShowModalNotif(false);
     }
+
+    const handleClick = (greenhouse_id, measurement_type_id) => {
+        navigate(`../greenhouse/${greenhouse_id}/${measurement_type_id}`)
+    }
     
   return (
     <Modal className='modalNotification' show={showModalNotif} onHide={handleClose}>
@@ -33,7 +38,7 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
         {activeAlarms?.map((alarma, index)=> {
 
             return(
-            <div className='emergencia' key={index}>
+            <div onClick={() => {handleClick(alarma?.greenhouse_id, alarma?.measurement_type_id)}} className='emergencia' key={index}>
                 <p>{alarma?.alarm_message}</p>
             </div>
             )

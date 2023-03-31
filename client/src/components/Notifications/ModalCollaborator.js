@@ -15,16 +15,9 @@ export const ModalCollaborator = ({showModalCollab, setShowModalCollab, userColl
         {userCollaborators?.map((collab, index)=> {
             // console.log(collab);
             return(
-            <>
-            {collab ? 
             <div key={index} className='emergencia2'>
                 <p>Colaborador: {collab.email}</p>
-            </div> :
-            <div key={index} className='emergencia2'>
-                <p>aaaaaaaaa</p>
-            </div>
-            }
-            </>
+            </div> 
             )
         })}
         {helpers?.map((helper, index)=> {

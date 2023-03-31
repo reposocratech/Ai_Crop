@@ -27,15 +27,14 @@ export const AllGreenhouses = () => {
           .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
           .then((res)=>{
             setGreenhousesInfo(res.data);
-            // VVVV STO K ES VVV -------------------------------------------------
-            deleteLocalStorageAICropGreenhouse()
+            console.log(res.data);
           })
           .catch((err)=>{
             console.log(err);
           })
-      }
-  }, [user])
-
+        }
+      }, [user])
+      
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>

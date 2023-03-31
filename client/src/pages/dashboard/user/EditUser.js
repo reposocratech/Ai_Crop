@@ -47,8 +47,9 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
 
     useEffect(()=>{
         if(user){
-        setEditUser(user)
+            setEditUser(user)
         }
+        console.log(user);
     },[user])
 
     const handleChange = (e) =>{

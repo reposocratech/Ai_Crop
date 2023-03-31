@@ -13,7 +13,7 @@ export const SimulatorRoutes = () => {
   const {isLogged, setIsLogged, token} = useContext(SimulatorContext)
  console.log(isLogged);
   return (
-      <div className='cont_simulator'>
+      // <div className='cont_simulator'>
       <Container fluid>
         <BrowserRouter>
           <Routes>
@@ -25,6 +25,6 @@ export const SimulatorRoutes = () => {
           </Routes>
         </BrowserRouter>
       </Container>
-      </div>
+      // </div>
   )
 }

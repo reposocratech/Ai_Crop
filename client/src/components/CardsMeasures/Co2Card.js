@@ -5,7 +5,7 @@ import { AICropContext } from '../../context/AICropContext';
 export const Co2Card = ({co2}) => {
   const [alarm, setAlarm] = useState(false);
   const navigate = useNavigate();
-  const {userAlarms} = useContext(AICropContext)
+  const {userAlarms, actionReload} = useContext(AICropContext)
 
     useEffect(() => {
       let found = false;
@@ -15,7 +15,7 @@ export const Co2Card = ({co2}) => {
           found = true;
         } 
       }
-    }, [])
+    }, [actionReload])
 
   return (
     <div className='measure_cardCont'>

@@ -7,20 +7,26 @@ import './style.scss';
 import { useNavigate } from 'react-router-dom';
 import { Row } from 'react-bootstrap';
 
+const initialGreenhouse = {
+    greenhouse_id: "",
+    greenhouse_name: ""
+  }
+
 export const SimuladorApp = () => {
 
     const [showGreenhouse, setShowGreenhouse] = useState(false);
     const [greenhouse_id, setGreenhouse_id] = useState();
+    const [greenhouse_name, setGreenhouse_name] = useState();
     const [messageError, setMessageError] = useState("");
+    const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
     const {isLogged, setIsLogged, token} = useContext(SimulatorContext)
     const navigate = useNavigate();
     const [action, setAction] = useState(false)
     
-
   return (
     <>
+    <Row className='cont_simulator'>
     <TopNavBar />
-    <Row>
         <div className='simulator'>
             <FormularioSimulador
             setGreenhouse_id = {setGreenhouse_id}
@@ -29,6 +35,10 @@ export const SimuladorApp = () => {
             setMessageError = {setMessageError}
             action = {action}
             setAction = {setAction}
+            greenhouse_name = {greenhouse_name}
+            setGreenhouse_name = {setGreenhouse_name}
+            greenhouse = {greenhouse}
+            setGreenhouse = {setGreenhouse}
             />
             <div className='derecha'>
                 <h1>Simulador de medidas <span className='punto ms-1'>.</span></h1>
@@ -41,6 +51,10 @@ export const SimuladorApp = () => {
                     setMessageError = {setMessageError}
                     action = {action}
                     setAction = {setAction}
+                    greenhouse_name = {greenhouse_name}
+                    setGreenhouse_name = {setGreenhouse_name}
+                    greenhouse = {greenhouse}
+                    setGreenhouse = {setGreenhouse}
                     />}
                 </section>
             </div>

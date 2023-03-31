@@ -56,7 +56,6 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         setGreenhouseData(res.data.resultGreenhouse[0]);
         setCropsCards(res.data.resultActiveCrops)
-        console.log(res.data.resultParameters);
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
@@ -90,7 +89,7 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
 
-  }, [actionReload])
+  }, [])
 
   const onDelete = (crop_id)=>{
 
@@ -108,6 +107,10 @@ export const OneGreenhouse = () => {
       setSelectedCrop(crop_id)
       setShowUpdateCrop(true)
   }
+
+  
+
+
 
   return (
     <div className='cont_greenhouses'>
@@ -198,12 +201,19 @@ export const OneGreenhouse = () => {
         </section> 
         }
       </main>
+      
         <section className='cards_crop'>
             
             {cropsCards?.map((crop, index)=> {
               
+              let filterdisabled = ""
+  
+              if (crop.is_active === 0){
+                filterdisabled = "disabledGreenhouse"
+              }
+    
               return(
-              <div className='card_crop' key={index} >
+              <div className={`card_crop ${filterdisabled}`} key={index} >
                   <h4>{crop.crop_name.toUpperCase()}</h4>
                   <p>{crop.crop_plant_variety}</p>
                   <p>Extensión: {crop.crop_size}m²</p>

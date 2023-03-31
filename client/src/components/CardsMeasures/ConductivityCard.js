@@ -5,7 +5,7 @@ import { AICropContext } from '../../context/AICropContext';
 export const ConductivityCard = ({conductividad}) => {
   const [alarm, setAlarm] = useState(false);
   const navigate = useNavigate();
-  const {userAlarms} = useContext(AICropContext)
+  const {userAlarms, actionReload, setActionReload} = useContext(AICropContext)
 
     useEffect(() => {
       let found = false;
@@ -15,7 +15,7 @@ export const ConductivityCard = ({conductividad}) => {
           found = true;
         } 
       }
-    }, [])
+    }, [actionReload])
   return (
     <div className='measure_cardCont'>
       {alarm &&
