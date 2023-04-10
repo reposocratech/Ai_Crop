@@ -265,7 +265,7 @@ useEffect(() => {
               <p>Extensión (m2):</p>
               <input
               placeholder='15m2'
-              autoComplete='off'
+              autoComplete='off'resource=''
               className='input_1'
               name='greenhouse_size'
               value={editGreenhouse.greenhouse_size}
