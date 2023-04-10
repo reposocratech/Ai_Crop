@@ -20,12 +20,12 @@ export const SunlightCard = ({luzSolar}) => {
     <div className='measure_cardCont'>
     {alarm &&
     <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>}
-    <div className='sunlight_card responsive_card' onClick={()=>navigate(`${luzSolar.measurement_type_id}`)}>
+    <div className='sunlight_card responsive_card' onClick={()=>navigate(`${luzSolar?.measurement_type_id}`)}>
         <img src='/assets/images/cards/sunlight.png' className='responsive_img'/>
         <div>
             <h3>LUZ SOLAR</h3>
             <div className='cuadro'>
-                <p>{luzSolar.measure_value} nm</p>
+                <p>{luzSolar?.measure_value} nm</p>
             </div>
         </div>
         {/* {alarm &&

@@ -20,11 +20,11 @@ export const ConductivityCard = ({conductividad}) => {
     <div className='measure_cardCont'>
       {alarm &&
           <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>}
-    <div className='conductivity_card responsive_card' onClick={()=>navigate(`${conductividad.measurement_type_id}`)}>
+    <div className='conductivity_card responsive_card' onClick={()=>navigate(`${conductividad?.measurement_type_id}`)}>
         <h3>CONDUCTIVIDAD</h3>
         <div className='conductivity_body'>
             <div className='cuadro'>
-                <p>{conductividad.measure_value} ms/cm</p>
+                <p>{conductividad?.measure_value} ms/cm</p>
             </div>
             <img src='/assets/images/cards/energia.png' className='responsive_img'/>
             {/* {alarm &&
