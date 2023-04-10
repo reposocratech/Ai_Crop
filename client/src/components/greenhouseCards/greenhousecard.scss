@@ -2,6 +2,7 @@
 @import "../../variables";
 
 .cont_card_greenhouse{
+    z-index: 1;
     background-color: $grisCard;
     width: 18rem;
     height: 27rem;

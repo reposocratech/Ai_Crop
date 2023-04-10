@@ -42,7 +42,7 @@ class AlarmController {
                 : res.redirect(`http://localhost:4000/server/notification/getAlarmEmails/${alarm_id}`);
                 // si todo fue bien, nos redirije al siguiente end point al que le mandamos por params el alarm_id
 
-                let sqlOldAlarm = `UPDATE alarm SET is_active = 0, alarm_closing_message = 'Alarma cerrada automáticamente por generación de nueva alarma' WHERE measure_id != ${measure_id} AND measurement_type_id = ${measurement_type_id} AND is_active = 1`;
+                let sqlOldAlarm = `UPDATE alarm SET is_active = 0, alarm_closing_message = 'Alarma cerrada automáticamente por generación de nueva alarma', alarm_end_date_time = now() WHERE greenhouse_id = ${greenhouse_id} AND measure_id != ${measure_id} AND measurement_type_id = ${measurement_type_id} AND is_active = 1`;
 
                 connection.query(sqlOldAlarm, (error, resultOldAlarm) => {
                     error && res.status(400).json({ error });

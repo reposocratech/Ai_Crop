@@ -57,10 +57,7 @@ class SimulatorController {
         ? res.json(`Error en la consulta`)
         : res.status(200).json(result);
       });
-      
     }
-
-    
 }
 
 module.exports = new SimulatorController();

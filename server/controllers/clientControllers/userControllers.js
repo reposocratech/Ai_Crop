@@ -172,7 +172,6 @@ class UserController{
   changePasswordFromSettings = (req, res) => { // este método recupera la contraseña desde el correo
 
     const {email, currentPass, newPass} = req.body;
-    console.log(req.body);
 
     let sql = `SELECT * FROM user WHERE email = '${email}'`;
 
@@ -243,7 +242,6 @@ class UserController{
           connection.query(sql2, (error, result2) => {
             error && res.status(400).json({error});
             let name = result2[0];
-            console.log(name);
 
             nodemailerSendNewPass(email, name, password);
             res.status(201).json(`Contraseña nueva: ${password}`);
@@ -264,7 +262,6 @@ class UserController{
       error
       ? res.status(400).json({ error })
       : res.status(200).json({ resultUser });
-      console.log(resultUser);
       });
   } 
 }

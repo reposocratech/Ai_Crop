@@ -20,6 +20,7 @@ import '../allGreenhouses/allgreenhouses.scss'
 import { useParams } from 'react-router-dom'
 import { ModalInvitation } from '../../../../components/greenhouseCards/ModalInvitation'
 import { UpdateCropModal } from '../../../../components/Crop/UpdateCropModal'
+import { ConfirmationCropModal } from '../../../../components/Crop/ConfirmationCropModal'
 
 
 export const OneGreenhouse = () => {
@@ -42,6 +43,7 @@ export const OneGreenhouse = () => {
   // ------------------- {-- el cropito --} ------------------- //
   const [cropsCards, setCropsCards] = useState([]);
   const [showUpdateCrop, setShowUpdateCrop] = useState(false)
+  const [showDeleteCrop, setShowDeleteCrop] = useState(false)
   const [selectedCrop, setSelectedCrop] = useState();
   const navigate = useNavigate();
   
@@ -80,7 +82,7 @@ export const OneGreenhouse = () => {
               setHumedadHoja(res.data.resultMeasure[i])
               break;
             default:
-              console.log("pringao")
+             
           }
         }
       })
@@ -105,6 +107,13 @@ export const OneGreenhouse = () => {
   const openModalUdateCrop = (crop_id)=>{
       setSelectedCrop(crop_id)
       setShowUpdateCrop(true)
+  }
+  const openModalDeleteCrop = (crop_id,is_active)=>{
+    if(is_active === 1){
+      setSelectedCrop(crop_id)
+      setShowDeleteCrop(true)
+    }
+      
   }
 
   
@@ -162,6 +171,14 @@ export const OneGreenhouse = () => {
           selectedCrop={selectedCrop}
         />
 
+        <ConfirmationCropModal
+          setShowDeleteCrop={setShowDeleteCrop}
+          showDeleteCrop={showDeleteCrop}
+          setSelectedCrop={setSelectedCrop}
+          selectedCrop={selectedCrop}
+          setActionReload={setActionReload}
+          actionReload={actionReload}
+        />
       </section>
       <header className='header_greenhouses'>
         <section className='title_row'>
@@ -174,6 +191,7 @@ export const OneGreenhouse = () => {
           </article>
         </section>
         <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
+        <p>Localidad: {greenhouseData?.greenhouse_location}</p>
       </header>
       <main className='user-select-none'>
         {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
@@ -210,7 +228,7 @@ export const OneGreenhouse = () => {
                   <p>{crop.crop_duration} día(s)</p>
                   <section className='buttons'>
                   <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img className='edit'src='/assets/images/config_admin2.png'/></div>
-                  <div onClick={() =>{onDelete(crop.crop_id)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
+                  <div onClick={() =>{openModalDeleteCrop(crop.crop_id,crop.is_active)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
                   </section>
               </div>
               )
