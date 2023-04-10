@@ -60,11 +60,12 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
   
 
   return (
-    <Modal show={showModalCrop} onHide={handleClose}>
-      <Modal.Body className='divMaster'>
+    <Modal show={showModalCrop} onHide={handleClose} className='modalCropPpal'>
+      <Modal.Body className='divMasterCrop'>
 
         <section className='secPpal'>
-
+        <h2>crea un nuevo cultivo</h2>
+          {/* <label>Ponle un nombre:</label> */}
           <input
             className='note'
             type="text"
@@ -73,8 +74,10 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
             onChange={handleChange}
             name="crop_name"
             autoComplete='off'
+            maxLength={25}
           />
 
+          {/* <label>Ponle un nombre:</label> */}
           <input
             className='note'
             type="text"
@@ -83,8 +86,10 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
             onChange={handleChange}
             name="crop_plant_variety"
             autoComplete='off'
+            maxLength={30}
           />
         
+        {/* <label>Ponle un nombre:</label> */}
           <input
             className='note'
             type="number"
@@ -93,8 +98,10 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
             onChange={handleChange}
             name="crop_duration"
             autoComplete='off'
+            maxLength={25}
           />  
 
+{/* <label>Ponle un nombre:</label> */}
           <input
             className='note'
             type="number"
@@ -107,7 +114,7 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
 
           <button className='botonCrops' onClick={handleSubmit}>Añadir</button>
           <p className='text-center text-danger mt-1 mb-1'> {errorMessage && errorMessage}</p>
-
+          <img className='aa' src='/assets/images/growth.png'/>
         </section>
 
       </Modal.Body>

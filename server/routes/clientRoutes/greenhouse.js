@@ -33,7 +33,7 @@ router.post('/inviteCollaborator', GreenhouseController.inviteGreenhouseCollabor
 
 // 7. borrado REAL de colaborador
 // localhost:4000/greenhouse/deleteGreenhouseCollaborator/:greenhouse_id/:user_id
-router.get('/deleteGreenhouseCollaborator/:greenhouse_id/:user_id', GreenhouseController.deleteGreenhouseCollaborator);
+router.delete('/deleteGreenhouseCollaborator/:greenhouse_id/:user_id', GreenhouseController.deleteGreenhouseCollaborator);
 
 // 8. crear un helper
 // localhost:4000/greenhouse/createHelper/
@@ -41,7 +41,7 @@ router.post('/createHelper', GreenhouseController.createHelper);
 
 // 9. borrado REAL  de un helper
 // localhost:4000/greenhouse/deleteHelper/:helper_id
-router.get('/deleteHelper/:helper_id', GreenhouseController.deleteHelper);
+router.delete('/deleteHelper/:helper_id', GreenhouseController.deleteHelper);
 
 // 10. pedido de medidas actuales
 // localhost:4000/greenhouse/getCurrentMeasures/:greenhouse_id

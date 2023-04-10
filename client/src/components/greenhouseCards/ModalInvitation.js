@@ -15,7 +15,8 @@ export const ModalInvitation = ({
 }) => {
 
   const greenhouse_id = useParams().greenhouse_id;
-  const { user } = useContext(AICropContext);
+  const { user, actionReload, setActionReload } = useContext(AICropContext);
+  const [message, setMessage] = useState("")
 
   let datosCollab = {
     name: "",
@@ -41,11 +42,17 @@ export const ModalInvitation = ({
   const [showForm, setShowForm] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
   const [showButton, setShowButton] = useState(true);
-  const [collabInfo, setCollabInfo ] = useState(datosCollab);
-  const [helperInfo, setHelperInfo ] = useState(datosHelper);
+  const [collabInfo, setCollabInfo] = useState(datosCollab);
+  const [helperInfo, setHelperInfo] = useState(datosHelper);
 
   const handleClose = () => {
     setShowModalInvitation(false);
+    setMessage("");
+    setShowForm(false);
+    setShowForm2(false);
+    setShowButton(true);
+    setCollabInfo(datosCollab);
+    setHelperInfo(datosHelper);
   };
 
   const seeForm1 = () => {
@@ -62,12 +69,14 @@ export const ModalInvitation = ({
     setShowButton(true);
     setShowForm2(false);
     setShowForm(false);
+    setCollabInfo(datosCollab);
+    setHelperInfo(datosHelper);
+    setMessage("");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCollabInfo({ ...collabInfo, [name]: value, greenhouse_name: greenhouse_name});
-    console.log(collabInfo);
   };
 
   const handleChange2 = (e) => {
@@ -76,14 +85,21 @@ export const ModalInvitation = ({
   };
 
   const inviteCollab = () => {
+    if (collabInfo.email === "" )
     axios
       .post("http://localhost:4000/greenhouse/inviteCollaborator", collabInfo)
       .then((res) => {
-        setShowModalInvitation(false)
-        setCollabInfo()
+          console.log(res.data);
+          setShowModalInvitation(false)
+          setActionReload(!actionReload)
+          handleClose()
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data === "dup"){
+          setMessage("Este usuario ya existe como colaborador de este invernadero")
+        } else {
+          console.log(err);
+        }
       });
   };
 
@@ -92,11 +108,15 @@ export const ModalInvitation = ({
       .post('http://localhost:4000/greenhouse/createHelper', helperInfo)
       .then((res) => {
         setShowModalInvitation(false)
-        console.log(res.data,"el ressss");
-        helperInfo(datosHelper)
+        setActionReload(!actionReload)
+        handleClose()
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data === "dup"){
+          setMessage("Este usuario ya existe como ayudante de este invernadero")
+        } else {
+          console.log(err);
+        }
       });
   };
 
@@ -105,12 +125,10 @@ export const ModalInvitation = ({
     <>
       <Modal show={showModalInvitation} onHide={handleClose}>
         <Modal.Body className="divMaster">
-          <section className="d-flex secPpal">
+          {/* <section className="d-flex secPpal"> */}
             {showForm && (
-              <div className="d-flex flex-column">
+              <div className="d-flex justify-content-center align-items-center flex-column">
                 <h1 className="titular">colaborador</h1>
-
-                <div className="d-flex justify-content-center">
                   <input
                     className="note"
                     type="text"
@@ -118,9 +136,8 @@ export const ModalInvitation = ({
                     value={collabInfo.name}
                     onChange={handleChange}
                     name="name"
+                    autoComplete="off"
                   />
-                </div>
-                <div className="d-flex justify-content-center">
                   <input
                     className="note"
                     type="text"
@@ -129,56 +146,51 @@ export const ModalInvitation = ({
                     onChange={handleChange}
                     name="email"
                   />
-                </div>
-                <div>
                 <button className="botonInv accept uni" onClick={inviteCollab}> aceptar </button>
-                </div>
+                <button className="botonInv accept" onClick={goBack}> volver </button>
+                <p>{message}</p>
               </div>
             )}
-            {showForm2 && 
-            
-            <>
-            <h1 className="titular">helper</h1>
 
-            <div className=" PpalInp d-flex justify-content-center">
-              <input
-                className="note nam"
-                type="text"
-                placeholder="Nombre"
-                value={helperInfo.helper_first_name}
-                onChange={handleChange2}
-                name="helper_first_name"
-              />
-            </div>
-            <div className="d-flex justify-content-center">
-              <input
-                className="note"
-                type="text"
-                placeholder="Apellido"
-                value={helperInfo.helper_last_name}
-                onChange={handleChange2}
-                name="helper_last_name"
-              />
-            </div>
-            <div className="d-flex justify-content-center">
-              <input
-                className="note"
-                type="text"
-                placeholder="Email"
-                value={helperInfo.helper_email}
-                onChange={handleChange2}
-                name="helper_email"
-              />
-            </div>
-              <div>
-            <button className="botonInv accept uni" onClick={inviteHelper}> aceptar </button>
-            </div>
-          </>
+            {showForm2 && 
+            <>
+              <h1 className="titular">Invitar un helper</h1>
+              <div className="algo">
+                <input
+                  className="note"
+                  type="text"
+                  placeholder="Nombre"
+                  value={helperInfo.helper_first_name}
+                  onChange={handleChange2}
+                  name="helper_first_name"
+                />
+                <input
+                  className="note"
+                  type="text"
+                  placeholder="Apellido"
+                  value={helperInfo.helper_last_name}
+                  onChange={handleChange2}
+                  name="helper_last_name"
+                />
+                <input
+                  className="note"
+                  type="text"
+                  placeholder="Email"
+                  value={helperInfo.helper_email}
+                  onChange={handleChange2}
+                  name="helper_email"
+                />
+              <button className="botonInv accept" onClick={inviteHelper}>aceptar</button>
+              <button className="botonInv accept" onClick={goBack}> volver </button>
+              <p>{message}</p>
+              </div>
+            </>
 
             }
 
-            {showButton ? 
-              <>
+            {showButton && 
+            <>
+              <p className="question">¿Quieres invitar a alguien a tu invernadero?</p>
               <div className="botoneraInv">
                 <button className="botonInv coll" onClick={seeForm1}>
                   {" "}
@@ -186,12 +198,14 @@ export const ModalInvitation = ({
                 </button>
                 <button className="botonInv coll" onClick={seeForm2}>Invitar a un Helper</button>
               </div>
-              </>
-            : 
-              
-              <button className="botonInv accept" onClick={goBack}> volver </button>
+            </>
             }
-          </section>
+            {/* // : 
+            // <div className="botoneraInv">
+            // <button className="botonInv accept" onClick={goBack}> volver </button>
+            // </div>
+            // } */}
+          {/* </section> */}
         </Modal.Body>
       </Modal>
     </>
