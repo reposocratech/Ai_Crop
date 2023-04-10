@@ -1,6 +1,13 @@
+@import "../../mixin";
+@import "../../variables";
 
 .secPpal{
     flex-direction: column;
+    font-family: $urbanist;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 div.modal-content{
     background-color: rgba(0, 0, 0, 0.494);
@@ -13,14 +20,11 @@ div.modal-content{
     border-radius: 10px;
     text-align: center;
 }
-.botoneraCrops{
-    display: flex;
-    justify-content: center;
-}
+
 .botonCrops{
     width: 12vw;
     height: 6vh;
-    margin: 5px;
+    margin: 15px;
     align-items: center;
     border-radius: 25px;
     background-color: #5FC844;
