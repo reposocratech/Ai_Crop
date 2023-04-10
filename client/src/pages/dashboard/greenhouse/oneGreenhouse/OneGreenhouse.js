@@ -81,7 +81,7 @@ export const OneGreenhouse = () => {
               setHumedadHoja(res.data.resultMeasure[i])
               break;
             default:
-              console.log("pringao")
+             
           }
         }
       })
@@ -175,6 +175,7 @@ export const OneGreenhouse = () => {
           </article>
         </section>
         <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
+        <p>Localidad: {greenhouseData?.greenhouse_location}</p>
       </header>
       <main>
         {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
