@@ -1,7 +1,6 @@
 @import "./mixin";
 @import "./variables";
 
-
 .company_name{
     position: absolute;
     top: 60px;
@@ -26,16 +25,9 @@
     gap: 40px;
     .formulario{
         width: 40%;
-        margin-top: 30px;
+        // margin-top: 30px;
         transition: 0.2s;
         gap: 50px;
-        // border: 2px solid red;
-    
-        .greenhouse {
-            display: flex;
-            justify-content: space-between;
-            gap: 4%;
-        }
     
         .float-container {
             margin-bottom: 20px; 
@@ -52,7 +44,7 @@
                 filter: brightness(0) invert(1) opacity(0.3)
             }
         }
-        .float-container input {
+        .float-container input, select {
             margin: 6px;
             border: none;
             outline: 0;
@@ -63,6 +55,9 @@
             color: white;
             background-color: transparent;
             width: 100%;
+        }
+        select {
+            color: #a7afaf;
         }
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -81,28 +76,10 @@
             color: white !important;
         }
     
-        label {
-            position: absolute;
-            transform-origin: top left;
-            transform: translate(0, 0px) scale(1);
-            font-size: 16px;
-            letter-spacing: 0.2em;
-            opacity: 0.6;
-            transition: all .1s ease-in-out;
-        }
-    
-        .float-container.active label {
-            transform: translate(0, 4px) scale(.75);
-        }
-    
-        .button_section{
-            display: flex;
-            justify-content: space-between;
-    
-            button {
-                width: 45%;
-                padding: 15px 30px;
-                margin-top: 20px;
+        button {
+                width: 100%;
+                padding: 10px 30px;
+                margin-top: 10px;
                 border: none;
                 border-radius: 2em;
                 font-family: $urbanist;
@@ -114,13 +91,13 @@
                 background-color: $black2;
                 transition: 0.2s;
             }
-            button:hover{
+        button:hover{
                 background-color: $blackhover;
-            }
-            .bg_verde{
-                background-color: $verde7A;
-            }
         }
+        .bg_verde{
+                background-color: $verde7A;
+        }
+        
     }
 
 .derecha{
@@ -130,12 +107,7 @@
     align-items: center;
     justify-content: top;
     gap: 40px;
-    h1{
-        font-weight: 800;
-        font-size: 65px;
-        line-height: 0.6;
-        text-align: center;
-    }
+
 
     .punto{
         margin-left: 10px;
@@ -147,7 +119,7 @@
     .greenhouseInfo{
         background-color: $grisCard;
         width: 33rem;
-        height: 33rem;
+        height: 40rem;
         border-radius: 1em;
         text-align: center;
         display: flex;
@@ -159,19 +131,14 @@
         width: 33rem;
         border-radius: 1em 1em 0 0 ;
         background-color: $verdeCard;
-        height: 140px;
+        height: 200px;
         padding-top: 20px;
         h2 {
             text-align: center;
             width: auto;
         }
     }
-    .card_header_colab{
-        width: 100%;
-        border-radius: 1em 1em 0 0 ;
-        background-color: gray;
-        height: 120px;
-    }
+
     .img_greenhouse{
         bottom: 50px;
         left: 39%;
@@ -200,6 +167,8 @@
         p{
             font-size: 16px;
             font-weight: 300;
+            margin: 0;
+            color: black;
         }
         .title{
             font-weight: 500;
@@ -250,14 +219,12 @@
     }
 }
 
-.messageSended{
+.messageSent{
     color: whitesmoke;
     font-size: 26px;
     text-align: center;
     font-weight: 300;
 }
-
-
 
 
 @media (max-width: 870px){
@@ -292,6 +259,9 @@
                 margin: 10px 0;
             }
         }
+        .messageSent{
+            font-size: 20px;
+        }
 
     }
 
@@ -310,12 +280,7 @@
             .nombre_apell{
                 width: 100%;
             }
-            .float-container{
-                // margin: 20px 0 0 0 !important;
-                width: 100%;
-                height: 80px;
-                
-            }
+
             .button_section{
                 flex-direction: row;
                 justify-content: space-between;

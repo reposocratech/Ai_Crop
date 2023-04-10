@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss'
 import axios from 'axios';
 
@@ -13,10 +13,23 @@ const initialValue = {
 }
 
 
-export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messageError, setMessageError, action, setAction, greenhouse_name, setGreenhouse_name, greenhouse, setGreenhouse}) => {
+export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessageError, action, setAction, selectedGreenhouse, setSelectedGreenhouse}) => {
 
     const [datosForm, setDatosForm] = useState(initialValue);
     const [messageValid, setMessageValid] = useState("");
+    const [greenhousesList, setGreenhousesList] = useState([]);
+
+    useEffect(() => {
+      axios
+      .get(`http://localhost:4000/simulator/getGreenhousesList`)
+      .then((res)=>{
+        setGreenhousesList(res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    
+    }, [])
 
     const handleChange = (e) => {
         let {name, value} = e.target;
@@ -26,71 +39,57 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
     }
 
     const handleGreenhouse = (e) => {
-      let {name, value} = e.target;
-      setGreenhouse({...greenhouse,[name]: value}) ;  
-    }
-
-    const seeGreenhouse = () => {
-      if (greenhouse?.greenhouse_name){
-          setGreenhouse_name(greenhouse.greenhouse_name);
-          setShowGreenhouse(true);
-          setAction(!action);
+      setSelectedGreenhouse(e.target.value); 
+      if (e.target.value != ""){
+        setShowGreenhouse(true);
+        setAction(!action);
       } else {
-        if (greenhouse?.greenhouse_id){
-            setGreenhouse_id(greenhouse.greenhouse_id);
-            setShowGreenhouse(true);
-            setAction(!action);
-        }
-      }
+      console.log("ERRORRR NO ELEGISTE NINGUN GH PAVOTE!")
+      } 
     }
 
     const handleSubmit = () => {
 
       if(!datosForm.temperatura && !datosForm.co2 && !datosForm.humedad && !datosForm.luz_solar && !datosForm.ph && !datosForm.ce && !datosForm.humedad_hoja ) {
           setMessageError("Formulario vacío. Ingrese medidas a simular")
+          setMessageValid("");
       } else {
-          console.log("DATOS ENVIADOS: ", {datosForm, greenhouse});
+        if(selectedGreenhouse === ""){
+          setMessageError("Elija un invernadero existente.")
+          setMessageValid("");
+        } else {
           axios
-              .post('http://localhost:4000/simulator', {datosForm, greenhouse})
-              .then((res)=>{
-                console.log(res.data);
-                setMessageError("");
-                setMessageValid("Datos recibidos correctamente!");
-                setDatosForm(initialValue);
-                setAction(!action);
-              })
-              .catch((err)=>{
-                  console.log(err)
-              })
-      }      
+            .post('http://localhost:4000/simulator', {datosForm, selectedGreenhouse})
+            .then((res)=>{
+              setMessageError("");
+              setMessageValid("Datos recibidos correctamente!");
+              setDatosForm(initialValue);
+              setAction(!action);
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        } 
+      }     
   }
 
   return (
     <section className='formulario'>
-      { messageValid != "" &&  
-      <p className='messageSended'>{messageValid}</p>}
-      <article className='greenhouse'>
-        <div id="floatContainer" className="float-container">
-            {/* <label htmlFor="floatField">ID de invernadero</label> */}
-            <input 
-              type="number"
-              placeholder='ID de Invernadero'
-              value={greenhouse.greenhouse_id}
-              name="greenhouse_id"
-              onChange={handleGreenhouse}
-            />
-        </div>
-        <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">Nombre del invernadero</label> */}
-          <input 
-            type="text"
-            placeholder='Nombre del invernadero'
-            value={greenhouse.greenhouse_name}
-            name="greenhouse_name"
-            onChange={handleGreenhouse}
-          />
-        </div>
-      </article>
+      <div id="floatContainer" className="float-container">
+        {/* <label htmlFor="floatField">Nombre del invernadero</label> */}
+        <select id="greenhouse_id"
+          required 
+          name='greenhouse_id' 
+          value={selectedGreenhouse}
+          onChange={handleGreenhouse}>
+          <option value={""}>Elije un invernadero</option>
+          {greenhousesList?.map((elem, index)=>{
+              return (
+                <option key={index} value={elem.greenhouse_id}>{`${elem.greenhouse_name} (${elem.greenhouse_owner_full_name})`}</option>
+              )
+            })}
+          </select>
+      </div>
 
       <div id="floatContainer" className="float-container">
           {/* <label htmlFor="floatField">Temperatura</label> */}
@@ -159,12 +158,10 @@ export const FormularioSimulador = ({setGreenhouse_id, setShowGreenhouse, messag
           <img src='./assets/agua.png'/>
       </div>
 
-      <article className='button_section'>
-        <button onClick={seeGreenhouse}>Ver Invernadero</button>
-        <button className='bg_verde' onClick={handleSubmit}>Simular</button>
-      </article>
-      <p className='text-center mt-3 text-danger'>{messageError}</p>
-
+      <button className='bg_verde' onClick={handleSubmit}>Simular</button>
+      <p className='text-center mt-3 messageSent text-danger'>{messageError}</p>
+      { messageValid != "" &&  
+      <p className='messageSent'>{messageValid}</p>}
     </section> 
 
   )
