@@ -32,7 +32,7 @@ class SimulatorController {
       
       // ejecutamos la consulta y si la consulta es correcta, nos redirige al siguiente controlador de parámetros
       connection.query(sql, (error, result) => {
-        error && res.json(`Error en la consulta`);
+        error && res.json(error);
 
           axios
           .get(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`)

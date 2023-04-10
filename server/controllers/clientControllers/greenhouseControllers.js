@@ -104,8 +104,18 @@ class GreenhouseController {
                 res.status(400).json({ error }) 
             } 
 
-            let sqlMeasure = `SELECT measure.*, measurement_type.measurement_type_name  from measure, measurement_type WHERE measure.measurement_type_id = measurement_type.measurement_type_id AND measure.measure_date_time = (SELECT measure_date_time from measure WHERE greenhouse_id = ${greenhouse_id} ORDER BY measure_date_time desc LIMIT 1)
-            ORDER BY measure_id asc;`;
+            let sqlMeasure = `SELECT measure.*, measurement_type.measurement_type_name
+            FROM measure, measurement_type
+            WHERE measurement_type.measurement_type_id = measure.measurement_type_id
+            AND measure.greenhouse_id = ${greenhouse_id}
+            AND (measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 1 ORDER BY measure_id DESC LIMIT 1)   
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 2 ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 3 ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 4 ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 5 ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 6 ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 7 ORDER BY measure_id DESC LIMIT 1))
+            ORDER BY measure.measure_date_time DESC`;
 
             // buscamos en BD las últimas medidas que tiene registado el invernadero (con una subconsulta) y las guardamos en el objeto "resultMeasure"
             connection.query(sqlMeasure, (error, resultMeasure) => {
