@@ -7,17 +7,35 @@ export const Admin = () => {
 
   const [usersInfo, setUsersInfo] = useState();
   const navigate = useNavigate();
-  const [action, setAction] = useState(false)
+  const [action, setAction] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/admin/allUsers')
-      .then((res)=>{
-        setUsersInfo(res.data)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
+ 
+    if (search === ""){
+
+      axios
+        .get('http://localhost:4000/admin/allUsers')
+        .then((res)=>{
+          setUsersInfo(res.data)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+
+    } else {
+
+      axios
+        .get(`http://localhost:4000/admin/oneUser/${search}`)
+        .then((res)=>{
+          setUsersInfo(res.data)
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+
+    }
+
     }, [action])
 
     const onDisable = (user_id) => {
@@ -42,6 +60,37 @@ export const Admin = () => {
         })
     }
 
+    const handleSearch = (e) => {
+      setSearch(e.target.value)
+
+      if (e.target.value != ""){
+
+        axios
+        .get(`http://localhost:4000/admin/oneUser/${e.target.value}`)
+        .then((res)=>{
+          setUsersInfo(res.data)
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+
+      } else {
+        axios
+        .get('http://localhost:4000/admin/allUsers')
+        .then((res)=>{
+          setUsersInfo(res.data)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+      }
+    }
+
+    const resetInput = () => {
+      setSearch("")
+      setAction(!action);
+    }
+
   return (
     <div className='cont_admin'>
       <section className='botones_admin'>
@@ -49,12 +98,17 @@ export const Admin = () => {
       </section>
       <header className='header_admin'>
         <h1 className='titleMini'>bienvenido, administrador</h1>
-        {/* <div className='search'>
-          <img alt='buscar' src='/assets/images/search.png'/>
-          <input placeholder='Buscar usuario'/>
-        </div> */}
+        <div className='search'>
+          <input type="text" maxLength="50" 
+          placeholder='Buscar usuario'
+          name='search' 
+          value={search}
+          onChange={handleSearch}
+          />
+          <h5 onClick={resetInput}>x</h5>
+        </div>
       </header>
-      <p>Puede acceder a los invernaderos de un usuario desde aquí</p>
+      <p>Puede ver aquí a todos los usarios registrados en la App</p>
       <main className='main_admin'>
         {usersInfo?.map((elem, index)=>{
 

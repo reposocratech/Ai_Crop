@@ -15,7 +15,7 @@ router.get('/enableUser/:user_id', AdminController.enableUser);
 router.get('/allUsers', AdminController.selectAllUsers);
 
 //4. See the info of one user
-//localhost:4000/admin/oneUser/:user_id  
-router.get("/oneUser/:user_id", AdminController.selectOneUser);
+//localhost:4000/admin/oneUser/:search
+router.get("/oneUser/:search", AdminController.selectOneUser);
 
 module.exports = router;

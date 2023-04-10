@@ -44,7 +44,7 @@
             justify-content: center;
             background-color: $verdeInput;
             border-radius: 2em;
-            padding: 12px;
+            padding: 10px 20px;
             input{
                 border: none;
                 background-color: transparent;
@@ -56,10 +56,12 @@
             input:focus, textarea:focus, select:focus{
                 outline: none;
             }
-            img{
-                width: 27px;
-                padding-right: 5px;
+            h5 {
+                margin: 0;
+                color: gray;
+                cursor: pointer;
             }
+
         }
     }
 
