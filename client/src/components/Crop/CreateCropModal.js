@@ -61,7 +61,6 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
 
   return (
     <Modal show={showModalCrop} onHide={handleClose} className='modalCropPpal'>
-
       <Modal.Body className='divMasterCrop'>
 
         <section className='secPpal'>
@@ -119,7 +118,6 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
         </section>
 
       </Modal.Body>
-
     </Modal>
 
   )
