@@ -21,9 +21,9 @@ export const PhCard = ({ph}) => {
     <div className='measure_cardCont'>
       {alarm &&
       <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>}
-    <div className='ph_card responsive_card' onClick={()=>navigate(`${ph.measurement_type_id}`)}>
+    <div className='ph_card responsive_card' onClick={()=>navigate(`${ph?.measurement_type_id}`)}>
         <div className='ph_body'>
-            <p>{ph.measure_value}</p>
+            <p>{ph?.measure_value}</p>
             <h3>pH</h3>
         </div>
         <img src='/assets/images/cards/ph.png' className='responsive_img'/>

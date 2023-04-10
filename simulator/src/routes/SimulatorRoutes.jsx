@@ -11,7 +11,7 @@ import { Container } from 'react-bootstrap'
 
 export const SimulatorRoutes = () => {
   const {isLogged, setIsLogged, token} = useContext(SimulatorContext)
- console.log(isLogged);
+
   return (
       // <div className='cont_simulator'>
       <Container fluid>

@@ -110,8 +110,6 @@ export const OneGreenhouse = () => {
 
   
 
-
-
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
@@ -183,20 +181,13 @@ export const OneGreenhouse = () => {
         <div><p>No hay ningún parámetro</p></div>
         :
         <section className='cards_measures'>
-          {temperatura &&
-          <TemperatureCard temperatura = {temperatura} userAlarms = {userAlarms} greenhouse_id = {greenhouse_id}/>}
-          {co2 &&
-          <Co2Card co2 = {co2} userAlarms = {userAlarms}/>} 
-          {humedad &&
-          <HumidityCard humedad = {humedad} userAlarms = {userAlarms}/>}
-          {luzSolar &&
-          <SunlightCard luzSolar = {luzSolar} userAlarms = {userAlarms}/>}
-          {ph &&
-          <PhCard ph = {ph} userAlarms = {userAlarms}/>}
-          {conductividad &&
-          <ConductivityCard conductividad = {conductividad} userAlarms = {userAlarms}/>}
-          {humedadHoja &&
-          <LeafHumidity humedadHoja = {humedadHoja} userAlarms = {userAlarms}/>}
+          <TemperatureCard temperatura = {temperatura}/>
+          <Co2Card co2 = {co2}/>
+          <HumidityCard humedad = {humedad}/>
+          <SunlightCard luzSolar = {luzSolar}/>
+          <PhCard ph = {ph}/>
+          <ConductivityCard conductividad = {conductividad}/>
+          <LeafHumidity humedadHoja = {humedadHoja}/>
           
         </section> 
         }
