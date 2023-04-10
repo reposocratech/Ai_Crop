@@ -50,7 +50,7 @@ class SimulatorController {
     //2. get a list of all the greenhouses
     // localhost:4000/simulator/getGreenhousesList
     getGreenhousesList = (req, res) => {
-      let sql = 'SELECT greenhouse.greenhouse_name, greenhouse.greenhouse_id, CONCAT(user.first_name, " ", user.last_name) as greenhouse_owner_full_name FROM greenhouse, user WHERE greenhouse.user_owner_id = user.user_id'
+      let sql = 'SELECT greenhouse.greenhouse_name, greenhouse.greenhouse_id, CONCAT(user.first_name, " ", user.last_name) as greenhouse_owner_full_name FROM greenhouse, user WHERE greenhouse.user_owner_id = user.user_id AND greenhouse_is_deleted = 0'
 
       connection.query(sql, (error, result) => {
         error 

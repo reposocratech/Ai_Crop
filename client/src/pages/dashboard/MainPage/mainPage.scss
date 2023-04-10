@@ -1,6 +1,11 @@
 @import "../../../mixin";
 @import "../../../variables";
 
+::selection{
+    background: rgb(160, 202, 160);
+    color: white;
+}
+
 .contNav_pPal{
     min-height: 100vh;
     display: flex;

@@ -1,6 +1,10 @@
 @import "../../mixin";
 @import "../../variables";
 
+.bl_wh{
+    filter: grayscale(1);
+}
+
 .measure_cardCont{
     width: fit-content;
     display: flex;
