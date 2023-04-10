@@ -155,6 +155,7 @@ export const CreateGreenhouse = () => {
           <p>Ponle un nombre:</p>
           <input
           placeholder='Mi huerto de albahaca'
+          maxLength={25}
           autoComplete='off'
           className='input_1'
           name='greenhouse_name'
@@ -167,6 +168,7 @@ export const CreateGreenhouse = () => {
               <p>Localidad:</p>
               <input
               placeholder='Torremolinos'
+              maxLength={80}
               autoComplete='off'
               className='input_1'
               name='greenhouse_location'

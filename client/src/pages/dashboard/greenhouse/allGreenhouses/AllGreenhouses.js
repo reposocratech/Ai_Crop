@@ -8,7 +8,8 @@ import { CollaboratorCard } from '../../../../components/greenhouseCards/Collabo
 import { ButtonNotif } from '../../../../components/Notifications/ButtonNotif';
 import { ModalNotif } from '../../../../components/Notifications/ModalNotif';
 import { useNavigate } from 'react-router-dom';
-import { deleteLocalStorageAICropGreenhouse } from '../../../../helpers/localStorage/localStorageAICrop';
+
+
 
 export const AllGreenhouses = () => {
 
@@ -70,6 +71,8 @@ export const AllGreenhouses = () => {
                   <OwnerCard 
                   elem = {elem} 
                   />
+                  
+                  
                 </div>
               )
           })
