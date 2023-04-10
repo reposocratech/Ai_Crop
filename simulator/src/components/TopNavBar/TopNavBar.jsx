@@ -20,6 +20,7 @@ export const TopNavBar = () => {
   return (
         <Navbar expand="lg" className='navbar_pPal'>
             <NavbarBrand className='mx-auto order-0'></NavbarBrand>
+              <h1>Simulador de medidas <span className='punto ms-1'>.</span></h1>
             <Navbar.Toggle aria-controls="basic-navbar-nav" className='toggle_navbar order-md-0 order-0'/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="cont_navbar ">  

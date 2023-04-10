@@ -13,7 +13,6 @@ export const SimulatorProvider = (props) => {
 
     useEffect(() => {
         const tokenStorage = getLocalStorageSimulator();
-        console.log(tokenStorage);
         setToken(tokenStorage);
 
         if(tokenStorage) {

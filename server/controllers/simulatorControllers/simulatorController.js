@@ -7,7 +7,7 @@ class SimulatorController {
 
    // localhost:4000/simulator
    simulateData = (req, res) => {
-      let greenhouse_id = req.body.greenhouse.greenhouse_id;
+      let greenhouse_id = req.body.selectedGreenhouse;
       let sql = '';
 
       if (req.body.datosForm) {
@@ -46,6 +46,21 @@ class SimulatorController {
           res.status(200).json(`EEXITO!!`);
       });
     };
+
+    //2. get a list of all the greenhouses
+    // localhost:4000/simulator/getGreenhousesList
+    getGreenhousesList = (req, res) => {
+      let sql = 'SELECT greenhouse.greenhouse_name, greenhouse.greenhouse_id, CONCAT(user.first_name, " ", user.last_name) as greenhouse_owner_full_name FROM greenhouse, user WHERE greenhouse.user_owner_id = user.user_id'
+
+      connection.query(sql, (error, result) => {
+        error 
+        ? res.json(`Error en la consulta`)
+        : res.status(200).json(result);
+      });
+      
+    }
+
+    
 }
 
 module.exports = new SimulatorController();

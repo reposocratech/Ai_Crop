@@ -4,6 +4,14 @@
 
 .navbar_pPal{
     padding: 40px;
+    padding-left: 100px;
+    h1{
+        min-width: 600px;
+        font-weight: 400;
+        font-size: 50px;
+        line-height: 0.6;
+        text-align: center;
+    }
 }
 
 .cont_navbar{
@@ -78,7 +86,14 @@ a {
 
 // ------------ RESPONSIVE ------------ //
 
+@media (max-width: 1200px){
+    .navbar_pPal{
+        padding: 20px;
+    }
+}
+
 // TOGGLE ACTIVE ON 991
+
 @media (max-width: 991px){
     .cont_navbar{
         display: flex;
