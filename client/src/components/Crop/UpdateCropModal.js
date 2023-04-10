@@ -66,10 +66,11 @@ export const UpdateCropModal = ({showUpdateCrop, setShowUpdateCrop, selectedCrop
   }
  
   return (
-    <Modal show={showUpdateCrop} onHide={handleClose}>
-      <Modal.Body className='divMaster'>
+    <Modal show={showUpdateCrop} onHide={handleClose} className='modalCropPpal'>
+      <Modal.Body className='divMasterCrop'>
 
         <section className='d-flex secPpal '>
+            <h2>Editar cultivo</h2>
 
             <input
               className='note'
@@ -110,9 +111,11 @@ export const UpdateCropModal = ({showUpdateCrop, setShowUpdateCrop, selectedCrop
               name="crop_size"
               autoComplete='off'
             />
-
+            
+            <div className='botoneraCrops'>
             <button className='botonCrops' onClick={handleSubmit}>Editar</button>
-            <button className='botonCrops2' onClick={handleSubmit2}>Eliminar</button>
+            <button className='botonCrops' onClick={handleSubmit2}>Eliminar</button>
+            </div>
             <p className='text-center text-danger mt-1 mb-1'> {errorMessage && errorMessage}</p>
 
         </section>
