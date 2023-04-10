@@ -24,32 +24,36 @@ export const Login = () => {
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    setLogin({...login, [name]:value})
+    setLogin({...login, [name]:value});
+    setMessageError("");
+    setMessageError2("");
   }
 
   const handleSubmit = () => {
     if (!login.email || !login.password){
-      setMessageError("Debes rellenar todos los campos")
-      
+      setMessageError("Debes rellenar todos los campos");
     } else{
       axios
       .post("http://localhost:4000/user/login", login)
-        .then((res)=> {
-          saveLocalStorageAICrop(res.data.token)
-          setUser(res.data.user)
-          setIsLogged(true)
+      .then((res)=> {
+        saveLocalStorageAICrop(res.data.token)
+        setMessageError("");
+        setMessageError2("");
+        setUser(res.data.user)
+        setIsLogged(true)
+        const type = res.data.user.user_type;
 
-          const type = res.data.user.user_type;
-          type === 2 || type === 3 ?
-            navigate('/user'):
-              type === 1 ?
-                navigate('/admin'):
-                  navigate('/error')
-        })
-        .catch((err)=>{
-          console.log(err);
-          setMessageError2("Credenciales Incorrectos!")
-        })
+        type === 2 || type === 3 ?
+          navigate('/user'):
+            type === 1 ?
+              navigate('/admin'):
+                navigate('/error');
+                
+      })
+      .catch((err)=>{
+        console.log(err);
+        setMessageError2("Credenciales Incorrectas");
+      })
     }
   }
 
@@ -95,13 +99,11 @@ export const Login = () => {
             <article className='button_section'>
               <button onClick={()=>navigate('/info')}>Suscripciones</button>
               <button className='bg_verde' onClick={handleSubmit}>Login</button>
-            </article>
-            <p className='text-center mt-3 text-danger'>{messageError}</p>
-            <p className='text-center mt-3 text-danger'>{messageError2}</p>
-           
+            </article>     
 
             <p className='ms-1 mt-5'>¿Olvidaste la contraseña? <span className='etiq_login' onClick={()=>{navigate('../forgotpassword')}}>Recupérala</span></p>
-
+            <p className='mensajeError'>{messageError}</p>
+            <p className='mensajeError'>{messageError2}</p>
           </main>
         </main>
       </Row>
