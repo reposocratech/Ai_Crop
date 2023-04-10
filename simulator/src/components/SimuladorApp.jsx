@@ -7,54 +7,38 @@ import './style.scss';
 import { useNavigate } from 'react-router-dom';
 import { Row } from 'react-bootstrap';
 
-const initialGreenhouse = {
-    greenhouse_id: "",
-    greenhouse_name: ""
-  }
 
 export const SimuladorApp = () => {
 
     const [showGreenhouse, setShowGreenhouse] = useState(false);
-    const [greenhouse_id, setGreenhouse_id] = useState();
-    const [greenhouse_name, setGreenhouse_name] = useState();
     const [messageError, setMessageError] = useState("");
-    const [greenhouse, setGreenhouse] = useState(initialGreenhouse);
-    const {isLogged, setIsLogged, token} = useContext(SimulatorContext)
-    const navigate = useNavigate();
+    const [selectedGreenhouse, setSelectedGreenhouse] = useState();
     const [action, setAction] = useState(false)
-    
+
   return (
     <>
     <Row className='cont_simulator'>
     <TopNavBar />
         <div className='simulator'>
             <FormularioSimulador
-            setGreenhouse_id = {setGreenhouse_id}
             setShowGreenhouse = {setShowGreenhouse}
             messageError = {messageError}
             setMessageError = {setMessageError}
             action = {action}
             setAction = {setAction}
-            greenhouse_name = {greenhouse_name}
-            setGreenhouse_name = {setGreenhouse_name}
-            greenhouse = {greenhouse}
-            setGreenhouse = {setGreenhouse}
+            selectedGreenhouse = {selectedGreenhouse}
+            setSelectedGreenhouse = {setSelectedGreenhouse}
             />
             <div className='derecha'>
-                <h1>Simulador de medidas <span className='punto ms-1'>.</span></h1>
                 <section>
                     {showGreenhouse && 
                     <GreenhouseInfo
-                    greenhouse_id = {greenhouse_id}
-                    setGreenhouse_id = {setGreenhouse_id}
                     messageError = {messageError}
                     setMessageError = {setMessageError}
                     action = {action}
                     setAction = {setAction}
-                    greenhouse_name = {greenhouse_name}
-                    setGreenhouse_name = {setGreenhouse_name}
-                    greenhouse = {greenhouse}
-                    setGreenhouse = {setGreenhouse}
+                    selectedGreenhouse = {selectedGreenhouse}
+                    setSelectedGreenhouse = {setSelectedGreenhouse}
                     />}
                 </section>
             </div>

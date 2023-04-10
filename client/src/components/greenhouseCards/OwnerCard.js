@@ -8,10 +8,11 @@ import axios from 'axios';
 
 export const OwnerCard = ({elem}) => {
   const navigate = useNavigate();
-  const {user} = useContext(AICropContext);
+  const {user, setActionReload, actionReload} = useContext(AICropContext);
 
   const onSubmit = () => {
     navigate(`greenhouse/${elem.greenhouse_id}`)
+    setActionReload(!actionReload);
   }
 
   const onDelete = () => {
