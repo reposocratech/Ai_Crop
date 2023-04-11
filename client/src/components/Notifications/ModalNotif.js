@@ -30,19 +30,27 @@ export const ModalNotif = ({showModalNotif, setShowModalNotif}) => {
     const handleClick = (greenhouse_id, measurement_type_id) => {
         navigate(`../greenhouse/${greenhouse_id}/${measurement_type_id}`)
     }
+
+    
     
   return (
     <Modal className='modalNotification' show={showModalNotif} onHide={handleClose}>
         <Modal.Body className='modalCont'>
 
-        {activeAlarms?.map((alarma, index)=> {
+        {activeAlarms?.length !== 0 ?
+        
+        activeAlarms?.map((alarma, index)=> {
 
             return(
             <div onClick={() => {handleClick(alarma?.greenhouse_id, alarma?.measurement_type_id)}} className='emergencia' key={index}>
                 <p>{alarma?.alarm_message}</p>
             </div>
             )
-        })}
+        }): 
+        <div className='d-flex justify-content-center text-center text-danger'>
+            <h4>no tienes alarmas activas </h4>
+        </div>
+        } 
     </Modal.Body>
     </Modal>
     ) 

@@ -92,7 +92,7 @@ export const OneGreenhouse = () => {
 
   }, [actionReload])
 
-  const onDelete = (crop_id)=>{
+  /* const onDelete = (crop_id)=>{
 
     axios
         .put(`http://localhost:4000/crop/endCrop/${crop_id}`)
@@ -102,7 +102,7 @@ export const OneGreenhouse = () => {
         .catch((err)=>{
           console.log(err);
         })
-  }
+  } */
 
   const openModalUdateCrop = (crop_id)=>{
       setSelectedCrop(crop_id)
