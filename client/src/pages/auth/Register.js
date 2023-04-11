@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
 import axios from 'axios'
 import { Countries } from './lists/Countries'
-import { SpainProvinces } from './lists/SpainProvinces'
 
 import "./auth.scss" 
 
@@ -32,6 +31,7 @@ export const Register = () => {
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
   const [dupEmail, setDupEmail] = useState("")
+  const [emailValidation, setEmailValidation] = useState(false)
 
   const navigate = useNavigate();
 
@@ -41,6 +41,17 @@ export const Register = () => {
     setMessageError("");
     setDupEmail("");
   };
+
+  const handleBlur = () => {
+    let string = register.email
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
+      setMessageError("El correo no es correcto")
+      setEmailValidation(false)
+    } else {
+      setMessageError("")
+      setEmailValidation(true)
+    }
+  }
 
   const handleKeyPress = (event) => {
     if (event.key === " ") {
@@ -55,15 +66,23 @@ export const Register = () => {
     if(!register.first_name || !register.last_name || !register.email || !register.password){
       console.log(register);
       setMessageError("Debes rellenar todos los campos");
+
+    } else if (!emailValidation) {
+      setMessageError("El correo no es correcto");
+      setDupEmail("duplicado");
+      e.preventDefault();
+      return
+
     } else {
       setShowForm1(false);
       setShowForm2(true);
       setMessageError("");
+      setDupEmail("");
       console.log(register, "register")
     }
   }
 
-  const handleContinue2 = (e) => { // Pasa al 3 formulario
+  const handleContinue2 = () => { // Pasa al 3 formulario
     if(!register.first_name || !register.last_name || !register.email || !register.password ||!register.city || !register.country || !register.address || !register.post_code ){
       setMessageError("Debes rellenar todos los campos");
     } else {
@@ -73,13 +92,13 @@ export const Register = () => {
     }
   }
 
-  const handleBack1 = (e) => { // Vuele al 1 formulario
+  const handleBack1 = () => { // Vuele al 1 formulario
       setShowForm1(true);
       setShowForm2(false);
       setMessageError("");
   }
   
-  const handleBack2 = (e) => { // Vuele al 2 formulario
+  const handleBack2 = () => { // Vuele al 2 formulario
       setShowForm3(false);
       setShowForm2(true);
       setMessageError("");
@@ -90,8 +109,22 @@ export const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!register.first_name || !register.last_name || !register.email || !register.password || !register.country || !register.city || !register.post_code || !register.phone || !register.user_knowledge){
+    if (
+      !register.first_name || 
+      !register.last_name || 
+      !register.email || 
+      !register.password || 
+      !register.country || 
+      !register.city || 
+      !register.post_code || 
+      !register.phone || 
+      !register.user_knowledge
+    ) {
       setMessageError("Debes rellenar todos los campos")
+
+    } else if (!emailValidation) {
+      setMessageError("El correo no es correcto");
+
     } else {
       axios
       .post("http://localhost:4000/user/createUser",register)
@@ -117,7 +150,7 @@ export const Register = () => {
   return (
     <div>
       <Row className='cont_auth d-flex flex-column p-0'>
-          <TopNavBar/>
+        <TopNavBar/>
           <Form className='form'>
           <h5 className='company_name'>AI crop</h5>
           <div className='title'>
@@ -136,22 +169,22 @@ export const Register = () => {
           <section className='form_registro'>
 
             <article className='nombre_apell'>
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Nombre</label>
-                <input type="text" maxLength="20" required 
-                name='first_name' 
-                value={register.first_name}
-                onChange={handleChange}
-                />
-            </div>
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Apellido</label>
-                <input type="text" maxLength="25" required 
-                name='last_name' 
-                value={register.last_name}
-                onChange={handleChange}
-                />
-            </div>
+              <div id="floatContainer" className="float-container">
+                  <label htmlFor="floatField">Nombre</label>
+                  <input type="text" maxLength="20" required 
+                    name='first_name' 
+                    value={register.first_name}
+                    onChange={handleChange}
+                  />
+              </div>
+              <div id="floatContainer" className="float-container">
+                  <label htmlFor="floatField">Apellido</label>
+                  <input type="text" maxLength="25" required 
+                    name='last_name' 
+                    value={register.last_name}
+                    onChange={handleChange}
+                  />
+              </div>
             </article>
 
             <div id="floatContainer" className={`float-container ${dupEmail}`}>
@@ -160,7 +193,8 @@ export const Register = () => {
                 name='email' 
                 value={register.email}
                 onChange={handleChange}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
+                onBlur={handleBlur}
                 />
             </div>
 
@@ -170,7 +204,7 @@ export const Register = () => {
                 name='password' 
                 value={register.password}
                 onChange={handleChange}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 />
             </div>
 
@@ -185,6 +219,7 @@ export const Register = () => {
 
         {showForm2 &&
           // PARTE 2 FORMULARIO
+
           <section className='form_registro'>
 
             <div id="floatContainer" className="float-container">
@@ -197,6 +232,7 @@ export const Register = () => {
                   <Countries/>
                 </select>
             </div>
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Ciudad</label>
                 <input type="text" maxLength="80" required 
@@ -204,6 +240,7 @@ export const Register = () => {
                 value={register.city}
                 onChange={handleChange}/>
             </div>
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>
                 <input type="text" maxLength="40" required 
@@ -212,15 +249,16 @@ export const Register = () => {
                 onChange={handleChange}
                 />
             </div>
+
             <article className='button_section'>
-            <div id="floatContainer" className="float-container">
-                  <label htmlFor="floatField">Código postal</label>
-                  <input type="text" maxLength="25" required 
-                  name='post_code' 
-                  value={register.post_code}
-                  onChange={handleChange}
-                  />
-            </div>
+              <div id="floatContainer" className="float-container">
+                    <label htmlFor="floatField">Código postal</label>
+                    <input type="text" maxLength="25" required 
+                    name='post_code' 
+                    value={register.post_code}
+                    onChange={handleChange}
+                    />
+              </div>
               <button className='bg_verde' onClick={handleContinue2}>Continuar</button>
             </article>
             <button className='atras mt-3' onClick={handleBack1}>◄</button>
@@ -230,15 +268,16 @@ export const Register = () => {
 
         {showForm3 && 
           // PARTE 3 FORMULARIO
+
           <section className='form_registro'>
 
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos previos</label>
                 <select id="countries" className='select_form'
-                required 
-                name='user_knowledge' 
-                value={register.user_knowledge}
-                onChange={handleChange}>
+                  required 
+                  name='user_knowledge' 
+                  value={register.user_knowledge}
+                  onChange={handleChange}>
                   <option></option>
                   <option value="Agricultor tradicional">Agricultor tradicional</option>
                   <option value="Técnico en agricultura tradicional">Técnico en agricultura tradicional</option>
@@ -254,7 +293,7 @@ export const Register = () => {
                   name='dni' 
                   value={register.dni}
                   onChange={handleChange}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress}
                   />
               </div>
               <div id="floatContainer" className="float-container">
@@ -264,7 +303,7 @@ export const Register = () => {
                 name='phone' 
                 value={register.phone}
                 onChange={handleChange}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 />
               </div>
             </article>

@@ -115,7 +115,7 @@ export const UpdateCropModal = ({showUpdateCrop, setShowUpdateCrop, selectedCrop
             />
             
             <div className='botoneraCrops'>
-            { editCropInfo.is_active === 1 && <button className='botonCrops' onClick={handleSubmit}>Editar</button>}
+            { editCropInfo?.is_active === 1 && <button className='botonCrops' onClick={handleSubmit}>Editar</button> }
             <button className='botonCrops' onClick={handleSubmit2}>Eliminar</button>
             </div>
             <p className='text-center text-danger mt-1 mb-1'> {errorMessage && errorMessage}</p>

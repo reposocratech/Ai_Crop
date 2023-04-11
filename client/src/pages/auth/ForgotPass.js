@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react'
-import { Form, Row } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
-import { AICropContext } from '../../context/AICropContext'
 import axios from 'axios'
 
 import "./auth.scss" 
@@ -14,11 +13,22 @@ export const ForgotPass = () => {
     const [email, setEmail] = useState("");
     const [messageError, setMessageError] = useState("");
     const [messageValidation, setMessageValidation] = useState("");
+    const [emailValidation, setEmailValidation] = useState(false)
 
     const navigate = useNavigate();
 
     const handleChange = (e) => {;
         setEmail(e.target.value);
+    }
+
+    const handleBlur = () => {
+      let string = email
+      if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
+        setMessageError("El correo no es correcto")
+      } else {
+        setMessageError("")
+        setEmailValidation(true)
+      }
     }
 
     const handleKeyPress = (event) => {
@@ -28,13 +38,12 @@ export const ForgotPass = () => {
     };
 
     const handleSubmit = () => {
-      // declaramos un patrón de email correcto
-      const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    
       if (!email){
-          setMessageError("Debes rellenar el correo")
-      } else if(!emailPattern.test(email)) {
-        setMessageError("El email ingresado no es válido.")
+        setMessageError("Debes rellenar el correo")
+
+      } else if (!emailValidation) {
+        setMessageError("El correo no es correcto");
+  
       } else {
           axios
           .post("http://localhost:4000/user/retreivePassword", {email})
@@ -51,7 +60,7 @@ export const ForgotPass = () => {
     <div>
       <Row className='cont_auth d-flex flex-column p-0'>
         <TopNavBar/>
-        <Form className='form'>
+        <main className='form'>
           <h5 className='company_name'>AI crop</h5>
           <div className='title'>
             <h1 className='mb-5 mt-5 forgotpasstitle'>Recupera tu contraseña <span className='punto ms-1'>.</span></h1>
@@ -66,7 +75,8 @@ export const ForgotPass = () => {
                   name='email' 
                   value={email}
                   onChange={handleChange}
-                  onKeyPress={handleKeyPress}
+                  onBlur={handleBlur}
+                  onKeyDown={handleKeyPress}
                   />
             </div>
 
@@ -80,7 +90,7 @@ export const ForgotPass = () => {
             {messageValidation != "" &&
             <p className='messageValidation'>{messageValidation}</p>}
             
-        </Form>
+        </main>
       </Row>
     </div>
   )

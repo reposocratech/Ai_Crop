@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from 'react'
+import React, { useRef, useContext } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { NavLateral } from '../../../components/NavBars/SideNavBar/NavLateral'
 import { Outlet } from 'react-router-dom'
@@ -18,17 +18,19 @@ export const MainPage = () => {
   // const [showModalCrop, setShowModalCrop] = useState("false");
   
 
-  // useEffect(() => {
-  //   if (window.location.pathname === '/user/createGreenhouse'){
-  //     outletCont_ref.current.style.outline = "35px solid #131A1B"
-  //     whiteCont_ref.current.style.backgroundColor = "#131A1B"
-  //   } 
-  // }, [window.location.pathname])
+  /*
+  useEffect(() => {
+    if (window.location.pathname === '/user/createGreenhouse'){
+      outletCont_ref.current.style.outline = "35px solid #131A1B"
+      whiteCont_ref.current.style.backgroundColor = "#131A1B"
+    } 
+  }, [window.location.pathname])
 
   const oscurecer = () => {
     outletCont_ref.current.style.outline = "35px solid #131A1B"
     whiteCont_ref.current.style.backgroundColor = "#131A1B"
   }
+  */
 
   return (
     <Container fluid className='p-0 containerMain'>
