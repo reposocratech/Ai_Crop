@@ -63,8 +63,7 @@ export const CreateGreenhouse = () => {
   // HANDLE CHANGE MEDIDAS
   const handleChangeTemp = (e) => {
     const {name, value} = e.target;
-    setTemperatura({...temperatura, [name]:value, measurement_type_id:1});
-    
+    setTemperatura({...temperatura, [name]:value, measurement_type_id:1});  
   }
   const handleChangeCo2 = (e) => {
     const {name, value} = e.target;
@@ -137,7 +136,7 @@ export const CreateGreenhouse = () => {
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
-        <button onClick={()=>navigate(-1)}><img src='/assets/images/go_back.png'/></button>
+        <button onClick={()=>navigate(-1)}><img alt='icono atrás' src='/assets/images/go_back.png'/></button>
       </section>
       <header className='header_greenhouses'>
         <h1 className='create_gh'>crear invernadero</h1>
@@ -148,7 +147,7 @@ export const CreateGreenhouse = () => {
       <main className='main_creategh'>
         <section className='top_section'>
           <h5>Empecemos por lo básico</h5>
-          <img className='leaf_img' src='/assets/images/leaf_form.png'/>
+          <img alt='imagen hoja' className='leaf_img' src='/assets/images/leaf_form.png'/>
         </section>
         {/* SECCIÓN FORMULARIO */}
         <Form className='form_creategh1'>
@@ -232,8 +231,8 @@ export const CreateGreenhouse = () => {
         </Form>
       </main>
       <div className='bottom_sect'>
-       <button onClick={handleContinue} disabled={disable} ><img src='/assets/images/next1.png'/></button>
-        <img className='gh_img' src='/assets/images/greenhouse.png'/>
+       <button onClick={handleContinue} disabled={disable} ><img alt='icono continuar' src='/assets/images/next1.png'/></button>
+        <img alt='icono invernadero' className='gh_img' src='/assets/images/greenhouse.png'/>
       </div>
       </div>
       :
@@ -457,9 +456,9 @@ export const CreateGreenhouse = () => {
           </div>
           {/* IMG Y BOTONES */}
           <div className='aaa'>
-            <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
+            <button onClick={handleBack}><img alt='icono atrás' src='/assets/images/back1.png'/></button>
             <button className='crear' onClick={handleSubmit} disabled={error != "" || greenhouseInfo.responsibility_acknowledged === 0}>Crear</button>
-            <img className='gh_img' src='/assets/images/greenhouse.png'/>
+            <img alt='icono invernadero' className='gh_img' src='/assets/images/greenhouse.png'/>
           </div>
         </section>
       </main>

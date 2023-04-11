@@ -31,7 +31,7 @@ export const Error = () => {
             </Col>
         </Row>
     :
-    <h1></h1>}
+    <div></div>}
 </>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../../../context/AICropContext';
 import axios from 'axios'
 import './allgreenhouses.scss'
@@ -28,7 +27,6 @@ export const AllGreenhouses = () => {
           .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
           .then((res)=>{
             setGreenhousesInfo(res.data);
-            console.log(res.data);
           })
           .catch((err)=>{
             console.log(err);
@@ -39,7 +37,7 @@ export const AllGreenhouses = () => {
   return (
     <div className='cont_greenhouses'>
       <section className='botones_user'>
-        <button onClick={()=>navigate('/')}><img src='/assets/images/go_back.png'/></button>
+        <button onClick={()=>navigate('/')}><img alt='icono atrás' src='/assets/images/go_back.png'/></button>
         <ButtonNotif setShowModalNotif={setShowModalNotif}/>
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
       </section>

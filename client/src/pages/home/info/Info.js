@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Row } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import { TopNavBar } from '../../../components/NavBars/TopNavBar/TopNavBar'
 import './info.scss'
 
