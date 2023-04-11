@@ -31,7 +31,7 @@ export const MainPage = () => {
   }
 
   return (
-    <Container fluid className='p-0'>
+    <Container fluid className='p-0 containerMain'>
         <Row className='contNav_pPal'>
             <Col className='col-12 col-xl-3 p-0'>
               {user?.user_type == 1 ? <NavLateralAdmin/> :

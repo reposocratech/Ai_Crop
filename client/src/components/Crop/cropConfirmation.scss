@@ -1,0 +1,77 @@
+@import "../../variables";
+
+.modalCropConfirm{
+    background-color: rgba(29, 29, 29, 0.541);
+
+    div.modal-content{
+        background-color: rgba(0, 0, 0, 0.494);
+        border-radius: 2em;
+    }
+
+    .divMasterCrop{
+        padding: 25px 25px;
+        text-align: center;
+        .secPpal{
+            flex-direction: column;
+            font-family: $urbanist;
+            display: flex;
+            align-items: center;
+    
+            h2{
+                margin: 10px 0 25px 0;
+                letter-spacing: 0.09em;
+                font-size: 36px;
+            }
+        }
+        .botoneraCrops{
+            display: flex;
+            justify-content: space-between;
+        }
+        .botonCrops{
+            // width: 5vw !important;
+            height: 6vh;
+            margin: 15px;
+            align-items: center;
+            border-radius: 2em;
+            background-color: rgb(51, 51, 51);
+            color: white;
+            border: none;
+            font-size: 20px;
+            font-weight: 400;
+            transition: 0.2s;
+        }
+        
+        .botonCrops:hover{
+            background-color: rgb(26, 23, 23);
+            color: white;
+        }
+
+        .aceptar{
+            background-color: #b2c26b;
+            padding: 0 30px;
+        }
+
+        .cancelar{
+            width: 6vh;
+            border-radius: 5em;
+        }
+        
+        .aceptar:hover{
+            background-color: rgb(185, 81, 81);
+            color: white;
+        }
+        
+        .paratext{
+            font-size: 24px;
+            color: white;
+            font-weight: 300;
+        }
+        
+        .magicdiv{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    }

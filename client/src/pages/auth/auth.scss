@@ -15,6 +15,13 @@
     font-family: $urbanist;
     color: white;
 
+    .mensajeError {
+        text-align: center;
+        margin-top: 25px;
+        color: rgb(255, 110, 110);
+        font-size: 20px;
+    }
+
     .form{
         padding: 0 5%;
     }

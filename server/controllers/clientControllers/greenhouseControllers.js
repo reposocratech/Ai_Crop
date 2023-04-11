@@ -107,15 +107,15 @@ class GreenhouseController {
             let sqlMeasure = `SELECT measure.*, measurement_type.measurement_type_name
             FROM measure, measurement_type
             WHERE measurement_type.measurement_type_id = measure.measurement_type_id
-            AND measure.greenhouse_id = ${greenhouse_id}       
-            AND (measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 1 ORDER BY measure_id DESC LIMIT 1)   
-                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 2 ORDER BY measure_id DESC LIMIT 1)
-                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 3 ORDER BY measure_id DESC LIMIT 1)
-                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 4 ORDER BY measure_id DESC LIMIT 1)
-                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 5 ORDER BY measure_id DESC LIMIT 1)
-                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 6 ORDER BY measure_id DESC LIMIT 1)
-                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 7 ORDER BY measure_id DESC LIMIT 1))
-            ORDER BY measure.measure_date_time DESC`;
+            AND measure.greenhouse_id = ${greenhouse_id}
+            AND (measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 1 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1)   
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 2 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 3 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 4 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 5 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 6 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1)
+                OR measure.measure_id = (SELECT measure_id FROM measure WHERE measurement_type_id = 7 AND greenhouse_id = ${greenhouse_id} ORDER BY measure_id DESC LIMIT 1))
+            ORDER BY measure.measure_date_time DESC;`;
 
             // buscamos en BD las últimas medidas que tiene registado el invernadero (con una subconsulta) y las guardamos en el objeto "resultMeasure"
             connection.query(sqlMeasure, (error, resultMeasure) => {
@@ -144,13 +144,13 @@ class GreenhouseController {
                         connection.query(sqlActiveAlarms, (error, resultActiveAlarms) => {
                             error && res.status(400).json({ error });
 
-                            let sqlCollaborators = `SELECT CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, user.email, user.user_id FROM user, user_greenhouse, greenhouse WHERE user.user_id = user_greenhouse.user_id AND user_greenhouse.greenhouse_id = greenhouse.greenhouse_id AND greenhouse.greenhouse_id = ${greenhouse_id} AND user.is_deleted = 0 AND user.is_disabled = 0`;
+                            let sqlCollaborators = `SELECT CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, user.email, user.user_id, user_greenhouse.greenhouse_id FROM user, user_greenhouse, greenhouse WHERE user.user_id = user_greenhouse.user_id AND user_greenhouse.greenhouse_id = greenhouse.greenhouse_id AND greenhouse.greenhouse_id = ${greenhouse_id} AND user.is_deleted = 0 AND user.is_disabled = 0`;
 
                             // 
                             connection.query(sqlCollaborators, (error, resultCollaborators) => {
                                 error && res.status(400).json({ error });
 
-                                let sqlHelpers = `SELECT CONCAT(helper_first_name, " ", helper_last_name) as helper_full_name, helper_email FROM helper WHERE greenhouse_id = ${greenhouse_id} AND is_deleted = 0`;
+                                let sqlHelpers = `SELECT CONCAT(helper_first_name, " ", helper_last_name) as helper_full_name, helper_id, helper_email FROM helper WHERE greenhouse_id = ${greenhouse_id} AND is_deleted = 0`;
 
                                 // 
                                 connection.query(sqlHelpers, (error, resultHelpers) => {
@@ -325,11 +325,20 @@ class GreenhouseController {
                 let sqlAddCollaborator = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${result[0].user_id}, ${greenhouse_id})`;
 
                 connection.query(sqlAddCollaborator, (error, resultCollab) => {
-                    error && res.status(400).json({ error }) ;
+                    // error && res.status(400).json({ error }) ;
+                    if(error){
+                        if(error.code == "ER_DUP_ENTRY"){
+                            res.status(300).json("dup")
+                        } else {
+                            throw error;
+                        }
+                    } else {
+                        nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
+                            console.log(email);
+                        res.status(200).json(`exito`);
+                  
+                    }
                     
-                    nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
-                        console.log(email);
-                    res.status(200).json(`El usuario ${result[0].user_id} ha sido añadido como colaborador del invernadero ${greenhouse_id}`);
                 });
 
             } else {
@@ -397,7 +406,7 @@ class GreenhouseController {
 
                 } else {
                     if (result[0] && result[0].is_deleted === 0){
-                        res.status(200).json(`El ayudante ${helper_first_name} ${helper_last_name} ya se encuentra asociado al invernadero ${greenhouse_name}`);
+                        res.status(300).json(`dup`);
                     };
                 };
             };
@@ -406,10 +415,24 @@ class GreenhouseController {
 
     // 9. borrado lógico de un helper
     // localhost:4000/greenhouse/deleteHelper/:helper_id
+    // deleteHelper = (req, res) => {
+
+    //     let helper_id = req.params.helper_id;
+    //     let sql = `UPDATE helper SET is_deleted = 1 WHERE helper_id = ${helper_id}`;
+
+    //     connection.query(sql, (error, result) => {
+    //         error
+    //         ? res.status(400).json({error})
+    //         : res.status(200).json(`El helper ${helper_id} ha sido eliminado`);
+    //     });
+    // };
+
+    // 9.1 borrado REAL de un helper
+    // localhost:4000/greenhouse/deleteHelper/:helper_id
     deleteHelper = (req, res) => {
 
         let helper_id = req.params.helper_id;
-        let sql = `UPDATE helper SET is_deleted = 1 WHERE helper_id = ${helper_id}`;
+        let sql = `DELETE from helper WHERE helper_id = ${helper_id}`;
 
         connection.query(sql, (error, result) => {
             error
