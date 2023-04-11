@@ -510,7 +510,7 @@ useEffect(() => {
             </div>
             <div className='aaa'>
             <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
-            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Crear</button>
+            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Editar</button>
             <img className='gh_img' src='/assets/images/greenhouse.png'/>
           </div>
           </div>
