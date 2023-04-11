@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 async function main(helper_email, helper_first_name, helper_last_name, user_first_name, user_last_name, greenhouse_id, greenhouse_name) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
-
+  console.log(helper_email, "HELPER MEAILS");
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com", //cuenta en este caso de gmail

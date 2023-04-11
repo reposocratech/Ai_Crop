@@ -382,6 +382,7 @@ class GreenhouseController {
                     if(error){
                         res.status(400).json({ error }) 
                     } else {
+                        console.log(helper_email);
                         nodemailerInviteHelper(helper_email, helper_first_name, helper_last_name, first_name, last_name, greenhouse_id, greenhouse_name);
 
                         res.status(200).json(`${helper_first_name} ${helper_last_name} ha sido añadido como ayudante del invernadero ${greenhouse_name}`);

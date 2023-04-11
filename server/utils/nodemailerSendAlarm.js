@@ -29,7 +29,7 @@ async function main(email_list, alarm_id, measurement_type_name, high_low, alarm
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${emails}`, // list of receivers
     subject: `ALARMA! ${measurement_type_name} ${text} del límite establecido en tu invernadero ${greenhouse_name}`, // Subject line
-    text: `${alarm_date_time}: ${alarm_message}. Id de alarma: ${alarm_id}`, // plain text body
+    text: `${alarm_message}`, // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 
