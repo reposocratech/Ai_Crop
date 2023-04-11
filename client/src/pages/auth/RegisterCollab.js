@@ -14,7 +14,7 @@ export const RegisterCollab = () => {
   const greenhouse_id = useParams().greenhouse_id;
 
  
-const initialValue = {
+  const initialValue = {
     first_name: "",
     last_name: "",
     email: "",
@@ -29,7 +29,8 @@ const initialValue = {
     user_photo: "",
     user_type: 3,
     greenhouse_id: greenhouse_id
-}
+  }
+
   const [register, setRegister] = useState(initialValue);
   const [messageError, setMessageError] = useState();
   const [emailValidation, setEmailValidation] = useState(false)
@@ -50,7 +51,7 @@ const initialValue = {
 
   const handleBlur = () => {
     let string = register.email
-    if (!string.includes("@") || !string.includes(".")){
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
       setMessageError("El correo no es correcto")
     } else {
       setMessageError("")
@@ -71,10 +72,11 @@ const initialValue = {
       !register.user_knowledge
     ) {
       setMessageError("Debes rellenar todos los campos");
+
     } else if (!emailValidation) {
       setMessageError("El correo no es correcto");
-    }
-     else {
+
+    } else {
       axios
         .post("http://localhost:4000/user/createUser", register)
         .then((res) => {
@@ -135,7 +137,7 @@ const initialValue = {
             onChange={handleChange}
             name="email"
             onBlur={handleBlur}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
           />
 
         </div>
@@ -164,7 +166,7 @@ const initialValue = {
             value={register.phone}
             onChange={handleChange}
             name="phone"
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
           />
 
         </div>

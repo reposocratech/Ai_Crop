@@ -46,7 +46,7 @@ export const Measure = () => {
         console.log(err);
       })
       
-    },[actionReload])
+    },[actionReload, greenhouse_id, measurement_type_id])
 
     const onClose = () => {
       axios
@@ -82,9 +82,9 @@ export const Measure = () => {
         <div className='alerta'>
         {alarma &&
         <div className='d-flex alerta_cont'>
-        <img src='/assets/images/alerta.png'/>
+        <img alt='alerta' src='/assets/images/alerta.png'/>
         <p>{alarma.alarm_message}</p>
-        <img className='cerrar' src='/assets/images/cerrar.png' onClick={() => {setShowModalCloseAlarm(true)}}/>
+        <img alt='cerrar' className='cerrar' src='/assets/images/cerrar.png' onClick={() => {setShowModalCloseAlarm(true)}}/>
         <ModalCloseAlarm onClose = {onClose} setShowModalCloseAlarm = {setShowModalCloseAlarm} showModalCloseAlarm = {showModalCloseAlarm} closeMessage = {closeMessage} setCloseMessage = {setCloseMessage}/>
         </div>
         }
@@ -108,7 +108,7 @@ export const Measure = () => {
           <div className='card_maxMin'>
             <h3>MÁXIMO <span>{measure?.max}{measure?.unit}</span></h3>
             <h3>MÍNIMO <span>{measure?.min}{measure?.unit}</span></h3>
-            <img src='/assets/images/cards/roots.png'/>
+            <img alt='dibujo de planta' src='/assets/images/cards/roots.png'/>
           </div>
         </section>
         <section className='chart_cont'>

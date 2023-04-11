@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/home/Home'
 import { Container } from 'react-bootstrap'
@@ -22,7 +22,7 @@ import { ForgotPass } from '../pages/auth/ForgotPass'
 
 export const AppRoutes = () => {
   
-  const {user, isLogged, token} = useContext(AICropContext);
+  const {user} = useContext(AICropContext);
 
   return (
     <div>
