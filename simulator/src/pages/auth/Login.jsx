@@ -74,7 +74,9 @@ export const Login = () => {
 
             <article className='button_section'>
               <button className='bg_verde' onClick={handleSubmit}>Login</button>
-              <a href={aicrop}>Ir a Web principal</a>
+              <div className='magicDivv d-flex'>
+              <a className='linkeado' href={aicrop}>Ir a Web principal</a>
+              </div>
             </article>
             <p className='text-center mt-3 text-danger'>{messageError}</p>
 

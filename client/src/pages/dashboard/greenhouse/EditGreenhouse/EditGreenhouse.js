@@ -485,7 +485,9 @@ export const EditGreenhouse = () => {
             </div>
             <div className='aaa'>
             <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
+
             <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Guardar</button>
+
             <img className='gh_img' src='/assets/images/greenhouse.png'/>
           </div>
           </div>
