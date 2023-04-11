@@ -85,7 +85,7 @@ export const ModalInvitation = ({
   };
 
   const inviteCollab = () => {
-    if (collabInfo.email === "" )
+    if (collabInfo.email !== "" && collabInfo.name !== ""){
     axios
       .post("http://localhost:4000/greenhouse/inviteCollaborator", collabInfo)
       .then((res) => {
@@ -101,9 +101,11 @@ export const ModalInvitation = ({
           console.log(err);
         }
       });
+    }
   };
 
   const inviteHelper = () => {
+    if (helperInfo.helper_first_name !== "" && helperInfo.helper_last_name !== "" && helperInfo.helper_email !== ""){
     axios
       .post('http://localhost:4000/greenhouse/createHelper', helperInfo)
       .then((res) => {
@@ -118,6 +120,7 @@ export const ModalInvitation = ({
           console.log(err);
         }
       });
+    }
   };
 
 
