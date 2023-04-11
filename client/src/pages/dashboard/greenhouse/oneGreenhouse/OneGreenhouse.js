@@ -108,15 +108,13 @@ export const OneGreenhouse = () => {
       setSelectedCrop(crop_id)
       setShowUpdateCrop(true)
   }
+
   const openModalDeleteCrop = (crop_id,is_active)=>{
     if(is_active === 1){
       setSelectedCrop(crop_id)
       setShowDeleteCrop(true)
     }
-      
   }
-
-  
 
   return (
     <div className='cont_greenhouses'>
@@ -179,7 +177,9 @@ export const OneGreenhouse = () => {
           setActionReload={setActionReload}
           actionReload={actionReload}
         />
+
       </section>
+
       <header className='header_greenhouses'>
         <section className='title_row'>
           <h1>mi invernadero</h1>
@@ -193,10 +193,9 @@ export const OneGreenhouse = () => {
         <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
         <p>Localidad: {greenhouseData?.greenhouse_location}</p>
       </header>
+      
       <main className='user-select-none'>
-        {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
-        <div><p>No hay ningún parámetro</p></div>
-        :
+
         <section className='cards_measures'>
           <TemperatureCard temperatura = {temperatura}/>
           <Co2Card co2 = {co2}/>
@@ -207,31 +206,34 @@ export const OneGreenhouse = () => {
           <LeafHumidity humedadHoja = {humedadHoja}/>
           
         </section> 
-        }
+      
       </main>
       
         <section className='cards_crop'>
             
-            {cropsCards?.map((crop, index)=> {
+          {cropsCards?.map((crop, index)=> {
               
-              let filterdisabled = ""
+            let filterdisabled = ""
   
-              if (crop.is_active === 0){
-                filterdisabled = "disabledGreenhouse"
-              }
-    
-              return(
-              <div className={`card_crop ${filterdisabled}`} key={index} >
-                  <h4>{crop.crop_name.toUpperCase()}</h4>
-                  <p>{crop.crop_plant_variety}</p>
-                  <p>Extensión: {crop.crop_size}m²</p>
-                  <p>{crop.crop_duration} día(s)</p>
-                  <section className='buttons'>
-                  <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img className='edit'src='/assets/images/config_admin2.png'/></div>
-                  <div onClick={() =>{openModalDeleteCrop(crop.crop_id,crop.is_active)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
-                  </section>
-              </div>
-              )
+            if (crop.is_active === 0){
+              filterdisabled = "disabledGreenhouse"
+            }
+            return(
+            <div className={`card_crop ${filterdisabled}`} key={index} >
+
+              <h4>{crop.crop_name.toUpperCase()}</h4>
+              <p>{crop.crop_plant_variety}</p>
+              <p>Extensión: {crop.crop_size}m²</p>
+              <p>Días transcurridos: {crop.days_passed} día(s)</p>
+              <p>Duración: {crop.crop_duration} día(s)</p>
+
+              <section className='buttons'>
+                <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img className='edit'src='/assets/images/config_admin2.png'/></div>
+                <div onClick={() =>{openModalDeleteCrop(crop.crop_id,crop.is_active)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
+              </section>
+
+            </div>
+            )
           })}
 
         </section>

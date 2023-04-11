@@ -18,7 +18,6 @@ export const Measure = () => {
   
   const navigate = useNavigate();
   
-
   useEffect(() => {
     axios
       .get(`http://localhost:4000/server/parameters/current/${greenhouse_id}/${measurement_type_id}`)

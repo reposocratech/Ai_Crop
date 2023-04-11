@@ -31,6 +31,7 @@ export const Register = () => {
   const [showForm1, setShowForm1] = useState(true);
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
+  const [dupEmail, setDupEmail] = useState("")
 
   const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ export const Register = () => {
     const {name, value} = e.target;
     setRegister({...register, [name]:value});
     setMessageError("");
+    setDupEmail("");
   };
 
   const handleKeyPress = (event) => {
@@ -98,14 +100,17 @@ export const Register = () => {
           navigate('/login');
           setMessageError("");
         })
-      .catch((err)=>{
-        console.log(err.config);
-        if(err.response.data.error.errno === 1062){
-          setMessageError("email duplicado");
-        }else{
-          setMessageError("Error en el registro");
-        }
-      })
+        .catch((err) => {
+          if (err.response.data === "dup"){
+            setMessageError("Este correo ya está en uso");
+            setShowForm1(true);
+            setShowForm2(false);
+            setShowForm3(false);
+            setDupEmail("duplicado");
+          } else {
+            console.log(err);
+          }
+        });
     }
   }
 
@@ -149,7 +154,7 @@ export const Register = () => {
             </div>
             </article>
 
-            <div id="floatContainer" className="float-container">
+            <div id="floatContainer" className={`float-container ${dupEmail}`}>
                 <label htmlFor="floatField">Email</label>
                 <input type="email" maxLength="35" required 
                 name='email' 

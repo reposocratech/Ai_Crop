@@ -25,7 +25,14 @@ class UserController{
         let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, post_code, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${post_code}', '${city}', '${country}', '${user_knowledge}',${user_type})`;
 
         connection.query(sql, (error, result) => {
-          error && res.status(400).json({error});
+          // error && res.status(400).json({error});
+          if(error){
+            if(error.code == "ER_DUP_ENTRY"){
+                res.status(300).json("dup")
+            } else {
+                throw error;
+            }
+          } else {
           
           nodemailer(first_name, email, result?.user_id);
 
@@ -55,9 +62,12 @@ class UserController{
                 })
             })
 
-          } else {
-            res.status(201).json("El usuario se ha creado con éxito");
+            } else {
+              res.status(201).json("El usuario se ha creado con éxito");
+            }
+
           }
+
         })
       })
     })

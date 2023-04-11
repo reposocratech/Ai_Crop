@@ -123,7 +123,7 @@ class GreenhouseController {
                     res.status(400).json({ error }) 
                 } 
     
-                let sqlCrop = `SELECT * FROM crop WHERE greenhouse_id = ${greenhouse_id}  AND is_deleted = 0`;
+                let sqlCrop = `SELECT crop.*, DATEDIFF(now(), crop.crop_start_date) AS days_passed FROM crop WHERE greenhouse_id = ${greenhouse_id}  AND is_deleted = 0;`;
 
                 // buscamos en BD todos los crops activos que tiene el invernadero enviado por params y guardamos los resultados en el objeto "resultActiveCrops"
                 connection.query(sqlCrop, (error, resultActiveCrops) => {
@@ -325,7 +325,6 @@ class GreenhouseController {
                 let sqlAddCollaborator = `INSERT INTO user_greenhouse (user_id, greenhouse_id) VALUES (${result[0].user_id}, ${greenhouse_id})`;
 
                 connection.query(sqlAddCollaborator, (error, resultCollab) => {
-                    // error && res.status(400).json({ error }) ;
                     if(error){
                         if(error.code == "ER_DUP_ENTRY"){
                             res.status(300).json("dup")
@@ -336,7 +335,6 @@ class GreenhouseController {
                         nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
                             console.log(email);
                         res.status(200).json(`exito`);
-                  
                     }
                     
                 });
