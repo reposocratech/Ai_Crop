@@ -16,7 +16,8 @@ export const ModalInvitation = ({
 
   const greenhouse_id = useParams().greenhouse_id;
   const { user, actionReload, setActionReload } = useContext(AICropContext);
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
+  const [emailValidation, setEmailValidation] = useState(false);
 
   let datosCollab = {
     name: "",
@@ -76,20 +77,57 @@ export const ModalInvitation = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setMessage("")
     setCollabInfo({ ...collabInfo, [name]: value, greenhouse_name: greenhouse_name});
   };
 
   const handleChange2 = (e) => {
     const { name, value } = e.target;
+    setMessage("")
     setHelperInfo({ ...helperInfo, [name]: value, greenhouse_name: greenhouse_name});
   };
 
+  const handleBlurHelper = () => {
+    let string = helperInfo.helper_email
+
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
+      setMessage("El correo no es correcto")
+      setEmailValidation(false)
+    } else {
+      setMessage("")
+      setEmailValidation(true)
+    }
+  }
+
+  const handleBlurCollab = () => {
+    let string = collabInfo.email
+
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
+      setMessage("El correo no es correcto")
+      setEmailValidation(false)
+    } else {
+      setMessage("")
+      setEmailValidation(true)
+    }
+  }
+
+
   const inviteCollab = () => {
-    if (collabInfo.email !== "" && collabInfo.name !== ""){
+    if (collabInfo.email === "" || collabInfo.name === ""){
+
+      setMessage("Debes rellenar todos los campos");
+      return;
+
+    } else if (!emailValidation) {
+
+      setMessage("El correo no es correcto");
+      return;
+
+    } else {
+
     axios
       .post("http://localhost:4000/greenhouse/inviteCollaborator", collabInfo)
       .then((res) => {
-          console.log(res.data);
           setShowModalInvitation(false)
           setActionReload(!actionReload)
           handleClose()
@@ -105,23 +143,36 @@ export const ModalInvitation = ({
   };
 
   const inviteHelper = () => {
-    if (helperInfo.helper_first_name !== "" && helperInfo.helper_last_name !== "" && helperInfo.helper_email !== ""){
-    axios
-      .post('http://localhost:4000/greenhouse/createHelper', helperInfo)
-      .then((res) => {
-        setShowModalInvitation(false)
-        setActionReload(!actionReload)
-        handleClose()
-      })
-      .catch((err) => {
-        if (err.response.data === "dup"){
-          setMessage("Este usuario ya existe como ayudante de este invernadero")
-        } else {
-          console.log(err);
-        }
-      });
-    }
-  };
+    if (helperInfo.helper_first_name === "" || helperInfo.helper_last_name === "" || helperInfo.helper_email === ""){
+
+        setMessage("Debes rellenar todos los campos");
+        return;
+
+      } else if (!emailValidation) {
+
+        setMessage("El correo no es correcto");
+        return;
+
+      } else {
+
+        axios
+          .post('http://localhost:4000/greenhouse/createHelper', helperInfo)
+          .then((res) => {
+            setShowModalInvitation(false)
+            setActionReload(!actionReload)
+            handleClose()
+          })
+          .catch((err) => {
+            if (err.response.data === "dup"){
+              setMessage("Este usuario ya existe como ayudante de este invernadero")
+            } else {
+              console.log(err);
+            }
+          });
+      }
+  }
+ 
+
 
 
   return (
@@ -147,6 +198,7 @@ export const ModalInvitation = ({
                     placeholder="Email"
                     value={collabInfo.email}
                     onChange={handleChange}
+                    onBlur={handleBlurCollab}
                     name="email"
                   />
                 <button className="botonInv accept uni" onClick={inviteCollab}> aceptar </button>
@@ -181,6 +233,7 @@ export const ModalInvitation = ({
                   placeholder="Email"
                   value={helperInfo.helper_email}
                   onChange={handleChange2}
+                  onBlur={handleBlurHelper}
                   name="helper_email"
                 />
               <button className="botonInv accept" onClick={inviteHelper}>aceptar</button>

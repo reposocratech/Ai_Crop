@@ -50,7 +50,7 @@ const initialValue = {
 
   const handleBlur = () => {
     let string = register.email
-    if (!string.includes("@") || !string.includes(".")){
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
       setMessageError("El correo no es correcto")
     } else {
       setMessageError("")
@@ -96,7 +96,7 @@ const initialValue = {
 
   return (
 
-    <div className='PpalColl'>
+  <div className='PpalColl'>
     <Row className='cont_auth d-flex flex-column p-0'>
       <TopNavBar/>
       <main className='registro-form form_registro d-flex  flex-column ms-5'>
