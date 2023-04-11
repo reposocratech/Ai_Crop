@@ -11,18 +11,18 @@ require("dotenv").config();
 
 class UserController{
 
-//1.Crear usuario(agricultor)
+  //1.Crear usuario(agricultor)
   //localhost:4000/user/createUser
   createUser = (req, res) => {
     const {first_name, last_name, email, password, address, phone, post_code, city, country, user_knowledge, user_type} = req.body;
-    
+
     let saltRounds = 8;
     
     bcrypt.genSalt(saltRounds, function(err, saltRounds){
 
       bcrypt.hash(password, saltRounds, function(err, hash){
 
-        let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, post_code, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${post_code}', '${city}', '${country}', '${user_knowledge}',${user_type}) `;
+        let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, post_code, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${post_code}', '${city}', '${country}', '${user_knowledge}',${user_type})`;
 
         connection.query(sql, (error, result) => {
           error && res.status(400).json({error});
@@ -73,7 +73,7 @@ class UserController{
 
     connection.query(sql, (error, result) => {
       error 
-      ? res.status(400).json("EMAIL DUPLICADO!!") 
+      ? res.status(400).json("EMAIL DUPLICADO!!")
       : res.status(200).json("TODO OK");
     });
   }

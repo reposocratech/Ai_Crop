@@ -12,7 +12,7 @@ const initialValueInfo = {
   greenhouse_type: "",
   greenhouse_latitude: "",
   greenhouse_longitude: "",
-  responsibility_acknowledged: 0
+  responsibility_acknowledged: 1
 }
 const initialValueMaxMin = {
   measurement_type_id: "",
@@ -22,8 +22,6 @@ const initialValueMaxMin = {
 
 
 export const EditGreenhouse = () => {
-
-  const user_id = useContext(AICropContext).user?.user_id;
 
   const [editGreenhouse, setEditGreenhouse] = useState(initialValueInfo);
   const [temperatura, setTemperatura] = useState(initialValueMaxMin);
@@ -35,20 +33,51 @@ export const EditGreenhouse = () => {
   const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
   const [error, setError] = useState("");
   const [showForm2, setShowForm2] = useState(false);
-
- //************************************************* */
-
+  
+  const user_id = useContext(AICropContext).user?.user_id;
   const greenhouse_id = useParams().greenhouse_id;
-
-//************************************************** */
-
+  const navigate = useNavigate();
   let arrayMeasures = [];
 
-//************************************************** */
-
-  const navigate = useNavigate();
-
-//************************************************** */
+  useEffect(() => {
+    axios
+    .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
+    .then((res) => {
+     
+      console.log(res.data.resultGreenhouse,"dime que tu tiene");
+      setEditGreenhouse(res.data.resultGreenhouse[0])
+      for (let i = 0; i < res.data.resultParameters.length; i++){
+        switch (res.data.resultParameters[i].measurement_type_id){
+          case 1:
+            setTemperatura(res.data.resultParameters[i])
+            break;
+          case 2:
+            setCo2(res.data.resultParameters[i])
+            break;
+          case 3:
+            setHumidity(res.data.resultParameters[i])
+            break;
+          case 4:
+            setSunlight(res.data.resultParameters[i])
+            break;
+          case 5:
+            setPh(res.data.resultParameters[i])
+            break;
+          case 6:
+            setConductivity(res.data.resultParameters[i])
+            break;
+          case 7:
+            setLeafHumidity(res.data.resultParameters[i])
+            break;
+          default:
+            console.log("revisar el useEffect del archivo EditGreenhouse.js")
+        }
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, [])
 
   useEffect(() => {
     if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
@@ -63,7 +92,7 @@ export const EditGreenhouse = () => {
 //************************************************** */
   
   let disable = false;
-  if (!editGreenhouse?.greenhouse_name || !editGreenhouse?.greenhouse_location || !editGreenhouse?.greenhouse_orientation || !editGreenhouse?.greenhouse_size || !editGreenhouse?.greenhouse_type || editGreenhouse?.greenhouse_type === ""){
+  if (!editGreenhouse?.greenhouse_name || !editGreenhouse?.greenhouse_location || !editGreenhouse?.greenhouse_orientation || !editGreenhouse?.greenhouse_size || !editGreenhouse?.greenhouse_type || editGreenhouse?.responsibility_acknowledged === 0){
     disable = true;
   }
 
@@ -75,9 +104,42 @@ export const EditGreenhouse = () => {
 
 //************************************************** */
 
+  const handleBack = () => {
+    setShowForm2(false)
+  }
+
+//************************************************** */
+
+  const handleSubmit = () => {
+    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
+
+    axios
+      .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`, {editGreenhouse, arrayMeasures})
+      .then((res)=> {
+        navigate(`/user/greenhouse/${greenhouse_id}`);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  }
+
+  //************************************************** */
+
+  const handleChange = (e) => {
+
+    let checked = e.target.checked;
+    const  {name, value} = e.target;
+    console.log(editGreenhouse);
+    checked? checked = 1 : checked = 0;
+    setEditGreenhouse({...editGreenhouse, [name]:checked});
+  }
+
+//************************************************** */
+
   // HANDLE CHANGE MEDIDAS
    const handleChangeTemp = (e) => {
     const {name, value} = e.target;
+    console.log(editGreenhouse);
     setTemperatura({...temperatura, [name]:value, measurement_type_id:1});
   }
 
@@ -125,93 +187,6 @@ export const EditGreenhouse = () => {
   }
 
 //************************************************** */
-
-const handleBack = () => {
-  setShowForm2(false)
-}
-
-useEffect(() => {
-
-  if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
-    setError("Los mínimos no deben superar los máximos")
-  } 
-  else {
-    setError("");
-  }
-
-}, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity])
-
-
-  useEffect(() => {
-    axios
-    .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
-    .then((res) => {
-     
-     // console.log(res.data,"dime que tu tiene");
-      setEditGreenhouse(res.data.resultGreenhouse[0])
-      for (let i = 0; i < res.data.resultParameters.length; i++){
-        switch (res.data.resultParameters[i].measurement_type_id){
-          case 1:
-            setTemperatura(res.data.resultParameters[i])
-            break;
-          case 2:
-            setCo2(res.data.resultParameters[i])
-            break;
-          case 3:
-            setHumidity(res.data.resultParameters[i])
-            break;
-          case 4:
-            setSunlight(res.data.resultParameters[i])
-            break;
-          case 5:
-            setPh(res.data.resultParameters[i])
-            break;
-          case 6:
-            setConductivity(res.data.resultParameters[i])
-            break;
-          case 7:
-            setLeafHumidity(res.data.resultParameters[i])
-            break;
-          default:
-            console.log("pringao")
-        }
-      }
-    
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }, [])
-
-//************************************************** */  
-
-  const handleChange = (e) => {
-
-    let checked = e.target.checked;
-   const  {name, value} = e.target;
-
-    checked? checked = 1 : checked = 0;
-    setEditGreenhouse({...editGreenhouse, [name]:value, responsibility_acknowledged: checked });
-    /* console.log(checked);
-    console.log(editGreenhouse); */
-  }
-
-//************************************************** */  
-
-  const handleSubmit = () => {
-    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
-
-    axios
-      .put(`http://localhost:4000/greenhouse/editGreenhouse/${greenhouse_id}`, {editGreenhouse, arrayMeasures})
-      .then((res)=> {
-        navigate(`/user/greenhouse/${greenhouse_id}`);
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-  }
-
-  //************************************************** */    
 
   return (
     <div>
@@ -282,7 +257,7 @@ useEffect(() => {
               onChange={handleChange}
               required
               >
-                <option value="">Slecciona Método de cultivo</option>
+                <option value="">Selecciona método de cultivo</option>
                 <optgroup label="Cultivos en agua">
                   <option value="NFT">NFT</option>
                   <option value="NGS">NGS</option>
@@ -505,12 +480,14 @@ useEffect(() => {
           <div className='checkbox_cont'>
             <div>
             <p>Si las medidas no son las correctas, asumo la responsabilidad</p>
-            <input type='checkbox' name='responsibility_acknowledged' value={editGreenhouse.responsibility_acknowledged} onClick={handleChange}></input>
+            <input type='checkbox' name='responsibility_acknowledged' value={editGreenhouse.responsibility_acknowledged} defaultChecked onClick={handleChange}></input>
             
             </div>
             <div className='aaa'>
             <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
-            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Editar</button>
+
+            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Guardar</button>
+
             <img className='gh_img' src='/assets/images/greenhouse.png'/>
           </div>
           </div>

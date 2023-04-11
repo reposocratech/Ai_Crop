@@ -20,12 +20,9 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
   const greenhouse_id = useParams().greenhouse_id;
   
   const [cropInfo, setcropInfo] = useState(initialValueInfo);
+  const [errorMessage, setErrorMessage] = useState("")
   const {actionReload, setActionReload} = useContext(AICropContext);
   const navigate = useNavigate()
-
-  
-
-
 
   const handleClose = ()=>{
     setShowModalCrop(false);
@@ -37,87 +34,91 @@ export const CreateCropModal = ({showModalCrop, setShowModalCrop}) => {
 
   const { name,value} = e.target;
   setcropInfo({...cropInfo, [name]:value,greenhouse_id:greenhouse_id})
+  setErrorMessage("")
 
  }
 
  const handleSubmit = ()=> {
+    if (cropInfo?.crop_name && cropInfo?.crop_plant_variety && cropInfo?.crop_duration && cropInfo?.crop_size){
 
-    axios
+      axios
         .post(`http://localhost:4000/crop/createCrop`, cropInfo)
         .then((res)=>{ 
           setShowModalCrop(false);
           setActionReload(!actionReload);
           setcropInfo(initialValueInfo);
+          setErrorMessage("")
+
         })
         .catch((err)=>{console.log(err);})
-
-  
+        
+    } else {
+      setErrorMessage("Debes completar todos los campos")
+    }
  }
  
   
 
   return (
+    <Modal show={showModalCrop} onHide={handleClose} className='modalCropPpal'>
+      <Modal.Body className='divMasterCrop'>
 
-    <>
-      <Modal show={showModalCrop} onHide={handleClose}>
-        
-        <Modal.Body className='divMaster'>
-          <section className='d-flex secPpal'>
-
-            <div className='d-flex justify-content-center'>
-
+        <section className='secPpal'>
+        <h2>crea un nuevo cultivo</h2>
+          {/* <label>Ponle un nombre:</label> */}
           <input
-          className='note'
-          type="text"
-          placeholder='Nombre del cultivo'
-          value={cropInfo?.crop_name}
-          onChange={handleChange}
-          name="crop_name"
+            className='note'
+            type="text"
+            placeholder='Nombre del cultivo'
+            value={cropInfo?.crop_name}
+            onChange={handleChange}
+            name="crop_name"
+            autoComplete='off'
+            maxLength={25}
           />
-         </div>
-            <div className='d-flex justify-content-center'>
 
+          {/* <label>Ponle un nombre:</label> */}
           <input
-          className='note'
-          type="text"
-          placeholder='especie vegetal'
-          value={cropInfo?.crop_plant_variety}
-          onChange={handleChange}
-          name="crop_plant_variety"
-        />
-         </div>
-            <div className='d-flex justify-content-center'>
-
+            className='note'
+            type="text"
+            placeholder='Especie vegetal'
+            value={cropInfo?.crop_plant_variety}
+            onChange={handleChange}
+            name="crop_plant_variety"
+            autoComplete='off'
+            maxLength={30}
+          />
+        
+        {/* <label>Ponle un nombre:</label> */}
           <input
-          className='note'
-          type="number"
-          placeholder='duración estimada'
-          value={cropInfo?.crop_duration}
-          onChange={handleChange}
-          name="crop_duration"
-        />
-         </div>
-            <div className='d-flex justify-content-center'>
+            className='note'
+            type="number"
+            placeholder='Duración estimada'
+            value={cropInfo?.crop_duration}
+            onChange={handleChange}
+            name="crop_duration"
+            autoComplete='off'
+            maxLength={25}
+          />  
 
+{/* <label>Ponle un nombre:</label> */}
           <input
-          className='note'
-          type="number"
-          placeholder='Extensión'
-          value={cropInfo?.crop_size}
-          onChange={handleChange}
-          name="crop_size"
-        />
-         </div>
+            className='note'
+            type="number"
+            placeholder='Extensión'
+            value={cropInfo?.crop_size}
+            onChange={handleChange}
+            name="crop_size"
+            autoComplete='off'
+          />
 
-         <div className='botoneraCrops'>
-            <button className='botonCrops' onClick={handleSubmit}>Añadir</button>
-         </div>
-     </section>
+          <button className='botonCrops' onClick={handleSubmit}>Añadir</button>
+          <p className='text-center text-danger mt-1 mb-1'> {errorMessage && errorMessage}</p>
+          <img className='aa' src='/assets/images/growth.png'/>
+        </section>
 
-        </Modal.Body>
-
-      </Modal>
-    </>
+      </Modal.Body>
+    </Modal>
 
   )
 }

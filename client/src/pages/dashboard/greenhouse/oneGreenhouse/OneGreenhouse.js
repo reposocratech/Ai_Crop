@@ -58,7 +58,6 @@ export const OneGreenhouse = () => {
         setHelpers(res.data.resultHelpers);
         setGreenhouseData(res.data.resultGreenhouse[0]);
         setCropsCards(res.data.resultActiveCrops)
-
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
             case 1:
@@ -194,7 +193,7 @@ export const OneGreenhouse = () => {
         <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
         <p>Localidad: {greenhouseData?.greenhouse_location}</p>
       </header>
-      <main>
+      <main className='user-select-none'>
         {!temperatura && !co2 && !humedad && !luzSolar && !ph && !conductividad && !humedadHoja ?
         <div><p>No hay ningún parámetro</p></div>
         :

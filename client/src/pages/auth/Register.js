@@ -36,9 +36,9 @@ export const Register = () => {
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    setRegister({...register, [name]:value})
-    
-  }
+    setRegister({...register, [name]:value});
+    setMessageError("");
+  };
 
   const handleKeyPress = (event) => {
     if (event.key === " ") {
@@ -48,34 +48,39 @@ export const Register = () => {
 
 
   // ---- Show/Dont show forms --- //
-
+  
   const handleContinue1 = (e) => { // Pasa al 2 formulario
     if(!register.first_name || !register.last_name || !register.email || !register.password){
       console.log(register);
-      setMessageError("Debes rellenar todos los campos")
-     
+      setMessageError("Debes rellenar todos los campos");
     } else {
-      setShowForm1(false)
+      setShowForm1(false);
       setShowForm2(true);
+      setMessageError("");
       console.log(register, "register")
     }
   }
+
   const handleContinue2 = (e) => { // Pasa al 3 formulario
     if(!register.first_name || !register.last_name || !register.email || !register.password ||!register.city || !register.country || !register.address || !register.post_code ){
-      setMessageError("Debes rellenar todos los campos")
+      setMessageError("Debes rellenar todos los campos");
     } else {
-      setShowForm2(false)
+      setShowForm2(false);
       setShowForm3(true);
+      setMessageError("");
     }
   }
 
   const handleBack1 = (e) => { // Vuele al 1 formulario
-      setShowForm1(true)
-      setShowForm2(false)
+      setShowForm1(true);
+      setShowForm2(false);
+      setMessageError("");
   }
+  
   const handleBack2 = (e) => { // Vuele al 2 formulario
-      setShowForm3(false)
-      setShowForm2(true)
+      setShowForm3(false);
+      setShowForm2(true);
+      setMessageError("");
   }
 
   // ----------------- //
@@ -89,16 +94,16 @@ export const Register = () => {
       axios
       .post("http://localhost:4000/user/createUser",register)
       .then((res)=>{
-          console.log(res)
+          console.log(res);
           navigate('/login');
+          setMessageError("");
         })
       .catch((err)=>{
         console.log(err.config);
         if(err.response.data.error.errno === 1062){
-          setMessageError("email duplicado")
+          setMessageError("email duplicado");
         }else{
-          setMessageError("Error en el registro")
-
+          setMessageError("Error en el registro");
         }
       })
     }
@@ -168,7 +173,7 @@ export const Register = () => {
               <button onClick={()=>navigate('/info')}>Suscripciones</button>
               <button className='bg_verde' onClick={handleContinue1}>Continuar</button>
             </article>
-            <p className='text-center mt-3 text-danger'>{messageError}</p>
+            <p className='mensajeError'>{messageError}</p>
 
           </section> 
         }
@@ -214,7 +219,7 @@ export const Register = () => {
               <button className='bg_verde' onClick={handleContinue2}>Continuar</button>
             </article>
             <button className='atras mt-3' onClick={handleBack1}>◄</button>
-            <p className='text-center mt-3 text-danger'>{messageError}</p>
+            <p className='mensajeError'>{messageError}</p>
           </section>
         }
 
@@ -263,7 +268,7 @@ export const Register = () => {
               <button className='bg_verde' onClick={handleSubmit}>Regístrate</button>
             </article>
             <button className='atras mt-3' onClick={handleBack2}>◄</button>
-            <p className='text-center mt-3 text-danger'>{messageError}</p>
+            <p className='mensajeError'>{messageError}</p>
 
           </section>
         }

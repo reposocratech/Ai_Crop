@@ -1,66 +1,94 @@
 @import "../../mixin";
 @import "../../variables";
 
-.botoneraInv{
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-}
+.divMaster{
+    font-family: $urbanist;
+    // height: 40vh;
+    padding: 30px;
+    height: fit-content;
 
-.botonInv{
-    border-radius: 25px;
-    width: 14vw;
-    font-size: 17px;
-    margin: 5px;
-    height: 5vh;
+    .question {
+        color: white;
+        text-align: center;
+        font-size: 30px;
+        // font-weight: 600;
+        letter-spacing: 0.14em;
+    }
+    .botoneraInv{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .algo{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
     
-}
-.botonInv:hover{
-    background-color: #D4DDC5;
-    color: #3B3F2B;
-    font-weight: 400;
-    transition: 0.2;
-}
-.titular{
-    font-weight: bold;
-    text-align: center;
-    margin: 20px;
-    color: white;
+    .botonInv{
+        border-radius: 2em;
+        border: none;
+        width: 17vw;
+        min-width: 300px;
+        font-size: 17px;
+        padding: 30px 20px;
+        transition: 0.2s;
+        font-size: 19px;
+        // font-weight: 600;
+    }
+    
+    .botonInv:hover{
+        background-color: #84966d;
+        color: #e3f3e0;
+        font-weight: 400;
+        transition: 0.2;
+    }
+    .titular{
+        font-weight: bold;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 30px;
+        color: white;
+    }
+    .note{
+        outline: none;
+        border: none;
+        margin: 0;
+        border-radius: 2em;
+        padding: 40px 15px;
+        width: 17vw;
+        min-width: 300px;
+        background-color: black;
+        color: white;
+    }
 }
 .accept{
-    margin-left: 23%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
-//-------------RESPONSIVE-----------------//
+//-------------RESPONSIVE--------------//
 
 //TABLET
 @media (max-width: 870px){
     .divMaster{
-        height: 40vh;
+        // height: 40vh;
     }
     .botonInv{
         width: 48vw;
-        
-    }
-    .uni{
-        // position: absolute;
-        // top: 60%;
-        // right: 11%;
-    }
-    .accept{
-        position: absolute;
-        // top: 75%;
-        right: 11%;
         
     }
     .PpalInp{
         input{
             margin: 4%;
         }
-    }
-    .nam{
-        margin: none;
     }
  
     
@@ -75,8 +103,5 @@
     .coll{
         height: 10vh;
         width: 48vw;
-    }
-    .accept{
-        margin-right: 14%;
     }
 }
