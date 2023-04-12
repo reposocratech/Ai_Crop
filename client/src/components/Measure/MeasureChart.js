@@ -13,13 +13,9 @@ export const MeasureChart = () => {
         .get(`http://localhost:4000/server/parameters/history/${greenhouse_id}/${measurement_type_id}`)
         .then((res)=>{
             let info = res.data;
-            // console.log(res.data);
-            // let algo = new Date(1680058080)
-            // console.log(algo, "algo");
             let array = [];
             for (let i = 0 ; i < info.length; i++){
                 let date = new Date(info[i].x)
-                // setDatos([...datos], {x: date, y: info[i].y})
                 array.push({x: date, y: info[i].y})          
             }
             setDatos(array);
@@ -38,13 +34,10 @@ export const MeasureChart = () => {
   
     const handleZoom = (domain) => {
       setState({ selectedDomain: domain });
-    //   console.log(state);
     };
 
-  
     const handleBrush = (domain) => {
       setState({ zoomDomain: domain });
-    //   console.log(state);
     };
   
     return (
@@ -87,15 +80,6 @@ export const MeasureChart = () => {
           }
         >
           <VictoryAxis
-            tickValues={[
-            //   new Date(1985, 1, 1),
-            //   new Date(1990, 1, 1),
-            //   new Date(1995, 1, 1),
-            //   new Date(2000, 1, 1),
-            //   new Date(2005, 1, 1),
-            //   new Date(2010, 1, 1),
-            //   new Date(2015, 1, 1),
-            ]}
             tickFormat={(x) => getMonthString(new Date(x).getMonth())}
           />
           <VictoryLine
