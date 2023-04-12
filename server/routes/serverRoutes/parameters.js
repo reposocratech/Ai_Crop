@@ -50,4 +50,8 @@ router.get('/month/:greenhouse_id/:measurement_type_id', ParametersController.ge
 // localhost:4000/server/parameters/year/:greenhouse_id/:measurement_type_id
 router.get('/year/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureHistoryYear);
 
+// 11. Muestra el historial completo de una medida
+// localhost:4000/server/parameters/history/:greenhouse_id/:measurement_type_id
+router.get('/history/:greenhouse_id/:measurement_type_id', ParametersController.getMeasureHistory)
+
 module.exports = router;
