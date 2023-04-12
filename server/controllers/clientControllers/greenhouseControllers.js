@@ -245,6 +245,9 @@ class GreenhouseController {
     getAllGreenhouses = (req, res) => {
 
         const user_id = req.params.user_id;
+
+        let algo = new Date (1680058080000);
+        console.log(algo)
         
         let sqlOwner = `SELECT greenhouse.*, CONCAT(user.first_name, " ", user.last_name) as owner_full_name, sum(alarm.is_active) as active_alarms 
         FROM greenhouse
@@ -272,11 +275,13 @@ class GreenhouseController {
             }
 
             // este SQL busca los invernaderos donde el usuario SOLO es colaborador. Agrega al final el string que produce el bucle (CONSULTAR ESTE TEMA CON EL EQUIPO A VER SI CAMBIAMOS EL CREATE USER)
-            let sqlCollaborator = `SELECT greenhouse.*, CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, count(alarm.alarm_id) as active_alarms FROM greenhouse LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
+            let sqlCollaborator = `SELECT greenhouse.*, owner_name.owner_full_name, CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, count(alarm.alarm_id) as active_alarms FROM greenhouse 
+            LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
             LEFT JOIN user ON user_greenhouse.user_id = user.user_id
             LEFT JOIN alarm ON alarm.greenhouse_id = greenhouse.greenhouse_id 
+            LEFT JOIN owner_name ON owner_name.greenhouse_id = greenhouse.greenhouse_id
             WHERE user.user_id = ${user_id}
-            AND alarm.is_active = 1
+            AND alarm.is_active = 1 
             ${ownerFilter}
             GROUP BY greenhouse_id`;
 

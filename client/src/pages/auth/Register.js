@@ -42,6 +42,7 @@ export const Register = () => {
     setDupEmail("");
   };
 
+
   const handleBlur = () => {
     let string = register.email
     if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
