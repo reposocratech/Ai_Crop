@@ -18,6 +18,7 @@ import { CreateGreenhouse } from '../pages/dashboard/greenhouse/createGreenhouse
 import { Contact } from '../pages/home/contact/Contact'
 import { RegisterCollab } from '../pages/auth/RegisterCollab'
 import { ForgotPass } from '../pages/auth/ForgotPass'
+import { MeasureChart } from '../components/Measure/MeasureChart'
 
 
 export const AppRoutes = () => {
@@ -41,6 +42,7 @@ export const AppRoutes = () => {
                     {(user?.user_type === 2 || user?.user_type === 3)
                     &&
                     <Route path='/user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
+                      <Route path='chart/:greenhouse_id/:measurement_type_id' element={<MeasureChart/>}/> 
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
                       <Route path='greenhouse/:greenhouse_id/:measurement_type_id' element={<Measure/>}/>

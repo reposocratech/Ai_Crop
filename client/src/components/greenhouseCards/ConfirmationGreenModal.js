@@ -10,32 +10,25 @@ export const ConfirmationGreenModal = ({openConfirmModal, setOpenConfirmModal, e
     const {user, setActionReload, actionReload} = useContext(AICropContext);
 
     const navigate = useNavigate();
+    
+    const handleClose = () => {
+      setOpenConfirmModal(false);
+    }
 
     const onDelete = () => {
-        axios
-          .get(`http://localhost:4000/greenhouse/deleteGreenhouse/${elem.greenhouse_id}`)
-          .then((res)=>{
-              navigate('/user');
-              setOpenConfirmModal(false);
-              setActionReload(!actionReload);
-              
-          })
-          .catch((err)=>{
-              console.log(err);
-          })
-      }
+      axios
+        .get(`http://localhost:4000/greenhouse/deleteGreenhouse/${elem.greenhouse_id}`)
+        .then((res)=>{
+            navigate('/user');
+            setOpenConfirmModal(false);
+            setActionReload(!actionReload);
+            
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
 
-      const handleClose = () => {
-        setOpenConfirmModal(false);
-      }
-  
-  
-  
-  
-  
-  
-  
-  
     return (
         <>
         <Modal show={openConfirmModal} onHide={handleClose}>

@@ -69,8 +69,6 @@ export const AllGreenhouses = () => {
                   <OwnerCard 
                   elem = {elem} 
                   />
-                  
-                  
                 </div>
               )
           })
