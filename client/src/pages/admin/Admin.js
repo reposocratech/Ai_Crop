@@ -96,7 +96,7 @@ export const Admin = () => {
       <section className='botones_admin'>
         <button onClick={()=>navigate('/')}><img src='/assets/images/go_back.png'/></button>
       </section>
-      <header className='header_admin'>
+      <header className='header_admin '>
         <h1 className='titleMini'>bienvenido, administrador</h1>
         <div className='search'>
           <input type="text" maxLength="50" 

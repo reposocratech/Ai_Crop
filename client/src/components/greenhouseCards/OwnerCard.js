@@ -1,10 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Button, Card } from 'react-bootstrap'
 import { AICropContext } from '../../context/AICropContext';
-import "./greenhousecard.scss"
-import { saveLocalStorageAICropGreenhouse } from '../../helpers/localStorage/localStorageAICrop';
-import axios from 'axios';
+import "./greenhousecard.scss";
 import { ConfirmationGreenModal } from './ConfirmationGreenModal';
 
 export const OwnerCard = ({elem}) => {
@@ -47,7 +44,7 @@ export const OwnerCard = ({elem}) => {
           <div onClick={handleModal}><img className='delete'src='/assets/images/delete.png'/></div>
           {elem.active_alarms ?
           
-          <div className='alerta_cont'><img className='alerta' src='/assets/images/alerta.png'/></div> :
+          <div className='alerta_cont'><img onClick={onSubmit} className='alerta' src='/assets/images/alerta.png'/></div> :
           
           <div></div>}
         

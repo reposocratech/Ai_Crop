@@ -9,7 +9,6 @@ import { ModalNotif } from '../../../../components/Notifications/ModalNotif';
 import { useNavigate } from 'react-router-dom';
 
 
-
 export const AllGreenhouses = () => {
 
   const {user} = useContext(AICropContext);

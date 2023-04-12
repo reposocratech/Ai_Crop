@@ -98,7 +98,7 @@ export const RegisterCollab = () => {
 
   return (
 
-    <div className='PpalColl'>
+  <div className='PpalColl'>
     <Row className='cont_auth d-flex flex-column p-0'>
       <TopNavBar/>
       <main className='registro-form form_registro d-flex  flex-column ms-5'>
