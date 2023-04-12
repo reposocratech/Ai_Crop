@@ -128,7 +128,7 @@ export const Measure = () => {
               measureHistoricalData?.map((data, index)=>{
                 let newReferenceDay = new Date(data.day)
                 let day = getWeekDay(newReferenceDay.getDay())
-                let formatedDate = dayjs(newReferenceDay).format('DD/MM/YYYY')
+                let formatedDate = dayjs(data.day).format('DD/MM/YYYY HH:mm')
                 return(
                   <p key={index}>{day} ({formatedDate}) : {data.avg_value}{measure?.unit}</p>
                 )

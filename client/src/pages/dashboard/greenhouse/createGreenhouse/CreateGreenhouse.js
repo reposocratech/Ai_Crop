@@ -181,10 +181,11 @@ export const CreateGreenhouse = () => {
               className='input_1'
               placeholder='Norte'
               autoComplete='off'
+              maxLength={10}
               name='greenhouse_orientation'
               value={greenhouseInfo.greenhouse_orientation}
               onChange={handleChangeGreenhouseInfo}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               />
             </div>
           </article>

@@ -273,5 +273,29 @@ class ParametersController {
             : res.status(200).json(result);
         });
     }
+    
+    // 11. Muestra el historial completo de una medida
+    // localhost:4000/server/parameters/history/:greenhouse_id/:measurement_type_id
+    getMeasureHistory = (req, res) => {
+
+        let {greenhouse_id, measurement_type_id} = req.params;
+
+        // let sql = `SELECT measure_date_time as x, measure_value as y FROM measure 
+        // WHERE greenhouse_id = ${greenhouse_id}
+        // AND measurement_type_id = ${measurement_type_id}
+        // AND DATE(measure_date_time) >= DATE(NOW()) - INTERVAL 1 YEAR
+        // ORDER BY measure_date_time DESC`
+
+        let sql = `SELECT UNIX_TIMESTAMP(measure_date_time) * 1000 as x, measure_value as y FROM measure WHERE greenhouse_id = ${greenhouse_id} 
+        AND measurement_type_id = ${measurement_type_id} 
+        AND DATE(measure_date_time) >= DATE(NOW()) - INTERVAL 1 YEAR
+        ORDER BY x DESC`
+
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json({error})
+            : res.status(200).json(result);
+        });
+    }
 }
 module.exports = new ParametersController();
