@@ -142,7 +142,7 @@ class UserController{
 
       // si la consulta viene vacía (el correo ingresado no existe)
       if (!result || !result.length || result[0].is_deleted == 1) {
-        res.status(401).json("Usuario no registrado");
+        res.status(300).json("Usuario no registrado");
       } else { // si la consulta trae un registro (el correo ingresado existe)
 
         const [user] = result;

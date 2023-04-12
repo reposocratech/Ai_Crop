@@ -4,9 +4,6 @@ import { AICropContext } from "../../../context/AICropContext";
 import axios from "axios";
 import './editUser.scss';
 import { Countries } from '../../auth/lists/Countries'
-import { SpainProvinces } from '../../auth/lists/SpainProvinces'
-
-import { Row } from 'react-bootstrap';
 import { ButtonNotif } from '../../../components/Notifications/ButtonNotif';
 import { ModalNotif } from '../../../components/Notifications/ModalNotif';
 
@@ -24,10 +21,10 @@ const initialValue = {
 }
 
 const initialValuePass = {
-    email: "",
-    currentPass: "",
-    newPass: "",
-    newPassConfirm: "",
+  email: "",
+  currentPass: "",
+  newPass: "",
+  newPassConfirm: "",
 }
 
 export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
@@ -131,9 +128,8 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
   return (
     <section className='contEdit'>
         
-
         <header className='botones_user'>
-            <button onClick={()=>navigate(-1)}><img src='/assets/images/go_back.png'/></button>
+            <button onClick={()=>navigate(-1)}><img alt='atrás' src='/assets/images/go_back.png'/></button>
             <ButtonNotif setShowModalNotif={setShowModalNotif}/>
             <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
 
@@ -141,7 +137,6 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         <div className='tituloEdit'> <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
         </div>
         
-
         {showForm1 && 
         //PARTE 1-----
         <section className='contEdit fondo' >
@@ -188,7 +183,6 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             maxLength={10}   />
         </div>
 
-
         </section>
         }
         
@@ -200,8 +194,10 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 placeholder='Dirección'
                 value={editUser.address}
                 onChange={handleChange}
+
                 name="address" 
                 maxLength={50}       />
+
             </div>
             
             <div id="floatContainer" className="float-container">
@@ -210,8 +206,10 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 placeholder='Codigo Postal'
                 value={editUser.post_code}
                 onChange={handleChange}
+
                 name="post_code"       
                 maxLength={5} />
+
             </div>
 
             <div id="floatContainer" className="float-container">
@@ -295,10 +293,10 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
 }
 
     <article  className='button_section'>
-    <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Datos personales</button>
-    <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
-    <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Perfil</button>
-    <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
+        <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Datos personales</button>
+        <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
+        <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Perfil</button>
+        <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
     </article>
         <article className='button_section'>
             <button onClick={handleSubmit} className='bg_verde'>Aceptar</button>

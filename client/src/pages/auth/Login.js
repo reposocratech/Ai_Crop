@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Form, Row } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { TopNavBar } from '../../components/NavBars/TopNavBar/TopNavBar'
 import { saveLocalStorageAICrop } from '../../helpers/localStorage/localStorageAICrop'
@@ -17,7 +17,8 @@ export const Login = () => {
   const [login, setLogin] = useState(initialValue)
   const [messageError, setMessageError] = useState("")
   const [messageError2, setMessageError2] = useState("")
-  const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext)
+  const {setUser, setIsLogged} = useContext(AICropContext)
+  const [emailValidation, setEmailValidation] = useState(false)
 
 
   const navigate = useNavigate();
@@ -29,9 +30,23 @@ export const Login = () => {
     setMessageError2("");
   }
 
+  const handleBlur = () => {
+    let string = login.email
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
+      setMessageError("El correo no es correcto")
+    } else {
+      setMessageError("")
+      setEmailValidation(true)
+    }
+  }
+
   const handleSubmit = () => {
     if (!login.email || !login.password){
       setMessageError("Debes rellenar todos los campos");
+
+    } else if (!emailValidation) {
+      setMessageError("El correo no es correcto");
+
     } else{
       axios
       .post("http://localhost:4000/user/login", login)
@@ -82,7 +97,8 @@ export const Login = () => {
                   name='email' 
                   value={login.email}
                   onChange={handleChange}
-                  onKeyPress={handleKeyPress}
+                  onBlur={handleBlur}
+                  onKeyDown={handleKeyPress}
                   />
             </div>
 
@@ -92,7 +108,7 @@ export const Login = () => {
                 name='password' 
                 value={login.password}
                 onChange={handleChange}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 />
             </div>
 

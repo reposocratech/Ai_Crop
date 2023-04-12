@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState, useContext } from 'react'
-import { Form, Row } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../../context/AICropContext'
 
@@ -77,7 +77,7 @@ export const EditGreenhouse = () => {
     .catch((err) => {
       console.log(err);
     })
-  }, [])
+  }, [greenhouse_id])
 
   useEffect(() => {
     if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
@@ -196,7 +196,7 @@ export const EditGreenhouse = () => {
       <main className='main_creategh'>
         <section className='top_section'>
           <h5>Parece que deseas modificar algunos campos...</h5>
-          <img className='leaf_img' src='/assets/images/leaf_form.png'/>
+          <img className='leaf_img' alt='icono hoja' src='/assets/images/leaf_form.png'/>
         </section>
         {/* SECCIÓN FORMULARIO */}
         <Form className='form_creategh1'>
@@ -277,7 +277,7 @@ export const EditGreenhouse = () => {
         </Form>
       </main>
       <div className='bottom_sect'>
-       <button onClick={handleContinue} disabled={disable}><img src='/assets/images/next1.png'/></button>
+       <button onClick={handleContinue} disabled={disable}><img alt='icono continuar' src='/assets/images/next1.png'/></button>
        </div>
       
       </div>
@@ -484,11 +484,11 @@ export const EditGreenhouse = () => {
             
             </div>
             <div className='aaa'>
-            <button onClick={handleBack}><img src='/assets/images/back1.png'/></button>
+            <button onClick={handleBack}><img alt='icono atrás' src='/assets/images/back1.png'/></button>
 
-            <button className='crear' onClick={handleSubmit} disabled={error != "" || editGreenhouse.responsibility_acknowledged === 0}>Guardar</button>
+            <button className='crear' onClick={handleSubmit} disabled={error !== "" || editGreenhouse.responsibility_acknowledged === 0}>Guardar</button>
 
-            <img className='gh_img' src='/assets/images/greenhouse.png'/>
+            <img className='gh_img' alt='icono invernadero' src='/assets/images/greenhouse.png'/>
           </div>
           </div>
         </section>

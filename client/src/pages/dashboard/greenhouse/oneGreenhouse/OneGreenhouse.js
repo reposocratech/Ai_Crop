@@ -21,11 +21,12 @@ import { useParams } from 'react-router-dom'
 import { ModalInvitation } from '../../../../components/greenhouseCards/ModalInvitation'
 import { UpdateCropModal } from '../../../../components/Crop/UpdateCropModal'
 import { ConfirmationCropModal } from '../../../../components/Crop/ConfirmationCropModal'
+import { ChartCrop } from '../../../../components/Crop/ChartCrop'
 
 
 export const OneGreenhouse = () => {
 
-  const {user, actionReload, userAlarms, setActionReload} = useContext(AICropContext);
+  const {actionReload, setActionReload} = useContext(AICropContext);
 
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
@@ -90,7 +91,7 @@ export const OneGreenhouse = () => {
         console.log(err);
       })
 
-  }, [actionReload])
+  }, [actionReload, greenhouse_id])
 
   /* const onDelete = (crop_id)=>{
 
@@ -224,12 +225,12 @@ export const OneGreenhouse = () => {
               <h4>{crop.crop_name.toUpperCase()}</h4>
               <p>{crop.crop_plant_variety}</p>
               <p>Extensión: {crop.crop_size}m²</p>
-              <p>Días transcurridos: {crop.days_passed} día(s)</p>
+              {/* <p>Días transcurridos: {crop.days_passed} día(s)</p> */}
               <p>Duración: {crop.crop_duration} día(s)</p>
-
+              <ChartCrop cropDuration = {crop.crop_duration} cropDays = {crop.days_passed}/>
               <section className='buttons'>
-                <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img className='edit'src='/assets/images/config_admin2.png'/></div>
-                <div onClick={() =>{openModalDeleteCrop(crop.crop_id,crop.is_active)}}><img className='harvest'src='/assets/images/cards/done.png'/></div>
+                <div onClick={() =>{openModalUdateCrop(crop.crop_id)}} ><img alt='icono editar' className='edit'src='/assets/images/config_admin2.png'/></div>
+                <div onClick={() =>{openModalDeleteCrop(crop.crop_id,crop.is_active)}}><img alt='icono recoger cultivo' className='harvest'src='/assets/images/cards/done.png'/></div>
               </section>
 
             </div>
