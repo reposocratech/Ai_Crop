@@ -13,6 +13,7 @@ export const UpdateCropModal = ({showUpdateCrop, setShowUpdateCrop, selectedCrop
   const [editCropInfo, setEditCropInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
+
   useEffect(() => {
     if(selectedCrop){
       axios
@@ -116,6 +117,7 @@ export const UpdateCropModal = ({showUpdateCrop, setShowUpdateCrop, selectedCrop
 
             { editCropInfo?.is_active === 1 && <button className='botonCrops' onClick={handleSubmit}>Editar</button>}
             
+
             <button className='botonCrops' onClick={handleSubmit2}>Eliminar</button>
             </div>
             <p className='text-center text-danger mt-1 mb-1'> {errorMessage && errorMessage}</p>

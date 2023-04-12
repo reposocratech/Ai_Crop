@@ -11,13 +11,13 @@
         color: rgb(185, 185, 185) !important;
     }
     .tituloEdit{
-        display: flex;
-        justify-content: start;
+        display: flex-start;
+        /* justify-content: start; */
         align-items:flex-start
     }
     .botones_user{
-        display: flex;
-        justify-content: end;
+        display: flex-end;
+        /* justify-content: end; */
         margin-bottom: 15px;
         gap: 20px;
         button{

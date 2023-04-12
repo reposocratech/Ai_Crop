@@ -66,9 +66,9 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         axios
             .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
             .then((res)=>{
-                console.log(editUser);
+                
                 console.log(res.data);
-                console.log("***** KEE PASAA********", res.data.img);
+        
                 if(res.data.img === ""){
                     setUser(editUser)
                 }else{
@@ -168,7 +168,8 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 placeholder='Documento de identificación'
                 value={editUser.dni}
                 onChange={handleChange}
-                name="dni"        />
+                name="dni"      
+                maxLength={14}  />
             </div>
 
             <div id="floatContainer" className="float-container">
@@ -178,7 +179,8 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             placeholder='Teléfono'
             value={editUser.phone}
             onChange={handleChange}
-            name="phone"        />
+            name="phone"     
+            maxLength={10}   />
         </div>
 
         </section>
@@ -192,7 +194,10 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 placeholder='Dirección'
                 value={editUser.address}
                 onChange={handleChange}
-                name="address"/>
+
+                name="address" 
+                maxLength={50}       />
+
             </div>
             
             <div id="floatContainer" className="float-container">
@@ -201,7 +206,10 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 placeholder='Codigo Postal'
                 value={editUser.post_code}
                 onChange={handleChange}
-                name="post_code"/>
+
+                name="post_code"       
+                maxLength={5} />
+
             </div>
 
             <div id="floatContainer" className="float-container">
