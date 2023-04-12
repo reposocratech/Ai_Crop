@@ -123,6 +123,11 @@ export const ModalInvitation = ({
       setMessage("El correo no es correcto");
       return;
 
+    } else if (collabInfo.email === user.email){
+
+      setMessage("El correo introducido es el del dueño");
+      return;
+    
     } else {
 
     axios
@@ -153,6 +158,11 @@ export const ModalInvitation = ({
         setMessage("El correo no es correcto");
         return;
 
+      } else if (helperInfo.helper_email === user.email){
+
+        setMessage("El correo introducido es el del dueño");
+        return;
+      
       } else {
 
         axios
