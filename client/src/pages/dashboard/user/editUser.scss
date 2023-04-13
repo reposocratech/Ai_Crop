@@ -5,7 +5,7 @@
 
     width: 100%;
     transition: 0.2s;
-
+    
     .disabled {
         color: rgb(185, 185, 185) !important;
     }
@@ -30,6 +30,12 @@
             margin-top: 50px;
             margin-bottom: 25px;
         }
+    }
+    .mensajeError {
+        margin-left: 10px;
+        margin-top: 10px;
+        color: rgb(255, 110, 110);
+        font-size: 20px;
     }
     .botones_user{
         display: flex;
@@ -250,6 +256,7 @@
         width: 100%;
         gap: 10px;
 
+
         button {
             display: flex;
             justify-content: center;
@@ -302,33 +309,37 @@
 
 //SMARTPHONE
 @media (max-width: 500px){
-.contEdit{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    // text-align: center;
-    width: 100%;
-    .main_edit{
-        width: 100%;
-    }
-    .button_section{
-     display: flex;
-     flex-direction: column;
-     
-     align-items: center;
-    //  width: 100%;
-    }
-    .input_group{
-        width: 100%;
-    }
-    .bottom_section{
-        flex-direction: column;
-        width: 100%;
-        button{
-            width: 100%;
-            margin-top: 10px;
-        }
-    }
-}
+  .contEdit{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // text-align: center;
+      width: 100%;
+
+      .main_edit{
+          width: 100%;
+      }
+
+      .button_section{
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+      //  width: 100%;
+
+      }
+      .input_group{
+          width: 100%;
+      }
+
+      .bottom_section{
+          flex-direction: column;
+          width: 100%;
+          button{
+              width: 100%;
+              margin-top: 10px;
+          }
+      }
+
+  }
 
 }

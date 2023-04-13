@@ -2,12 +2,12 @@ import React, { useRef, useContext, useState, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { NavLateral } from '../../../components/NavBars/SideNavBar/NavLateral'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
-import "./mainPage.scss"
 import { NavLateralAdmin } from '../../../components/NavBars/SideNavBar/NavLateralAdmin'
 import { AICropContext } from '../../../context/AICropContext'
 import axios from 'axios'
+import "./mainPage.scss"
 
-// Cuando un usuario se loggea la vista principal es esta, con las páginas "hijas" de User en el Outlet
+
 
 // VISTA PRINCIPAL DE USUARIO / MAINPAGE == VISTA DE TODOS SUS INVERNADEROS
 export const MainPage = () => {
@@ -16,6 +16,7 @@ export const MainPage = () => {
   const navigate = useNavigate();
   const greenhouse_id = parseInt(useParams().greenhouse_id); 
   console.log(greenhouse_id, "grinhaus aidiiiii");
+
 
   useEffect(() => {
     if (user){
@@ -54,7 +55,6 @@ export const MainPage = () => {
  
   }, [user])
   // console.log(userGreenhouses, "aaaAAAAAAAAAAA");
-  
 
 
   return (
@@ -76,5 +76,5 @@ export const MainPage = () => {
             </Col>
         </Row>
     </Container>
-  )
-}
+  );
+};

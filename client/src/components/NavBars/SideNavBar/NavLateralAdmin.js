@@ -1,28 +1,24 @@
-import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { AICropContext } from '../../../context/AICropContext';
-import { deleteLocalStorageAICrop } from '../../../helpers/localStorage/localStorageAICrop';
-import './navLateral.scss'
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AICropContext } from "../../../context/AICropContext";
+import { deleteLocalStorageAICrop } from "../../../helpers/localStorage/localStorageAICrop";
+import "./navLateral.scss";
 
 export const NavLateralAdmin = () => {
-  
-  const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
-  
+  const { user, setUser, setIsLogged } = useContext(AICropContext);
+
   const navigate = useNavigate();
 
   const onLogOut = () => {
-    deleteLocalStorageAICrop()
+    deleteLocalStorageAICrop();
     setUser();
-    navigate('/')
+    navigate("/");
     setIsLogged(false);
-  }
-
+  };
 
   let fotito = user?.user_photo;
   let noFoto = "/assets/images/default_pic.png";
-  
-  
-  
+
   return (
     <div className='navLat_cont'>
       <section className='nav_lateral'>
@@ -55,3 +51,4 @@ export const NavLateralAdmin = () => {
   </div>
   )
 }
+

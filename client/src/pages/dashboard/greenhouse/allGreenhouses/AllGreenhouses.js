@@ -21,7 +21,10 @@ export const AllGreenhouses = () => {
 
   const navigate = useNavigate();
 
-  let numberOfGreenHouses = greenhousesInfo?.resultOwner.length + greenhousesInfo?.resultCollaborator.length;
+  let numberOfGreenHouses =
+    greenhousesInfo?.resultOwner.length +
+    greenhousesInfo?.resultCollaborator.length;
+
 
     useEffect(() => {
       if(user){
@@ -105,46 +108,48 @@ export const AllGreenhouses = () => {
         </Popover>
         <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
       </section>
-      <header className='header_greenhouses'>
-        <section className='title_row'>
+      
+      <header className="header_greenhouses">
+        <section className="title_row">
           <h1>mis invernaderos</h1>
         </section>
+ 
         {greenhousesInfo && 
         <p>Actualmente hay {numberOfGreenHouses} invernadero(s) activo(s)</p>}
       </header>
+      
       <main>
-        
         {user?.user_type === 2 && 
         <>
-        <h2>Invernaderos del usuario</h2>
-        <section className='greenhouse_list user-select-none'>
-        {greenhousesInfo && greenhousesInfo.resultOwner.map((elem, index)=>{
-              return (
-                <div key={index}>
-                  <OwnerCard 
-                  elem = {elem} 
-                  />
-                </div>
-              )
-          })
+          <h2>Invernaderos del usuario</h2>
+          <section className='greenhouse_list user-select-none'>
+          {greenhousesInfo && greenhousesInfo.resultOwner.map((elem, index)=>{
+             return (
+               <div key={index}>
+                 <OwnerCard elem={elem} />
+               </div>
+             );
+           })}
+
+          </section>
+        </>
         }
-        </section>
-        </> }
       
-      <h2>Invernaderos donde colabora el usuario</h2>
-      <section className='greenhouse_list user-select-none'>
-        {greenhousesInfo && greenhousesInfo.resultCollaborator.map((elem, index)=>{
-              return (
-                <div key={index}>
-                  <CollaboratorCard 
-                  elem = {elem}
-                  />
-                </div>
-              )
-          })
-        }
-    </section>
+        <h2>Invernaderos donde colabora el usuario</h2>
+        <section className='greenhouse_list user-select-none'>
+          {greenhousesInfo && greenhousesInfo.resultCollaborator.map((elem, index)=>{
+                return (
+                  <div key={index}>
+                    <CollaboratorCard 
+                    elem = {elem}
+                    />
+                  </div>
+                )
+            })
+          }
+        </section>
+      
       </main>
     </div>
-  )
-}
+  );
+};

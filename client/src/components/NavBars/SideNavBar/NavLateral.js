@@ -1,11 +1,11 @@
+
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../context/AICropContext'
 import { deleteLocalStorageAICrop } from '../../../helpers/localStorage/localStorageAICrop'
 import { CreateCropModal } from '../../Crop/CreateCropModal'
-
-import "./navLateral.scss"
 import axios from 'axios'
+import "./navLateral.scss";
 
 
 export const NavLateral = () => {
@@ -38,22 +38,16 @@ export const NavLateral = () => {
      setShowModalCrop(true);
   }
 
-
   const onLogOut = () => {
-    deleteLocalStorageAICrop()
+    deleteLocalStorageAICrop();
     setUser();
-    navigate('/')
+    navigate("/");
     setIsLogged(false);
-  }
-
+  };
 
   let fotito = user?.user_photo;
   let noFoto = "/assets/images/default_pic.png";
 
-
-
-  // El nav lateral está pendiente al token para que la vista de user una vez accede al usuario
-  // la parte de la izq (NAV) tiene una query diferente a la parte de la dcha(BLANCO). En la izq se va a hacer la query en base al token y en la derecha se va a hacer la query en base a la ruta
   return (
     <div className='navLat_cont'>
       <section className='nav_lateral'>
@@ -118,14 +112,14 @@ export const NavLateral = () => {
           </> 
         }
       </>
-       }
+      }
 
-       {/* modal crop */}
-       <CreateCropModal showModalCrop={showModalCrop} setShowModalCrop={setShowModalCrop}
-       
-       />
-      
+        {/* modal crop */}
+        <CreateCropModal
+          showModalCrop={showModalCrop}
+          setShowModalCrop={setShowModalCrop}
+        />
       </section>
     </div>
-  )
-}
+  );
+};

@@ -1,26 +1,26 @@
 import React, { useContext, useState }  from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AICropContext } from '../../context/AICropContext';
-import "./greenhousecard.scss"
 import { saveLocalStorageAICropGreenhouse } from '../../helpers/localStorage/localStorageAICrop';
-import axios from 'axios';
 import { ModalExitCollab } from '../ConfirmationModals/ModalExitCollab';
-import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import { Typography } from '@mui/material';
+import axios from 'axios';
+import "./greenhousecard.scss"
 
-export const CollaboratorCard = ({elem}) => {
+
+export const CollaboratorCard = ({ elem }) => {
   const navigate = useNavigate();
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
-  const {user, setActionReload, actionReload} = useContext(AICropContext);
+  const { user, setActionReload, actionReload } = useContext(AICropContext);
 
   const onSubmit = () => {
-    navigate(`greenhouse/${elem.greenhouse_id}`)
-  }
+    navigate(`greenhouse/${elem.greenhouse_id}`);
+  };
 
   const handleModal = () => {
     setOpenConfirmModal(true);
   }
+  
 
   const onDeleteCollab = () => {
     axios
@@ -29,11 +29,11 @@ export const CollaboratorCard = ({elem}) => {
         console.log("delete collab");
         setActionReload(!actionReload);
         handleClose();
-    })
+    });
     .catch((err)=> {
-        console.log(err)
-    })
-} 
+        console.log(err);
+    });
+  } 
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -52,13 +52,9 @@ export const CollaboratorCard = ({elem}) => {
     elem.active_alarms = 0
   }
 
+
   return (
     <>
-    {/* <ModalExitCollab
-      setOpenConfirmModal={setOpenConfirmModal}
-      openConfirmModal={openConfirmModal}
-      elem={elem}
-    /> */}
       <div className='cont_card_greenhouse'>
           <header className='card_header_colab'>
           </header>
@@ -76,9 +72,6 @@ export const CollaboratorCard = ({elem}) => {
             <div className='alerta'></div>}
           </section>
       </div>
-      {/* <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-      Open Popover
-      </Button> */}
       <Popover
         className='popoverExitCollab'
         id={id}
@@ -92,16 +85,14 @@ export const CollaboratorCard = ({elem}) => {
         transformOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
-        }}
-      >
-        {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
+        }}>
         <section className='popover_sect'>
             <h4 className='paratext'>¿Quieres dejar de colaborar en este invernadero?</h4>
           <div  className='botones_pop'>
             <img className='atras' onClick={handleClose} src='/assets/images/back1.png'/>
             <button className='botonCrops' onClick={onDeleteCollab}> Aceptar </button>
           </div>
-      </section>
+        </section>
       </Popover>
     </>
   )

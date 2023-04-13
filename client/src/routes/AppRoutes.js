@@ -23,22 +23,46 @@ import axios from 'axios'
 
 
 export const AppRoutes = () => {
-  
-  const {user} = useContext(AICropContext);
+  const { user } = useContext(AICropContext);
 
   return (
     <div>
-        <Container fluid>
-            <BrowserRouter>
-                <Routes>
-                    {!user &&(
-                    <>
-                    <Route path='/register' element={<Register/>}/>
-                    <Route path='/forgotpassword' element={<ForgotPass/>}/>
-                    <Route path='/login' element={<Login/>}/>
-                    <Route path='/collaborator/:greenhouse_id' element={<RegisterCollab/>}/>
-                    </>)
-                    }
+      <Container fluid>
+        <BrowserRouter>
+          <Routes>
+            {!user && (
+              <>
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgotpassword" element={<ForgotPass />} />
+                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/collaborator/:greenhouse_id"
+                  element={<RegisterCollab />}
+                />
+              </>
+            )}
+
+            {(user?.user_type === 2 || user?.user_type === 3) && (
+              <Route path="/user" element={<MainPage />}>
+                {" "}
+                {/*Vista de user == Vista de todos sus greenhouses*/}
+                <Route path="" element={<AllGreenhouses />} />
+                <Route
+                  path="greenhouse/:greenhouse_id"
+                  element={<OneGreenhouse />}
+                />
+                <Route
+                  path="greenhouse/:greenhouse_id/:measurement_type_id"
+                  element={<Measure />}
+                />
+                <Route path="edit" element={<EditUser />} />
+                <Route
+                  path="editGreenhouse/:greenhouse_id"
+                  element={<EditGreenhouse />}
+                />
+                <Route path="createGreenhouse" element={<CreateGreenhouse />} />
+              </Route>
+            )}
 
                     {(user?.user_type === 2 || user?.user_type === 3)
                     &&
@@ -59,16 +83,17 @@ export const AppRoutes = () => {
                     </Route>
                     }
 
-                    {(user?.user_type || !user?.user_type) && 
-                    <>
-                     <Route path='/' element={<Home/>}/> 
-                     <Route path='*' element={<Error/>} />
-                     <Route path='/info' element={<Info/>}/>
-                     <Route path='/contact' element={<Contact/>}/>
-                    </>}
-                </Routes>
-            </BrowserRouter>
-        </Container>
+            {(user?.user_type || !user?.user_type) && (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="*" element={<Error />} />
+                <Route path="/info" element={<Info />} />
+                <Route path="/contact" element={<Contact />} />
+              </>
+            )}
+          </Routes>
+        </BrowserRouter>
+      </Container>
     </div>
-  )
-}
+  );
+};
