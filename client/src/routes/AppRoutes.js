@@ -1,5 +1,4 @@
-
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/home/Home'
 import { Container } from 'react-bootstrap'
@@ -20,6 +19,7 @@ import { Contact } from '../pages/home/contact/Contact'
 import { RegisterCollab } from '../pages/auth/RegisterCollab'
 import { ForgotPass } from '../pages/auth/ForgotPass'
 import { MeasureChart } from '../components/Measure/MeasureChart'
+import axios from 'axios'
 
 
 export const AppRoutes = () => {

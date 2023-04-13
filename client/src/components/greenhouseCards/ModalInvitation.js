@@ -186,12 +186,14 @@ export const ModalInvitation = ({
 
   return (
     <>
-      <Modal show={showModalInvitation} onHide={handleClose}>
+      <Modal show={showModalInvitation} onHide={handleClose} className="modalInv">
         <Modal.Body className="divMaster">
-          {/* <section className="d-flex secPpal"> */}
             {showForm && (
-              <div className="d-flex justify-content-center align-items-center flex-column">
-                <h1 className="titular">colaborador</h1>
+              <div className="d-flex justify-content-center align-items-center flex-column div_padre">
+                <h1 className="titular">invitar colaborador</h1>
+                <p className="warn">Tendrá acceso a ver la información de tu invernadero</p>
+                <div className="input_group">
+    
                   <input
                     className="note m-2"
                     type="text"
@@ -201,6 +203,7 @@ export const ModalInvitation = ({
                     name="name"
                     autoComplete="off"
                   />
+       
                   <input
                     className="note m-2"
                     type="text"
@@ -210,16 +213,24 @@ export const ModalInvitation = ({
                     onBlur={handleBlurCollab}
                     name="email"
                   />
-                <button className="botonInv accept uni m-2" onClick={inviteCollab}> aceptar </button>
-                <button className="botonInv accept m-2" onClick={goBack}> volver </button>
-                <p>{message}</p>
+                  <p className="errorM">{message}</p>
+                  
+                  <div className="botones">
+                    <img onClick={goBack} src="/assets/images/back1.png"/>
+                    <button className="botonInv accept uni" onClick={inviteCollab}> aceptar </button>
+                  </div>
+                  
+                </div>
+                
               </div>
             )}
 
             {showForm2 && 
             <>
-              <h1 className="titular">Invitar un helper</h1>
-              <div className="algo">
+            <div className="d-flex justify-content-center align-items-center flex-column div_padre">
+              <h1 className="titular">invitar helper</h1>
+              <div className="input_group">
+                <p className="warn">Recibirá emails de las alertas de tu invernadero</p>
                 <input
                   className="note m-2"
                   type="text"
@@ -245,32 +256,33 @@ export const ModalInvitation = ({
                   onBlur={handleBlurHelper}
                   name="helper_email"
                 />
-              <button className="botonInv accept m-2" onClick={inviteHelper}>aceptar</button>
-              <button className="botonInv accept m-2" onClick={goBack}> volver </button>
-              <p>{message}</p>
-              </div>
-            </>
 
+                <p className="errorM">{message}</p>
+                <div className="botones">
+                  <img onClick={goBack} src="/assets/images/back1.png"/>
+                  <button className="botonInv accept" onClick={inviteHelper}>aceptar</button>
+                </div>
+                
+              </div>
+            </div> 
+            </>
             }
+
 
             {showButton && 
-            <>
-              <p className="question text-dark">¿Quieres invitar a alguien a tu invernadero?</p>
+            
+            <div className="d-flex flex-column align-items-center">
+              <p className="question">¿Quieres invitar a alguien a tu invernadero?</p>
+
               <div className="botoneraInv">
-                <button className="botonInv coll" onClick={seeForm1}>
-                  {" "}
-                  Invitar a un Colaborador
-                </button>
-                <button className="botonInv coll" onClick={seeForm2}>Invitar a un Helper</button>
+                <button className="botonColl" onClick={seeForm1}>Invitar a un Colaborador</button>
+                <button className="botonColl" onClick={seeForm2}>Invitar a un Helper</button>
               </div>
-            </>
+              
+              <img className="img_gh" src="/assets/images/flora.png"/>
+            </div>
             }
-            {/* // : 
-            // <div className="botoneraInv">
-            // <button className="botonInv accept" onClick={goBack}> volver </button>
-            // </div>
-            // } */}
-          {/* </section> */}
+
         </Modal.Body>
       </Modal>
     </>

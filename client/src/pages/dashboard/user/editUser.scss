@@ -4,16 +4,32 @@
 .contEdit{
 
     width: 100%;
-    margin-top: 30px;
     transition: 0.2s;
-    // height: 1150px;
+    
     .disabled {
         color: rgb(185, 185, 185) !important;
     }
+
     .tituloEdit{
         display: flex-start;
-        /* justify-content: start; */
-        align-items:flex-start
+        justify-content: start; 
+        align-items:flex-start;
+        // margin-bottom: 50px;
+        font-family: $workSans;
+        h1{
+            letter-spacing: 0.105em;
+            font-weight: 500;
+            font-size: 45px;
+            // margin: 0;
+        }
+        p{
+            margin-top: 20px;
+            letter-spacing: 0.1em;
+        }
+        h4{
+            margin-top: 50px;
+            margin-bottom: 25px;
+        }
     }
     .mensajeError {
         margin-left: 10px;
@@ -22,8 +38,8 @@
         font-size: 20px;
     }
     .botones_user{
-        display: flex-end;
-        /* justify-content: end; */
+        display: flex;
+        justify-content: end;
         margin-bottom: 15px;
         gap: 20px;
         button{
@@ -50,11 +66,20 @@
     margin: 0;
     }
 
+    .input_group{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    .main_edit{
+        height: 47vh;
+    }
 
     .float-container {
-        margin: 20px 30px 0 0; 
-        padding: 10px 20px;
-
+        // margin: 20px 30px 0 0; 
+        padding: 12px 20px;
         border-radius: 1.8em;
         color: white;
         background-color: $black1;
@@ -62,7 +87,7 @@
     .float-container input {
        // margin: 18px 0 0px;
         border: none;
-        width: 90%;
+        width: 100%;
         outline: 0;
         font-family: $urbanist;
         font-weight: 600;
@@ -84,7 +109,6 @@
     .fileInput {
         position: relative;
         display: inline-block;
-        margin: 30px 40px 0 0; 
         padding: 10px 20px;
       }
       
@@ -117,8 +141,8 @@
       
       .fileInput input[type="file"] {
         opacity: 0;
-        width: 200px;
-        height: 32px;
+        width: 100%;
+        height: 40px;
         display: inline-block;
       }
       
@@ -140,10 +164,7 @@
     }
 
     label {
-
-        //position: absolute;
         display: block;
-
         transform-origin: top left;
         transform: translate(0, 0px) scale(1);
         font-size: 16px;
@@ -158,7 +179,7 @@
 
 
     .select_form{
-        margin: 18px 0 0px;
+        padding-top: 10px;
         border: none;
         border-radius: 2em;
         outline: 0;
@@ -201,15 +222,49 @@
         opacity: 0.8;
     }
 
+    .bottom_section{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        // position: static;
+        button{
+            border: none;
+            border-radius: 5em;
+            // width: 15vw;
+            height: 10vh;
+            padding: 15px 40px;
+            font-family: $urbanist;
+            font-weight: 800;
+            font-size: 22px;
+            letter-spacing: 0.02em;
+            color: white;
+            background-color: $black2;
+            transition: 0.2s;
+            margin-right: 10px;
+        }
+        button:hover{
+            background-color: #62D2A2;
+        }
+        img{
+            width: 200px;
+        }
+    }
+
     .button_section{
         display: flex;
         justify-content: space-around;
-        margin-top: 30px;
+        width: 100%;
+        gap: 10px;
+
 
         button {
-            width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 10vh;
             padding: 15px 40px;
-            margin: 20px 30px 0 0;
+            // margin: 20px 30px 0 0;
             border: none;
             border-radius: 2em;
             font-family: $urbanist;
@@ -232,27 +287,59 @@
         }
     }
 
-    // TABLET
+    
+}
+
+// TABLET
 @media (max-width: 1199px) {
+.contEdit{
     .button_section{
         display:flex;
         flex-wrap: wrap;
-        
+
         align-items: center;
 
+    }
+
+    .main_edit{
+        height: initial;
+    }
 }
 }
 
-    //SMARTPHONE
+//SMARTPHONE
 @media (max-width: 500px){
-   .button_section{
-    display: flex;
-    flex-direction: column;
-    
-    align-items: center;
-}
+  .contEdit{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // text-align: center;
+      width: 100%;
 
+      .main_edit{
+          width: 100%;
+      }
 
-}
+      .button_section{
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+      //  width: 100%;
+
+      }
+      .input_group{
+          width: 100%;
+      }
+
+      .bottom_section{
+          flex-direction: column;
+          width: 100%;
+          button{
+              width: 100%;
+              margin-top: 10px;
+          }
+      }
+
+  }
 
 }

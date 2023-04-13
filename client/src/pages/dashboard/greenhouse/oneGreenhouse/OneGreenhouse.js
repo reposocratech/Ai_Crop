@@ -1,4 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import { AICropContext } from "../../../../context/AICropContext";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import { TemperatureCard } from "../../../../components/CardsMeasures/TemperatureCard";
 import { Co2Card } from "../../../../components/CardsMeasures/Co2Card";
 import { HumidityCard } from "../../../../components/CardsMeasures/HumidityCard";
@@ -6,25 +10,26 @@ import { SunlightCard } from "../../../../components/CardsMeasures/SunlightCard"
 import { PhCard } from "../../../../components/CardsMeasures/PhCard";
 import { ConductivityCard } from "../../../../components/CardsMeasures/ConductivityCard";
 import { LeafHumidity } from "../../../../components/CardsMeasures/LeafHumidity";
-import { AICropContext } from "../../../../context/AICropContext";
-import { useNavigate } from "react-router-dom";
+
 import { ButtonNotif } from "../../../../components/Notifications/ButtonNotif";
 import { ModalNotif } from "../../../../components/Notifications/ModalNotif";
 import { ButtonCollaborator } from "../../../../components/Notifications/ButtonCollaborator";
 import { ModalCollaborator } from "../../../../components/Notifications/ModalCollaborator";
-
-import axios from "axios";
-import "./onegreenhouse.scss";
-import "../allGreenhouses/allgreenhouses.scss";
-
-import { useParams } from "react-router-dom";
 import { ModalInvitation } from "../../../../components/greenhouseCards/ModalInvitation";
 import { UpdateCropModal } from "../../../../components/Crop/UpdateCropModal";
 import { ConfirmationCropModal } from "../../../../components/Crop/ConfirmationCropModal";
 import { ChartCrop } from "../../../../components/Crop/ChartCrop";
 
+import axios from "axios";
+import "./onegreenhouse.scss";
+import "../allGreenhouses/allgreenhouses.scss";
+
+
+
 export const OneGreenhouse = () => {
-  const { actionReload, setActionReload } = useContext(AICropContext);
+
+  const {actionReload, setActionReload, user} = useContext(AICropContext);
+
 
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
@@ -50,12 +55,13 @@ export const OneGreenhouse = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/greenhouse/details/${greenhouse_id}`)
-      .then((res) => {
+      .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
+      .then((res) => {  
         setUserCollaborators(res.data.resultCollaborators);
         setHelpers(res.data.resultHelpers);
         setGreenhouseData(res.data.resultGreenhouse[0]);
         setCropsCards(res.data.resultActiveCrops);
+        
         for (let i = 0; i < res.data.resultMeasure.length; i++) {
           switch (res.data.resultMeasure[i].measurement_type_id) {
             case 1:
@@ -100,6 +106,8 @@ export const OneGreenhouse = () => {
     }
   };
 
+  console.log(greenhouseData?.user_owner_id, "aaa gh");
+  console.log(user?.user_id, "user aidiiiiiiiiii");
   return (
     <div className="cont_greenhouses">
       <section className="botones_user">
@@ -107,47 +115,53 @@ export const OneGreenhouse = () => {
           <img alt="ir atrás" src="/assets/images/go_back.png" />
         </button>
 
-        <button
-          onClick={() => navigate(`/user/editGreenhouse/${greenhouse_id}`)}
-        >
-          <img
-            className="config_invernadero"
-            alt="configuracion invernadero"
-            src="/assets/images/editar_greenhouse.png"
+
+        {greenhouseData?.user_owner_id === user?.user_id &&
+        <button onClick={() => navigate(`/user/editGreenhouse/${greenhouse_id}`)}>
+          <img 
+            className='config_invernadero' 
+            alt='configuracion invernadero' 
+            src='/assets/images/editar_greenhouse.png'
           />
         </button>
-
+        }
+        
         {/* Modal Collaborator */}
-        <ButtonCollaborator setShowModalCollab={setShowModalCollab} />
-
-        <ModalCollaborator
-          showModalCollab={showModalCollab}
+        <ButtonCollaborator 
           setShowModalCollab={setShowModalCollab}
-          userCollaborators={userCollaborators}
+        />
+        <ModalCollaborator 
+          showModalCollab={showModalCollab} 
+          setShowModalCollab={setShowModalCollab} 
+          userCollaborators={userCollaborators} 
           helpers={helpers}
         />
 
-        {/* Modal */}
-        <ButtonNotif setShowModalNotif={setShowModalNotif} />
-
-        <ModalNotif
-          showModalNotif={showModalNotif}
+        {/* Modal Notificaciones*/}
+        <ButtonNotif 
+          setShowModalNotif={setShowModalNotif}
+        />
+        <ModalNotif 
+          showModalNotif={showModalNotif} 
           setShowModalNotif={setShowModalNotif}
         />
 
-        <ModalInvitation
-          showModalInvitation={showModalInvitation}
-          setShowModalInvitation={setShowModalInvitation}
-          greenhouse_name={greenhouseData?.greenhouse_name}
+        {/* Modal invitación Colaboradores*/}
+        <ModalInvitation 
+          showModalInvitation={showModalInvitation} 
+          setShowModalInvitation={setShowModalInvitation} 
+          greenhouse_name={greenhouseData?.greenhouse_name} 
         />
 
-        <UpdateCropModal
-          showUpdateCrop={showUpdateCrop}
-          setShowUpdateCrop={setShowUpdateCrop}
+        {/* Modal editar crop */}
+        <UpdateCropModal  
+          showUpdateCrop={showUpdateCrop} 
+          setShowUpdateCrop={setShowUpdateCrop} 
           setSelectedCrop={setSelectedCrop}
           selectedCrop={selectedCrop}
         />
 
+        {/* Modal borrar crop */}
         <ConfirmationCropModal
           setShowDeleteCrop={setShowDeleteCrop}
           showDeleteCrop={showDeleteCrop}
@@ -161,18 +175,17 @@ export const OneGreenhouse = () => {
       <header className="header_greenhouses">
         <section className="title_row">
           <h1>mi invernadero</h1>
-          <article className="input_sect">
-            <button
-              className="search_add"
-              onClick={() => setShowModalInvitation(true)}
-            >
-              <img
-                alt="añadir colaboradores"
-                src="/assets/images/add_collaborator.png"
-              />
+
+          {greenhouseData?.user_owner_id === user?.user_id &&
+
+            <article className='input_sect'>
+            <button className='search_add' onClick={() => setShowModalInvitation(true)}>
+            <img alt='añadir colaboradores' src='/assets/images/add_collaborator.png'/>
               Añadir colaboradores
             </button>
-          </article>
+            </article>
+          }
+
         </section>
         <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
         <p>Localidad: {greenhouseData?.greenhouse_location}</p>
@@ -201,36 +214,28 @@ export const OneGreenhouse = () => {
             <div className={`card_crop ${filterdisabled}`} key={index}>
               <h4>{crop.crop_name.toUpperCase()}</h4>
               <p>{crop.crop_plant_variety}</p>
-              <p>Extensión: {crop.crop_size}m²</p>
+
               <p>Duración: {crop.crop_duration} día(s)</p>
-              <ChartCrop
-                cropDuration={crop.crop_duration}
-                cropDays={crop.days_passed}
-              />
-              <section className="buttons">
-                <div
-                  onClick={() => {
-                    openModalUdateCrop(crop.crop_id);
-                  }}
-                >
-                  <img
-                    alt="icono editar"
-                    className="edit"
-                    src="/assets/images/config_admin2.png"
-                  />
+              <section className='buttons'>
+                {greenhouseData?.user_owner_id === user?.user_id ?
+
+                <div onClick={() =>{openModalUdateCrop(crop.crop_id)}}><img alt='icono editar' className='edit'src='/assets/images/config_admin2.png'/></div> 
+                : 
+                <div className='edit'></div>
+                }
+
+                <div className='chartCrop'>
+                  <ChartCrop cropDuration = {crop.crop_duration} cropDays = {crop.days_passed}/>
                 </div>
-                <div
-                  onClick={() => {
-                    openModalDeleteCrop(crop.crop_id, crop.is_active);
-                  }}
-                >
-                  <img
-                    alt="icono recoger cultivo"
-                    className="harvest"
-                    src="/assets/images/cards/done.png"
-                  />
-                </div>
+
+                {greenhouseData?.user_owner_id === user?.user_id ?
+                
+                <div onClick={() =>{openModalDeleteCrop(crop.crop_id,crop.is_active)}}><img alt='icono recoger cultivo' className='harvest'src='/assets/images/cards/done.png'/></div> 
+                : 
+                <div className='edit'></div>
+                } 
               </section>
+              
             </div>
           );
         })}

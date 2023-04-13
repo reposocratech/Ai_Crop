@@ -24,48 +24,32 @@ export const TemperatureCard = ({ temperatura }) => {
   }, [actionReload]);
 
   return (
-    <>
-      {temperatura !== undefined ? (
-        <div className="measure_cardCont">
-          {alarm && (
-            <div className="alarma_measure">
-              <img className="medida" src="/assets/images/alerta.png" />
-            </div>
-          )}
-          <div
-            className="temperature_card responsive_card"
-            onClick={() => navigate(`${temperatura?.measurement_type_id}`)}
-          >
-            <div className="d-flex flex-column">
-              <h3>TEMPERATURA</h3>
-              <p>{temperatura?.measure_value} ºC</p>
-            </div>
-            <img
-              src="/assets/images/cards/warm.png"
-              className="responsive_img"
-            />
-            {/* {alarm &&
-          <div className='alarma_measure'><img className='medida' src='/assets/images/alerta.png'/></div>} */}
-          </div>
-          <hr />
+   <>
+    {temperatura !== undefined ? 
+    <div className='measure_cardCont'>
+      {alarm &&
+       <div className='alarma_measure'><img className='medida' src='/assets/images/alerta.png'/></div>
+       }
+       <div className='temperature_card responsive_card' onClick={()=>navigate(`${temperatura?.measurement_type_id}`)}>
+         <div className='d-flex flex-column'>
+           <h3>TEMPERATURA</h3>
+           <p>{temperatura?.measure_value} ºC</p>
+         </div>
+         <img src='/assets/images/cards/thermometer.png' className='responsive_img'/>    
+       </div>
+       <hr />
+     </div>
+    :
+    <div className='measure_cardCont bl_wh pe-none'>
+      <div className='temperature_card responsive_card'>
+        <div className='d-flex flex-column'>
+          <h3>TEMPERATURA</h3>
         </div>
-      ) : (
-        <div className="measure_cardCont bl_wh pe-none">
-          <div className="temperature_card responsive_card">
-            <div className="d-flex flex-column">
-              <h3>TEMPERATURA</h3>
-              {/* <p>{temperatura?.measure_value} ºC</p> */}
-            </div>
-            <img
-              src="/assets/images/cards/warm.png"
-              className="responsive_img"
-            />
-            {/* {alarm &&
-        <div className='alarma_measure'><img className='medida' src='/assets/images/alerta.png'/></div>} */}
-          </div>
-          <hr />
-        </div>
-      )}
-    </>
+        <img src='/assets/images/cards/thermometer.png' className='responsive_img'/>
+      </div>
+      <hr/>
+     </div>
+     }
+   </>
   );
 };

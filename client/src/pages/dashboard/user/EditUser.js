@@ -128,11 +128,17 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             <ButtonNotif setShowModalNotif={setShowModalNotif}/>
             <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
         </header>
-        <div className='tituloEdit'> <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
+        <div className='tituloEdit'><h1 >configuración</h1>
+        <h4>Modificar información</h4>
         </div>
-        {showForm1 &&
-        //PARTE 1-----
-        <section className='contEdit fondo' >
+
+        <main className='main_edit'>
+        
+        {showForm1 && 
+        // ---- PARTE 1 ----
+        <section className='contEdit' >
+          <div className='input_group'>
+
             <div id="floatContainer"  className="float-container">
                 <label>Nombre</label>
                 <input
@@ -143,55 +149,65 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                     name="first_name"
                 />
             </div>
+            
             <div id="floatContainer"  className="float-container">
                 <label >Apellido</label>
                 <input
-                    type="text" maxLength="25"
-                    placeholder='Apellidos'
-                    value={editUser.last_name}
-                    onChange={handleChange}
-                    name= "last_name"        />
+                type="text" maxLength="25"
+                placeholder='Apellidos'
+                value={editUser.last_name}
+                onChange={handleChange}
+                name= "last_name"/>
             </div>
+            
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">DNI</label>
                 <input
                 placeholder='Documento de identificación'
                 value={editUser.dni}
                 onChange={handleChange}
-                name="dni"
-                maxLength={14}  />
+                name="dni"      
+                maxLength={14}/>
             </div>
+            
             <div id="floatContainer" className="float-container">
-            <label htmlFor="floatField">Teléfono</label>
-            <input
-            placeholder='Teléfono'
-            value={editUser.phone}
-            onChange={handleChange}
-            name="phone"
-            maxLength={10}   />
-        </div>
+                <label htmlFor="floatField">Teléfono</label>
+                <input
+                placeholder='Teléfono'
+                value={editUser.phone}
+                onChange={handleChange}
+                name="phone"     
+                maxLength={10}/>
+            </div>
+
+          </div>
         </section>
         }
-        {showForm2 &&
-        <section className='contEdit fondo' >
+        
+        {showForm2 && 
+        <section className='contEdit'>
+          <div className='input_group'>
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>
                 <input
                 placeholder='Dirección'
                 value={editUser.address}
                 onChange={handleChange}
-                name="address"
-                maxLength={50}       />
+                name="address" 
+                maxLength={50}/>
             </div>
+            
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">C.P.</label>
                 <input
                 placeholder='Codigo Postal'
                 value={editUser.post_code}
                 onChange={handleChange}
-                name="post_code"
-                maxLength={5} />
+                name="post_code"       
+                maxLength={10}/>
             </div>
+            
             <div id="floatContainer" className="float-container">
                 <label htmlFor="countries">País</label>
                 <select id="countries" className='select_form'
@@ -202,6 +218,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 <Countries/>
                 </select>
             </div>
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Ciudad</label>
                 <input type="text" maxLength="80" required
@@ -209,10 +226,16 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={editUser.city}
                 onChange={handleChange}/>
             </div>
+
+          </div>
         </section>
          }
+         
+         
          {showForm3 &&
-        <section className='contEdit fondo' >
+         <section className='contEdit'>
+          <div className='input_group'>
+          
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos previos</label>
                 <select id="countries" className='select_form'
@@ -227,23 +250,30 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                   <option value="Ingeniero agrónomo especializado en hidroponía">Ingeniero agrónomo especializado en hidroponía</option>
                 </select>
             </div>
+            
             <div id="floatContainer" className=" fileInput">
                 <input
                 type="file"
                 name="src-file1"
-                onChange={handleChangeFile}
-            />
-            </div>
+                onChange={handleChangeFile}/>
+            </div> 
+            
+          </div>
         </section>
-    }
+        }
+        
+        
          {showForm4 &&
-        <section className='contEdit fondo' >
+         <section className='contEdit' >
+          <div className='input_group'>
+          
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Correo electrónico</label>
                 <input type="email" maxLength="80" required disabled
                 name='email' className='disabled'
                 value={user.email}/>
             </div>
+            
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Contraseña actual</label>
                 <input type="password" maxLength="80" required
@@ -251,6 +281,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={changePassForm.currentPass}
                 onChange={handlePassword}/>
             </div>
+            
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Nueva contraseña</label>
                 <input type="password" maxLength="80" required
@@ -258,6 +289,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={changePassForm.newPass}
                 onChange={handlePassword}/>
             </div>
+            
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Repetir contraseña</label>
                 <input type="password" maxLength="80" required
@@ -265,18 +297,24 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={changePassForm.newPassConfirm}
                 onChange={handlePassword}/>
             </div>
-            {showErrorPassword !=="" && <p className='mensajeError'> {showErrorPassword} </p>}
+            
+          </div>
+          {showErrorPassword !=="" && <p className='mensajeError'> {showErrorPassword} </p>}
         </section>
-}
-    <article  className='button_section'>
-        <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Datos personales</button>
-        <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
-        <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Perfil</button>
-        <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
-    </article>
-        <article className='button_section'>
-            <button onClick={handleSubmit} className='bg_verde'>Aceptar</button>
+        }
+        
+        <article  className='button_section'>
+            <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Perfil</button>
+            <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
+            <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Avatar</button>
+            <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
         </article>
+      </main>
+
+       <article className='bottom_section'>
+           <button onClick={handleSubmit} className='bg_verde'>Aceptar</button>
+           <img src='/assets/images/planta.png'/>
+       </article>
     </section>
   )
 }

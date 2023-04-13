@@ -13,13 +13,13 @@ class AlarmController {
 
         // Si la medida supera al parámetro máximo
         if (measure_value > max){
-            alarm_message = `¡ALERTA! ${measurement_type_name} por encima del parámetro establecido de ${max} ${unit} en tu invernadero ${greenhouse_name}`;
+            alarm_message = `Alarma ${measurement_type_name.toLowerCase()} de por encima de ${max} ${unit} en tu invernadero "${greenhouse_name}"`;
             high_low = "high";
         }
 
         // si la medida es inferior al parámetro mínimo
         if (measure_value < min){
-            alarm_message = `¡ALERTA! ${measurement_type_name} por debajo del parámetro establecido de ${min} ${unit} en tu invernadero ${greenhouse_name}`;
+            alarm_message = `Alarma de ${measurement_type_name.toLowerCase()} por debajo de ${min} ${unit} en tu invernadero "${greenhouse_name}"`;
             high_low = "low";
         }
 

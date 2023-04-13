@@ -30,30 +30,20 @@ export const ConfirmationCropModal = ({
   };
 
   return (
-    <Modal
-      show={showDeleteCrop}
-      onHide={handleClose}
-      className="modalCropConfirm"
-    >
-      <Modal.Body className="divMasterCrop">
-        <section className="secPpal">
-          <div className="magicdiv">
-            <h1 className="paratext">Vas a desactivar este cultivo.</h1>
-            <h1 className="paratext">¿Estás seguro?</h1>
-            <p className="text-danger mt-2">
-              Una vez desactivado, no podrás volver a activar este cultivo{" "}
-            </p>
-            <div className="botoneraCrops">
-              <button className="botonCrops aceptar" onClick={onDelete}>
-                {" "}
-                Desactivar{" "}
-              </button>
-              <button className="botonCrops cancelar" onClick={handleClose}>
-                {" "}
-                x{" "}
-              </button>
+    <Modal show={showDeleteCrop} onHide={handleClose} className='modalCropConfirm'>
+      <Modal.Body className='divMasterCrop'>
+
+        <section className='secPpal'>
+
+          <div className='magicdiv'>
+            <h1 className='paratext'>¿Quieres desactivar este cultivo?</h1>
+            <p className=' mt-2'>Una vez desactivado, no podrás volver a activar este cultivo </p>
+            <div  className='botoneraCrops'>
+                <button className='botonCrops cancelar' onClick={handleClose}> x </button>
+                <button className='botonCrops aceptar' onClick={onDelete}> Desactivar </button>
             </div>
           </div>
+          
         </section>
       </Modal.Body>
     </Modal>
