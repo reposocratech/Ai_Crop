@@ -35,8 +35,8 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
-  const [showErrorPassword, setShowErrorPassword] = useState(false)
-  const [showErrorPassword2, setShowErrorPassword2] = useState(false)
+  const [showErrorPassword, setShowErrorPassword] = useState("")
+  const [showErrorPassword2, setShowErrorPassword2] = useState("")
   const [activeButton, setActiveButton] = useState(0);
   const [showModalNotif, setShowModalNotif] = useState(false);
   const [changePassForm, setChangePassForm] = useState(initialValuePass);
@@ -55,6 +55,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
     const handleChange = (e) =>{
         const {name, value} = e.target;
         setEditUser({...editUser, [name]:value})
+        setShowErrorPassword("");
     }
 
      const handleChangeFile = (e) =>{
@@ -82,25 +83,33 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             })
             .catch((err)=>console.log(err));
 
-        if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) { 
-            setShowErrorPassword(false);
-            setShowErrorPassword2(false);
-            axios 
-                .post(`http://localhost:4000/user/changePassword`, changePassForm)
-                .then((res)=>{
-                    console.log(res.data);
-                    navigate("/user") 
-                })
-                .catch((err)=>{
-                setShowErrorPassword2(true)
-                console.log(err.response.data,"error gordo")
-                }
-                );
+       
+
+
+            
+            if( !changePassForm.currentPass || !changePassForm.newPass || !changePassForm.newPassConfirm && showForm4 ){
+                setShowErrorPassword("Debes rellenar todos los campos");
             }
+
             else if( changePassForm.newPass !== changePassForm.newPassConfirm){
-                setShowErrorPassword(true);
-                setShowErrorPassword2(false)
-            }
+                setShowErrorPassword("La nueva contraseña y la validación no coinciden");
+                
+            }else if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.       newPassConfirm) { 
+                setShowErrorPassword("");
+    
+                
+                axios 
+                    .post(`http://localhost:4000/user/changePassword`, changePassForm)
+                    .then((res)=>{
+                        console.log(res.data);
+                        navigate("/user") 
+                    })
+                    .catch((err)=>{
+                    setShowErrorPassword("La contraseña no es correcta")
+                    console.log(err.response.data,"error gordo")
+                    }
+                    );
+                }
           
         }
 
@@ -139,6 +148,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         const handlePassword = (e) => {
             const {name, value} = e.target;
             setChangePassForm({...changePassForm, [name]:value, email: user.email})
+            setShowErrorPassword("");
         }
         
   return (
@@ -306,8 +316,8 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 onChange={handlePassword}/>
             </div>
 
-            {showErrorPassword && <h4 className='m-2 text-danger'>Error,  validación incorrecta</h4>}
-            {showErrorPassword2 && <h4 className='m-2 text-danger'>Error,contraseña incorrecta</h4>}
+            {showErrorPassword !=="" && <p className='mensajeError'> {showErrorPassword} </p>}
+           
         </section>
 }
 

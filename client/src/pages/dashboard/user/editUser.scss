@@ -15,6 +15,12 @@
         /* justify-content: start; */
         align-items:flex-start
     }
+    .mensajeError {
+        margin-left: 10px;
+        margin-top: 10px;
+        color: rgb(255, 110, 110);
+        font-size: 20px;
+    }
     .botones_user{
         display: flex-end;
         /* justify-content: end; */
