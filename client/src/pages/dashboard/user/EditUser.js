@@ -35,11 +35,14 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
+  const [showErrorPassword, setShowErrorPassword] = useState(false)
+  const [showErrorPassword2, setShowErrorPassword2] = useState(false)
   const [activeButton, setActiveButton] = useState(0);
   const [showModalNotif, setShowModalNotif] = useState(false);
   const [changePassForm, setChangePassForm] = useState(initialValuePass);
   const [errorMessage, setErrorMessage] = useState("");
 
+ 
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -74,18 +77,31 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 }else{
                     setUser({...editUser, user_photo:res.data.img})
                 }
-                navigate("/user")
+                
+                 
             })
             .catch((err)=>console.log(err));
 
-        if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) {    
+        if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) { 
+            setShowErrorPassword(false);
+            setShowErrorPassword2(false);
             axios 
                 .post(`http://localhost:4000/user/changePassword`, changePassForm)
                 .then((res)=>{
                     console.log(res.data);
+                    navigate("/user") 
                 })
-                .catch((err)=>console.log(err));
+                .catch((err)=>{
+                setShowErrorPassword2(true)
+                console.log(err.response.data,"error gordo")
+                }
+                );
             }
+            else if( changePassForm.newPass !== changePassForm.newPassConfirm){
+                setShowErrorPassword(true);
+                setShowErrorPassword2(false)
+            }
+          
         }
 
         const handleForm1 = ()=>{
@@ -182,7 +198,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             name="phone"     
             maxLength={10}   />
         </div>
-
+        
         </section>
         }
         
@@ -289,6 +305,9 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={changePassForm.newPassConfirm}
                 onChange={handlePassword}/>
             </div>
+
+            {showErrorPassword && <h4 className='m-2 text-danger'>Error,  validación incorrecta</h4>}
+            {showErrorPassword2 && <h4 className='m-2 text-danger'>Error,contraseña incorrecta</h4>}
         </section>
 }
 
