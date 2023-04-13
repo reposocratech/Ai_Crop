@@ -107,12 +107,6 @@
     font-family: $sora;
     .sect_1{
         margin-top: 30px;
-        // width: 100%;
-        // p{
-        //     color: $grisLabel;
-        //     font-size: 15px;
-        //     letter-spacing: 0.145em;
-        // }
         .advise{
             color: $rojoLight;
         }
@@ -192,9 +186,9 @@
     }
     .aaa{
     display: flex;
-    justify-content: end;
-    align-items:flex-end;
-    padding-right: 20px;
+       justify-content: end; 
+       align-items:flex-end;
+       padding-right: 20px;
     margin-top: 25px;
     gap: 20px;
         button{

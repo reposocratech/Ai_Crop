@@ -154,19 +154,17 @@ export const Measure = () => {
         <section className="chart_cont">
           <div className="chart">
             <h4>MEDIDAS HISTORICAS</h4>
-            <div>
-              {measureHistoricalData?.map((data, index) => {
-                let newReferenceDay = new Date(data.day);
-                let day = getWeekDay(newReferenceDay.getDay());
-                let formatedDate = dayjs(newReferenceDay).format("DD/MM/YYYY");
-                return (
-                  <p key={index}>
-                    {day} ({formatedDate}) : {data.avg_value}
-                    {measure?.unit}
-                  </p>
-                );
-              })}
-            </div>
+
+            <div>{
+              measureHistoricalData?.map((data, index)=>{
+                let newReferenceDay = new Date(data.day)
+                let day = getWeekDay(newReferenceDay.getDay())
+                let formatedDate = dayjs(data.day).format('DD/MM/YYYY HH:mm')
+                return(
+                  <p key={index}>{day} ({formatedDate}) : {data.avg_value}{measure?.unit}</p>
+                )
+              })
+              }</div>
           </div>
         </section>
       </main>

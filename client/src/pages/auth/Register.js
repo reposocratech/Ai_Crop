@@ -40,6 +40,7 @@ export const Register = () => {
     setDupEmail("");
   };
 
+
   const handleBlur = () => {
     let string = register.email;
     if (

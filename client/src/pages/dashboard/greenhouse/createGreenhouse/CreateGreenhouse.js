@@ -180,13 +180,15 @@ export const CreateGreenhouse = () => {
             <Form className="form_creategh1">
               <p>Ponle un nombre:</p>
               <input
-                placeholder="Mi huerto de albahaca"
-                maxLength={25}
-                autoComplete="off"
-                className="input_1"
-                name="greenhouse_name"
-                value={greenhouseInfo.greenhouse_name}
-                onChange={handleChangeGreenhouseInfo}
+              className='input_1'
+              placeholder='Norte'
+              autoComplete='off'
+              maxLength={10}
+              name='greenhouse_orientation'
+              value={greenhouseInfo.greenhouse_orientation}
+              onChange={handleChangeGreenhouseInfo}
+              onKeyDown={handleKeyPress}
+
               />
               {/* LOCALIDAD Y ORIENTACIÓN */}
               <article className="input_group">

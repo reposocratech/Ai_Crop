@@ -1,13 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./admin.scss";
+
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import './admin.scss'
+import { DisableModal } from '../../components/adminModal/DisableModal';
+
 
 export const Admin = () => {
   const [usersInfo, setUsersInfo] = useState();
   const navigate = useNavigate();
   const [action, setAction] = useState(false);
   const [search, setSearch] = useState("");
+  const [showDisable, setShowDisable] = useState(false);
+  const [selectedElem, setSelectedElem] = useState("");
 
   useEffect(() => {
     if (search === "") {
@@ -29,51 +34,36 @@ export const Admin = () => {
           console.log(err);
         });
     }
-  }, [action]);
 
-  const onDisable = (user_id) => {
-    axios
-      .get(`http://localhost:4000/admin/disableUser/${user_id}`)
-      .then((res) => {
-        setAction(!action);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    }, [action])
 
-  const onEnable = (user_id) => {
-    axios
-      .get(`http://localhost:4000/admin/enableUser/${user_id}`)
-      .then((res) => {
-        setAction(!action);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
+    const handleSearch = (e) => {
+      setSearch(e.target.value)
 
-    if (e.target.value != "") {
-      axios
+      if (e.target.value != ""){
+
+        axios
         .get(`http://localhost:4000/admin/oneUser/${e.target.value}`)
-        .then((res) => {
-          setUsersInfo(res.data);
+        .then((res)=>{
+          setUsersInfo(res.data)
         })
-        .catch((err) => {
+        .catch((err)=>{
           console.log(err);
-        });
-    } else {
-      axios
-        .get("http://localhost:4000/admin/allUsers")
-        .then((res) => {
-          setUsersInfo(res.data);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+
+      } else {
+        axios
+        .get('http://localhost:4000/admin/allUsers')
+        .then((res)=>{
+          setUsersInfo(res.data)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+      }
+
     }
   };
 
@@ -82,6 +72,12 @@ export const Admin = () => {
     setAction(!action);
   };
 
+   const openDisableModal = (elem)=>{
+      setSelectedElem(elem);
+      setShowDisable(true)
+
+   }
+
   return (
     <div className="cont_admin">
       <section className="botones_admin">
@@ -89,16 +85,16 @@ export const Admin = () => {
           <img src="/assets/images/go_back.png" />
         </button>
       </section>
-      <header className="header_admin">
-        <h1 className="titleMini">bienvenido, administrador</h1>
-        <div className="search m-2">
-          <input
-            type="text"
-            maxLength="50"
-            placeholder="Buscar usuario"
-            name="search"
-            value={search}
-            onChange={handleSearch}
+      
+      <header className='header_admin '>
+        <h1 className='titleMini'>bienvenido, administrador</h1>
+        <div className='search'>
+          <input type="text" maxLength="50" 
+          placeholder='Buscar usuario'
+          name='search' 
+          value={search}
+          onChange={handleSearch}
+
           />
           <h5 onClick={resetInput}>x</h5>
         </div>
@@ -142,23 +138,17 @@ export const Admin = () => {
                   </p>
                   <p>{tipo_de_user}</p>
                 </div>
-                {!elem.is_disabled ? (
-                  <img
-                    className="disable"
-                    src="/assets/images/config_admin2.png"
-                    onClick={() => {
-                      onDisable(elem.user_id);
-                    }}
-                  />
-                ) : (
-                  <img
-                    className="disable"
-                    src="/assets/images/config_admin2.png"
-                    onClick={() => {
-                      onEnable(elem.user_id);
-                    }}
-                  />
-                )}
+
+                <DisableModal
+                  setShowDisable={setShowDisable}
+                  showDisable={showDisable}
+                  action={action}
+                  setAction={setAction}
+                  selectedElem={selectedElem}
+                />
+
+                <img className='disable' src='/assets/images/config_admin2.png' onClick={()=>openDisableModal(elem)}/>
+                
               </section>
               <hr />
             </div>

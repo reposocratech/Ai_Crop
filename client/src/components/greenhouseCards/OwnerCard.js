@@ -12,8 +12,9 @@ export const OwnerCard = ({ elem }) => {
   const onSubmit = () => {
     navigate(`greenhouse/${elem.greenhouse_id}`);
     setActionReload(!actionReload);
-  };
-  const handleSubmit5 = () => {
+  }
+  const handleModal = () => {
+
     setOpenConfirmModal(true);
   };
 
@@ -40,21 +41,14 @@ export const OwnerCard = ({ elem }) => {
           <hr className="lineaGris" />
           <p>Titular: {elem.owner_full_name}</p>
           <p>Alarmas activas: {elem.active_alarms}</p>
-
-          <div onClick={handleSubmit5}>
-            <img className="delete" src="/assets/images/delete.png" />
-          </div>
-          {elem.active_alarms ? (
-            <div className="alerta_cont">
-              <img
-                onClick={onSubmit}
-                className="alerta"
-                src="/assets/images/alerta.png"
-              />
-            </div>
-          ) : (
-            <div></div>
-          )}
+          
+          <div onClick={handleModal}><img className='delete'src='/assets/images/delete.png'/></div>
+          {elem.active_alarms ?
+          
+          <div className='alerta_cont'><img onClick={onSubmit} className='alerta' src='/assets/images/alerta.png'/></div> :
+          
+          <div></div>}
+        
         </main>
       </div>
     </>

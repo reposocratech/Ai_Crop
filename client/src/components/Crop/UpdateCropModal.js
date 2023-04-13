@@ -16,6 +16,7 @@ export const UpdateCropModal = ({
   const [editCropInfo, setEditCropInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
+
   useEffect(() => {
     if (selectedCrop) {
       axios
@@ -79,6 +80,7 @@ export const UpdateCropModal = ({
         console.log(err);
       });
   };
+
 
   return (
     <Modal show={showUpdateCrop} onHide={handleClose} className="modalCropPpal">

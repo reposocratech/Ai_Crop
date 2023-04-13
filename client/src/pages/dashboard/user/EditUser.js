@@ -35,16 +35,28 @@ export const EditUser = () => {
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
+  const [showErrorPassword, setShowErrorPassword] = useState("")
+  const [showErrorPassword2, setShowErrorPassword2] = useState("")
   const [activeButton, setActiveButton] = useState(0);
   const [showModalNotif, setShowModalNotif] = useState(false);
   const [changePassForm, setChangePassForm] = useState(initialValuePass);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      setEditUser(user);
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(user){
+            setEditUser(user)
+        }
+        console.log(user);
+    },[user])
+
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setEditUser({...editUser, [name]:value})
+        setShowErrorPassword("");
+
     }
   }, [user]);
 
@@ -62,16 +74,51 @@ export const EditUser = () => {
     newFormData.append("file", file);
     newFormData.append("register", JSON.stringify(editUser));
 
-    axios
-      .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
-      .then((res) => {
-        console.log(editUser);
-        console.log(res.data);
-        console.log("***** KEE PASAA********", res.data.img);
-        if (res.data.img === "") {
-          setUser(editUser);
-        } else {
-          setUser({ ...editUser, user_photo: res.data.img });
+        axios
+            .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
+            .then((res)=>{
+                
+                console.log(res.data);
+        
+                if(res.data.img === ""){
+                    setUser(editUser)
+                }else{
+                    setUser({...editUser, user_photo:res.data.img})
+                }
+                
+                 
+            })
+            .catch((err)=>console.log(err));
+
+       
+
+
+            
+            if( !changePassForm.currentPass || !changePassForm.newPass || !changePassForm.newPassConfirm && showForm4 ){
+                setShowErrorPassword("Debes rellenar todos los campos");
+            }
+
+            else if( changePassForm.newPass !== changePassForm.newPassConfirm){
+                setShowErrorPassword("La nueva contraseña y la validación no coinciden");
+                
+            }else if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.       newPassConfirm) { 
+                setShowErrorPassword("");
+    
+                
+                axios 
+                    .post(`http://localhost:4000/user/changePassword`, changePassForm)
+                    .then((res)=>{
+                        console.log(res.data);
+                        navigate("/user") 
+                    })
+                    .catch((err)=>{
+                    setShowErrorPassword("La contraseña no es correcta")
+                    console.log(err.response.data,"error gordo")
+                    }
+                    );
+                }
+          
+
         }
         navigate("/user");
       })
@@ -122,11 +169,12 @@ export const EditUser = () => {
     setActiveButton(4);
   };
 
-  const handlePassword = (e) => {
-    const { name, value } = e.target;
-    setChangePassForm({ ...changePassForm, [name]: value, email: user.email });
-  };
-
+        const handlePassword = (e) => {
+            const {name, value} = e.target;
+            setChangePassForm({...changePassForm, [name]:value, email: user.email})
+            setShowErrorPassword("");
+        }
+        
   return (
     <section className="contEdit">
       <header className="botones_user">
@@ -161,17 +209,16 @@ export const EditUser = () => {
             />
           </div>
 
-          <div id="floatContainer" className="float-container">
-            <label>Apellido</label>
-            <input
-              type="text"
-              maxLength="25"
-              placeholder="Apellidos"
-              value={editUser.last_name}
-              onChange={handleChange}
-              name="last_name"
-            />
-          </div>
+            <div id="floatContainer"  className="float-container">
+                <label >Apellido</label>
+                <input
+                    type="text" maxLength="25"
+                    placeholder='Apellidos'
+                    value={editUser.last_name}
+                    onChange={handleChange}
+                    name= "last_name"        />
+            </div>
+            
 
           <div id="floatContainer" className="float-container">
             <label htmlFor="floatField">DNI</label>
@@ -180,20 +227,49 @@ export const EditUser = () => {
               value={editUser.dni}
               onChange={handleChange}
               name="dni"
+              maxLength={14} 
             />
           </div>
 
           <div id="floatContainer" className="float-container">
             <label htmlFor="floatField">Teléfono</label>
             <input
-              placeholder="Teléfono"
-              value={editUser.phone}
-              onChange={handleChange}
-              name="phone"
-            />
-          </div>
+
+            placeholder='Teléfono'
+            value={editUser.phone}
+            onChange={handleChange}
+            name="phone"     
+            maxLength={10}   />
+        </div>
+        
         </section>
-      )}
+        }
+        
+        {showForm2 && 
+        <section className='contEdit fondo' >
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Dirección</label>
+                <input
+                placeholder='Dirección'
+                value={editUser.address}
+                onChange={handleChange}
+
+                name="address" 
+                maxLength={50}       />
+
+            </div>
+            
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">C.P.</label>
+                <input
+                placeholder='Codigo Postal'
+                value={editUser.post_code}
+                onChange={handleChange}
+
+                name="post_code"       
+                maxLength={5} />
+
+            </div>
 
       {showForm2 && (
         <section className="contEdit fondo">
@@ -275,56 +351,40 @@ export const EditUser = () => {
           <div id="floatContainer" className=" fileInput">
             <input type="file" name="src-file1" onChange={handleChangeFile} />
           </div>
-        </section>
-      )}
 
-      {showForm4 && (
-        <section className="contEdit fondo">
-          <div id="floatContainer" className="float-container">
-            <label htmlFor="floatField">Correo electrónico</label>
-            <input
-              type="email"
-              maxLength="80"
-              required
-              disabled
-              name="email"
-              className="disabled"
-              value={user.email}
-            />
-          </div>
-          <div id="floatContainer" className="float-container">
-            <label htmlFor="floatField">Contraseña actual</label>
-            <input
-              type="password"
-              maxLength="80"
-              required
-              name="currentPass"
-              value={changePassForm.currentPass}
-              onChange={handlePassword}
-            />
-          </div>
-          <div id="floatContainer" className="float-container">
-            <label htmlFor="floatField">Nueva contraseña</label>
-            <input
-              type="password"
-              maxLength="80"
-              required
-              name="newPass"
-              value={changePassForm.newPass}
-              onChange={handlePassword}
-            />
-          </div>
-          <div id="floatContainer" className="float-container">
-            <label htmlFor="floatField">Repetir contraseña</label>
-            <input
-              type="password"
-              maxLength="80"
-              required
-              name="newPassConfirm"
-              value={changePassForm.newPassConfirm}
-              onChange={handlePassword}
-            />
-          </div>
+         {showForm4 &&
+        <section className='contEdit fondo' >
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Correo electrónico</label>
+                <input type="email" maxLength="80" required disabled
+                name='email' className='disabled' 
+                value={user.email}/>
+            </div>
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Contraseña actual</label>
+                <input type="password" maxLength="80" required 
+                name='currentPass' 
+                value={changePassForm.currentPass}
+                onChange={handlePassword}/>
+            </div>
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Nueva contraseña</label>
+                <input type="password" maxLength="80" required 
+                name='newPass'
+                value={changePassForm.newPass}
+                onChange={handlePassword}/>
+            </div>
+            <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Repetir contraseña</label>
+                <input type="password" maxLength="80" required 
+                name='newPassConfirm' 
+                value={changePassForm.newPassConfirm}
+                onChange={handlePassword}/>
+            </div>
+
+            {showErrorPassword !=="" && <p className='mensajeError'> {showErrorPassword} </p>}
+           
+
         </section>
       )}
 
