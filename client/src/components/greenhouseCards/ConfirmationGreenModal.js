@@ -9,9 +9,6 @@ export const ConfirmationGreenModal = ({
   setOpenConfirmModal,
   elem,
 }) => {
-  const { user, setActionReload, actionReload } = useContext(AICropContext);
-
-  const navigate = useNavigate();
 
     const {user, setActionReload, actionReload} = useContext(AICropContext);
 
