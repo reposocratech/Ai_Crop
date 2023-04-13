@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AICropContext } from "../../../context/AICropContext";
 import axios from "axios";
-import './editUser.scss';
-import { Countries } from '../../auth/lists/Countries'
-import { ButtonNotif } from '../../../components/Notifications/ButtonNotif';
-import { ModalNotif } from '../../../components/Notifications/ModalNotif';
+import "./editUser.scss";
+import { Countries } from "../../auth/lists/Countries";
+import { ButtonNotif } from "../../../components/Notifications/ButtonNotif";
+import { ModalNotif } from "../../../components/Notifications/ModalNotif";
 
 const initialValue = {
   first_name: "",
-  last_name:"",
+  last_name: "",
   dni: "",
   phone: "",
   address: "",
@@ -18,19 +18,19 @@ const initialValue = {
   country: "",
   user_knowledge: "",
   user_type: 2,
-}
+};
 
 const initialValuePass = {
   email: "",
   currentPass: "",
   newPass: "",
   newPassConfirm: "",
-}
+};
 
-export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
+export const EditUser = () => {
   const { user, setUser } = useContext(AICropContext);
   const [editUser, setEditUser] = useState(initialValue);
-  const [file, setFile] =  useState();
+  const [file, setFile] = useState();
   const [showForm1, setShowForm1] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
   const [showForm3, setShowForm3] = useState(false);
@@ -40,260 +40,325 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
   const [changePassForm, setChangePassForm] = useState(initialValuePass);
   const [errorMessage, setErrorMessage] = useState("");
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    useEffect(()=>{
-        if(user){
-            setEditUser(user)
-        }
-        console.log(user);
-    },[user])
-
-    const handleChange = (e) =>{
-        const {name, value} = e.target;
-        setEditUser({...editUser, [name]:value})
+  useEffect(() => {
+    if (user) {
+      setEditUser(user);
     }
+  }, [user]);
 
-     const handleChangeFile = (e) =>{
-        setFile(e.target.files[0])
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditUser({ ...editUser, [name]: value });
+  };
+
+  const handleChangeFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = () => {
+    const newFormData = new FormData();
+    newFormData.append("file", file);
+    newFormData.append("register", JSON.stringify(editUser));
+
+    axios
+      .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
+      .then((res) => {
+        console.log(editUser);
+        console.log(res.data);
+        console.log("***** KEE PASAA********", res.data.img);
+        if (res.data.img === "") {
+          setUser(editUser);
+        } else {
+          setUser({ ...editUser, user_photo: res.data.img });
+        }
+        navigate("/user");
+      })
+      .catch((err) => console.log(err));
+
+    if (
+      changePassForm.currentPass &&
+      changePassForm.newPass &&
+      changePassForm.newPassConfirm &&
+      changePassForm.newPass === changePassForm.newPassConfirm
+    ) {
+      axios
+        .post(`http://localhost:4000/user/changePassword`, changePassForm)
+        .then((res) => {})
+        .catch((err) => console.log(err));
     }
+  };
 
-    const handleSubmit = () =>{
-        const newFormData = new FormData();
-        newFormData.append("file", file);
-        newFormData.append("register", JSON.stringify(editUser));
+  const handleForm1 = () => {
+    setShowForm1(true);
+    setShowForm2(false);
+    setShowForm3(false);
+    setShowForm4(false);
+    setActiveButton(1);
+  };
 
-        axios
-            .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
-            .then((res)=>{
-                console.log(editUser);
-                console.log(res.data);
-                console.log("***** KEE PASAA********", res.data.img);
-                if(res.data.img === ""){
-                    setUser(editUser)
-                }else{
-                    setUser({...editUser, user_photo:res.data.img})
-                }
-                navigate("/user")
-            })
-            .catch((err)=>console.log(err));
+  const handleForm2 = () => {
+    setShowForm1(false);
+    setShowForm2(true);
+    setShowForm3(false);
+    setShowForm4(false);
+    setActiveButton(2);
+  };
 
-        if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) {    
-            axios 
-                .post(`http://localhost:4000/user/changePassword`, changePassForm)
-                .then((res)=>{
-                    console.log(res.data);
-                })
-                .catch((err)=>console.log(err));
-            }
-        }
+  const handleForm3 = () => {
+    setShowForm1(false);
+    setShowForm2(false);
+    setShowForm3(true);
+    setShowForm4(false);
+    setActiveButton(3);
+  };
 
-        const handleForm1 = ()=>{
-            setShowForm1(true);
-            setShowForm2(false);
-            setShowForm3(false);
-            setShowForm4(false);
-            setActiveButton(1);
-        }
-        
-        const handleForm2 = ()=>{
-            setShowForm1(false);
-            setShowForm2(true);
-            setShowForm3(false);
-            setShowForm4(false);
-            setActiveButton(2);
-        }
-        
-        const handleForm3 = ()=>{
-            setShowForm1(false);
-            setShowForm2(false);
-            setShowForm3(true);
-            setShowForm4(false);
-            setActiveButton(3);
-        }
+  const handleForm4 = () => {
+    setShowForm1(false);
+    setShowForm2(false);
+    setShowForm3(false);
+    setShowForm4(true);
+    setActiveButton(4);
+  };
 
-        const handleForm4 = ()=>{
-            setShowForm1(false);
-            setShowForm2(false);
-            setShowForm3(false);
-            setShowForm4(true);
-            setActiveButton(4);
-        }
+  const handlePassword = (e) => {
+    const { name, value } = e.target;
+    setChangePassForm({ ...changePassForm, [name]: value, email: user.email });
+  };
 
-        const handlePassword = (e) => {
-            const {name, value} = e.target;
-            setChangePassForm({...changePassForm, [name]:value, email: user.email})
-        }
-        
   return (
-    <section className='contEdit'>
-        
-        <header className='botones_user'>
-            <button onClick={()=>navigate(-1)}><img alt='atrás' src='/assets/images/go_back.png'/></button>
-            <ButtonNotif setShowModalNotif={setShowModalNotif}/>
-            <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
+    <section className="contEdit">
+      <header className="botones_user">
+        <button onClick={() => navigate(-1)}>
+          <img alt="atrás" src="/assets/images/go_back.png" />
+        </button>
+        <ButtonNotif setShowModalNotif={setShowModalNotif} />
+        <ModalNotif
+          showModalNotif={showModalNotif}
+          setShowModalNotif={setShowModalNotif}
+        />
+      </header>
+      <div className="tituloEdit">
+        {" "}
+        <h1 className="mb-5 mt-5">
+          Configuración...<span className="punto">...</span>
+        </h1>
+      </div>
 
-        </header>
-        <div className='tituloEdit'> <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
-        </div>
-        
-        {showForm1 && 
+      {showForm1 && (
         //PARTE 1-----
-        <section className='contEdit fondo' >
-            <div id="floatContainer"  className="float-container">
-                
-                <label>Nombre</label>
-                <input
-                    type="text" maxLength="20" 
-                    placeholder='nombre'
-                    value={editUser.first_name}
-                    onChange={handleChange}
-                    name="first_name"
-                />
-            </div>
+        <section className="contEdit fondo">
+          <div id="floatContainer" className="float-container">
+            <label>Nombre</label>
+            <input
+              type="text"
+              maxLength="20"
+              placeholder="nombre"
+              value={editUser.first_name}
+              onChange={handleChange}
+              name="first_name"
+            />
+          </div>
 
-            <div id="floatContainer"  className="float-container">
-                <label >Apellido</label>
-                <input
-                    type="text" maxLength="25"
-                    placeholder='Apellidos'
-                    value={editUser.last_name}
-                    onChange={handleChange}
-                    name= "last_name"        />
-            </div>
-            
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">DNI</label>
-                <input
-                placeholder='Documento de identificación'
-                value={editUser.dni}
-                onChange={handleChange}
-                name="dni"        />
-            </div>
+          <div id="floatContainer" className="float-container">
+            <label>Apellido</label>
+            <input
+              type="text"
+              maxLength="25"
+              placeholder="Apellidos"
+              value={editUser.last_name}
+              onChange={handleChange}
+              name="last_name"
+            />
+          </div>
 
-            <div id="floatContainer" className="float-container">
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">DNI</label>
+            <input
+              placeholder="Documento de identificación"
+              value={editUser.dni}
+              onChange={handleChange}
+              name="dni"
+            />
+          </div>
 
+          <div id="floatContainer" className="float-container">
             <label htmlFor="floatField">Teléfono</label>
             <input
-            placeholder='Teléfono'
-            value={editUser.phone}
-            onChange={handleChange}
-            name="phone"        />
-        </div>
-
-        </section>
-        }
-        
-        {showForm2 && 
-        <section className='contEdit fondo' >
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Dirección</label>
-                <input
-                placeholder='Dirección'
-                value={editUser.address}
-                onChange={handleChange}
-                name="address"/>
-            </div>
-            
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">C.P.</label>
-                <input
-                placeholder='Codigo Postal'
-                value={editUser.post_code}
-                onChange={handleChange}
-                name="post_code"/>
-            </div>
-
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="countries">País</label>
-                <select id="countries" className='select_form'
-                required 
-                name='country' 
-                value={editUser.country}
-                onChange={handleChange}>
-                <Countries/>
-                </select>
-            </div>
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Ciudad</label>
-                <input type="text" maxLength="80" required 
-                name='city' 
-                value={editUser.city}
-                onChange={handleChange}/>
-            </div>
-           
-        </section>
-         }
-
-         {showForm3 &&
-        <section className='contEdit fondo' >
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Conocimientos previos</label>
-                <select id="countries" className='select_form'
-                required 
-                name='user_knowledge' 
-                value={editUser.user_knowledge}
-                onChange={handleChange}>
-                  <option></option>
-                  <option value="Agricultor tradicional">Agricultor tradicional</option>
-                  <option value="Técnico en agricultura tradicional">Técnico en agricultura tradicional</option>
-                  <option value="Técnico en agricultura hidropónica">Técnico en agricultura hidropónica</option>
-                  <option value="Ingeniero agrónomo especializado en hidroponía">Ingeniero agrónomo especializado en hidroponía</option>
-                </select>
-            </div>
-
-            <div id="floatContainer" className=" fileInput">
-                <input
-                type="file"
-                name="src-file1"
-                onChange={handleChangeFile}
+              placeholder="Teléfono"
+              value={editUser.phone}
+              onChange={handleChange}
+              name="phone"
             />
-            </div> 
+          </div>
         </section>
-    }
+      )}
 
-         {showForm4 &&
-        <section className='contEdit fondo' >
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Correo electrónico</label>
-                <input type="email" maxLength="80" required disabled
-                name='email' className='disabled' 
-                value={user.email}/>
-            </div>
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Contraseña actual</label>
-                <input type="password" maxLength="80" required 
-                name='currentPass' 
-                value={changePassForm.currentPass}
-                onChange={handlePassword}/>
-            </div>
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Nueva contraseña</label>
-                <input type="password" maxLength="80" required 
-                name='newPass'
-                value={changePassForm.newPass}
-                onChange={handlePassword}/>
-            </div>
-            <div id="floatContainer" className="float-container">
-                <label htmlFor="floatField">Repetir contraseña</label>
-                <input type="password" maxLength="80" required 
-                name='newPassConfirm' 
-                value={changePassForm.newPassConfirm}
-                onChange={handlePassword}/>
-            </div>
+      {showForm2 && (
+        <section className="contEdit fondo">
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Dirección</label>
+            <input
+              placeholder="Dirección"
+              value={editUser.address}
+              onChange={handleChange}
+              name="address"
+            />
+          </div>
+
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">C.P.</label>
+            <input
+              placeholder="Codigo Postal"
+              value={editUser.post_code}
+              onChange={handleChange}
+              name="post_code"
+            />
+          </div>
+
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="countries">País</label>
+            <select
+              id="countries"
+              className="select_form"
+              required
+              name="country"
+              value={editUser.country}
+              onChange={handleChange}
+            >
+              <Countries />
+            </select>
+          </div>
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Ciudad</label>
+            <input
+              type="text"
+              maxLength="80"
+              required
+              name="city"
+              value={editUser.city}
+              onChange={handleChange}
+            />
+          </div>
         </section>
-}
+      )}
 
-    <article  className='button_section'>
-        <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Datos personales</button>
-        <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
-        <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Perfil</button>
-        <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
-    </article>
-        <article className='button_section'>
-            <button onClick={handleSubmit} className='bg_verde'>Aceptar</button>
-        </article>
+      {showForm3 && (
+        <section className="contEdit fondo">
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Conocimientos previos</label>
+            <select
+              id="countries"
+              className="select_form"
+              required
+              name="user_knowledge"
+              value={editUser.user_knowledge}
+              onChange={handleChange}
+            >
+              <option></option>
+              <option value="Agricultor tradicional">
+                Agricultor tradicional
+              </option>
+              <option value="Técnico en agricultura tradicional">
+                Técnico en agricultura tradicional
+              </option>
+              <option value="Técnico en agricultura hidropónica">
+                Técnico en agricultura hidropónica
+              </option>
+              <option value="Ingeniero agrónomo especializado en hidroponía">
+                Ingeniero agrónomo especializado en hidroponía
+              </option>
+            </select>
+          </div>
+
+          <div id="floatContainer" className=" fileInput">
+            <input type="file" name="src-file1" onChange={handleChangeFile} />
+          </div>
+        </section>
+      )}
+
+      {showForm4 && (
+        <section className="contEdit fondo">
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Correo electrónico</label>
+            <input
+              type="email"
+              maxLength="80"
+              required
+              disabled
+              name="email"
+              className="disabled"
+              value={user.email}
+            />
+          </div>
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Contraseña actual</label>
+            <input
+              type="password"
+              maxLength="80"
+              required
+              name="currentPass"
+              value={changePassForm.currentPass}
+              onChange={handlePassword}
+            />
+          </div>
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Nueva contraseña</label>
+            <input
+              type="password"
+              maxLength="80"
+              required
+              name="newPass"
+              value={changePassForm.newPass}
+              onChange={handlePassword}
+            />
+          </div>
+          <div id="floatContainer" className="float-container">
+            <label htmlFor="floatField">Repetir contraseña</label>
+            <input
+              type="password"
+              maxLength="80"
+              required
+              name="newPassConfirm"
+              value={changePassForm.newPassConfirm}
+              onChange={handlePassword}
+            />
+          </div>
+        </section>
+      )}
+
+      <article className="button_section">
+        <button
+          onClick={handleForm1}
+          className={activeButton === 1 ? "active" : null}
+        >
+          Datos personales
+        </button>
+        <button
+          onClick={handleForm2}
+          className={activeButton === 2 ? "active" : null}
+        >
+          Localización
+        </button>
+        <button
+          onClick={handleForm3}
+          className={activeButton === 3 ? "active" : null}
+        >
+          Perfil
+        </button>
+        <button
+          onClick={handleForm4}
+          className={activeButton === 4 ? "active" : null}
+        >
+          Contraseña
+        </button>
+      </article>
+      <article className="button_section">
+        <button onClick={handleSubmit} className="bg_verde">
+          Aceptar
+        </button>
+      </article>
     </section>
-
-  )
-}
+  );
+};

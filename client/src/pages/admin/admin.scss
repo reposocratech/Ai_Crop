@@ -160,5 +160,10 @@
         .titleMini{
             font-size: 40px !important;
         }
+        .header_admin{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
       
   }

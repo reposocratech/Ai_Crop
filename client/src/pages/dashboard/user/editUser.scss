@@ -6,7 +6,7 @@
     width: 100%;
     margin-top: 30px;
     transition: 0.2s;
-    height: 400px;
+    // height: 1150px;
     .disabled {
         color: rgb(185, 185, 185) !important;
     }
@@ -198,6 +198,7 @@
     .button_section{
         display: flex;
         justify-content: space-around;
+        margin-top: 30px;
 
         button {
             width: 300px;
@@ -244,6 +245,7 @@
     
     align-items: center;
 }
+
 
 }
 
