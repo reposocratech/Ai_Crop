@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import './admin.scss'
+import { DisableModal } from '../../components/adminModal/DisableModal';
 
 export const Admin = () => {
 
@@ -9,6 +10,8 @@ export const Admin = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState(false);
   const [search, setSearch] = useState("");
+  const [showDisable, setShowDisable] = useState(false);
+  const [selectedElem, setSelectedElem] = useState("");
 
   useEffect(() => {
  
@@ -38,27 +41,7 @@ export const Admin = () => {
 
     }, [action])
 
-    const onDisable = (user_id) => {
-      axios
-        .get(`http://localhost:4000/admin/disableUser/${user_id}`)
-        .then((res)=>{
-          setAction(!action);
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-    }
-
-    const onEnable = (user_id) => {
-      axios
-        .get(`http://localhost:4000/admin/enableUser/${user_id}`)
-        .then((res)=>{
-          setAction(!action);
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
-    }
+    
 
     const handleSearch = (e) => {
       setSearch(e.target.value)
@@ -90,6 +73,12 @@ export const Admin = () => {
       setSearch("")
       setAction(!action);
     }
+
+   const openDisableModal = (elem)=>{
+      setSelectedElem(elem);
+      setShowDisable(true)
+
+   }
 
   return (
     <div className='cont_admin'>
@@ -142,11 +131,16 @@ export const Admin = () => {
                 <p className='num_gh'>{elem.n_of_greenhouses} invernadero(s)</p>
                 <p>{tipo_de_user}</p>
                 </div>
-                {!elem.is_disabled ? 
-                <img className='disable' src='/assets/images/config_admin2.png' onClick={()=> {onDisable(elem.user_id)}}/>
-                :
-                <img className='disable' src='/assets/images/config_admin2.png' onClick={()=> {onEnable(elem.user_id)}}/>
-                }
+                <DisableModal
+                  setShowDisable={setShowDisable}
+                  showDisable={showDisable}
+                  action={action}
+                  setAction={setAction}
+                  selectedElem={selectedElem}
+                />
+
+                <img className='disable' src='/assets/images/config_admin2.png' onClick={()=>openDisableModal(elem)}/>
+                
               </section>
               <hr/>
             </div>
