@@ -1,19 +1,37 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../context/AICropContext'
 import { deleteLocalStorageAICrop } from '../../../helpers/localStorage/localStorageAICrop'
 import { CreateCropModal } from '../../Crop/CreateCropModal'
 
 import "./navLateral.scss"
+import axios from 'axios'
 
 
 export const NavLateral = () => {
 
-  const {user, setUser, isLogged, setIsLogged} = useContext(AICropContext);
+  const {user, setUser, isLogged, setIsLogged, actionReload} = useContext(AICropContext);
   const [showModalCrop, setShowModalCrop] = useState(false);
-  
-  const navigate = useNavigate();
+  const [greenhouseData, setGreenhouseData] = useState()
   const greenhouse_id = useParams().greenhouse_id;
+  const navigate = useNavigate();
+  
+
+  useEffect(() => {
+    if (greenhouse_id){
+      axios
+        .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
+        .then((res)=>{
+          console.log(res.data);
+          setGreenhouseData(res.data.resultGreenhouse[0])
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+
+    }
+
+  }, [actionReload, greenhouse_id]);
   
 
   const openModalCrop = ()=>{
@@ -62,28 +80,43 @@ export const NavLateral = () => {
           <img src='/assets/images/configuraciones.png' alt='configuracion'/>
           <p className='option'>Configuración</p>
         </a>
-        {user.user_type === 2 && <>
-        {!greenhouse_id ?
-        <button className='create_crop' onClick={()=> navigate('createGreenhouse')}>+</button> :
-        <button className='create_crop' onClick={openModalCrop}>+</button>
-        } 
+        {user.user_type === 2 && 
+        <>
+          {greenhouse_id ?
+            <>
+            {greenhouseData?.user_owner_id === user?.user_id &&
+              <button className='create_crop' onClick={openModalCrop}>+</button>
+            } 
+            </>
+          :
+           <>
+              <button className='create_crop' onClick={()=> navigate('createGreenhouse')}>+</button> 
+            </>
+          } 
         </>}
       </div>
       {/* CREAR NUEVO INVERNADERO / CULTIVO */}
-      {user.user_type === 2 && <>
-      {!greenhouse_id ? 
-      <div className='create_new'> 
-        <p>Crear nuevo invernadero</p>
-        <img/>
-        <button onClick={()=> navigate('createGreenhouse')}>+</button>
-      </div> 
-      :
-      <div className='create_new'> 
-        <p>Crear nuevo cultivo</p>
-        <img/>
-        <button onClick={openModalCrop}>+</button>
-      </div>
-      }
+      {user.user_type === 2 &&
+      <>
+        {greenhouse_id ?
+          <> 
+            {greenhouseData?.user_owner_id === user?.user_id &&
+              <div className='create_new'> 
+                <p>Crear nuevo cultivo</p>
+                <img/>
+                <button onClick={openModalCrop}>+</button>
+              </div> 
+            }
+          </>
+        :
+          <>
+            <div className='create_new'> 
+              <p>Crear nuevo invernadero</p>
+              <img/>
+              <button onClick={()=> navigate('createGreenhouse')}>+</button>
+            </div> 
+          </> 
+        }
       </>
        }
 

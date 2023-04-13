@@ -134,14 +134,17 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             <ModalNotif showModalNotif={showModalNotif} setShowModalNotif={setShowModalNotif}/>
 
         </header>
-        <div className='tituloEdit'> <h1 className='mb-5 mt-5'>Configuración...<span className='punto'>...</span></h1>
+        <div className='tituloEdit'><h1 >configuración</h1>
+        {/* <p>Puedes ponerte en contacto con nososotros aquí</p> */}
+        <h4>Modificar información</h4>
         </div>
-        
+        <main className='main_edit'>
         {showForm1 && 
         //PARTE 1-----
-        <section className='contEdit fondo' >
+        <section className='contEdit' >
+          <div className='input_group'>
+
             <div id="floatContainer"  className="float-container">
-                
                 <label>Nombre</label>
                 <input
                     type="text" maxLength="20" 
@@ -155,11 +158,11 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             <div id="floatContainer"  className="float-container">
                 <label >Apellido</label>
                 <input
-                    type="text" maxLength="25"
-                    placeholder='Apellidos'
-                    value={editUser.last_name}
-                    onChange={handleChange}
-                    name= "last_name"        />
+                type="text" maxLength="25"
+                placeholder='Apellidos'
+                value={editUser.last_name}
+                onChange={handleChange}
+                name= "last_name"/>
             </div>
             
             <div id="floatContainer" className="float-container">
@@ -169,35 +172,35 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={editUser.dni}
                 onChange={handleChange}
                 name="dni"      
-                maxLength={14}  />
+                maxLength={14}/>
             </div>
 
             <div id="floatContainer" className="float-container">
+                <label htmlFor="floatField">Teléfono</label>
+                <input
+                placeholder='Teléfono'
+                value={editUser.phone}
+                onChange={handleChange}
+                name="phone"     
+                maxLength={10}/>
+            </div>
 
-            <label htmlFor="floatField">Teléfono</label>
-            <input
-            placeholder='Teléfono'
-            value={editUser.phone}
-            onChange={handleChange}
-            name="phone"     
-            maxLength={10}   />
-        </div>
-
+          </div>
         </section>
         }
         
         {showForm2 && 
-        <section className='contEdit fondo' >
+        <section className='contEdit'>
+          <div className='input_group'>
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Dirección</label>
                 <input
                 placeholder='Dirección'
                 value={editUser.address}
                 onChange={handleChange}
-
                 name="address" 
-                maxLength={50}       />
-
+                maxLength={50}/>
             </div>
             
             <div id="floatContainer" className="float-container">
@@ -206,10 +209,8 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 placeholder='Codigo Postal'
                 value={editUser.post_code}
                 onChange={handleChange}
-
                 name="post_code"       
-                maxLength={5} />
-
+                maxLength={5}/>
             </div>
 
             <div id="floatContainer" className="float-container">
@@ -222,6 +223,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 <Countries/>
                 </select>
             </div>
+
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Ciudad</label>
                 <input type="text" maxLength="80" required 
@@ -229,12 +231,13 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={editUser.city}
                 onChange={handleChange}/>
             </div>
-           
+          </div>
         </section>
          }
 
          {showForm3 &&
-        <section className='contEdit fondo' >
+        <section className='contEdit'>
+          <div className='input_group'>
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Conocimientos previos</label>
                 <select id="countries" className='select_form'
@@ -257,11 +260,13 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 onChange={handleChangeFile}
             />
             </div> 
+          </div>
         </section>
     }
 
          {showForm4 &&
-        <section className='contEdit fondo' >
+        <section className='contEdit' >
+          <div className='input_group'>
             <div id="floatContainer" className="float-container">
                 <label htmlFor="floatField">Correo electrónico</label>
                 <input type="email" maxLength="80" required disabled
@@ -289,17 +294,21 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 value={changePassForm.newPassConfirm}
                 onChange={handlePassword}/>
             </div>
+          </div>
         </section>
 }
 
     <article  className='button_section'>
-        <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Datos personales</button>
+        <button onClick={handleForm1} className={activeButton === 1 ? 'active' : null}>Perfil</button>
         <button onClick={handleForm2} className={activeButton === 2 ? 'active' : null}>Localización</button>
-        <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Perfil</button>
+        <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Avatar</button>
         <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
     </article>
-        <article className='button_section'>
+    </main>
+
+        <article className='bottom_section'>
             <button onClick={handleSubmit} className='bg_verde'>Aceptar</button>
+            <img src='/assets/images/planta.png'/>
         </article>
     </section>
 

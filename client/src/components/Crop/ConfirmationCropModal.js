@@ -32,12 +32,12 @@ export const ConfirmationCropModal = ({setShowDeleteCrop,showDeleteCrop,setSelec
         <section className='secPpal'>
 
           <div className='magicdiv'>
-            <h1 className='paratext'>Vas a desactivar este cultivo.</h1>
-            <h1 className='paratext'>¿Estás seguro?</h1>
-            <p className='text-danger mt-2'>Una vez desactivado, no podrás volver a activar este cultivo </p>
+            <h1 className='paratext'>¿Quieres desactivar este cultivo?</h1>
+            {/* <h1 className='paratext'></h1> */}
+            <p className=' mt-2'>Una vez desactivado, no podrás volver a activar este cultivo </p>
             <div  className='botoneraCrops'>
-                <button className='botonCrops aceptar' onClick={onDelete}> Desactivar </button>
                 <button className='botonCrops cancelar' onClick={handleClose}> x </button>
+                <button className='botonCrops aceptar' onClick={onDelete}> Desactivar </button>
             </div>
           </div>
 

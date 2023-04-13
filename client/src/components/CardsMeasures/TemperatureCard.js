@@ -33,7 +33,7 @@ export const TemperatureCard = ({temperatura}) => {
             <h3>TEMPERATURA</h3>
             <p>{temperatura?.measure_value} ºC</p>
           </div>
-            <img src='/assets/images/cards/warm.png' className='responsive_img'/>
+            <img src='/assets/images/cards/thermometer.png' className='responsive_img'/>
           {/* {alarm &&
           <div className='alarma_measure'><img className='medida' src='/assets/images/alerta.png'/></div>} */}
         </div>
@@ -46,7 +46,7 @@ export const TemperatureCard = ({temperatura}) => {
           <h3>TEMPERATURA</h3>
           {/* <p>{temperatura?.measure_value} ºC</p> */}
         </div>
-          <img src='/assets/images/cards/warm.png' className='responsive_img'/>
+          <img src='/assets/images/cards/thermometer.png' className='responsive_img'/>
         {/* {alarm &&
         <div className='alarma_measure'><img className='medida' src='/assets/images/alerta.png'/></div>} */}
       </div>

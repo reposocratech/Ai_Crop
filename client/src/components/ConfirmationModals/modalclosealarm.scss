@@ -2,11 +2,18 @@
 
 .modalCloseAlarm{
     font-family: $urbanist;
+    div.modal-content{
+        background-color: rgba(0, 0, 0, 0.541);
+        border-radius: 2em;
+        backdrop-filter: blur(3px);
+    }
+
     .modalCont{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 0px 50px 20px 50px;
+        gap: 10px;
     }
     .message{
         background-color: lightgrey;
@@ -37,6 +44,8 @@
     .parrafAlarm{
         color: whitesmoke;
         text-align: center;
+        font-size: 18px;
+        margin-bottom: 5px;
     }
     .alrm{
         // width: 48vw;
@@ -44,6 +53,7 @@
         height: 6vh;
         transition: 0.2s;
         border: none;
+        border-radius: 1em;
         font-size: 20px;
         font-weight:600;
         color: gray;
