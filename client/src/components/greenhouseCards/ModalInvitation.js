@@ -193,7 +193,7 @@ export const ModalInvitation = ({
               <div className="d-flex justify-content-center align-items-center flex-column">
                 <h1 className="titular">colaborador</h1>
                   <input
-                    className="note"
+                    className="note m-2"
                     type="text"
                     placeholder="Nombre"
                     value={collabInfo.name}
@@ -202,7 +202,7 @@ export const ModalInvitation = ({
                     autoComplete="off"
                   />
                   <input
-                    className="note"
+                    className="note m-2"
                     type="text"
                     placeholder="Email"
                     value={collabInfo.email}
@@ -210,8 +210,8 @@ export const ModalInvitation = ({
                     onBlur={handleBlurCollab}
                     name="email"
                   />
-                <button className="botonInv accept uni" onClick={inviteCollab}> aceptar </button>
-                <button className="botonInv accept" onClick={goBack}> volver </button>
+                <button className="botonInv accept uni m-2" onClick={inviteCollab}> aceptar </button>
+                <button className="botonInv accept m-2" onClick={goBack}> volver </button>
                 <p>{message}</p>
               </div>
             )}
@@ -221,7 +221,7 @@ export const ModalInvitation = ({
               <h1 className="titular">Invitar un helper</h1>
               <div className="algo">
                 <input
-                  className="note"
+                  className="note m-2"
                   type="text"
                   placeholder="Nombre"
                   value={helperInfo.helper_first_name}
@@ -229,7 +229,7 @@ export const ModalInvitation = ({
                   name="helper_first_name"
                 />
                 <input
-                  className="note"
+                  className="note m-2"
                   type="text"
                   placeholder="Apellido"
                   value={helperInfo.helper_last_name}
@@ -237,7 +237,7 @@ export const ModalInvitation = ({
                   name="helper_last_name"
                 />
                 <input
-                  className="note"
+                  className="note m-2"
                   type="text"
                   placeholder="Email"
                   value={helperInfo.helper_email}
@@ -245,8 +245,8 @@ export const ModalInvitation = ({
                   onBlur={handleBlurHelper}
                   name="helper_email"
                 />
-              <button className="botonInv accept" onClick={inviteHelper}>aceptar</button>
-              <button className="botonInv accept" onClick={goBack}> volver </button>
+              <button className="botonInv accept m-2" onClick={inviteHelper}>aceptar</button>
+              <button className="botonInv accept m-2" onClick={goBack}> volver </button>
               <p>{message}</p>
               </div>
             </>
@@ -255,7 +255,7 @@ export const ModalInvitation = ({
 
             {showButton && 
             <>
-              <p className="question">¿Quieres invitar a alguien a tu invernadero?</p>
+              <p className="question text-dark">¿Quieres invitar a alguien a tu invernadero?</p>
               <div className="botoneraInv">
                 <button className="botonInv coll" onClick={seeForm1}>
                   {" "}

@@ -1,11 +1,17 @@
-import axios from 'axios';
-import React, { useContext } from 'react'
-import { Modal } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { AICropContext } from '../../context/AICropContext';
+import axios from "axios";
+import React, { useContext } from "react";
+import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { AICropContext } from "../../context/AICropContext";
 
+export const ConfirmationGreenModal = ({
+  openConfirmModal,
+  setOpenConfirmModal,
+  elem,
+}) => {
+  const { user, setActionReload, actionReload } = useContext(AICropContext);
 
-export const ConfirmationGreenModal = ({openConfirmModal, setOpenConfirmModal, elem}) => {
+  const navigate = useNavigate();
 
     const {user, setActionReload, actionReload} = useContext(AICropContext);
 
@@ -48,3 +54,4 @@ export const ConfirmationGreenModal = ({openConfirmModal, setOpenConfirmModal, e
       </>
   )
 }
+
