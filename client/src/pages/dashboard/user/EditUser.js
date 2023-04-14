@@ -63,17 +63,23 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                 console.log(res.data);
                 if(res.data.img === ""){
                     setUser(editUser)
+                    if(changePassForm.currentPass === "" && changePassForm.newPass === "" && changePassForm.newPassConfirm === ""){
+                        navigate('/user')
+                    }
                 }else{
                     setUser({...editUser, user_photo:res.data.img})
+                    if(changePassForm.currentPass === "" && changePassForm.newPass === "" && changePassForm.newPassConfirm === ""){
+                        navigate('/user')
+                    }
                 }
             })
             .catch((err)=>console.log(err));
+
             if( !changePassForm.currentPass || !changePassForm.newPass || !changePassForm.newPassConfirm && showForm4 ){
                 setShowErrorPassword("Debes rellenar todos los campos");
-            }
-            else if( changePassForm.newPass !== changePassForm.newPassConfirm){
+            } else if( changePassForm.newPass !== changePassForm.newPassConfirm){
                 setShowErrorPassword("La nueva contraseña y la validación no coinciden");
-            }else if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.       newPassConfirm) {
+            } else if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) {
                 setShowErrorPassword("");
                 axios
                     .post(`http://localhost:4000/user/changePassword`, changePassForm)
@@ -86,7 +92,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
                     console.log(err.response.data,"error gordo")
                     }
                     );
-                }
+            }
         }
         const handleForm1 = ()=>{
             setShowForm1(true);
@@ -299,7 +305,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             </div>
             
           </div>
-          {showErrorPassword !=="" && <p className='mensajeError'> {showErrorPassword} </p>}
+          
         </section>
         }
         
@@ -309,6 +315,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             <button onClick={handleForm3} className={activeButton === 3 ? 'active' : null}>Avatar</button>
             <button onClick={handleForm4} className={activeButton === 4 ? 'active' : null}>Contraseña</button>
         </article>
+        {showErrorPassword !=="" && <p className='mensajeError'> {showErrorPassword} </p>}
       </main>
 
        <article className='bottom_section'>

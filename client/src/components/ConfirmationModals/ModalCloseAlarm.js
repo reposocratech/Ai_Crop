@@ -34,13 +34,13 @@ export const ModalCloseAlarm = ({
     setCloseMessage(e.target.value);
   };
 
-  const onVerifClose = () =>{
-    if(closeMessage !== ""){
-      onClose();
-    } else {
-      setMessageError("Escribe un mensaje")
-    }
-  }
+  // const onVerifClose = () =>{
+  //   if(closeMessage !== ""){
+  //     onClose();
+  //   } else {
+  //     setMessageError("Escribe un mensaje")
+  //   }
+  // }
 
   const { actionReload, setActionReload } = useContext(AICropContext);
 
