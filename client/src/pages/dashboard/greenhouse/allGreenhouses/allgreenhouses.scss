@@ -32,10 +32,17 @@
         }
     }
     .header_greenhouses{
+        width: inherit;
         .title_row{
             display: flex;
+            // flex-direction: column;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
+            p{
+                margin-top: 20px;
+                text-align: start;
+            }
             h1{
                 letter-spacing: 0.105em;
                 font-family: $workSans;

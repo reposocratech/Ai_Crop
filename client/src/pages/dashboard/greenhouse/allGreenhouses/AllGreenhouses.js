@@ -113,7 +113,6 @@ export const AllGreenhouses = () => {
         <section className="title_row">
           <h1>mis invernaderos</h1>
         </section>
- 
         {greenhousesInfo && 
         <p>Actualmente hay {numberOfGreenHouses} invernadero(s) activo(s)</p>}
       </header>

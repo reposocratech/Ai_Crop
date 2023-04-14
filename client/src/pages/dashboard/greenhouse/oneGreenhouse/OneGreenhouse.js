@@ -311,8 +311,10 @@ export const OneGreenhouse = () => {
           }
 
         </section>
+        <div className="flex-column">
         <p>Nombre del invernadero: {greenhouseData?.greenhouse_name}</p>
         <p>Localidad: {greenhouseData?.greenhouse_location}</p>
+        </div>
       </header>
       
       <main className='user-select-none'>
