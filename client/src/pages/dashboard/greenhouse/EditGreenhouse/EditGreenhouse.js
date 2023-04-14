@@ -295,7 +295,13 @@ useEffect(() => {
 }, [greenhouseParameters])
 
   return (
-    <div>
+    <div className='cont_greenhouses' >
+      <section className='botones_user'>
+        <button onClick={()=>navigate(-1)}><img alt='icono atrás' src='/assets/images/go_back.png'/></button>
+      </section>
+      <header className='header_greenhouses'>
+        <h1 className='create_gh'>editar información</h1>
+      </header>
     {!showForm2 ? 
       // 1ª PARTE FORMULARIO
       <div>
