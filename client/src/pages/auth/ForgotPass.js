@@ -32,6 +32,7 @@ export const ForgotPass = () => {
       setMessageError("");
       setEmailValidation(true);
       } 
+    }
  
 
     const handleKeyPress = (event) => {

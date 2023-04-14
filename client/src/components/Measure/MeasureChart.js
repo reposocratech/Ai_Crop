@@ -4,34 +4,37 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { VictoryArea, VictoryAxis, VictoryBrushContainer, VictoryChart, VictoryLine, VictoryZoomContainer } from 'victory';
 
-export const MeasureChart = () => {
+export const MeasureChart = ({measure}) => {
     const [state, setState] = useState({});
     const [datos, setDatos] = useState([])
     const {greenhouse_id, measurement_type_id} = useParams();
-
+    console.log(measure);
     
     function obtenerNumeroAleatorio(min, max) {
       return parseInt(Math.random() * ((max + 1) - min) + min);
     }
 
     useEffect(() => {
-      let historialMedidas = [];
-      let medidaAnterior = 15 ;
 
-      for(let i = 0; i < 700; i++){
-        let fecha = new Date();
-        let milisecs = fecha.getTime() - 60000000 * i;
-        let fecha2 = new Date (milisecs)
-        let medida = {x: fecha2, y: (medidaAnterior + obtenerNumeroAleatorio(-2, 1))}
-        if (medida.y < 30 && medida.y > 10){
-          historialMedidas.push(medida);
-          medidaAnterior = medida.y;
-        }
-      }
+      if(measure){
+
+        let historialMedidas = [];
+        let medidaAnterior = (measure.max + measure.min)/2 ;
   
-      console.log(historialMedidas)
-      setDatos(historialMedidas)
+        for(let i = 0; i < 700; i++){
+          let fecha = new Date();
+          let milisecs = fecha.getTime() - 60000000 * i;
+          let fecha2 = new Date (milisecs)
+          let medida = {x: fecha2, y: (medidaAnterior + obtenerNumeroAleatorio(-2, 1))}
+          console.log(medidaAnterior)
+          if (medida.y < measure.max * 1.1 && medida.y > measure.min * 0.9){
+            historialMedidas.push(medida);
+          }
+        }
+    
+        setDatos(historialMedidas)
 
+      }
       
         // axios
         // .get(`http://localhost:4000/server/parameters/history/${greenhouse_id}/${measurement_type_id}`)
@@ -48,7 +51,7 @@ export const MeasureChart = () => {
         //   .catch((err)=>{
         //     console.log(err);
         //   })
-    }, [])
+    }, [measure])
     
     const getMonthString = (number) => {
         const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -69,9 +72,9 @@ export const MeasureChart = () => {
       <div>
         {/* CHART SUPERIOR*/}
         <VictoryChart
-          width={1000}
-          height={600}
-          domain={{y: [10, 30]}}
+          width={400}
+          height={300}
+          domain={{y: [measure?.min * .75, measure?.max * 1.25]}}
         //   scale={{ x: "time" }}
         
           containerComponent={
@@ -94,9 +97,9 @@ export const MeasureChart = () => {
   
         {/* CHART INFERIOR*/}
         <VictoryChart
-          width={1000}
+          width={400}
           height={120}
-          domain={{y: [10, 30]}}
+          domain={{y: [measure?.min * .75, measure?.max * 1.25]}}
         //   scale={{ x: "time" }}
           padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
           containerComponent={

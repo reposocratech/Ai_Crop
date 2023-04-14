@@ -110,19 +110,6 @@
 
         // SECCIÓN CHART
         .chart_cont{
-            .chart_options{
-                display: flex;
-                justify-content: space-between;
-                .wk_mnth_year{
-                    background-color: gray;
-                    
-                }
-                button{
-                    border: none;
-                    font-family: $sora;
-                    letter-spacing: 0.14em;
-                }
-            }
             .chart{
                 background-color: white;
                 border-radius: 11px;
