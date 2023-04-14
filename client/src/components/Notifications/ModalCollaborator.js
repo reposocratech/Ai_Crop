@@ -23,7 +23,7 @@ export const ModalCollaborator = ({
       onHide={handleClose2}
     >
       <Modal.Body className="modalCont2">
-        {userCollaborators?.length !== 0 || helpers?.length !== 0 ? (
+        {userCollaborators?.length !== 0 || helpers?.length !== 0 ? 
           <>
             {userCollaborators?.map((collab, index) => {
               const onDeleteCollab = () => {
@@ -75,12 +75,13 @@ export const ModalCollaborator = ({
                 </div>
               );
             })}
+
           </>
-        ) : (
+         : 
           <div className="d-flex justify-content-center text-center text-danger">
             <h4>No existe ningún colaborador o ayudante. </h4>
           </div>
-        )}
+        }
       </Modal.Body>
     </Modal>
   );
