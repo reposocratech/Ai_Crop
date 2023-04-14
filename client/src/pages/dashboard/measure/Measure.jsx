@@ -4,7 +4,7 @@ import "./measure.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { AICropContext } from "../../../context/AICropContext";
 import { ModalCloseAlarm } from "../../../components/ConfirmationModals/ModalCloseAlarm";
-import dayjs from "dayjs";
+import { MeasureChart } from "../../../components/Measure/MeasureChart";
 
 export const Measure = () => {
   const { actionReload, setActionReload } = useContext(AICropContext);
@@ -40,16 +40,7 @@ export const Measure = () => {
         console.log(err);
       });
 
-    axios
-      .get(
-        `http://localhost:4000/server/parameters/week/${greenhouse_id}/${measurement_type_id}`
-      )
-      .then((res) => {
-        setMeasureHistoricalData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    
   }, [actionReload, greenhouse_id, measurement_type_id]);
 
   const onClose = () => {
@@ -65,21 +56,6 @@ export const Measure = () => {
       });
   };
 
-  const fechaLocal = new Date(measure?.measure_date_time).toLocaleString();
-
-  const getWeekDay = (number) => {
-    let weekdays = [
-      "Domingo",
-      "Lunes",
-      "Martes",
-      "Miércoles",
-      "Jueves",
-      "Viernes",
-      "Sábado",
-    ];
-
-    return weekdays[number];
-  };
 
   const goBack = () => {
     setActionReload(!actionReload);
@@ -131,7 +107,6 @@ export const Measure = () => {
               {measure?.measure_value}
               {measure?.unit}
             </p>
-            <p>{fechaLocal}</p>
           </div>
           <div className="card_maxMin">
             <h3>
@@ -152,19 +127,11 @@ export const Measure = () => {
           </div>
         </section>
         <section className="chart_cont">
-          <div className="chart">
+          <div >
             <h4>MEDIDAS HISTORICAS</h4>
-
-            <div>{
-              measureHistoricalData?.map((data, index)=>{
-                let newReferenceDay = new Date(data.day)
-                let day = getWeekDay(newReferenceDay.getDay())
-                let formatedDate = dayjs(data.day).format('DD/MM/YYYY HH:mm')
-                return(
-                  <p key={index}>{day} ({formatedDate}) : {data.avg_value}{measure?.unit}</p>
-                )
-              })
-              }</div>
+            <div className="chart">
+              <MeasureChart measure={measure}/>
+            </div>
           </div>
         </section>
       </main>

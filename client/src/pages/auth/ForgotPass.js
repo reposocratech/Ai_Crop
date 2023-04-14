@@ -34,6 +34,7 @@ export const ForgotPass = () => {
       } 
   }
 
+
     const handleKeyPress = (event) => {
       if (event.key === " ") {
         event.preventDefault();

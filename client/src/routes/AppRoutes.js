@@ -56,7 +56,7 @@ export const AppRoutes = () => {
                     {(user?.user_type === 2 || user?.user_type === 3)
                     &&
                     <Route path='/user' element={<MainPage/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
-                      <Route path='chart/:greenhouse_id/:measurement_type_id' element={<MeasureChart/>}/> 
+                      {/* <Route path='chart/:greenhouse_id/:measurement_type_id' element={<MeasureChart/>}/>  */}
                       <Route path='' element={<AllGreenhouses/>}/> 
                       <Route path='greenhouse/:greenhouse_id' element={<OneGreenhouse/>}/>
                       <Route path='greenhouse/:greenhouse_id/:measurement_type_id' element={<Measure/>}/>
