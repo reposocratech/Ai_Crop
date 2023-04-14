@@ -26,44 +26,44 @@ export const AllGreenhouses = () => {
     greenhousesInfo?.resultCollaborator.length;
 
 
-    useEffect(() => {
-      if(user){
-        axios
-          .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
-          .then((res)=>{
-            setGreenhousesInfo(res.data);
-            console.log(res.data);
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
-        }
-
-        axios
-        .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user?.user_id}`)
+  useEffect(() => {
+    if(user){
+      axios
+        .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
         .then((res)=>{
-            setActiveAlarms(res.data);
+          setGreenhousesInfo(res.data);
+          console.log(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+          console.log(err);
         })
-      }, [user])
+      }
 
-      
-      const [anchorEl, setAnchorEl] = useState(null);
+      axios
+      .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user?.user_id}`)
+      .then((res)=>{
+          setActiveAlarms(res.data);
+      })
+      .catch((err)=>{
+          console.log(err);
+      })
+  }, [user])
 
-      const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-      };
+    
+  const [anchorEl, setAnchorEl] = useState(null);
 
-      const handleAlarmNav = (greenhouse_id, measurement_type_id) => {
-        navigate(`../greenhouse/${greenhouse_id}/${measurement_type_id}`)
-    }
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAlarmNav = (greenhouse_id, measurement_type_id) => {
+    navigate(`../greenhouse/${greenhouse_id}/${measurement_type_id}`)
+  }
 
 
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -100,8 +100,9 @@ export const AllGreenhouses = () => {
                   )
               })
               : 
-              <div className='d-flex justify-content-center text-center text-danger'>
-                  <h4>no tienes alarmas activas </h4>
+              <div className='no_info'>
+                  <h4>No tienes alarmas activas</h4>
+                  <img src='/assets/images/lirio-de-agua.png'/>
               </div>
               } 
           </section>

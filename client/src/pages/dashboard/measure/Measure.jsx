@@ -58,7 +58,7 @@ export const Measure = () => {
         closeMessage,
       })
       .then((res) => {
-        setActionReload(!actionReload);
+          setActionReload(!actionReload);
       })
       .catch((err) => {
         console.log(err);
