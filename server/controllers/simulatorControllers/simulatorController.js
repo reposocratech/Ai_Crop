@@ -15,13 +15,13 @@ class SimulatorController {
         // escribimos la consulta de forma dinámica de manera que se inserten en la BD los valores medidos.
         sql = `INSERT INTO measure (greenhouse_id, measurement_type_id, measure_value) VALUES  `;
 
-        req.body.datosForm.temperatura && (sql += `(${greenhouse_id}, 1, ${req.body.datosForm.temperatura}), `);
+        req.body.datosForm.temperature && (sql += `(${greenhouse_id}, 1, ${req.body.datosForm.temperature}), `);
         req.body.datosForm.co2 && (sql += `(${greenhouse_id}, 2, ${req.body.datosForm.co2}), `);
-        req.body.datosForm.humedad && (sql += `(${greenhouse_id}, 3, ${req.body.datosForm.humedad}), `);
-        req.body.datosForm.luz_solar && (sql += `(${greenhouse_id}, 4, ${req.body.datosForm.luz_solar}), `);
+        req.body.datosForm.humidity && (sql += `(${greenhouse_id}, 3, ${req.body.datosForm.humidity}), `);
+        req.body.datosForm.sunlight && (sql += `(${greenhouse_id}, 4, ${req.body.datosForm.sunlight}), `);
         req.body.datosForm.ph && (sql += `(${greenhouse_id}, 5, ${req.body.datosForm.ph}), `);
-        req.body.datosForm.ce && (sql += `(${greenhouse_id}, 6, ${req.body.datosForm.ce}), `);
-        req.body.datosForm.humedad_hoja && (sql += `(${greenhouse_id}, 7, ${req.body.datosForm.humedad_hoja}), `);
+        req.body.datosForm.conductivity && (sql += `(${greenhouse_id}, 6, ${req.body.datosForm.conductivity}), `);
+        req.body.datosForm.leaf_humidity && (sql += `(${greenhouse_id}, 7, ${req.body.datosForm.leaf_humidity}), `);
 
         sql = sql.slice(0, -2);
         console.log(sql);

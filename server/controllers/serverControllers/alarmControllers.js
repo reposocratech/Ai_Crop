@@ -245,6 +245,25 @@ class AlarmController {
         });
     }
 
+    // 9. Muestra la alarma activa de una medida de un greenhouse
+    // localhost:4000/server/alarm/seeAlarmsByMeasure2/:greenhouse_id/:measurement_type_id
+    seeAlarmsByMeasure2 = (req, res) => {   
+        let greenhouse_id = req.params.greenhouse_id;
+        let measurement_type_id = req.params.measurement_type_id;
+
+        let sql = `SELECT alarm.*, measurement_type.measurement_type_name FROM alarm, measurement_type
+        WHERE alarm.measurement_type_id = measurement_type.measurement_type_id
+        AND alarm.greenhouse_id = ${greenhouse_id}
+        AND alarm.measurement_type_id = ${measurement_type_id}
+        AND alarm.is_active = 1`
+
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json(`Error en la consulta`)
+            : res.status(200).json(result)
+
+        })
+    }
 
 }
 module.exports = new AlarmController();

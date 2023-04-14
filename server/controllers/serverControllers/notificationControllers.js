@@ -87,9 +87,10 @@ class EmailController {
     sendNotificationEmails = (req, res) => {
         let email_list = req.body.emailList;
         let resultAlarm = req.body.resultAlarm[0];
-        let {alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name} = resultAlarm;
+        let {measurement_type_name, high_low, alarm_message, greenhouse_name, greenhouse_id, measurement_type_id} = resultAlarm;
+        console.log(resultAlarm);
           
-        nodemailerAlarm(email_list, alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name);
+        nodemailerAlarm(email_list, measurement_type_name, high_low, alarm_message, greenhouse_name, greenhouse_id, measurement_type_id);
 
 
         res.status(200).json("HA LLEGADO AL FINAL");

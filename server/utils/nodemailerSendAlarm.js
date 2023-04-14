@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 "use strict";
 
 // async..await is not allowed in global scope, must use a wrapper
-async function main(email_list, alarm_id, measurement_type_name, high_low, alarm_message, alarm_date_time, greenhouse_name) {
+async function main(email_list, measurement_type_name, high_low, alarm_message, greenhouse_name, greenhouse_id, measurement_type_id) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
 
@@ -28,9 +28,17 @@ async function main(email_list, alarm_id, measurement_type_name, high_low, alarm
   let info = await transporter.sendMail({
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${emails}`, // list of receivers
-    subject: `ALARMA! ${measurement_type_name} ${text} del límite establecido en tu invernadero ${greenhouse_name}`, // Subject line
-    text: `${alarm_message}`, // plain text body
-    // html: "<b>Hello world?</b>", // html body
+    subject: `ALARMA! ${measurement_type_name} ${text} del límite establecido en tu invernadero "${greenhouse_name}"`, // Subject line
+    html: 
+    `<main>
+      <p>${alarm_message}</p>
+      <p>Puedes entrar a ver la alarma pulsando aquí</p>
+      <br/>
+      <a style="text-decoration: none" href="http://localhost:3000/user/greenhouse/${greenhouse_id}/${measurement_type_id}" style="margin: 10px 0; border-radius: 20px; padding: 10px 15px; color: white; background-color: #98B18C; letter-spacing: 0.1em">Ver alarma</a>   
+      <br/>
+      <br/>
+      <br/>
+    </main>` // html body
   });
 
   console.log("Message sent: %s", info.messageId);

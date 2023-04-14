@@ -18,7 +18,6 @@ export const AllGreenhouses = () => {
   const [showModalNotif, setShowModalNotif] = useState(false);
   const [activeAlarms, setActiveAlarms] = useState();
 
-
   const navigate = useNavigate();
 
   let numberOfGreenHouses =

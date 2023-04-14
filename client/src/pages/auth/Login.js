@@ -13,11 +13,13 @@ const initialValue = {
 };
 
 export const Login = () => {
-  const [login, setLogin] = useState(initialValue);
-  const [messageError, setMessageError] = useState("");
-  const [messageError2, setMessageError2] = useState("");
-  const { setUser, setIsLogged } = useContext(AICropContext);
-  const [emailValidation, setEmailValidation] = useState(false);
+
+  const [login, setLogin] = useState(initialValue)
+  const [messageError, setMessageError] = useState("")
+  const [messageError2, setMessageError2] = useState("")
+  const {setUser, setIsLogged} = useContext(AICropContext)
+  const [emailValidation, setEmailValidation] = useState(false)
+
 
   const navigate = useNavigate();
 
@@ -28,48 +30,60 @@ export const Login = () => {
     setMessageError2("");
   };
 
-  const handleBlur = () => {
-    let string = login.email;
-    if (
-      !string.includes("@") ||
-      !string.includes(".") ||
-      string.includes("@.")
-    ) {
+  const validateEmail = () => {
+    let string = login.email
+    if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
       setMessageError("El correo no es correcto");
+      return false;
     } else {
-      setMessageError("");
-      setEmailValidation(true);
+      setMessageError("")
+      setEmailValidation(true)
+      return true;
     }
-  };
+
+  }
+
+  const currentUrl = window.location.href;
+  const currentPath = window.location.pathname;
+  console.log(currentUrl);
+  console.log(currentPath);
 
   const handleSubmit = () => {
-    if (!login.email || !login.password) {
-      setMessageError("Debes rellenar todos los campos");
-    } else if (!emailValidation) {
-      setMessageError("El correo no es correcto");
-    } else {
-      axios
+    if (validateEmail()){
+      if (!login.email || !login.password){
+        setMessageError("Debes rellenar todos los campos");
+      } else{
+        axios
         .post("http://localhost:4000/user/login", login)
-        .then((res) => {
-          saveLocalStorageAICrop(res.data.token);
+        .then((res)=> {
+          saveLocalStorageAICrop(res.data.token)
           setMessageError("");
           setMessageError2("");
-          setUser(res.data.user);
-          setIsLogged(true);
+          setUser(res.data.user)
+          setIsLogged(true)
           const type = res.data.user.user_type;
 
-          type === 2 || type === 3
-            ? navigate("/user")
-            : type === 1
-            ? navigate("/admin")
-            : navigate("/error");
+          if (currentPath === '/login'){
+            
+            if (type === 2 || type === 3){
+              navigate('/user')
+            } else if (type === 1){
+              navigate('/admin')
+            } else {
+              navigate('/error');
+            }      
+          } else {
+            navigate(currentPath)
+          }
         })
-        .catch((err) => {
+        .catch((err)=>{
           console.log(err);
           setMessageError2("Credenciales Incorrectas");
-        });
+        })
+      }
     }
-  };
+    
+  }
 
   const handleKeyPress = (event) => {
     if (event.key === " ") {
@@ -97,16 +111,13 @@ export const Login = () => {
 
           <main className="form_registro">
             <div id="floatContainer" className="float-container">
-              <label htmlFor="floatField">Email</label>
-              <input
-                type="email"
-                maxLength="50"
-                name="email"
-                value={login.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                onKeyDown={handleKeyPress}
-              />
+                  <label htmlFor="floatField">Email</label>
+                  <input type="email" maxLength="50" 
+                  name='email' 
+                  value={login.email}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyPress}
+                  />
             </div>
 
             <div id="floatContainer" className="float-container">

@@ -225,15 +225,26 @@ class UserController{
   // localhost:4000/user/retreivePassword
   passwordSendConfirmationEmail = (req, res) => {
     const email = req.body.email;
-    // VALIDAR QUE EXISTA CORREO EN BD
-    nodemailerConfirmEmail(email);
-    res.status(200).json("ENVIADO EL PRIMER CORREO!")
+
+    let sql = `SELECT email FROM user WHERE email = "${email}" AND is_deleted = 0 and is_disabled = 0`
+
+    connection.query(sql, (error, result) => {
+      error && res.status(400).json(error);
+      console.log(result[0])
+      if (!result[0]){
+        res.status(300).json("No existe");
+      } else {
+        nodemailerConfirmEmail(email);
+        res.status(200).json("Existe");
+      }
+    })
+
   }
   
 
   //6.1 Change Password from email (un endpoint al que se accede por un botón en un correo electrónico y que genera y envía una clave al azar)
   // localhost:4000/user/generateRandomPassword/:email
-  changePasswordFromEmail = (req, res) => {
+  changePasswordFromEmail = (req, res, ne) => {
     const email = req.params.email;
     const password = randomPasswordGenerator();
 
@@ -251,10 +262,10 @@ class UserController{
          
           connection.query(sql2, (error, result2) => {
             error && res.status(400).json({error});
-            let name = result2[0];
+            let name = result2[0].first_name;
 
             nodemailerSendNewPass(email, name, password);
-            res.status(201).json(`Contraseña nueva: ${password}`);
+            res.redirect(`http://localhost:3000/login`);
           });
         });
       });

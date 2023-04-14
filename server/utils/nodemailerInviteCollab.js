@@ -23,9 +23,19 @@ async function main(email, name, user_first_name, user_last_name, greenhouse_id)
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${email}`, // list of receivers
     subject: `¡Te han invitado a colaborar en AI crop!`, // Subject line
-    text: `Hola ${name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero en AI crop. Completa tu registro en el siguiente enlace:
-    http://localhost:3000/collaborator/${greenhouse_id}` // plain text body
-    // html: "<b>Hello world?</b>", // html body
+    // text: `Hola ${name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero en AI crop. Completa tu registro en el siguiente enlace:
+    // http://localhost:3000/collaborator/${greenhouse_id}` // plain text body
+    // // html: "<b>Hello world?</b>", // html body
+
+    html: 
+    `<main>
+      <p>Hola ${name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero en AI crop. Completa tu registro pulsando en el siguiente botón:</p>
+      <br/>
+      <a style="text-decoration: none" href="http://localhost:3000/collaborator/${greenhouse_id}" style="margin: 10px 0; border-radius: 20px; padding: 10px 15px; color: white; background-color: #98B18C; letter-spacing: 0.1em">Completar registro</a>   
+      <br/>
+      <br/>
+      <br/>
+    </main>` // html body
   });
 
   console.log("Message sent: %s", info.messageId);

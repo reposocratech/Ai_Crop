@@ -23,8 +23,7 @@ async function main(helper_email, helper_first_name, helper_last_name, user_firs
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${helper_email}`, // list of receivers
     subject: `¡Te han invitado a colaborar en AI crop!`, // Subject line
-    text: `Hola ${helper_first_name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero ${greenhouse_name} en AI crop. Recibirás notificaciones de alarma cuando las medidas del invernadero alcancen su límite mínimo o máximo`, // plain text body
-    // html: "<b>Hello world?</b>", // html body
+    text: `Hola ${helper_first_name}! ${user_first_name} ${user_last_name} te ha invitado a unirte a su invernadero ${greenhouse_name} en AI crop. Recibirás notificaciones de alarmas cuando las medidas del invernadero superen su límite mínimo o máximo`, // plain text body
   });
 
   console.log("Message sent: %s", info.messageId);

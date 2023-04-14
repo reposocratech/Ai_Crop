@@ -56,7 +56,7 @@ class GreenhouseController {
     editGreenhouse = (req, res) => {
        
         const greenhouse_id = req.params.greenhouse_id;
-        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body.editGreenhouse;
+        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body.greenhouseInfo;
         
         let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greenhouse_size = '${greenhouse_size}' WHERE greenhouse_id = ${greenhouse_id}`;
         

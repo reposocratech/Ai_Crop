@@ -6,6 +6,7 @@ import axios from "axios";
 import "./auth.scss";
 
 export const ForgotPass = () => {
+
   const [email, setEmail] = useState("");
   const [messageError, setMessageError] = useState("");
   const [messageValidation, setMessageValidation] = useState("");
@@ -13,9 +14,11 @@ export const ForgotPass = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const handleChange = (e) => {;
+      setEmail(e.target.value);
+      setMessageError("")
+      setMessageValidation("");
+      }
 
   const handleBlur = () => {
     let string = email;
@@ -28,31 +31,39 @@ export const ForgotPass = () => {
     } else {
       setMessageError("");
       setEmailValidation(true);
-    }
-  };
+      } 
+ 
 
-  const handleKeyPress = (event) => {
-    if (event.key === " ") {
-      event.preventDefault();
-    }
-  };
+    const handleKeyPress = (event) => {
+      if (event.key === " ") {
+        event.preventDefault();
+      }
+    };
 
-  const handleSubmit = () => {
-    if (!email) {
-      setMessageError("Debes rellenar el correo");
-    } else if (!emailValidation) {
-      setMessageError("El correo no es correcto");
-    } else {
-      axios
-        .post("http://localhost:4000/user/retreivePassword", { email })
-        .then((res) => {
-          setMessageValidation("Correo Enviado Correctamente!");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
+    const handleSubmit = () => {
+      if (!email){
+        setMessageError("Debes rellenar el correo")
+
+      } else if (!emailValidation) {
+        setMessageError("El correo no es correcto");
+  
+      } else {
+          axios
+          .post("http://localhost:4000/user/retreivePassword", {email})
+          .then((res)=> {
+            console.log(res.data)
+            if(res.data = "Existe"){
+              setMessageValidation("Correo Enviado Correctamente!")
+              setMessageError("");
+            }
+          })
+          .catch((err)=>{
+              setMessageError("El correo ingresado no está registrado");
+              setMessageValidation("")
+          }) 
+      }
+  }
+
 
   return (
     <div>

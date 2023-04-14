@@ -23,10 +23,16 @@ async function main(email) {
     from: '"AI Crop" <javimorera90@gmail.com>', // sender address
     to: `${email}`, // list of receivers
     subject: `¡Has solicitado una nueva contraseña!`, // Subject line
-    text: `Has solicitado un cambio de contraseña. Pulsa en el siguiente enlace y recibirás otro correo con una contraseña temporal.
     
-    http://localhost:4000/user/generateRandomPassword/${email}`, // plain text body
-    // html: "<b>Hello world?</b>", // html body
+    // plain text body
+    html: `<main style="padding: 20px">
+    <p>Has solicitado un cambio de contraseña. Pulsa en el siguiente botón y recibirás otro correo con tu nueva contraseña.</p>
+    <br/>
+    <a style="text-decoration: none" href="http://localhost:4000/user/generateRandomPassword/${email}" style="margin: 10px 0; border-radius: 20px; padding: 10px 15px; color: white; background-color: #98B18C; letter-spacing: 0.1em">Confirmar</a>   
+    <br/>
+    <br/>
+    <p>Podrás cambiarla desde la configuración de tu usuario.</p>
+    </main>`, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
