@@ -43,10 +43,7 @@ export const Login = () => {
 
   }
 
-  const currentUrl = window.location.href;
   const currentPath = window.location.pathname;
-  console.log(currentUrl);
-  console.log(currentPath);
 
   const handleSubmit = () => {
     if (validateEmail()){

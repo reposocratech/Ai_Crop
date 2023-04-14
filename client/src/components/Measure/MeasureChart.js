@@ -36,21 +36,6 @@ export const MeasureChart = ({measure}) => {
 
       }
       
-        // axios
-        // .get(`http://localhost:4000/server/parameters/history/${greenhouse_id}/${measurement_type_id}`)
-        // .then((res)=>{
-        //     let info = res.data;
-        //     let array = [];
-        //     for (let i = 0 ; i < info.length; i++){
-        //         let date = new Date(info[i].x)
-        //         array.push({x: date, y: info[i].y})          
-        //     }
-        //     setDatos(array);
-        //     console.log(array);
-        //   })
-        //   .catch((err)=>{
-        //     console.log(err);
-        //   })
     }, [measure])
     
     const getMonthString = (number) => {

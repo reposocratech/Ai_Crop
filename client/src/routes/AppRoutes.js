@@ -65,6 +65,13 @@ export const AppRoutes = () => {
                       <Route path='createGreenhouse' element={<CreateGreenhouse/>}/>
                     </Route>
                     }
+
+                  {(user?.user_type === 1 )
+                    &&
+                    <Route path='/admin' element={<MainPage/>}>
+                      <Route path='' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
+                    </Route>
+                    }
                     
                     {(user?.user_type || !user?.user_type) && 
                     <>

@@ -16,65 +16,6 @@ const initialValueInfo = {
     responsibility_acknowledged: 0
 }
 
-const initialValueParameters = {
-  temperature: {
-    measurement_type_id: 1,
-    max : "",
-    min : "",
-    error: "",
-    nombre: "temperatura",
-    unit: "ºC"
-  },
-  co2: {
-    measurement_type_id: 2,
-    max : "",
-    min : "",
-    error : "",
-    nombre: "CO2",
-    unit: "ppm"
-  },
-  humidity: {
-    measurement_type_id: 3,
-    max : "",
-    min : "",
-    error : "",
-    nombre: "humedad",
-    unit: "%"
-  },
-  sunlight: {
-    measurement_type_id: 4,
-    max : "",
-    min : "",
-    error : "",
-    nombre: "luz solar",
-    unit: "nm"
-  },
-  ph: {
-    measurement_type_id: 5,
-    max : "",
-    min : "",
-    error : "",
-    nombre: "PH",
-    unit: ""
-  },
-  conductivity: {
-    measurement_type_id: 6,
-    max : "",
-    min : "",
-    error : "",
-    nombre: "conductividad",
-    unit: "mS/cm"
-  },
-  leafHumidity: {
-    measurement_type_id: 7,
-    max : "",
-    min : "",
-    error : "",
-    nombre: "humedad de la hoja",
-    unit: "%"
-  }
-}
-
 
 const initialValueValidation = {
   temperature: {
@@ -116,24 +57,87 @@ const initialValueValidation = {
 
 export const CreateGreenhouse = () => {
 
+  const initialValueParameters = {
+    temperature: {
+      measurement_type_id: 1,
+      max : "",
+      min : "",
+      error: "",
+      nombre: "temperatura",
+      unit: "ºC"
+    },
+    co2: {
+      measurement_type_id: 2,
+      max : "",
+      min : "",
+      error : "",
+      nombre: "CO2",
+      unit: "ppm"
+    },
+    humidity: {
+      measurement_type_id: 3,
+      max : "",
+      min : "",
+      error : "",
+      nombre: "humedad",
+      unit: "%"
+    },
+    sunlight: {
+      measurement_type_id: 4,
+      max : "",
+      min : "",
+      error : "",
+      nombre: "luz solar",
+      unit: "nm"
+    },
+    ph: {
+      measurement_type_id: 5,
+      max : "",
+      min : "",
+      error : "",
+      nombre: "PH",
+      unit: ""
+    },
+    conductivity: {
+      measurement_type_id: 6,
+      max : "",
+      min : "",
+      error : "",
+      nombre: "conductividad",
+      unit: "mS/cm"
+    },
+    leafHumidity: {
+      measurement_type_id: 7,
+      max : "",
+      min : "",
+      error : "",
+      nombre: "humedad de la hoja",
+      unit: "%"
+    }
+  }
+
   const user_id = useContext(AICropContext).user?.user_id;
 
   const [showForm2, setShowForm2] = useState(false);
   const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo);
   const [greenhouseParameters, setGreenhouseParameters] = useState(initialValueParameters);
   const [parametersValidation, setParametersValidation] = useState(initialValueValidation)
-  const [error, setError] = useState("");
+  const [error, setError] = useState("");  
 
   const navigate = useNavigate();
 
   let arrayMeasures = [];
+
+  useEffect(() => {
+    setGreenhouseParameters(initialValueParameters)
+  }, [])
+  
 
   const handleResponsability = (e) => {
     const name = e.target.name;
     let value = e.target.checked;
     value? value = 1 : value = 0;
     setGreenhouseInfo({...greenhouseInfo, [name]:value})
-
   }
 
   let disable = false;
@@ -152,7 +156,7 @@ export const CreateGreenhouse = () => {
     const { nombre, unit } = greenhouseParameters[title];
 
     let aux = { ...greenhouseParameters };
-
+ 
     const errorMessages = {
       minMaxEqual: `Los valores mínimos y máximos de ${nombre} no pueden ser iguales`,
       outOfRange: `El parámetro ${nombre} debe estar entre ${min}${unit} y ${max}${unit}`,
@@ -202,7 +206,7 @@ export const CreateGreenhouse = () => {
     }
 
   }, [greenhouseParameters])
-  
+
   const handleContinue = () => {
     setShowForm2(true)
   }
@@ -210,7 +214,6 @@ export const CreateGreenhouse = () => {
   const handleBack = () => {
     setShowForm2(false)
   }
-
   
   const handleSubmit = () => {
     arrayMeasures.push(greenhouseParameters.temperature, greenhouseParameters.co2, greenhouseParameters.humidity, greenhouseParameters.sunlight, greenhouseParameters.ph, greenhouseParameters.conductivity, greenhouseParameters.leafHumidity);
