@@ -44,7 +44,6 @@ export const AppRoutes = () => {
 
             {(user?.user_type === 2 || user?.user_type === 3) && (
               <Route path="/user" element={<MainPage />}>
-                {" "}
                 {/*Vista de user == Vista de todos sus greenhouses*/}
                 <Route path="" element={<AllGreenhouses />} />
                 <Route

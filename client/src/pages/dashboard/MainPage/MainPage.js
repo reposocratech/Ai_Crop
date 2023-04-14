@@ -17,6 +17,7 @@ export const MainPage = () => {
   const greenhouse_id = parseInt(useParams().greenhouse_id); 
   console.log(greenhouse_id, "grinhaus aidiiiii");
 
+  console.log(userGreenhouses, "antes del primero");
 
   useEffect(() => {
     if (user){
@@ -24,7 +25,7 @@ export const MainPage = () => {
       .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user?.user_id}`)
       .then((res)=>{
         let arraty = [];
-        console.log(res.data, "averrrr");
+
         const {resultOwner, resultCollaborator} = res.data;
         
         for (let i = 0; i < resultOwner.length; i++){
@@ -42,18 +43,29 @@ export const MainPage = () => {
       })
     }
 
-    if(greenhouse_id){
+  }, [user])
+
+  console.log(userGreenhouses, "enmedioooo");
+
+  useEffect(() => {
+
+    if(greenhouse_id && userGreenhouses.length > 0){
       // const greenhouse_id = useParams().greenhouse_id; 
   
-      if(userGreenhouses.includes(greenhouse_id)){
+      console.log(userGreenhouses, "askfjdsfjahd");
+      if(userGreenhouses?.includes(greenhouse_id)){
         console.log("pringao")
       } else {
         navigate('/error')
-        console.log('aacualquier cosa es para ver si entra jaja');
+        console.log('aacualquier cosa es para ver si entra jaja', userGreenhouses, greenhouse_id);
       }
     }
- 
-  }, [user])
+  }, [userGreenhouses])
+
+  console.log(userGreenhouses, "al final del ultimo");
+  
+  
+
   // console.log(userGreenhouses, "aaaAAAAAAAAAAA");
 
 

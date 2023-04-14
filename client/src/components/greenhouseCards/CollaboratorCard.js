@@ -23,16 +23,18 @@ export const CollaboratorCard = ({ elem }) => {
   
 
   const onDeleteCollab = () => {
+
     axios
     .delete(`http://localhost:4000/greenhouse/deleteGreenhouseCollaborator/${elem.greenhouse_id}/${user.user_id}`)
     .then((res)=>{
         console.log("delete collab");
         setActionReload(!actionReload);
         handleClose();
-    });
+    })
     .catch((err)=> {
         console.log(err);
-    });
+    })
+
   } 
 
   const [anchorEl, setAnchorEl] = useState(null);

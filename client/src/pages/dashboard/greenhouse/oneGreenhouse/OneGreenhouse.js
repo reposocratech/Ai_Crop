@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AICropContext } from "../../../../context/AICropContext";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Popover from '@mui/material/Popover';
 
 import { TemperatureCard } from "../../../../components/CardsMeasures/TemperatureCard";
 import { Co2Card } from "../../../../components/CardsMeasures/Co2Card";
@@ -23,14 +24,13 @@ import { ChartCrop } from "../../../../components/Crop/ChartCrop";
 import axios from "axios";
 import "./onegreenhouse.scss";
 import "../allGreenhouses/allgreenhouses.scss";
+import { PopoverCollab } from "../../../../components/Notifications/PopoverCollab";
 
 
 
 export const OneGreenhouse = () => {
 
-  const {actionReload, setActionReload, user} = useContext(AICropContext);
-
-
+  // CARDS
   const [temperatura, setTemperatura] = useState();
   const [co2, setCo2] = useState();
   const [humedad, setHumedad] = useState();
@@ -38,20 +38,24 @@ export const OneGreenhouse = () => {
   const [ph, setPh] = useState();
   const [conductividad, setConductividad] = useState();
   const [humedadHoja, setHumedadHoja] = useState();
+  // MODALES
   const [showModalNotif, setShowModalNotif] = useState(false);
   const [showModalCollab, setShowModalCollab] = useState(false);
+  const [showModalInvitation, setShowModalInvitation] = useState(false);
+  // INFO
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
-  const [showModalInvitation, setShowModalInvitation] = useState(false);
-  // ------------------- {-- el cropito --} ------------------- //
+  const [activeAlarms, setActiveAlarms] = useState();
+  // CROPITO
   const [cropsCards, setCropsCards] = useState([]);
   const [showUpdateCrop, setShowUpdateCrop] = useState(false);
   const [showDeleteCrop, setShowDeleteCrop] = useState(false);
   const [selectedCrop, setSelectedCrop] = useState();
-  const navigate = useNavigate();
 
+  const {actionReload, setActionReload, user} = useContext(AICropContext);
   const greenhouse_id = useParams().greenhouse_id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -92,6 +96,16 @@ export const OneGreenhouse = () => {
       .catch((err) => {
         console.log(err);
       });
+
+      axios
+        .get(`http://localhost:4000/server/alarm/seeActiveAlarms/${user?.user_id}`)
+        .then((res)=>{
+            setActiveAlarms(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
   }, [actionReload, greenhouse_id]);
 
   const openModalUdateCrop = (crop_id) => {
@@ -106,8 +120,24 @@ export const OneGreenhouse = () => {
     }
   };
 
-  console.log(greenhouseData?.user_owner_id, "aaa gh");
-  console.log(user?.user_id, "user aidiiiiiiiiii");
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAlarmNav = (greenhouse_id, measurement_type_id) => {
+    navigate(`../greenhouse/${greenhouse_id}/${measurement_type_id}`)
+}
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+      
+
   return (
     <div className="cont_greenhouses">
       <section className="botones_user">
@@ -127,7 +157,7 @@ export const OneGreenhouse = () => {
         }
         
         {/* Modal Collaborator */}
-        <ButtonCollaborator 
+        {/* <ButtonCollaborator 
           setShowModalCollab={setShowModalCollab}
         />
         <ModalCollaborator 
@@ -135,16 +165,52 @@ export const OneGreenhouse = () => {
           setShowModalCollab={setShowModalCollab} 
           userCollaborators={userCollaborators} 
           helpers={helpers}
-        />
+        /> */}
+        <PopoverCollab userCollaborators={userCollaborators} 
+          helpers={helpers}/>
 
         {/* Modal Notificaciones*/}
-        <ButtonNotif 
+        {/* <ButtonNotif 
           setShowModalNotif={setShowModalNotif}
         />
         <ModalNotif 
           showModalNotif={showModalNotif} 
           setShowModalNotif={setShowModalNotif}
-        />
+        /> */}
+        <button aria-describedby={id} variant="contained" onClick={handleClick} className='notificationButton'><img src='/assets/images/notification.png'/></button>
+        <Popover
+          className='popoverNotification'
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'center',
+            horizontal: 'right',
+          }}>
+            <section className='popover_sect'>
+              {activeAlarms?.length !== 0 ?
+
+              activeAlarms?.map((alarma, index)=> {
+
+                  return(
+                  <div onClick={() => {handleAlarmNav(alarma?.greenhouse_id, alarma?.measurement_type_id)}} className='emergencia' key={index}>
+                      <p>{alarma?.alarm_message}</p>
+                  </div>
+                  )
+              })
+              : 
+              <div className='no_info'>
+                  <h4>No tienes alarmas activas</h4>
+                  <img src='/assets/images/lirio-de-agua.png'/>
+              </div>
+              } 
+          </section>
+        </Popover>
 
         {/* Modal invitación Colaboradores*/}
         <ModalInvitation 

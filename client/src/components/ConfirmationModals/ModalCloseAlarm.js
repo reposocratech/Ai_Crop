@@ -11,6 +11,9 @@ export const ModalCloseAlarm = ({
   closeMessage,
   setCloseMessage,
 }) => {
+
+  const [messageError, setMessageError] = useState()
+
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -18,14 +21,26 @@ export const ModalCloseAlarm = ({
   };
 
   const handleCloseAlarm = () => {
+    if(closeMessage !== ""){
     setShowModalCloseAlarm(false);
     onClose();
     setActionReload(!actionReload);
+    } else {
+      setMessageError("Escribe un mensaje")
+    }
   };
 
   const handleChange = (e) => {
     setCloseMessage(e.target.value);
   };
+
+  const onVerifClose = () =>{
+    if(closeMessage !== ""){
+      onClose();
+    } else {
+      setMessageError("Escribe un mensaje")
+    }
+  }
 
   const { actionReload, setActionReload } = useContext(AICropContext);
 
@@ -44,6 +59,7 @@ export const ModalCloseAlarm = ({
           <p className="parrafAlarm">
             Explique brevemente el manejo de la alerta
           </p>
+          <p className="text-danger text-center m-0">{messageError}</p>
         </div>
         <textarea value={closeMessage} onChange={handleChange}></textarea>
         <button className="botonInv alrm" onClick={handleCloseAlarm}>
