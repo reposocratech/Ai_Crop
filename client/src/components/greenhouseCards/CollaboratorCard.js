@@ -36,7 +36,6 @@ export const CollaboratorCard = ({elem}) => {
     elem.active_alarms = 0
   }
 
-  console.log(elem, "collabbbb");
   return (
     <>
     <ModalExitCollab

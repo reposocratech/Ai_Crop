@@ -20,7 +20,6 @@ export const Login = () => {
   const {setUser, setIsLogged} = useContext(AICropContext)
   const [emailValidation, setEmailValidation] = useState(false)
 
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,46 +29,59 @@ export const Login = () => {
     setMessageError2("");
   }
 
-  const handleBlur = () => {
+  const validateEmail = () => {
     let string = login.email
     if (!string.includes("@") || !string.includes(".") || string.includes("@.")){
-      setMessageError("El correo no es correcto")
+      setMessageError("El correo no es correcto");
+      return false;
     } else {
       setMessageError("")
       setEmailValidation(true)
+      return true;
     }
+
   }
 
+  const currentUrl = window.location.href;
+  const currentPath = window.location.pathname;
+  console.log(currentUrl);
+  console.log(currentPath);
+
   const handleSubmit = () => {
-    if (!login.email || !login.password){
-      setMessageError("Debes rellenar todos los campos");
+    if (validateEmail()){
+      if (!login.email || !login.password){
+        setMessageError("Debes rellenar todos los campos");
+      } else{
+        axios
+        .post("http://localhost:4000/user/login", login)
+        .then((res)=> {
+          saveLocalStorageAICrop(res.data.token)
+          setMessageError("");
+          setMessageError2("");
+          setUser(res.data.user)
+          setIsLogged(true)
+          const type = res.data.user.user_type;
 
-    } else if (!emailValidation) {
-      setMessageError("El correo no es correcto");
-
-    } else{
-      axios
-      .post("http://localhost:4000/user/login", login)
-      .then((res)=> {
-        saveLocalStorageAICrop(res.data.token)
-        setMessageError("");
-        setMessageError2("");
-        setUser(res.data.user)
-        setIsLogged(true)
-        const type = res.data.user.user_type;
-
-        type === 2 || type === 3 ?
-          navigate('/user'):
-            type === 1 ?
-              navigate('/admin'):
-                navigate('/error');
-                
-      })
-      .catch((err)=>{
-        console.log(err);
-        setMessageError2("Credenciales Incorrectas");
-      })
+          if (currentPath === '/login'){
+            
+            if (type === 2 || type === 3){
+              navigate('/user')
+            } else if (type === 1){
+              navigate('/admin')
+            } else {
+              navigate('/error');
+            }      
+          } else {
+            navigate(currentPath)
+          }
+        })
+        .catch((err)=>{
+          console.log(err);
+          setMessageError2("Credenciales Incorrectas");
+        })
+      }
     }
+    
   }
 
   const handleKeyPress = (event) => {
@@ -97,7 +109,6 @@ export const Login = () => {
                   name='email' 
                   value={login.email}
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   onKeyDown={handleKeyPress}
                   />
             </div>

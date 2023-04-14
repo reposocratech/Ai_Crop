@@ -19,6 +19,8 @@ export const ForgotPass = () => {
 
     const handleChange = (e) => {;
         setEmail(e.target.value);
+        setMessageError("")
+        setMessageValidation("");
     }
 
     const handleBlur = () => {
@@ -48,10 +50,15 @@ export const ForgotPass = () => {
           axios
           .post("http://localhost:4000/user/retreivePassword", {email})
           .then((res)=> {
+            console.log(res.data)
+            if(res.data = "Existe"){
               setMessageValidation("Correo Enviado Correctamente!")
+              setMessageError("");
+            }
           })
           .catch((err)=>{
-              console.log(err);
+              setMessageError("El correo ingresado no está registrado");
+              setMessageValidation("")
           }) 
       }
   }

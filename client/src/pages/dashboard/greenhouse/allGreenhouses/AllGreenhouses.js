@@ -15,7 +15,6 @@ export const AllGreenhouses = () => {
   const [greenhousesInfo, setGreenhousesInfo] = useState()
   const [showModalNotif, setShowModalNotif] = useState(false)
 
-
   const navigate = useNavigate();
 
   let numberOfGreenHouses = greenhousesInfo?.resultOwner.length + greenhousesInfo?.resultCollaborator.length;

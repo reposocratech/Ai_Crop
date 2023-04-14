@@ -16,10 +16,102 @@ const initialValueInfo = {
     responsibility_acknowledged: 0
 }
 
-const initialValueMaxMin = {
-    measurement_type_id: "",
+const initialValueParameters = {
+  temperature: {
+    measurement_type_id: 1,
     max : "",
-    min : ""
+    min : "",
+    error: "",
+    nombre: "temperatura",
+    unit: "ºC"
+  },
+  co2: {
+    measurement_type_id: 2,
+    max : "",
+    min : "",
+    error : "",
+    nombre: "CO2",
+    unit: "ppm"
+  },
+  humidity: {
+    measurement_type_id: 3,
+    max : "",
+    min : "",
+    error : "",
+    nombre: "humedad",
+    unit: "%"
+  },
+  sunlight: {
+    measurement_type_id: 4,
+    max : "",
+    min : "",
+    error : "",
+    nombre: "luz solar",
+    unit: "nm"
+  },
+  ph: {
+    measurement_type_id: 5,
+    max : "",
+    min : "",
+    error : "",
+    nombre: "PH",
+    unit: ""
+  },
+  conductivity: {
+    measurement_type_id: 6,
+    max : "",
+    min : "",
+    error : "",
+    nombre: "conductividad",
+    unit: "mS/cm"
+  },
+  leafHumidity: {
+    measurement_type_id: 7,
+    max : "",
+    min : "",
+    error : "",
+    nombre: "humedad de la hoja",
+    unit: "%"
+  }
+}
+
+
+const initialValueValidation = {
+  temperature: {
+    measurement_type_id: 1,
+    max : 50,
+    min : 0
+  },
+  co2: {
+    measurement_type_id: 2,
+    max : 9999.99,
+    min : 0
+  },
+  humidity: {
+    measurement_type_id: 3,
+    max : 100,
+    min : 0
+  },
+  sunlight: {
+    measurement_type_id: 4,
+    max : 9999.99,
+    min : 0
+  },
+  ph: {
+    measurement_type_id: 5,
+    max : 14,
+    min : 0
+  },
+  conductivity: {
+    measurement_type_id: 6,
+    max : 9999.99,
+    min : 0
+  },
+  leafHumidity: {
+    measurement_type_id: 7,
+    max : 100,
+    min : 0
+  }
 }
 
 export const CreateGreenhouse = () => {
@@ -28,13 +120,8 @@ export const CreateGreenhouse = () => {
 
   const [showForm2, setShowForm2] = useState(false);
   const [greenhouseInfo, setGreenhouseInfo] = useState(initialValueInfo);
-  const [temperatura, setTemperatura] = useState(initialValueMaxMin);
-  const [co2, setCo2] = useState(initialValueMaxMin);
-  const [humidity, setHumidity] = useState(initialValueMaxMin);
-  const [sunlight, setSunlight] = useState(initialValueMaxMin);
-  const [ph, setPh] = useState(initialValueMaxMin);
-  const [conductivity, setConductivity] = useState(initialValueMaxMin);
-  const [leafHumidity, setLeafHumidity] = useState(initialValueMaxMin);
+  const [greenhouseParameters, setGreenhouseParameters] = useState(initialValueParameters);
+  const [parametersValidation, setParametersValidation] = useState(initialValueValidation)
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -46,7 +133,7 @@ export const CreateGreenhouse = () => {
     let value = e.target.checked;
     value? value = 1 : value = 0;
     setGreenhouseInfo({...greenhouseInfo, [name]:value})
-    console.log(greenhouseInfo);
+
   }
 
   let disable = false;
@@ -54,55 +141,68 @@ export const CreateGreenhouse = () => {
     disable = true;
   }
 
-
   const handleChangeGreenhouseInfo = (e) => {
     const {name, value} = e.target;
     setGreenhouseInfo({...greenhouseInfo, [name]:value, user_owner_id:user_id})
   }
 
-  // HANDLE CHANGE MEDIDAS
-  const handleChangeTemp = (e) => {
-    const {name, value} = e.target;
-    setTemperatura({...temperatura, [name]:value, measurement_type_id:1});  
-  }
-  const handleChangeCo2 = (e) => {
-    const {name, value} = e.target;
-    setCo2({...co2, [name]:value, measurement_type_id:2})
-  }
-  const handleChangeHumidity = (e) => {
-    const {name, value} = e.target;
-    setHumidity({...humidity, [name]:value, measurement_type_id:3})
-  }
-  const handleChangeSunlight = (e) => {
-    const {name, value} = e.target;
-    setSunlight({...sunlight, [name]:value, measurement_type_id:4})
-  }
-  const handleChangepH = (e) => {
-    const {name, value} = e.target;
-    setPh({...ph, [name]:(value), measurement_type_id:5})
-  }
-  const handleChangeConductivity = (e) => {
-    const {name, value} = e.target;
-    setConductivity({...conductivity, [name]:value, measurement_type_id:6})
-  }
-  const handleChangeLeafHumidity = (e) => {
-    const {name, value} = e.target;
-    setLeafHumidity({...leafHumidity, [name]:value, measurement_type_id:7})
-  }
+  const handleChangeParams = (e) => {
+    const { title, name, value } = e.target;
+    const { min, max } = parametersValidation[title];
+    const { nombre, unit } = greenhouseParameters[title];
+
+    let aux = { ...greenhouseParameters };
+
+    const errorMessages = {
+      minMaxEqual: `Los valores mínimos y máximos de ${nombre} no pueden ser iguales`,
+      outOfRange: `El parámetro ${nombre} debe estar entre ${min}${unit} y ${max}${unit}`,
+      minMaxComparison: `Los valores mínimos de ${nombre} no pueden ser mayores a los máximos`,
+    };
+  
+    if (value < parseFloat(min) || value > parseFloat(max)) {
+      aux[title] = { ...aux[title], error: errorMessages.outOfRange, [name]: value };
+    } else if (name === "max" && parseFloat(greenhouseParameters[title].min) > value) {
+      aux[title] = { ...aux[title], error: errorMessages.minMaxComparison, [name]: value };
+    } else if (name === "min" && parseFloat(greenhouseParameters[title].max) !== "" && value > parseFloat(greenhouseParameters[title].max)) {
+      aux[title] = { ...aux[title], error: errorMessages.minMaxComparison, [name]: value };
+    } else if (name === "min" && value !== "" && value === greenhouseParameters[title].max) {
+      aux[title] = { ...aux[title], error: errorMessages.minMaxEqual, [name]: value };
+    } else if (name === "max" && value !== "" && value === greenhouseParameters[title].min) {
+      aux[title] = { ...aux[title], error: errorMessages.minMaxEqual, [name]: value };
+    } else {
+      aux[title][name] = value;
+      if ((name === "max" && greenhouseParameters[title]["max"] <= max && greenhouseParameters[title]["min"] >= min) || (name === "min" && value >= min && greenhouseParameters[title]["max"] <= max)) {
+        aux[title].error = "";
+      }
+    }
+  
+    setGreenhouseParameters(aux);
+  };
+
   // -----------------------------------
 
   useEffect(() => {
 
-    if (parseFloat(temperatura.min) > parseFloat(temperatura.max) || parseFloat(co2.min) > parseFloat(co2.max) || parseFloat(humidity.min) > parseFloat(humidity.max) || parseFloat(sunlight.min) > parseFloat(sunlight.max) || parseFloat(ph.min) > parseFloat(ph.max) || parseFloat(conductivity.min) > parseFloat(conductivity.max) || parseFloat(leafHumidity.min) > parseFloat(leafHumidity.max)){
-      setError("Los mínimos no deben superar los máximos")
-    } 
-    else {
+    if (greenhouseParameters.temperature.error !== ""){
+      setError(greenhouseParameters.temperature.error)
+    } else if (greenhouseParameters.co2.error !== ""){
+      setError(greenhouseParameters.co2.error)
+    } else if (greenhouseParameters.humidity.error !== ""){
+      setError(greenhouseParameters.humidity.error)
+    } else if (greenhouseParameters.sunlight.error !== ""){
+      setError(greenhouseParameters.sunlight.error)
+    } else if (greenhouseParameters.conductivity.error !== ""){
+      setError(greenhouseParameters.conductivity.error)
+    } else if (greenhouseParameters.ph.error !== ""){
+      setError(greenhouseParameters.ph.error)
+    } else if (greenhouseParameters.leafHumidity.error !== ""){
+      setError(greenhouseParameters.leafHumidity.error)
+    } else {
       setError("");
     }
 
-  }, [temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity])
+  }, [greenhouseParameters])
   
-
   const handleContinue = () => {
     setShowForm2(true)
   }
@@ -110,11 +210,11 @@ export const CreateGreenhouse = () => {
   const handleBack = () => {
     setShowForm2(false)
   }
+
   
   const handleSubmit = () => {
-    arrayMeasures.push(temperatura, co2, humidity, sunlight, ph, conductivity, leafHumidity);
-    console.log(arrayMeasures);
-    console.log(greenhouseInfo);
+    arrayMeasures.push(greenhouseParameters.temperature, greenhouseParameters.co2, greenhouseParameters.humidity, greenhouseParameters.sunlight, greenhouseParameters.ph, greenhouseParameters.conductivity, greenhouseParameters.leafHumidity);
+
     axios
       .post("http://localhost:4000/greenhouse/createGreenhouse", {greenhouseInfo, arrayMeasures})
       .then((res)=> {
@@ -126,12 +226,6 @@ export const CreateGreenhouse = () => {
       })
   }
 
-  const handleKeyPress = (event) => {
-    if (event.key === " " || event.key === "-" || event.key === "+") {
-      event.preventDefault();
-    }
-
-  };
 
   return (
     <div className='cont_greenhouses'>
@@ -140,6 +234,7 @@ export const CreateGreenhouse = () => {
       </section>
       <header className='header_greenhouses'>
         <h1 className='create_gh'>crear invernadero</h1>
+        <p className='conoces'>Tú conoces tu cultivo mejor que nosotros...</p>
       </header>
     {!showForm2 ? 
       // 1ª PARTE FORMULARIO
@@ -177,16 +272,25 @@ export const CreateGreenhouse = () => {
             </div>
             <div>
               <p>Orientación:</p>
-              <input
-              className='input_1'
-              placeholder='Norte'
+
+              <select
               autoComplete='off'
-              maxLength={10}
+              className='input_1 dark content-select'
               name='greenhouse_orientation'
               value={greenhouseInfo.greenhouse_orientation}
               onChange={handleChangeGreenhouseInfo}
-              onKeyDown={handleKeyPress}
-              />
+              required> 
+                <option value="">Selecciona orientación</option>
+                <option value="Norte">Norte</option>
+                <option value="Noreste">Noreste</option>
+                <option value="Este">Este</option>
+                <option value="Sureste">Sureste</option>
+                <option value="Sur">Sur</option>
+                <option value="Suroeste">Suroeste</option>
+                <option value="Oeste">Oeste</option>
+                <option value="Noroeste">Noroeste</option>
+              </select>
+              
             </div>
           </article>
           {/* EXTENSIÓN Y TIPO INVERNADERO */}
@@ -198,9 +302,9 @@ export const CreateGreenhouse = () => {
               autoComplete='off'
               className='input_1'
               name='greenhouse_size'
+              type="number"
               value={greenhouseInfo.greenhouse_size}
               onChange={handleChangeGreenhouseInfo}
-              onKeyPress={handleKeyPress}
               />
             </div>
             <div>
@@ -241,10 +345,6 @@ export const CreateGreenhouse = () => {
       <main className='main2_creategh'>
         {/* SECCIÓN IZQ */}
         <section className='sect_1'>
-          {error == "" ? 
-          <p>Tú conoces tu cultivo mejor que nosotros...</p> :
-          <p className='advise'>{error}</p>
-          }
           <h5>¿Cuáles son sus límites?</h5>
           {/* TEMPERATURA */}
           <div className='measure'>
@@ -254,28 +354,24 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo ºC</label>
                 <input 
                 type="number"
-                maxLength="3"
+                title="temperature"
                 name='min'
-                value={temperatura.min}
-                onChange={handleChangeTemp}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.temperature.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo ºC</label>
                 <input 
                 type="number"
-                minLength="2"
-                maxLength="5"
+                title="temperature"
                 name='max'
-                value={temperatura.max}
-                onChange={handleChangeTemp}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.temperature.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>
           </div>
-          {/* CO2 */}
           <div className='measure'>
             <p>Co2</p>
             <article className='input_group'>
@@ -283,22 +379,20 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo ppm</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="co2"
                 name='min'
-                value={co2.min}
-                onChange={handleChangeCo2}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.co2.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo ppm</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="co2"
                 name='max'
-                value={co2.max}
-                onChange={handleChangeCo2}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.co2.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>
@@ -311,22 +405,20 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo %</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="humidity"
                 name='min'
-                value={humidity.min}
-                onChange={handleChangeHumidity}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.humidity.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo %</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="humidity"
                 name='max'
-                value={humidity.max}
-                onChange={handleChangeHumidity}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.humidity.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>
@@ -339,22 +431,20 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo nm</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="sunlight"
                 name='min'
-                value={sunlight.min}
-                onChange={handleChangeSunlight}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.sunlight.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo nm</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="sunlight"
                 name='max'
-                value={sunlight.max}
-                onChange={handleChangeSunlight}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.sunlight.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>
@@ -362,7 +452,12 @@ export const CreateGreenhouse = () => {
         </section>
         {/* SECCION DCHA */}
         <section className='sect_1'>
-          <p className='advise'>Te notificaremos  en cuanto se excendan estos límites</p>
+        {error === "" ? 
+          <h6 className=''>Te notificaremos en cuanto se excendan estos límites</h6>
+          :
+          <p className='advise'>{error}</p>
+          }
+          
           <section className='l-measures'>
           {/* PH */}
           <div className='measure'>
@@ -372,22 +467,20 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="ph"
                 name='min'
-                value={ph.min}
-                onChange={handleChangepH}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.ph.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="ph"
                 name='max'
-                value={ph.max}
-                onChange={handleChangepH}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.ph.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>
@@ -400,22 +493,20 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo mS/cm</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="conductivity"
                 name='min'
-                value={conductivity.min}
-                onChange={handleChangeConductivity}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.conductivity.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo mS/cm</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="conductivity"
                 name='max'
-                value={conductivity.max}
-                onChange={handleChangeConductivity}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.conductivity.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>
@@ -428,22 +519,20 @@ export const CreateGreenhouse = () => {
                 <label>Mínimo %</label>
                 <input 
                 type="number"
-                max={5}
+                title="leafHumidity"
                 name='min'
-                value={leafHumidity.min}
-                onChange={handleChangeLeafHumidity}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.leafHumidity?.min}
+                onChange={handleChangeParams}
                 />
               </div>
               <div className='container'>
                 <label>Máximo %</label>
                 <input 
                 type="number"
-                maxLength="5"
+                title="leafHumidity"
                 name='max'
-                value={leafHumidity.max}
-                onChange={handleChangeLeafHumidity}
-                onKeyPress={handleKeyPress}
+                value={greenhouseParameters.leafHumidity?.max}
+                onChange={handleChangeParams}
                 />
               </div>
             </article>

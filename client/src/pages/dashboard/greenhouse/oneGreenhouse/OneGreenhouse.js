@@ -35,13 +35,23 @@ export const OneGreenhouse = () => {
   const [ph, setPh] = useState();
   const [conductividad, setConductividad] = useState();
   const [humedadHoja, setHumedadHoja] = useState();
+
+  const [temperaturaAlarm, setTemperaturaAlarm] = useState({});
+  const [co2Alarm, setCo2Alarm] = useState();
+  const [humedadAlarm, setHumedadAlarm] = useState({});
+  const [luzSolarAlarm, setLuzSolarAlarm] = useState({});
+  const [phAlarm, setPhAlarm] = useState({});
+  const [conductividadAlarm, setConductividadAlarm] = useState({});
+  const [humedadHojaAlarm, setHumedadHojaAlarm] = useState({});
+
   const [showModalNotif, setShowModalNotif] = useState(false)
   const [showModalCollab, setShowModalCollab] = useState(false)
   const [userCollaborators, setUserCollaborators] = useState();
   const [helpers, setHelpers] = useState();
   const [greenhouseData, setGreenhouseData] = useState();
   const [showModalInvitation, setShowModalInvitation] = useState(false)
-  // ------------------- {-- el cropito --} ------------------- //
+  const [greenhouseAlarms, setGreenhouseAlarms] = useState([])
+
   const [cropsCards, setCropsCards] = useState([]);
   const [showUpdateCrop, setShowUpdateCrop] = useState(false)
   const [showDeleteCrop, setShowDeleteCrop] = useState(false)
@@ -58,7 +68,10 @@ export const OneGreenhouse = () => {
         setUserCollaborators(res.data.resultCollaborators);
         setHelpers(res.data.resultHelpers);
         setGreenhouseData(res.data.resultGreenhouse[0]);
-        setCropsCards(res.data.resultActiveCrops)
+        setCropsCards(res.data.resultActiveCrops);
+        setGreenhouseAlarms(res.data.resultActiveAlarms);
+        console.log(res.data)
+
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
             case 1:
@@ -83,9 +96,50 @@ export const OneGreenhouse = () => {
               setHumedadHoja(res.data.resultMeasure[i])
               break;
             default:
-             
           }
         }
+
+        for (let i = 0; i < res.data.resultActiveAlarms.length; i++){
+          switch (res.data.resultActiveAlarms[i].measurement_type_id){
+            case 1:
+              setTemperaturaAlarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 1", res.data.resultActiveAlarms[i]);
+              break;
+            case 2:
+              setCo2Alarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 2", res.data.resultActiveAlarms[i]);
+              break;
+            case 3:
+              setHumedadAlarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 3", res.data.resultActiveAlarms[i]);
+
+              break;
+            case 4:
+              setLuzSolarAlarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 4", res.data.resultActiveAlarms[i]);
+
+              break;
+            case 5:
+              setPhAlarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 5", res.data.resultActiveAlarms[i]);
+              
+              break;
+            case 6:
+              setConductividadAlarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 6", res.data.resultActiveAlarms[i]);
+
+              break;
+            case 7:
+              setHumedadHojaAlarm(res.data.resultActiveAlarms[i])
+              console.log("ENTRÓ AL CASE 7", res.data.resultActiveAlarms[i]);
+
+              break;
+          
+          }
+        }
+        console.log(temperaturaAlarm, "temperatura");
+        console.log(co2Alarm, "co2");
+
       })
       .catch((err)=>{
         console.log(err);
@@ -198,13 +252,13 @@ export const OneGreenhouse = () => {
       <main className='user-select-none'>
 
         <section className='cards_measures'>
-          <TemperatureCard temperatura = {temperatura}/>
-          <Co2Card co2 = {co2}/>
-          <HumidityCard humedad = {humedad}/>
-          <SunlightCard luzSolar = {luzSolar}/>
-          <PhCard ph = {ph}/>
-          <ConductivityCard conductividad = {conductividad}/>
-          <LeafHumidity humedadHoja = {humedadHoja}/>
+          <TemperatureCard temperatura = {temperatura} temperaturaAlarm = {temperaturaAlarm}/>
+          <Co2Card co2 = {co2} co2Alarm = {co2Alarm}/>
+          <HumidityCard humedad = {humedad} humedadAlarm = {humedadAlarm}/>
+          <SunlightCard luzSolar = {luzSolar} luzSolarAlarm = {luzSolarAlarm}/>
+          <PhCard ph = {ph} phAlarm = {phAlarm}/>
+          <ConductivityCard conductividad = {conductividad} conductividadAlarm = {conductividadAlarm}/>
+          <LeafHumidity humedadHoja = {humedadHoja} humedadHojaAlarm = {humedadHojaAlarm}/>
           
         </section> 
       

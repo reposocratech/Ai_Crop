@@ -36,6 +36,20 @@ export const AppRoutes = () => {
                     <Route path='/forgotpassword' element={<ForgotPass/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/collaborator/:greenhouse_id' element={<RegisterCollab/>}/>
+
+                    <Route path='/user' element={<Login/>}> {/*Vista de user == Vista de todos sus greenhouses*/}
+                      <Route path='chart/:greenhouse_id/:measurement_type_id' element={<Login/>}/> 
+                      <Route path='' element={<Login/>}/> 
+                      <Route path='greenhouse/:greenhouse_id' element={<Login/>}/>
+                      <Route path='greenhouse/:greenhouse_id/:measurement_type_id' element={<Login/>}/>
+                      <Route path='edit' element={<Login/>}/>
+                      <Route path='editGreenhouse/:greenhouse_id' element={<Login/>}/>
+                      <Route path='createGreenhouse' element={<Login/>}/>
+                    </Route>
+
+                    <Route path='/admin' element={<Login/>}>
+                      <Route path='' element={<Login/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
+                    </Route>
                     </>)
                     }
 
@@ -52,12 +66,6 @@ export const AppRoutes = () => {
                     </Route>
                     }
                     
-                    {user?.user_type === 1 && 
-                    <Route path='/admin' element={<MainPage/>}>
-                      <Route path='' element={<Admin/>}/> {/*Vista de TODOS los usuarios (card per user)*/}
-                    </Route>
-                    }
-
                     {(user?.user_type || !user?.user_type) && 
                     <>
                      <Route path='/' element={<Home/>}/> 

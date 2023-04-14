@@ -21,7 +21,6 @@ export const OwnerCard = ({elem}) => {
     elem.active_alarms = 0
   }
 
-  console.log(elem , "ownerrrr");
   return (
     <>
     <ConfirmationGreenModal

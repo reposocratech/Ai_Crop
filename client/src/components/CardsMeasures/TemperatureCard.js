@@ -2,24 +2,26 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { AICropContext } from '../../context/AICropContext';
 import './cardsmeasures.scss'
+import axios from 'axios';
 
-export const TemperatureCard = ({temperatura}) => {
+export const TemperatureCard = ({temperatura, temperaturaAlarm}) => {
   const [alarm, setAlarm] = useState(false);
   const navigate = useNavigate();
   const {userAlarms, actionReload} = useContext(AICropContext)
   const greenhouse_id = parseInt(useParams().greenhouse_id);
 
-  
-
   useEffect(() => {
-    let found = false;
-    for (let i = 0; i < userAlarms?.length && !found; i++){
-      if (userAlarms[i]?.measurement_type_id === 1 && userAlarms[i].greenhouse_id === greenhouse_id){
-        setAlarm(true)
-        console.log(userAlarms[i]);
-        found = true;
-      } 
-    }
+    axios 
+    .get(`http://localhost:4000/server/alarm/seeAlarmsByMeasure2/${greenhouse_id}/1`)
+    .then((res)=>{
+      if(res.data.length > 0){
+        setAlarm(true);
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  
   }, [actionReload])
   
   return (

@@ -55,7 +55,7 @@ class GreenhouseController {
     editGreenhouse = (req, res) => {
        
         const greenhouse_id = req.params.greenhouse_id;
-        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body.editGreenhouse;
+        const { greenhouse_name, greenhouse_location, greenhouse_orientation, greenhouse_type, greenhouse_size } = req.body.greenhouseInfo;
         
         let sql = `UPDATE greenhouse SET greenhouse_name ='${greenhouse_name}', greenhouse_location ='${greenhouse_location}', greenhouse_orientation = '${greenhouse_orientation}', greenhouse_type = '${greenhouse_type}', greenhouse_size = '${greenhouse_size}' WHERE greenhouse_id = ${greenhouse_id}`;
         
@@ -245,9 +245,6 @@ class GreenhouseController {
     getAllGreenhouses = (req, res) => {
 
         const user_id = req.params.user_id;
-
-        let algo = new Date (1680058080000);
-        console.log(algo)
         
         let sqlOwner = `SELECT greenhouse.*, CONCAT(user.first_name, " ", user.last_name) as owner_full_name, sum(alarm.is_active) as active_alarms 
         FROM greenhouse

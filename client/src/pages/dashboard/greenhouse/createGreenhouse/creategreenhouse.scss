@@ -1,12 +1,26 @@
 @import "../../../../mixin";
 @import "../../../../variables";
 
-.create_gh{
-    letter-spacing: 0.105em;
-    font-family: $workSans;
-    font-weight: 400;
-    font-size: 45px;
-    color: $verde6B;
+
+.header_greenhouses{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: start;
+    gap: 20px;
+    .create_gh{
+        letter-spacing: 0.105em;
+        font-family: $workSans;
+        font-weight: 400;
+        font-size: 45px;
+        color: $verde6B;
+        margin: 0;
+    }
+    
+    .conoces{
+        margin: 10px;
+    }
+
 }
 
 
@@ -94,7 +108,6 @@
                 }
             }
         }
-
     }
 
 
@@ -103,12 +116,21 @@
 // 2ª PARTE FORMULARIO
 .main2_creategh{
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    gap: 5vw;
     font-family: $sora;
     .sect_1{
         margin-top: 30px;
         .advise{
             color: $rojoLight;
+            height: 35px;
+            max-width: 460px;
+        }
+        h6{
+            max-width: 460px;
+            height: 35px;
+            font-size: 15px;
+            letter-spacing: 0.05em;
         }
         h5{
             font-size: 24px;
@@ -273,6 +295,14 @@
 .botonAcept:hover{
     background-color: #B2DCBC;
     color: rgba(0, 0, 0, 0.443);
+}
+
+@media (max-width: 1400px){
+
+    .main2_creategh{
+        flex-wrap: wrap;
+        gap: 1vw;
+    }
 }
 
 @media (max-width: 1199px){

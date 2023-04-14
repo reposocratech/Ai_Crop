@@ -13,13 +13,13 @@ class AlarmController {
 
         // Si la medida supera al parámetro máximo
         if (measure_value > max){
-            alarm_message = `¡ALERTA! ${measurement_type_name} por encima del parámetro establecido de ${max} ${unit} en tu invernadero ${greenhouse_name}`;
+            alarm_message = `¡ALERTA! ${measurement_type_name} por encima de ${max} ${unit} en tu invernadero "${greenhouse_name}"`;
             high_low = "high";
         }
 
         // si la medida es inferior al parámetro mínimo
         if (measure_value < min){
-            alarm_message = `¡ALERTA! ${measurement_type_name} por debajo del parámetro establecido de ${min} ${unit} en tu invernadero ${greenhouse_name}`;
+            alarm_message = `¡ALERTA! ${measurement_type_name} por debajo de ${min} ${unit} en tu invernadero "${greenhouse_name}"`;
             high_low = "low";
         }
 
@@ -245,6 +245,25 @@ class AlarmController {
         });
     }
 
+    // 9. Muestra la alarma activa de una medida de un greenhouse
+    // localhost:4000/server/alarm/seeAlarmsByMeasure2/:greenhouse_id/:measurement_type_id
+    seeAlarmsByMeasure2 = (req, res) => {   
+        let greenhouse_id = req.params.greenhouse_id;
+        let measurement_type_id = req.params.measurement_type_id;
+
+        let sql = `SELECT alarm.*, measurement_type.measurement_type_name FROM alarm, measurement_type
+        WHERE alarm.measurement_type_id = measurement_type.measurement_type_id
+        AND alarm.greenhouse_id = ${greenhouse_id}
+        AND alarm.measurement_type_id = ${measurement_type_id}
+        AND alarm.is_active = 1`
+
+        connection.query(sql, (error, result) => {
+            error 
+            ? res.status(400).json(`Error en la consulta`)
+            : res.status(200).json(result)
+
+        })
+    }
 
 }
 module.exports = new AlarmController();
