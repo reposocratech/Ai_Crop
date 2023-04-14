@@ -24,41 +24,54 @@ export const SunlightCard = ({luzSolar, luzSolarAlarm}) => {
     
     }, [actionReload])
 
+
   return (
     <>
-    {luzSolar !== undefined ?
-    <div className='measure_cardCont'>
-    {alarm &&
-    <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>}
-    <div className='sunlight_card responsive_card' onClick={()=>navigate(`${luzSolar?.measurement_type_id}`)}>
-        <img src='/assets/images/cards/sunlight.png' className='responsive_img'/>
-        <div>
-            <h3>LUZ SOLAR</h3>
-            <div className='cuadro'>
-                <p>{luzSolar?.measure_value} nm</p>
+      {luzSolar !== undefined ? (
+        <div className="measure_cardCont">
+          {alarm && (
+            <div className="alarma_measure">
+              <img src="/assets/images/alerta.png" />
             </div>
-        </div>
-        {/* {alarm &&
-          <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>} */}
-    </div>
-    <hr/>
-    </div>
-    :
-    <div className='measure_cardCont bl_wh pe-none'>
-    <div className='sunlight_card responsive_card'>
-        <img src='/assets/images/cards/sunlight.png' className='responsive_img'/>
-        <div>
-            <h3>LUZ SOLAR</h3>
-            <div className='cuadro'>
+          )}
+          <div
+            className="sunlight_card responsive_card"
+            onClick={() => navigate(`${luzSolar?.measurement_type_id}`)}
+          >
+            <img
+              src="/assets/images/cards/sunlight.png"
+              className="responsive_img"
+            />
+            <div>
+              <h3>LUZ SOLAR</h3>
+              <div className="cuadro">
                 <p>{luzSolar?.measure_value} nm</p>
+              </div>
             </div>
-        </div>
-        {/* {alarm &&
+            {/* {alarm &&
           <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>} */}
-    </div>
-    <hr/>
-    </div>
-    }
+          </div>
+          <hr />
+        </div>
+      ) : (
+        <div className="measure_cardCont bl_wh pe-none">
+          <div className="sunlight_card responsive_card">
+            <img
+              src="/assets/images/cards/sunlight.png"
+              className="responsive_img"
+            />
+            <div>
+              <h3>LUZ SOLAR</h3>
+              <div className="cuadro">
+                <p>{luzSolar?.measure_value} nm</p>
+              </div>
+            </div>
+            {/* {alarm &&
+          <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>} */}
+          </div>
+          <hr />
+        </div>
+      )}
     </>
-  )
-}
+  );
+};

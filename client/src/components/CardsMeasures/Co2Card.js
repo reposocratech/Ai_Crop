@@ -32,7 +32,7 @@ export const Co2Card = ({co2, co2Alarm}) => {
         <div className='alarma_measure'><img src='/assets/images/alerta.png'/></div>}
         <div className='co2_card responsive_card' onClick={()=>navigate(`${co2?.measurement_type_id}`)}>
             <img src='/assets/images/cards/co2.png' className='responsive_img'/>
-            <div className='cuadro'><p>{co2?.measure_value} pm</p></div>
+            <div className='cuadro'><p>{co2?.measure_value} ppm</p></div>
         </div>
         <hr/>
     </div>

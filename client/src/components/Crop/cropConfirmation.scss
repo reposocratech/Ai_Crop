@@ -1,11 +1,11 @@
 @import "../../variables";
 
 .modalCropConfirm{
-    background-color: rgba(29, 29, 29, 0.541);
 
     div.modal-content{
         background-color: rgba(0, 0, 0, 0.494);
         border-radius: 2em;
+        backdrop-filter: blur(3px);
     }
 
     .divMasterCrop{
@@ -17,10 +17,16 @@
             display: flex;
             align-items: center;
     
-            h2{
-                margin: 10px 0 25px 0;
-                letter-spacing: 0.09em;
-                font-size: 36px;
+            h1{
+                letter-spacing: 0.1em;
+                font-size: 24px;
+            }
+            p{
+                // background-color: rgb(15, 15, 15);
+                // font-size: 20px;
+                font-weight: 600;
+                // text-align: justify;
+                color: rgba(226, 43, 58, 0.911);
             }
         }
         .botoneraCrops{

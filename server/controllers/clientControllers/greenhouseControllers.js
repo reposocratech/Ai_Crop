@@ -1,6 +1,7 @@
 const connection = require('../../config/db');
 const nodemailerInviteHelper = require('../../utils/nodemailerInviteHelper');
 const nodemailerInviteCollab = require('../../utils/nodemailerInviteCollab');
+const nodemailerInviteCollabUser = require('../../utils/nodemailerInviteCollabUser');
 
 
 class GreenhouseController {
@@ -261,25 +262,24 @@ class GreenhouseController {
 
             // ahora recojo los greenhouse id de los invernaderos que el usuario posee y los pongo con un buclue en un SQL para usarlos en un filtro
 
-            let ownerFilter = ``;
+            // let ownerFilter = ``;
 
-            if(resultOwner[0]){
+            // if(resultOwner[0]){
                 
-                for(let i = 0; i < resultOwner.length; i++){
-                    ownerFilter += ` AND greenhouse.greenhouse_id != ${resultOwner[i].greenhouse_id}`
-                }
-                // console.log(ownerFilter);
-            }
+            //     for(let i = 0; i < resultOwner.length; i++){
+            //         ownerFilter += ` AND greenhouse.greenhouse_id != ${resultOwner[i].greenhouse_id}`
+            //     }
+            //     // console.log(ownerFilter);
+            // }
 
             // este SQL busca los invernaderos donde el usuario SOLO es colaborador. Agrega al final el string que produce el bucle (CONSULTAR ESTE TEMA CON EL EQUIPO A VER SI CAMBIAMOS EL CREATE USER)
-            let sqlCollaborator = `SELECT greenhouse.*, owner_name.owner_full_name, CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, count(alarm.alarm_id) as active_alarms FROM greenhouse 
+            let sqlCollaborator = `SELECT greenhouse.*, owner_name.owner_full_name, CONCAT(user.first_name, " ", user.last_name) as collaborator_full_name, sum(alarm.is_active) as active_alarms FROM greenhouse 
             LEFT JOIN user_greenhouse ON user_greenhouse.greenhouse_id = greenhouse.greenhouse_id
             LEFT JOIN user ON user_greenhouse.user_id = user.user_id
             LEFT JOIN alarm ON alarm.greenhouse_id = greenhouse.greenhouse_id 
             LEFT JOIN owner_name ON owner_name.greenhouse_id = greenhouse.greenhouse_id
             WHERE user.user_id = ${user_id}
-            AND alarm.is_active = 1 
-            ${ownerFilter}
+            AND greenhouse.greenhouse_is_deleted = 0
             GROUP BY greenhouse_id`;
 
             connection.query(sqlCollaborator, (error, resultCollaborator) => {
@@ -300,10 +300,20 @@ class GreenhouseController {
         const greenhouse_id = req.params.greenhouse_id;
         let sql = `UPDATE greenhouse SET greenhouse_is_deleted = true WHERE greenhouse_id = ${greenhouse_id}`;
 
+        // let sql2 = `UPDATE alarm SET is_active = false WHERE greenhouse_id`
+
         connection.query(sql, (error, result) => {
-        error 
-        ? res.status(400).json({ error }) 
-        : res.status(200).json(`El invernadero ${greenhouse_id} ha sido eliminado`);
+
+            error && res.status(400).json({ error }) ;
+
+            let sql2 = `UPDATE alarm SET is_active = false WHERE greenhouse_id = ${greenhouse_id} AND is_active = true`;
+
+            connection.query(sql2, (error, result2) => {
+                error 
+                ? res.status(400).json({ error }) 
+                : res.status(200).json(`El invernadero ${greenhouse_id} ha sido eliminado`);
+            
+            })
         });
 
     };
@@ -334,7 +344,7 @@ class GreenhouseController {
                             throw error;
                         }
                     } else {
-                        nodemailerInviteCollab(email, name, first_name, last_name, greenhouse_id);
+                        nodemailerInviteCollabUser(email, name, first_name, last_name, greenhouse_id);
                             console.log(email);
                         res.status(200).json(`exito`);
                     }

@@ -12,7 +12,7 @@
     align-items: center;
     font-family: $sora;
     color: white;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
     text-align: start;
     cursor: pointer;
     hr{
@@ -21,7 +21,7 @@
         border: 2px solid black;
     }
     h3{
-        font-size: 23px;
+        font-size: 24px;
     }
     .alarma_measure{
         width: 0;
@@ -42,20 +42,21 @@
 .temperature_card{
     background-image: url('../../../public/assets/images/cards/temperature_card_bg.png');
     background-position: center;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px;
     display: flex;
-    gap: 25px;
+    gap: 20px;
     p{
         margin-top: 25px;
         font-size: 33px;
         font-weight: 600;
     }
     img{
-        width: 70px;
+        width: 140px;
         height: fit-content;
+        align-self: center;
     }
     
 }
@@ -63,8 +64,8 @@
 .co2_card{
     background-image: url('../../../public/assets/images/cards/co2_card_bg.png');
     background-position: center;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px;
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
@@ -72,7 +73,7 @@
 
 
     img{
-        width: 120px;
+        width: 140px;
         height: fit-content;
     }
     p{
@@ -88,14 +89,14 @@
         backdrop-filter: blur(2px);
         border-radius: 2em;
         width: 170px;
-        height: 100px;
+        height: 110px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         left: 20px;
         top: 40px;
-        margin: 0 !important;
+        margin: 0;
     }
     // .alarma_measure{
     //     width: 0;
@@ -111,14 +112,16 @@
 .humidity_card{
     background-image: url('../../../public/assets/images/cards/humidity_card_bg.png');
     background-position: center;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px;
     display: flex;
     
     img{
-        width: 170px;
+        width: 180px;
+        height: fit-content;
+        align-self: center;
     }
     .humidity_body{
         margin-top: 100px;
@@ -129,28 +132,20 @@
         font-weight: 600;
         margin: 0;
     }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        top: 155px;
-        right: 20px;
-        img{
-            width: 30px;
-        }
-    }
 }
 
 .sunlight_card{
     background-color: white;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px 32px;
     display: flex;
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
     img{
-        width: 170px;
+        width: 175px;
+        height: fit-content;
+        align-self: center;
     }
     h3{
         color: #EDB6A4;
@@ -165,30 +160,22 @@
     .cuadro{
         background-image: url('../../../public/assets/images/cards/humidity_card_bg.png');
         border-radius: 2em;
+        margin-top: 15px;
         width: 170px;
-        height: 100px;
+        height: 110px;
         display: flex;
         align-items: center;
         justify-content: center;
         box-shadow: -1px 2px 3px rgba(0, 0, 0, 0.25);
     }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        top: 155px;
-        right: 50px;
-        img{
-            width: 30px;
-        }
-    }
+    
 }
 
 .ph_card{
     background-image: url('../../../public/assets/images/cards/ph_card_bg.png');
     background-position: center;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px;
     display: flex;
@@ -199,27 +186,19 @@
         margin: 0;
     }
     img{
-        width: 170px;
+        width: 180px;
+        height: fit-content;
+        align-self: center;
     }
     .ph_body{
         margin-top: 100px;
-    }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        top: 155px;
-        right: 20px;
-        img{
-            width: 30px;
-        }
     }
 }
 
 .conductivity_card{
     background-color: white;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px 32px;
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
@@ -227,7 +206,9 @@
         color: #FFDF8E;
     }
     img{
-        width: 150px;
+        width: 160px;
+        height: fit-content;
+        align-self: center;
     }
     .conductivity_body{
         display: flex;
@@ -236,8 +217,9 @@
     .cuadro{
         background-image: url('../../../public/assets/images/cards/humidity_card_bg.png');
         border-radius: 2em;
-        width: 170px;
-        height: 100px;
+        width: 175px;
+        height: 110px;
+        align-self: center;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -250,23 +232,13 @@
             line-height: 0.9;
         }
     }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        top: 120px;
-        right: 25px;
-        img{
-            width: 30px;
-        }
-    }
 }
 
 .leafhumidity_card{
     background-image: url('../../../public/assets/images/cards/leafhumidity_card_bg.png');
     background-position: center;
-    width: 24rem;
-    height: 15rem;
+    width: 25.5rem;
+    height: 16.6rem;
     border-radius: 1em;
     padding: 35px;
     display: flex;
@@ -278,23 +250,15 @@
         justify-content: space-between;
     }
     img{
-        width: 160px;
+        width: 165px;
+        height: fit-content;
+        align-self: center;
     }
     p{
         font-size: 33px;
         font-weight: 600;
         margin: 0;
         margin-top: 90px;
-    }
-    .alarma_measure{
-        width: 0;
-        height: 0;
-        position: relative;
-        bottom: 40px;
-        left: 290px;
-        img{
-            width: 30px;
-        }
     }
 }
 
@@ -361,7 +325,7 @@
         .cuadro{
             left: 0;
             bottom: 60px;
-            width:min-content;
+            width: min-content;
             padding: 20px 30px;
         }
         .responsive_img{
