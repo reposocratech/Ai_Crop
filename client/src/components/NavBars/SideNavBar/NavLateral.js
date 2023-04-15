@@ -22,7 +22,6 @@ export const NavLateral = () => {
       axios
         .get(`http://localhost:4000/greenhouse/details/${(greenhouse_id)}`)
         .then((res)=>{
-          console.log(res.data);
           setGreenhouseData(res.data.resultGreenhouse[0])
         })
         .catch((err)=>{
