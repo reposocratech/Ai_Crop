@@ -15,9 +15,7 @@ export const MainPage = () => {
   const [userGreenhouses, setUserGreenhouses] = useState([]);
   const navigate = useNavigate();
   const greenhouse_id = parseInt(useParams().greenhouse_id); 
-  console.log(greenhouse_id, "grinhaus aidiiiii");
 
-  console.log(userGreenhouses, "antes del primero");
 
   useEffect(() => {
     if (user){
@@ -35,7 +33,6 @@ export const MainPage = () => {
           arraty.push(resultCollaborator[i].greenhouse_id)
         }
 
-        console.log(arraty, "aaaarratyyyyy");
         setUserGreenhouses(arraty)
       })
       .catch((err)=>{
@@ -45,7 +42,6 @@ export const MainPage = () => {
 
   }, [user])
 
-  console.log(userGreenhouses, "enmedioooo");
 
   useEffect(() => {
 
@@ -62,7 +58,6 @@ export const MainPage = () => {
     }
   }, [userGreenhouses])
 
-  console.log(userGreenhouses, "al final del ultimo");
   
   
 
