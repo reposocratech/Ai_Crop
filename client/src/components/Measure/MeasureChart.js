@@ -8,26 +8,30 @@ export const MeasureChart = ({measure}) => {
     const [state, setState] = useState({});
     const [datos, setDatos] = useState([])
     const {greenhouse_id, measurement_type_id} = useParams();
-    console.log(measure);
     
     function obtenerNumeroAleatorio(min, max) {
-      return parseInt(Math.random() * ((max + 1) - min) + min);
+      return parseFloat(Math.random() * ((max + 0.1) - min) + min);
     }
+
 
     useEffect(() => {
 
       if(measure){
 
         let historialMedidas = [];
-        let medidaAnterior = (measure.max + measure.min)/2 ;
+        let prom = parseFloat((measure.max + measure.min)/2)
+        let medidaAnterior = prom ;
   
         for(let i = 0; i < 700; i++){
           let fecha = new Date();
           let milisecs = fecha.getTime() - 60000000 * i;
           let fecha2 = new Date (milisecs)
-          let medida = {x: fecha2, y: (medidaAnterior + obtenerNumeroAleatorio(-2, 1))}
-          console.log(medidaAnterior)
-          if (medida.y < measure.max * 1.1 && medida.y > measure.min * 0.9){
+          let aleat = parseFloat(obtenerNumeroAleatorio((prom*-0.1), (prom*0.1)))
+          let medida = {x: fecha2, y: parseFloat((medidaAnterior + parseFloat(aleat)))}
+          // console.log(aleat)
+          // console.log(prom*-0.1, prom*0.1)
+          
+          if (medida.y < measure.max * 1.5 && medida.y > measure.min * 0.5){
             historialMedidas.push(medida);
           }
         }
@@ -57,14 +61,14 @@ export const MeasureChart = ({measure}) => {
       <div>
         {/* CHART SUPERIOR*/}
         <VictoryChart
-          width={400}
+          width={600}
           height={300}
-          domain={{y: [measure?.min * .75, measure?.max * 1.25]}}
-        //   scale={{ x: "time" }}
+          domain={measure && {y: [measure.min * 0.9, measure.max * 1.1]}}
+          // scale={{ x: "time" }}
         
           containerComponent={
             <VictoryZoomContainer
-              responsive={false}
+              responsive={true}
               zoomDimension="x"
               zoomDomain={state.zoomDomain}
               onZoomDomainChange={handleZoom}
@@ -82,14 +86,14 @@ export const MeasureChart = ({measure}) => {
   
         {/* CHART INFERIOR*/}
         <VictoryChart
-          width={400}
+          width={600}
           height={120}
           domain={{y: [measure?.min * .75, measure?.max * 1.25]}}
         //   scale={{ x: "time" }}
           padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
           containerComponent={
             <VictoryBrushContainer
-              responsive={false}
+              responsive={true}
               brushDimension="x"
               brushDomain={state.selectedDomain}
               onBrushDomainChange={handleBrush}
