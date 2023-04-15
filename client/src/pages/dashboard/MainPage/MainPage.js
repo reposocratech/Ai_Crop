@@ -46,14 +46,11 @@ export const MainPage = () => {
   useEffect(() => {
 
     if(greenhouse_id && userGreenhouses.length > 0){
-      // const greenhouse_id = useParams().greenhouse_id; 
   
-      console.log(userGreenhouses, "askfjdsfjahd");
       if(userGreenhouses?.includes(greenhouse_id)){
-        console.log("pringao")
+
       } else {
         navigate('/error')
-        console.log('aacualquier cosa es para ver si entra jaja', userGreenhouses, greenhouse_id);
       }
     }
   }, [userGreenhouses])
