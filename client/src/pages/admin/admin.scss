@@ -139,6 +139,83 @@
             filter: grayscale(1);
         }
     }
+    .popoverExitCollab{
+        // background-color: rgba(0, 0, 0, 0.11);
+        // div{
+            // background-color: rgba(26, 44, 23, 0.32);
+            // backdrop-filter: blur(2px);
+            // border-radius: 21px;
+        // }
+        .css-3bmhjh-MuiPaper-root-MuiPopover-paper{
+            background: rgba(63, 75, 63, 0.356);
+            border-radius: 21px;
+            opacity: 50%;
+            
+        }
+        .popover_sect{
+            background: rgba(78, 78, 78, 0.32);
+            backdrop-filter: blur(1px);
+            border-radius: 21px;
+            width: 20vw;
+            min-width: 290px;
+            padding: 10px;
+            text-align: center;
+            font-family: $inter;
+            h4{
+                letter-spacing: 0.07em;
+                font-weight: 200;
+                font-size: 18px;
+                margin-bottom: 20px;
+                background-color: black;
+                padding: 20px 10px;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                border-radius: 21px;
+                color: white;
+            }
+            .botones_pop{
+                display: flex;
+                // justify-content: center;
+                justify-content: space-between;
+                // gap: 20px;
+                align-items: center;
+                padding: 0px 20px;
+            }
+            .botonCrops{
+                border-radius: 0.5em;
+                border: none;
+                transition: 0.2s;
+                background-color: transparent;
+                color: white;
+                font-size: 16px;
+            }
+            img{
+                cursor: pointer;
+                filter: grayscale(1);
+                transition: 0.2s;
+            }
+            img:hover{
+                filter: grayscale(0);
+            }
+        
+            .atras{
+                border-radius: 5em;
+                padding: 5px;
+                background-color: rgb(214, 208, 208);
+                transition: 0.2s;
+                filter: invert(1);
+                transition: 0.2s;
+            }
+            .atras:hover{
+                filter: invert(0);
+            }
+      
+            button:hover{
+                // background-color: rgb(87, 87, 87);
+                text-decoration: underline;
+                // color: black;
+            }
+        }
+    }
 }
 
   //----------RESPONSIVE---------------//

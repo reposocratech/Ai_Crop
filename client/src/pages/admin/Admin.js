@@ -4,8 +4,6 @@ import Popover from '@mui/material/Popover';
 import axios from 'axios';
 import './admin.scss'
 
-// ARREGLAAAAAAAAAAR EL NUM_OF_GH DE TARJETA DE USUARIO (ROCIO)
-
 
 export const Admin = () => {
   const [usersInfo, setUsersInfo] = useState();

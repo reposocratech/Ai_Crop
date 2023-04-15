@@ -32,6 +32,7 @@ export const MainPage = () => {
         for (let i = 0; i < resultCollaborator.length; i++){
           arraty.push(resultCollaborator[i].greenhouse_id)
         }
+
         setUserGreenhouses(arraty)
       })
       .catch((err)=>{
