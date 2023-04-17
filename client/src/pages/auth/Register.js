@@ -84,7 +84,6 @@ export const Register = () => {
       setShowForm2(true);
       setMessageError("");
       setDupEmail("");
-      console.log(register, "register");
     }
   };
 
@@ -144,7 +143,6 @@ export const Register = () => {
       axios
         .post("http://localhost:4000/user/createUser", register)
         .then((res) => {
-          console.log(res);
           navigate("/login");
           setMessageError("");
         })
