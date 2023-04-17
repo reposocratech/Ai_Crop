@@ -221,7 +221,6 @@ export const CreateGreenhouse = () => {
     axios
       .post("http://localhost:4000/greenhouse/createGreenhouse", {greenhouseInfo, arrayMeasures})
       .then((res)=> {
-        console.log(res.data);
         navigate('/user');
       })
       .catch((err)=>{

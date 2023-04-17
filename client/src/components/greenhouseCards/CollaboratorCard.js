@@ -1,33 +1,23 @@
 import React, { useContext, useState }  from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AICropContext } from '../../context/AICropContext';
-import { saveLocalStorageAICropGreenhouse } from '../../helpers/localStorage/localStorageAICrop';
-import { ModalExitCollab } from '../ConfirmationModals/ModalExitCollab';
 import Popover from '@mui/material/Popover';
 import axios from 'axios';
 import "./greenhousecard.scss"
 
-
 export const CollaboratorCard = ({ elem }) => {
   const navigate = useNavigate();
-  const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const { user, setActionReload, actionReload } = useContext(AICropContext);
 
   const onSubmit = () => {
     navigate(`greenhouse/${elem.greenhouse_id}`);
   };
 
-  const handleModal = () => {
-    setOpenConfirmModal(true);
-  }
-  
-
   const onDeleteCollab = () => {
 
     axios
     .delete(`http://localhost:4000/greenhouse/deleteGreenhouseCollaborator/${elem.greenhouse_id}/${user.user_id}`)
     .then((res)=>{
-        console.log("delete collab");
         setActionReload(!actionReload);
         handleClose();
     })

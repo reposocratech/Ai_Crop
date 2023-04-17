@@ -24,14 +24,12 @@ export const AllGreenhouses = () => {
     greenhousesInfo?.resultOwner.length +
     greenhousesInfo?.resultCollaborator.length;
 
-
   useEffect(() => {
     if(user){
       axios
         .get(`http://localhost:4000/greenhouse/getAllGreenhouses/${user.user_id}`)
         .then((res)=>{
-          setGreenhousesInfo(res.data);
-          console.log(res.data);
+          setGreenhousesInfo(res.data)
         })
         .catch((err)=>{
           console.log(err);

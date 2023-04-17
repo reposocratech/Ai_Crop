@@ -32,7 +32,6 @@ export const ModalCollaborator = ({
                     `http://localhost:4000/greenhouse/deleteGreenhouseCollaborator/${collab.greenhouse_id}/${collab.user_id}`
                   )
                   .then((res) => {
-                    console.log("delete collab");
                     setActionReload(!actionReload);
                   })
                   .catch((err) => {
@@ -58,7 +57,6 @@ export const ModalCollaborator = ({
                     `http://localhost:4000/greenhouse/deleteHelper/${helper.helper_id}`
                   )
                   .then((res) => {
-                    console.log("aaaaaaa");
                     setActionReload(!actionReload);
                   })
                   .catch((err) => {

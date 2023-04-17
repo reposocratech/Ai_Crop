@@ -72,7 +72,6 @@ export const Register = () => {
       !register.email ||
       !register.password
     ) {
-      console.log(register);
       setMessageError("Debes rellenar todos los campos");
     } else if (!emailValidation) {
       setMessageError("El correo no es correcto");

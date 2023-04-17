@@ -25,7 +25,6 @@ class UserController{
         let sql = `INSERT INTO user (first_name, last_name, email, password, address, phone, post_code, city, country, user_knowledge, user_type ) VALUES ('${first_name}', '${last_name}', '${email}', '${hash}', '${address}', '${phone}', '${post_code}', '${city}', '${country}', '${user_knowledge}',${user_type})`;
 
         connection.query(sql, (error, result) => {
-          // error && res.status(400).json({error});
           if(error){
             if(error.code == "ER_DUP_ENTRY"){
                 res.status(300).json("dup")
@@ -95,10 +94,7 @@ class UserController{
     let user_id = req.params.user_id;
     
     const { first_name, last_name, dni, phone, address, post_code, city, country, user_knowledge } = JSON.parse(req.body.register);
-  
-    // const { name, lastname, phone, address, email } = req.body;
-    // PROBAR DE ESTA FORMA SI EL JSON PARSE NO FUNCIONA
-  
+    
     let img = "";
     
     let sql = `UPDATE user SET first_name = "${first_name}", last_name = "${last_name}", dni ="${dni}", phone = "${phone}", address = "${address}",post_code = "${post_code}", city = "${city}", country = "${country}", user_knowledge = "${user_knowledge}" WHERE user_id = "${user_id}"`;
@@ -225,12 +221,12 @@ class UserController{
   // localhost:4000/user/retreivePassword
   passwordSendConfirmationEmail = (req, res) => {
     const email = req.body.email;
-
     let sql = `SELECT email FROM user WHERE email = "${email}" AND is_deleted = 0 and is_disabled = 0`
 
+    
     connection.query(sql, (error, result) => {
       error && res.status(400).json(error);
-      console.log(result[0])
+
       if (!result[0]){
         res.status(300).json("No existe");
       } else {

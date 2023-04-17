@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AICropContext } from '../../context/AICropContext';
-import { ConfirmationGreenModal } from './ConfirmationGreenModal';
 import Popover from '@mui/material/Popover';
 import axios from 'axios';
 import "./greenhousecard.scss";
@@ -10,16 +9,12 @@ import "./greenhousecard.scss";
 export const OwnerCard = ({ elem }) => {
   const navigate = useNavigate();
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
-  const { user, setActionReload, actionReload } = useContext(AICropContext);
+  const { setActionReload, actionReload } = useContext(AICropContext);
 
   const onSubmit = () => {
     navigate(`greenhouse/${elem.greenhouse_id}`);
     setActionReload(!actionReload);
   }
-  
-  // const handleModal = () => {
-  //   setOpenConfirmModal(true);
-  // }
 
 
   const onDeleteGh = () => {
@@ -29,7 +24,6 @@ export const OwnerCard = ({ elem }) => {
           navigate('/user');
           setOpenConfirmModal(false);
           setActionReload(!actionReload);
-          
       })
       .catch((err)=>{
           console.log(err);
@@ -56,12 +50,6 @@ export const OwnerCard = ({ elem }) => {
 
   return (
     <>
-      {/* <ConfirmationGreenModal
-        setOpenConfirmModal={setOpenConfirmModal}
-        openConfirmModal={openConfirmModal}
-        elem={elem}
-      /> */}
-
       <div className='cont_card_greenhouse'>
           <header className='card_header'></header>
 

@@ -59,8 +59,9 @@ export const ForgotPass = () => {
             }
           })
           .catch((err)=>{
-              setMessageError("El correo ingresado no está registrado");
-              setMessageValidation("")
+            console.log(err);
+            setMessageError("El correo ingresado no está registrado");
+            setMessageValidation("")
           }) 
       }
   }

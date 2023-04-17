@@ -1,4 +1,3 @@
-import * as V from "victory";
 import React, { useState } from "react";
 import { VictoryPie, VictoryAnimation, VictoryLabel } from "victory";
 import "./chartCrop.scss";

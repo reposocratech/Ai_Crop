@@ -6,7 +6,6 @@ import "./cropConfirmation.scss";
 export const ConfirmationCropModal = ({
   setShowDeleteCrop,
   showDeleteCrop,
-  setSelectedCrop,
   selectedCrop,
   setActionReload,
   actionReload,

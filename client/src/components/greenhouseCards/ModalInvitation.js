@@ -6,7 +6,6 @@ import { AICropContext } from "../../context/AICropContext";
 
 import './modalstyle.scss'
 
-
 export const ModalInvitation = ({
   showModalInvitation,
   setShowModalInvitation,

@@ -6,7 +6,7 @@ class AlarmController {
     // localhost:4000/server/alarm/createAlarm
     createAlarm = (req, res) => {
 
-        let {greenhouse_id, greenhouse_name, measurement_type_id, measurement_type_name, min, max, unit, measure_value, measure_id, measure_date_time} = req.body
+        let {greenhouse_id, greenhouse_name, measurement_type_id, measurement_type_name, min, max, unit, measure_value, measure_id} = req.body
 
         let alarm_message = "";
         let high_low = "";
@@ -35,7 +35,6 @@ class AlarmController {
             connection.query(sqlAlarm, (error, resultAlarm) => {
                 error && res.status(400).json({ error });
                 let alarm_id = resultAlarm[0].alarm_id;
-                console.log("ALARM LINEA 38 -- TODO OK", resultAlarm[0].alarm_id)
 
                 error 
                 ? res.json(`Error en la consulta`)
@@ -55,7 +54,6 @@ class AlarmController {
 
         let {alarm_id}= req.params;
         let closeMessage = req.body.closeMessage;
-        console.log(req.body);
 
         let sql = `UPDATE alarm SET is_active = 0, alarm_closing_message = "${closeMessage}", alarm_end_date_time = now() WHERE alarm_id = ${alarm_id}`;
 

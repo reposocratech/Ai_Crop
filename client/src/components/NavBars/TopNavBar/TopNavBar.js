@@ -7,7 +7,6 @@ import { deleteLocalStorageAICrop } from "../../../helpers/localStorage/localSto
 import "./topNavBar.scss";
 
 export const TopNavBar = () => {
-  // NAV DINÁMICO CON WINDOW LOCATION
   const isHome = window.location.pathname == "/";
   const isLogin = window.location.pathname == "/login";
   const isContact = window.location.pathname == "/contact";

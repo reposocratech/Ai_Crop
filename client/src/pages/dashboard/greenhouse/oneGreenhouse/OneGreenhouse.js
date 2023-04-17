@@ -50,8 +50,6 @@ export const OneGreenhouse = () => {
 
   
   // MODALES
-  const [showModalNotif, setShowModalNotif] = useState(false);
-  const [showModalCollab, setShowModalCollab] = useState(false);
   const [showModalInvitation, setShowModalInvitation] = useState(false);
   
   // INFO
@@ -80,7 +78,6 @@ export const OneGreenhouse = () => {
         setGreenhouseData(res.data.resultGreenhouse[0]);
         setCropsCards(res.data.resultActiveCrops);
         setGreenhouseAlarms(res.data.resultActiveAlarms);
-        console.log(res.data)
 
         for (let i = 0; i < res.data.resultMeasure.length; i++){
           switch (res.data.resultMeasure[i].measurement_type_id){
@@ -113,42 +110,28 @@ export const OneGreenhouse = () => {
           switch (res.data.resultActiveAlarms[i].measurement_type_id){
             case 1:
               setTemperaturaAlarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 1", res.data.resultActiveAlarms[i]);
               break;
             case 2:
               setCo2Alarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 2", res.data.resultActiveAlarms[i]);
               break;
             case 3:
               setHumedadAlarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 3", res.data.resultActiveAlarms[i]);
-
               break;
             case 4:
               setLuzSolarAlarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 4", res.data.resultActiveAlarms[i]);
-
               break;
             case 5:
               setPhAlarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 5", res.data.resultActiveAlarms[i]);
-              
               break;
             case 6:
               setConductividadAlarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 6", res.data.resultActiveAlarms[i]);
-
               break;
             case 7:
               setHumedadHojaAlarm(res.data.resultActiveAlarms[i])
-              console.log("ENTRÓ AL CASE 7", res.data.resultActiveAlarms[i]);
-
               break;
           
           }
         }
-        console.log(temperaturaAlarm, "temperatura");
-        console.log(co2Alarm, "co2");
 
       })
       .catch((err) => {
@@ -214,27 +197,9 @@ export const OneGreenhouse = () => {
         </button>
         }
         
-        {/* Modal Collaborator */}
-        {/* <ButtonCollaborator 
-          setShowModalCollab={setShowModalCollab}
-        />
-        <ModalCollaborator 
-          showModalCollab={showModalCollab} 
-          setShowModalCollab={setShowModalCollab} 
-          userCollaborators={userCollaborators} 
-          helpers={helpers}
-        /> */}
         <PopoverCollab userCollaborators={userCollaborators} 
           helpers={helpers}/>
 
-        {/* Modal Notificaciones*/}
-        {/* <ButtonNotif 
-          setShowModalNotif={setShowModalNotif}
-        />
-        <ModalNotif 
-          showModalNotif={showModalNotif} 
-          setShowModalNotif={setShowModalNotif}
-        /> */}
         <button aria-describedby={id} variant="contained" onClick={handleClick} className='notificationButton'><img src='/assets/images/notification.png'/></button>
         <Popover
           className='popoverNotification'

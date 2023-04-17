@@ -28,7 +28,6 @@ class CropController {
         let sql = `UPDATE crop SET crop_name ='${crop_name}', crop_duration ='${crop_duration}', crop_plant_variety = '${crop_plant_variety}', crop_size = ${crop_size} WHERE crop_id = ${crop_id}`;
         
         connection.query(sql, (error, result) => {
-            console.log(result);
         error 
         ? res.status(400).json({ error }) 
         : res.status(200).json(`El cultivo ${crop_id} ha sido modificado con éxito`);
@@ -114,7 +113,7 @@ class CropController {
         error 
         ? res.status(400).json({ error }) 
         : res.status(200).json(result);
-        console.log(result);
+
         });
     };
 
@@ -130,7 +129,7 @@ class CropController {
         error 
         ? res.status(400).json({ error }) 
         : res.status(200).json(result);
-        console.log(result);
+
         });
     };
 
@@ -148,7 +147,7 @@ class CropController {
         error 
         ? res.status(400).json({ error }) 
         : res.status(200).json(result);
-        console.log(result);
+
         });
     };
 

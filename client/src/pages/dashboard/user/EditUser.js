@@ -6,6 +6,7 @@ import './editUser.scss';
 import { Countries } from '../../auth/lists/Countries'
 import { ButtonNotif } from '../../../components/Notifications/ButtonNotif';
 import { ModalNotif } from '../../../components/Notifications/ModalNotif';
+
 const initialValue = {
   first_name: "",
   last_name:"",
@@ -24,35 +25,38 @@ const initialValuePass = {
   newPass: "",
   newPassConfirm: "",
 }
-export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
-  const { user, setUser } = useContext(AICropContext);
-  const [editUser, setEditUser] = useState(initialValue);
-  const [file, setFile] =  useState();
-  const [showForm1, setShowForm1] = useState(false);
-  const [showForm2, setShowForm2] = useState(false);
-  const [showForm3, setShowForm3] = useState(false);
-  const [showForm4, setShowForm4] = useState(false);
-  const [showErrorPassword, setShowErrorPassword] = useState("")
-  const [showErrorPassword2, setShowErrorPassword2] = useState("")
-  const [activeButton, setActiveButton] = useState(0);
-  const [showModalNotif, setShowModalNotif] = useState(false);
-  const [changePassForm, setChangePassForm] = useState(initialValuePass);
-  const [errorMessage, setErrorMessage] = useState("");
+export const EditUser = () => {
+    const { user, setUser } = useContext(AICropContext);
+    const [editUser, setEditUser] = useState(initialValue);
+    const [file, setFile] =  useState();
+    const [showForm1, setShowForm1] = useState(false);
+    const [showForm2, setShowForm2] = useState(false);
+    const [showForm3, setShowForm3] = useState(false);
+    const [showForm4, setShowForm4] = useState(false);
+    const [showErrorPassword, setShowErrorPassword] = useState("")
+    const [activeButton, setActiveButton] = useState(0);
+    const [showModalNotif, setShowModalNotif] = useState(false);
+    const [changePassForm, setChangePassForm] = useState(initialValuePass);
+
     const navigate = useNavigate()
+
     useEffect(()=>{
         if(user){
             setEditUser(user)
         }
-        console.log(user);
+
     },[user])
+
     const handleChange = (e) =>{
         const {name, value} = e.target;
         setEditUser({...editUser, [name]:value})
         setShowErrorPassword("");
     }
+    
      const handleChangeFile = (e) =>{
         setFile(e.target.files[0])
     }
+
     const handleSubmit = () =>{
         const newFormData = new FormData();
         newFormData.append("file", file);
@@ -60,7 +64,7 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
         axios
             .put(`http://localhost:4000/user/editUser/${user.user_id}`, newFormData)
             .then((res)=>{
-                console.log(res.data);
+
                 if(res.data.img === ""){
                     setUser(editUser)
                     if(changePassForm.currentPass === "" && changePassForm.newPass === "" && changePassForm.newPassConfirm === ""){
@@ -75,58 +79,61 @@ export const EditUser = (/* {showModalNotif,setShowModalNotif} */) => {
             })
             .catch((err)=>console.log(err));
 
-            if( !changePassForm.currentPass || !changePassForm.newPass || !changePassForm.newPassConfirm && showForm4 ){
-                setShowErrorPassword("Debes rellenar todos los campos");
-            } else if( changePassForm.newPass !== changePassForm.newPassConfirm){
-                setShowErrorPassword("La nueva contraseña y la validación no coinciden");
-            } else if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) {
-                setShowErrorPassword("");
-                axios
-                    .post(`http://localhost:4000/user/changePassword`, changePassForm)
-                    .then((res)=>{
-                        console.log(res.data);
-                        navigate("/user")
-                    })
-                    .catch((err)=>{
-                    setShowErrorPassword("La contraseña no es correcta")
-                    console.log(err.response.data,"error gordo")
-                    }
-                    );
-            }
-        }
-        const handleForm1 = ()=>{
-            setShowForm1(true);
-            setShowForm2(false);
-            setShowForm3(false);
-            setShowForm4(false);
-            setActiveButton(1);
-        }
-        const handleForm2 = ()=>{
-            setShowForm1(false);
-            setShowForm2(true);
-            setShowForm3(false);
-            setShowForm4(false);
-            setActiveButton(2);
-        }
-        const handleForm3 = ()=>{
-            setShowForm1(false);
-            setShowForm2(false);
-            setShowForm3(true);
-            setShowForm4(false);
-            setActiveButton(3);
-        }
-        const handleForm4 = ()=>{
-            setShowForm1(false);
-            setShowForm2(false);
-            setShowForm3(false);
-            setShowForm4(true);
-            setActiveButton(4);
-        }
-        const handlePassword = (e) => {
-            const {name, value} = e.target;
-            setChangePassForm({...changePassForm, [name]:value, email: user.email})
+        if( !changePassForm.currentPass || !changePassForm.newPass || !changePassForm.newPassConfirm && showForm4 ){
+            setShowErrorPassword("Debes rellenar todos los campos");
+        } else if( changePassForm.newPass !== changePassForm.newPassConfirm){
+            setShowErrorPassword("La nueva contraseña y la validación no coinciden");
+        } else if (changePassForm.currentPass && changePassForm.newPass && changePassForm.newPassConfirm && changePassForm.newPass === changePassForm.newPassConfirm) {
             setShowErrorPassword("");
+            axios
+                .post(`http://localhost:4000/user/changePassword`, changePassForm)
+                .then((res)=>{
+                    navigate("/user")
+                })
+                .catch((err)=>{
+                setShowErrorPassword("La contraseña no es correcta")
+                });
         }
+    }
+
+    const handleForm1 = ()=>{
+        setShowForm1(true);
+        setShowForm2(false);
+        setShowForm3(false);
+        setShowForm4(false);
+        setActiveButton(1);
+    }
+
+    const handleForm2 = ()=>{
+        setShowForm1(false);
+        setShowForm2(true);
+        setShowForm3(false);
+        setShowForm4(false);
+        setActiveButton(2);
+    }
+
+    const handleForm3 = ()=>{
+        setShowForm1(false);
+        setShowForm2(false);
+        setShowForm3(true);
+        setShowForm4(false);
+        setActiveButton(3);
+    }
+
+    const handleForm4 = ()=>{
+        setShowForm1(false);
+        setShowForm2(false);
+        setShowForm3(false);
+        setShowForm4(true);
+        setActiveButton(4);
+    }
+
+    const handlePassword = (e) => {
+        const {name, value} = e.target;
+        setChangePassForm({...changePassForm, [name]:value, email: user.email})
+        setShowErrorPassword("");
+    }
+
   return (
     <section className='contEdit'>
         <header className='botones_user'>

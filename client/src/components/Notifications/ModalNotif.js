@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { AICropContext } from "../../context/AICropContext";
 import "./notification.scss";
 import { useNavigate } from "react-router-dom";

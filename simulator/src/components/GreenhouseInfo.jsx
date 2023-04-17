@@ -4,10 +4,9 @@ import React, { useEffect, useState } from "react";
 export const GreenhouseInfo = ({
   setMessageError,
   action,
-  setAction,
-  selectedGreenhouse,
-  setSelectedGreenhouse,
+  selectedGreenhouse
 }) => {
+
   const [activeAlarms, setActiveAlarms] = useState(0);
   const [greenhouseDetails, setGreenhouseDetails] = useState();
   const [parameters, setParameters] = useState();

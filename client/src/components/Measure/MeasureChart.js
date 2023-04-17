@@ -1,8 +1,6 @@
-import axios from 'axios';
-import { timeMillisecond, timeMilliseconds, utcMillisecond } from 'd3-time';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { VictoryArea, VictoryAxis, VictoryBrushContainer, VictoryChart, VictoryLine, VictoryZoomContainer } from 'victory';
+import { VictoryAxis, VictoryBrushContainer, VictoryChart, VictoryLine, VictoryZoomContainer } from 'victory';
 
 export const MeasureChart = ({measure}) => {
     const [state, setState] = useState({});
@@ -13,7 +11,8 @@ export const MeasureChart = ({measure}) => {
       return parseFloat(Math.random() * ((max + 0.1) - min) + min);
     }
 
-
+  // En este useEffect vamos a simular medidas históricas para llenar de informacion el gráfico
+  // una vez que hayan medidas históricas en la base de datos, borrar este useEffect y descomentar el de abajo.
     useEffect(() => {
 
       if(measure){
@@ -28,8 +27,6 @@ export const MeasureChart = ({measure}) => {
           let fecha2 = new Date (milisecs)
           let aleat = parseFloat(obtenerNumeroAleatorio((prom*-0.1), (prom*0.1)))
           let medida = {x: fecha2, y: parseFloat((medidaAnterior + parseFloat(aleat)))}
-          // console.log(aleat)
-          // console.log(prom*-0.1, prom*0.1)
           
           if (medida.y < measure.max * 1.5 && medida.y > measure.min * 0.5){
             historialMedidas.push(medida);
@@ -41,6 +38,23 @@ export const MeasureChart = ({measure}) => {
       }
       
     }, [measure])
+
+    //descomentar este UseEffect para tener medidas reales en los gráficos:
+    // useEffect(() => {
+
+    //   if(measure){
+    //     let historialMedidas = [];
+        
+    //     for(let i = 0; i < measure.length; i++){
+          
+    //       let medida = {x: measure.measure_date_time, y: measure.measureValue }
+    //       historialMedidas.push(medida);
+    //       }
+
+    //     setDatos(historialMedidas)
+    //     }
+     
+    // }, [measure])
     
     const getMonthString = (number) => {
         const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
