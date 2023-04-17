@@ -188,11 +188,19 @@ export const Admin = () => {
                       <h4>{selectedElem.is_disabled ? "¿Habilitar usuario?" : "¿Deshabilitar usuario?"}</h4> 
                       <article className='botones_pop'>
                           <img className='atras' onClick={handleClose} src='/assets/images/back1.png'/>
-                          <img onClick={() => {selectedElem.is_disabled ? 
+                          {selectedElem.is_disabled ? 
+                          <img src='/assets/images/enab.png' onClick={() => 
+                            onEnable(selectedElem.user_id)}/>
+                            :
+                          <img src='/assets/images/deshab.png' onClick={() => 
+                            onDisable(selectedElem.user_id)}/>
+                            }
+                            
+                          {/* <img onClick={() => {selectedElem.is_disabled ? 
                             onEnable(selectedElem.user_id)
                             :
                             onDisable(selectedElem.user_id)}} 
-                            src='/assets/images/deshab.png'/>
+                            src='/assets/images/deshab.png'/> */}
                       </article>
                     </section>
                     

@@ -223,7 +223,32 @@
   //TABLET
 
   @media (max-width: 870px){
-       
+    .cont_admin{
+        text-align: center;
+        .botones_admin{
+            display: flex;
+            justify-content: center !important;
+            
+        }
+        .titleMini{
+            font-size: 40px !important;
+        }
+        .header_admin{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            .search{
+                margin-bottom: 20px;
+                // width: 100%;
+            }
+            
+        }
+        .main_admin{
+            justify-content: center;
+        }
+    }
   }
 
   //SMARTPHONE
