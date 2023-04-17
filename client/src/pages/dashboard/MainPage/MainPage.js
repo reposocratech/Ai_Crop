@@ -8,14 +8,12 @@ import axios from 'axios'
 import "./mainPage.scss"
 
 
-
 // VISTA PRINCIPAL DE USUARIO / MAINPAGE == VISTA DE TODOS SUS INVERNADEROS
 export const MainPage = () => {
-  const {user, actionReload, setActionReload} = useContext(AICropContext);
+  const {user} = useContext(AICropContext);
   const [userGreenhouses, setUserGreenhouses] = useState([]);
   const navigate = useNavigate();
   const greenhouse_id = parseInt(useParams().greenhouse_id); 
-
 
   useEffect(() => {
     if (user){
@@ -56,20 +54,12 @@ export const MainPage = () => {
   }, [userGreenhouses])
 
   
-  
-
-  // console.log(userGreenhouses, "aaaAAAAAAAAAAA");
-
-
   return (
     <Container fluid className='p-0 containerMain'>
         <Row className='contNav_pPal'>
             <Col className='col-12 col-xl-3 p-0'>
               {user?.user_type == 1 ? <NavLateralAdmin/> :
-                <NavLateral
-                // setShowModalCrop= {setShowModalCrop}
-                // showModalCrop={showModalCrop}
-                /> }
+                <NavLateral/> }
             </Col>
             <Col className='col-12 col-xl-9 p-0 outlet_cont'>
               <div className={`white_cont`} >

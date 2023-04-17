@@ -2,7 +2,6 @@ import React, { createContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { getLocalStorageSimulator } from "../helpers/localStorage/localStorageSimulator";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const SimulatorContext = createContext();
 

@@ -46,9 +46,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
       if (e.target.value != ""){
         setShowGreenhouse(true);
         setAction(!action);
-      } else {
-      console.log("ERRORRR NO ELEGISTE NINGUN GH PAVOTE!")
-      } 
+      }
     }
 
     useEffect(() => {
@@ -79,7 +77,6 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
   
         if (datosForm.ph !== "" && (parseInt(datosForm.ph) > 14 || parseInt(datosForm.ph) < 0)){
           setMessageError3("El PH debe tener un valor entre 0 y 14");
-          console.log("AASDASDASDASDASD");
         } else if (datosForm.ph < 14 && datosForm.ph > 0){
           setMessageError3("");
         } else if (datosForm.ph === ""){
@@ -134,7 +131,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
   return (
     <section className='formulario'>
       <div id="floatContainer" className="float-container">
-        {/* <label htmlFor="floatField">Nombre del invernadero</label> */}
+
         <select id="greenhouse_id"
           required 
           name='greenhouse_id' 
@@ -150,7 +147,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
       </div>
 
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">Temperatura</label> */}
+
           <input type="number" 
           placeholder='Temperatura (C)'
           name='temperature' 
@@ -161,7 +158,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
       </div>
 
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">CO2</label> */}
+        
           <input type="number" 
           placeholder='CO2 (ppm)'
           name='co2' 
@@ -170,7 +167,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
           <img src='./assets/nube-de-co2.png'/>
       </div>
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">Humedad</label> */}
+        
           <input type="number" 
           placeholder='Humedad (%)'
           name='humidity' 
@@ -179,7 +176,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
           <img src='./assets/humedad.png'/>
       </div>
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">Luz solar</label> */}
+        
           <input type="number" 
           placeholder='Luz solar (nm)'
           name='sunlight' 
@@ -188,7 +185,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
           <img src='./assets/soleado.png'/>
       </div>
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">PH</label> */}
+        
           <input type="number" 
           placeholder='PH'
           name='ph' 
@@ -197,7 +194,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
           <img src='./assets/doctorado.png'/>
       </div>
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">Conductividad Eléctrica</label> */}
+        
           <input type="number" 
           placeholder='CE (mS/cm)'
           name='conductivity' 
@@ -206,7 +203,7 @@ export const FormularioSimulador = ({setShowGreenhouse, messageError, setMessage
           <img src='./assets/energia-renovable.png'/>
       </div>
       <div id="floatContainer" className="float-container">
-          {/* <label htmlFor="floatField">Humedad de la hoja</label> */}
+        
           <input type="number" 
           placeholder='Humedad de la hoja (%)'
           name='leaf_humidity' 

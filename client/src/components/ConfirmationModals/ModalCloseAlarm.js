@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { AICropContext } from "../../context/AICropContext";
 import "./modalclosealarm.scss";
 
@@ -13,8 +12,6 @@ export const ModalCloseAlarm = ({
 }) => {
 
   const [messageError, setMessageError] = useState()
-
-  const navigate = useNavigate();
 
   const handleClose = () => {
     setShowModalCloseAlarm(false);
@@ -33,14 +30,6 @@ export const ModalCloseAlarm = ({
   const handleChange = (e) => {
     setCloseMessage(e.target.value);
   };
-
-  // const onVerifClose = () =>{
-  //   if(closeMessage !== ""){
-  //     onClose();
-  //   } else {
-  //     setMessageError("Escribe un mensaje")
-  //   }
-  // }
 
   const { actionReload, setActionReload } = useContext(AICropContext);
 

@@ -9,7 +9,6 @@ import { MeasureChart } from "../../../components/Measure/MeasureChart";
 export const Measure = () => {
   const { actionReload, setActionReload } = useContext(AICropContext);
   const [measure, setMeasure] = useState();
-  const [measureHistoricalData, setMeasureHistoricalData] = useState();
   const [alarma, setAlarma] = useState();
   const [closeMessage, setCloseMessage] = useState("");
   const { greenhouse_id, measurement_type_id } = useParams();
@@ -24,6 +23,7 @@ export const Measure = () => {
       )
       .then((res) => {
         setMeasure(res.data[0]);
+        console.log(res.data)
       })
       .catch((err) => {
         console.log(err);

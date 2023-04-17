@@ -24,8 +24,7 @@ class SimulatorController {
         req.body.datosForm.leaf_humidity && (sql += `(${greenhouse_id}, 7, ${req.body.datosForm.leaf_humidity}), `);
 
         sql = sql.slice(0, -2);
-        console.log(sql);
-        console.log("SIMULADORRRRRRRRRRRR");
+
       } else {
         res.status(400).json({error: 'Formulario vacío'});
       }
@@ -37,10 +36,10 @@ class SimulatorController {
           axios
           .get(`http://localhost:4000/server/parameters/compare/${greenhouse_id}`)
           .then(res => {
-                console.log("EXITO")
+                console.log(res)
             })
             .catch(err => {
-                console.log("Fallo!")
+                console.log(err)
             }) 
           
           res.status(200).json(`EEXITO!!`);

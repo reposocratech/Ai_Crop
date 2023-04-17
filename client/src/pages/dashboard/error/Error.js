@@ -4,11 +4,9 @@ import { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { TopNavBar } from "../../../components/NavBars/TopNavBar/TopNavBar";
 import "./error.scss";
-import { AICropContext } from "../../../context/AICropContext";
 
 export const Error = () => {
   const [loading, setLoading] = useState(true);
-  // const {} = useContext(AICropContext)
 
   useEffect(() => {
     setTimeout(() => {

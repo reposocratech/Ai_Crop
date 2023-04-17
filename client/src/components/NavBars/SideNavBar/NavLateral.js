@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AICropContext } from '../../../context/AICropContext'
@@ -10,7 +9,7 @@ import "./navLateral.scss";
 
 export const NavLateral = () => {
 
-  const {user, setUser, isLogged, setIsLogged, actionReload} = useContext(AICropContext);
+  const {user, setUser, setIsLogged, actionReload} = useContext(AICropContext);
   const [showModalCrop, setShowModalCrop] = useState(false);
   const [greenhouseData, setGreenhouseData] = useState()
   const greenhouse_id = useParams().greenhouse_id;

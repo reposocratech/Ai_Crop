@@ -35,7 +35,6 @@ export const DisableModal = ({showDisable, setShowDisable, action, setAction,sel
     setShowDisable(false)
     }
 
-    console.log(showDisable,"llegas?");
   return (
     <Modal className='modalCloseAlarm' show={showDisable} onHide={handleClose}>
     

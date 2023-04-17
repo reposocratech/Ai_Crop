@@ -214,7 +214,6 @@ export const EditGreenhouse = () => {
   const handleChangeGreenhouseInfo = (e) => {
     const {name, value} = e.target;
     setGreenhouseInfo({...greenhouseInfo, [name]:value, user_owner_id:user_id});
-    console.log(greenhouseInfo)
   }
 
 //************************************************** */
@@ -239,7 +238,6 @@ export const EditGreenhouse = () => {
     const { title, name } = e.target;
     const value = parseFloat(e.target.value)
     const { min, max } = parametersValidation[title];
-    console.log(greenhouseParameters)
     const { nombre, unit } = greenhouseParameters[title];
 
     let aux = { ...greenhouseParameters };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Form, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { TopNavBar } from "../../components/NavBars/TopNavBar/TopNavBar";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -77,7 +77,6 @@ export const RegisterCollab = () => {
       axios
         .post("http://localhost:4000/user/createUser", register)
         .then((res) => {
-          console.log(res.data);
           navigate("/login");
           setMessageError("");
         })
@@ -85,7 +84,6 @@ export const RegisterCollab = () => {
           console.log(err);
           if (err) {
             setMessageError("Correo duplicado");
-            console.log(err.response.data?.error.errno);
           } else {
             setMessageError("Error en el registro");
           }

@@ -10,7 +10,7 @@ class AdminController {
         let user_id = req.params.user_id;
         
         let sql = `UPDATE user SET is_disabled = 1 WHERE user_id = ${user_id}`;
-        console.log(sql)
+
         connection.query(sql, (error, result) => {
             error
             ? res.status(400).json({error})
@@ -25,7 +25,7 @@ class AdminController {
         let user_id = req.params.user_id;
 
         let sql = `UPDATE user SET is_disabled = 0 WHERE user_id = ${user_id}`;
-        console.log(sql)
+
         connection.query(sql, (error, result) => {
             error 
             ? res.status(400).json({error})

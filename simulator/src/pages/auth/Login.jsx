@@ -19,7 +19,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const aicrop = "http://localhost:3000/";
 
-  const { setIsLogged, isLogged, token } = useContext(SimulatorContext);
+  const { setIsLogged } = useContext(SimulatorContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

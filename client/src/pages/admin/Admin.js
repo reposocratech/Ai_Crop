@@ -112,7 +112,7 @@ export const Admin = () => {
               tipo_de_user = "Colaborador"
               break;
             default:
-              console.log("pringao2")
+              console.log("error")
           }
 
           let filterdisabled = ""
@@ -125,7 +125,6 @@ export const Admin = () => {
               .get(`http://localhost:4000/admin/disableUser/${user_id}`)
               .then((res)=>{
                 setAction(!action);
-                // setShowDisable(false);
                 handleClose()
               })
               .catch((err)=>{
@@ -138,7 +137,6 @@ export const Admin = () => {
               .get(`http://localhost:4000/admin/enableUser/${user_id}`)
               .then((res)=>{
                 setAction(!action);
-                // setShowDisable(false)
                 handleClose();
               })
               .catch((err)=>{
@@ -161,13 +159,6 @@ export const Admin = () => {
                 <p className='num_gh'>{elem.n_of_greenhouses} invernadero(s)</p>
                 <p>{tipo_de_user}</p>
                 </div>
-                {/* <DisableModal
-                  setShowDisable={setShowDisable}
-                  showDisable={showDisable}
-                  action={action}
-                  setAction={setAction}
-                  selectedElem={selectedElem}
-                /> */}
                 <img className='disable' aria-describedby={id} variant="contained" src='/assets/images/config_admin2.png' onClick={handleClick}/>
                 <Popover
                     className='popoverExitCollab'

@@ -22,9 +22,7 @@ export const UpdateCropModal = ({
       axios
         .get(`http://localhost:4000/crop/getOneCrop/${selectedCrop}`)
         .then((res) => {
-          console.log(selectedCrop);
           setEditCropInfo(res.data[0]);
-          console.log(res.data[0], "soy el cropitoinfo");
         });
     }
   }, [selectedCrop]);

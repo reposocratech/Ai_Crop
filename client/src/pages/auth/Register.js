@@ -72,7 +72,6 @@ export const Register = () => {
       !register.email ||
       !register.password
     ) {
-      console.log(register);
       setMessageError("Debes rellenar todos los campos");
     } else if (!emailValidation) {
       setMessageError("El correo no es correcto");
@@ -84,7 +83,6 @@ export const Register = () => {
       setShowForm2(true);
       setMessageError("");
       setDupEmail("");
-      console.log(register, "register");
     }
   };
 
@@ -144,7 +142,6 @@ export const Register = () => {
       axios
         .post("http://localhost:4000/user/createUser", register)
         .then((res) => {
-          console.log(res);
           navigate("/login");
           setMessageError("");
         })

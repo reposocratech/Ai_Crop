@@ -49,19 +49,19 @@ class EmailController {
                         // enviamos con un método post la lista de correos electronicos al controlador encargado de crear las notificaciones
                         axios.post(`http://localhost:4000/server/notification/createNotifications/${alarm_id}`, [emailList])
                             .then(response => {
-                                console.log("AXIOSSSSSSSSSSSS");
+                                console.log(response);
                             })
                             .catch(error => {
-                                console.log("ERRORRRRRRRRR");
+                                console.log(error);
                             })  
     
                         // enviamos con un método post la lista de correos electronicos al controlador encargado de enviar los correos
                         axios.post(`http://localhost:4000/server/notification/sendEmail/${alarm_id}`, {emailList, resultAlarm})
                             .then(response => {
-                                console.log("AXIOSSSSSSSSSSSS");
+                                console.log(response);
                             })
                             .catch(error => {
-                                console.log("ERRORRRRRRRRR");
+                                console.log(error);
                             }) 
                     });
                 });
@@ -88,10 +88,8 @@ class EmailController {
         let email_list = req.body.emailList;
         let resultAlarm = req.body.resultAlarm[0];
         let {measurement_type_name, high_low, alarm_message, greenhouse_name, greenhouse_id, measurement_type_id} = resultAlarm;
-        console.log(resultAlarm);
           
         nodemailerAlarm(email_list, measurement_type_name, high_low, alarm_message, greenhouse_name, greenhouse_id, measurement_type_id);
-
 
         res.status(200).json("HA LLEGADO AL FINAL");
     }
